@@ -1,0 +1,91 @@
+Timecards - a small Windows app for tracking your time
+======================================================
+
+Summary
+-------
+
+At work I use a small app I made using Microsoft Access to track my time.  It's
+got a simple window with two tabs:  one tab just has a three-column table for
+data entry, and the other tab (which is hidden until you press a button at the
+top of the form) is for summarizing the time you've spent.
+
+In the first tab, the table has three columns:  a ticket number, a description,
+and the time at which you started working on that ticket.  As a matter of
+convention, I use a fake ticket number of "00000" to mean unbilled time, and a
+handful of other fake ticket numbers for various things like meetings or self-
+education.  For all other time, I enter the ticket number of the case I'm
+working on - in our case, since we use JIRA for managing our development, I
+enter the JIRA ticket number.  At my last job I used a similar ticket number.
+
+The reporting tab asks for a date range, and then adds all the time together and
+displays the total time by ticket number.  I use this to enter the time I've
+spent on each ticket in JIRA.  I can also tell from this little report whether
+I've spent too much time focused on non-productive work.
+
+This little app has served me well for years.  However, it's always bothered me
+that it's in Access, which means it has a fairly large memory footprint.  I
+really don't need all the database power (and overhead) that comes with Access
+for this little app.
+
+So, I've started this open source project to produce an equivalent app using C#
+and SQLite.  The goal is to have a stand-alone app with all the same features,
+but with a much smaller footprint.  And if I stick to .NET Core, I should be
+able to come up with an application that will work on both Windows and Linux -
+and maybe even the Mac platform.  But we'll see.
+
+
+Criteria
+--------
+
+* The application should launch from a Windows shortcut.  If the database
+  doesn't exist, it should create that right at the beginning.
+
+* There should be a minimal set of options:
+
+  - Whether to round the times to the nearest five minutes or to the nearest
+    minute when entering a new line in the table;
+
+  - A place for a list of "fake" ticket numbers and default descriptions to
+    supply if that ticket number is entered.
+
+* The data entry tab should have a date field for the day and should also
+  display the day of the week for the date entered.  Below this should be the
+  table for entering rows of time information.
+
+* The data entry form should allow the user to edit and change the ticket
+  number, description, and starting time on any row that was entered.
+
+* The user should be able to add new rows to the bottom of the table, and should
+  be able to delete any existing row.
+  
+* It would be nice if there was also a way to insert a row between two existing
+  rows, so that if something was forgotten it could be entered without having to
+  re-enter data for subsequent rows.
+
+* The data entry tab should have a way of navigating from day to day so that the
+  user could review the activity of previous days.
+
+* The reporting tab should ask for a date range and then compute the total time
+  spent for each ticket number for that date range.  The date range should
+  default to the current day.
+
+* The report should show the total time for each ticket in both minutes and in
+  hours (rounded to quarter hours), and there should be total hours at the
+  bottom of each of these two columns.
+
+Constraints
+-----------
+
+* This should be a C# project using .NET Core.
+
+* This should use SQLite as the database engine.  Check to make sure the SQLite
+  library is available via NuGet.  Also check the licensing.  (SQLite itself is
+  in the public domain, but I don't know about the .NET library that interfaces
+  with it.)
+
+* Some initial tests should be conducted to see if Windows Forms and controls
+  will work on platforms other than Windows.  This may influence the decision to
+  use Windows forms vs. some other UI library such as Qt.  Again, licensing
+  should be kept in mind when choosing a library.
+
+
