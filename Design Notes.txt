@@ -34,8 +34,14 @@ able to come up with an application that will work on both Windows and Linux -
 and maybe even the Mac platform.  But we'll see.
 
 
+
+09/04/2018
+----------
+
+Here are some intial criteria and constraints for this project.
+
+
 Criteria
---------
 
 * The application should launch from a Windows shortcut.  If the database
   doesn't exist, it should create that right at the beginning.
@@ -73,8 +79,8 @@ Criteria
   hours (rounded to quarter hours), and there should be total hours at the
   bottom of each of these two columns.
 
+
 Constraints
------------
 
 * This should be a C# project using .NET Core.
 
@@ -87,5 +93,19 @@ Constraints
   will work on platforms other than Windows.  This may influence the decision to
   use Windows forms vs. some other UI library such as Qt.  Again, licensing
   should be kept in mind when choosing a library.
+
+
+
+09/08/2018
+----------
+
+While Microsoft has announced that .NET Core version 3 will have UI components,
+it wasn't available at the time I started this project.  I looked into using Qt,
+GTK#, and Xamarin.Forms - and all of them have their detractions.  My overall
+goal is to keep this project as simple as possible - so I'm going back to .NET
+Framework and standard Windows forms.  I'll consider .NET Core again when
+version 3 becomes available.
+
+
 
 
