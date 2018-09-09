@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Timecard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

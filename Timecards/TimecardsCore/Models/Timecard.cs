@@ -8,13 +8,13 @@ namespace TimecardsCore.Models
 {
     public class Timecard
     {
-        public DateTime Day { get; set; }
-        public List<Action> Actions { get; private set; }
+        public DateTime Date { get; set; }
+        public List<Activity> Activities { get; private set; }
 
         public Timecard()
         {
-            Day = DateTime.Today;
-            Actions = new List<Action>();
+            Date = DateTime.Today;
+            Activities = new List<Activity>();
         }
     }
 }
