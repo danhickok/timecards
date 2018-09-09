@@ -10,12 +10,10 @@ namespace TimecardsCore.Models
     {
         #region Public properties
 
-        public readonly DateTime Date;
-
         public string Code { get; set; }
         public string Description { get; set; }
 
-        private string _time = null;
+        private string _time;
         public string Time
         {
             get => _time;
@@ -26,7 +24,7 @@ namespace TimecardsCore.Models
             }
         }
 
-        private int _startMinute = 0;
+        private int _startMinute;
         public int StartMinute
         {
             get => StartMinute;
@@ -41,26 +39,30 @@ namespace TimecardsCore.Models
 
         #region Constructors
 
-        public Activity(DateTime date) => Date = date;
+        public Activity()
+        {
+            _startMinute = 0;
+            _time = null;
+        }
 
-        public Activity(DateTime date, string code) : this(date)
+        public Activity(string code)
         {
             Code = code;
             if (string.IsNullOrWhiteSpace(Description) && Configuration.DefaultCodes.ContainsKey(code))
                 Description = Configuration.DefaultCodes[code];
         }
 
-        public Activity(DateTime date, string code, string description) : this(date, code)
+        public Activity(string code, string description) : this(code)
         {
             Description = description;
         }
 
-        public Activity(DateTime date, string code, string description, string time) : this(date, code, description)
+        public Activity(string code, string description, string time) : this(code, description)
         {
             Time = time;
         }
 
-        public Activity(DateTime date, string code, string description, int startMinute) : this(date, code, description)
+        public Activity(string code, string description, int startMinute) : this(code, description)
         {
             StartMinute = startMinute;
         }
@@ -78,8 +80,7 @@ namespace TimecardsCore.Models
                     int.TryParse(Time.Substring(Time.IndexOf(":") + 1), out int minute)
                 )
             {
-                var now = new DateTime(Date.Year, Date.Month, Date.Day, hour, minute, 0);
-                StartMinute = (int)(now - Date).TotalMinutes;
+                StartMinute = hour * 60 + minute;
             }
         }
 
