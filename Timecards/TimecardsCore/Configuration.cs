@@ -8,7 +8,6 @@ namespace TimecardsCore
 {
     public static class Configuration
     {
-        public static string DatabasePath { get; set; }
         public static int RoundTimeToMinutes { get; set; }
         public static string TicketNumberMask { get; set; }
 
