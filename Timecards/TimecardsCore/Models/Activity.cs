@@ -8,6 +8,8 @@ namespace TimecardsCore.Models
 {
     public class Activity
     {
+        private const string TIMESEP = ":";
+
         #region Public properties
 
         public int ID { get; set; }
@@ -21,7 +23,7 @@ namespace TimecardsCore.Models
             get => _time;
             set
             {
-                _time = value;
+                _time = PadTime(value);
                 ComputeStartMinuteFromTime();
             }
         }
@@ -29,7 +31,7 @@ namespace TimecardsCore.Models
         private int _startMinute;
         public int StartMinute
         {
-            get => StartMinute;
+            get => _startMinute;
             set
             {
                 _startMinute = value;
@@ -44,7 +46,9 @@ namespace TimecardsCore.Models
         public Activity()
         {
             _startMinute = 0;
-            _time = null;
+            _time = "00" + TIMESEP + "00";
+            Code = string.Empty;
+            Description = string.Empty;
         }
 
         public Activity(string code)
@@ -73,24 +77,67 @@ namespace TimecardsCore.Models
 
         #region Private methods
 
+        private (int, int) ParseTime(string time)
+        {
+            int hour = 0;
+            int minute = 0;
+
+            if (!string.IsNullOrWhiteSpace(time))
+            {
+                var pos = time.IndexOf(TIMESEP);
+                if (pos < 0)
+                {
+                    if (int.TryParse(time, out int value))
+                    {
+                        hour = value / 100;
+                        minute = value % 100;
+                    }
+                }
+                else
+                {
+                    int.TryParse(time.Substring(0, pos), out hour);
+                    int.TryParse(time.Substring(pos + 1), out minute);
+                }
+            }
+
+            return (hour, minute);
+        }
+
+        private (int, int) Normalize(ValueTuple<int, int> value)
+        {
+            var (hour, minute) = value;
+
+            while (minute < 0)
+            {
+                minute += 60;
+                hour--;
+            }
+            while (minute >= 60)
+            {
+                minute -= 60;
+                hour++;
+            }
+
+            return (hour, minute);
+        }
+
+        private string PadTime(string time)
+        {
+            var (hour, minute) = Normalize(ParseTime(time));
+            return $"{hour:D2}{TIMESEP}{minute:D2}";
+        }
+
         private void ComputeStartMinuteFromTime()
         {
-            if (
-                    Time != null &&
-                    Time.IndexOf(":") >= 0 &&
-                    int.TryParse(Time.Substring(0, Time.IndexOf(":")), out int hour) &&
-                    int.TryParse(Time.Substring(Time.IndexOf(":") + 1), out int minute)
-                )
-            {
-                StartMinute = hour * 60 + minute;
-            }
+            var (hour, minute) = ParseTime(_time);
+            _startMinute = hour * 60 + minute;
         }
 
         private void ComputeTimeFromStartMinute()
         {
-            var hour = (StartMinute / 60) % 24;
-            var minute = StartMinute % 60;
-            Time = string.Format($"{hour:D2}:{minute:D2}");
+            var hour = (_startMinute / 60) % 24;
+            var minute = _startMinute % 60;
+            _time = string.Format($"{hour:D2}:{minute:D2}");
         }
 
         #endregion

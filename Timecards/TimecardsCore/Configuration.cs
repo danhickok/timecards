@@ -20,12 +20,12 @@ namespace TimecardsCore
 
         public static void Load()
         {
-            //TODO: call data service by interface to load settings
+            //TODO: call something to load settings
         }
 
         public static void Save()
         {
-            //TODO: call data service by interface to save settings
+            //TODO: call something to save settings
         }
     }
 }

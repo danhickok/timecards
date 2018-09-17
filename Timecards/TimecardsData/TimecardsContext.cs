@@ -15,6 +15,10 @@ namespace TimecardsData
         {
         }
 
+        public TimecardsContext(string connectionStringName) : base(connectionStringName)
+        {
+        }
+
         public DbSet<Timecard> Timecards { get; set; }
         public DbSet<Activity> Activities { get; set; }
 
