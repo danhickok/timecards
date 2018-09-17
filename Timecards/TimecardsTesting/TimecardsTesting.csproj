@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CoreTests\TimecardCoreTests.cs" />
     <Compile Include="CoreTests\ActivityCoreTests.cs" />
+    <Compile Include="CoreTests\ConfigurationTests.cs" />
     <Compile Include="DataTests\TimecardDataTests.cs" />
     <Compile Include="DataTests\ActivityDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

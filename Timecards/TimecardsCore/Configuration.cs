@@ -8,9 +8,11 @@ namespace TimecardsCore
 {
     public static class Configuration
     {
-        public static int RoundTimeToMinutes { get; set; }
-        public static string TicketNumberMask { get; set; }
+        private static readonly char SEP1 = '\n';
+        private static readonly char SEP2 = '\t';
 
+        public static int RoundCurrentTimeToMinutes { get; set; }
+        public static string TicketNumberMask { get; set; }
         public static Dictionary<string, string> DefaultCodes { get; private set; }
 
         static Configuration()
@@ -20,12 +22,34 @@ namespace TimecardsCore
 
         public static void Load()
         {
-            //TODO: call something to load settings
+            RoundCurrentTimeToMinutes = Properties.Settings.Default.RoundCurrentTimeToMinutes;
+            TicketNumberMask = Properties.Settings.Default.TicketNumberMask;
+
+            DefaultCodes.Clear();
+            var dfString = Properties.Settings.Default.DefaultCodes;
+            var pairs = dfString.Split(SEP1);
+            foreach (var pair in pairs)
+            {
+                var parts = pair.Split(SEP2);
+                DefaultCodes[parts[0]] = parts[1];
+            }
         }
 
         public static void Save()
         {
-            //TODO: call something to save settings
+            Properties.Settings.Default.RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
+            Properties.Settings.Default.TicketNumberMask = TicketNumberMask;
+
+            var dfStringBuilder = new StringBuilder();
+            foreach (var key in DefaultCodes.Keys)
+            {
+                if (dfStringBuilder.Length > 0)
+                    dfStringBuilder.Append(SEP1);
+                dfStringBuilder.Append($"{key}{SEP2}{DefaultCodes[key]}");
+            }
+            Properties.Settings.Default.DefaultCodes = dfStringBuilder.ToString();
+
+            Properties.Settings.Default.Save();
         }
     }
 }

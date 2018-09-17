@@ -14,7 +14,22 @@ namespace TimecardsCore.Models
 
         public int ID { get; set; }
         public int TimecardID { get; set; }
-        public string Code { get; set; }
+
+        private string _code;
+        public string Code
+        {
+            get
+            {
+                return _code;
+            }
+            set
+            {
+                _code = value;
+                if (string.IsNullOrWhiteSpace(Description) && Configuration.DefaultCodes.ContainsKey(_code))
+                    Description = Configuration.DefaultCodes[_code];
+            }
+        }
+
         public string Description { get; set; }
 
         private string _time;
@@ -54,8 +69,6 @@ namespace TimecardsCore.Models
         public Activity(string code)
         {
             Code = code;
-            if (string.IsNullOrWhiteSpace(Description) && Configuration.DefaultCodes.ContainsKey(code))
-                Description = Configuration.DefaultCodes[code];
         }
 
         public Activity(string code, string description) : this(code)
