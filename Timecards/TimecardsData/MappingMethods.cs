@@ -36,7 +36,14 @@ namespace TimecardsData
 
         public static void UpdateFromCore(this Timecard data, core.Timecard core)
         {
+            data.ID = core.ID;
             data.Date = core.Date;
+        }
+
+        public static void UpdateFromData(this core.Timecard core, Timecard data)
+        {
+            core.ID = data.ID;
+            core.Date = data.Date;
         }
 
         #endregion
@@ -71,9 +78,18 @@ namespace TimecardsData
 
         public static void UpdateFromCore(this Activity data, core.Activity core)
         {
+            data.ID = core.ID;
             data.Code = core.Code;
             data.Description = core.Description;
             data.Time = core.Time;
+        }
+
+        public static void UpdateFromData(this core.Activity core, Activity data)
+        {
+            core.ID = data.ID;
+            core.Code = data.Code;
+            core.Description = data.Description;
+            core.Time = data.Time;
         }
 
         #endregion
