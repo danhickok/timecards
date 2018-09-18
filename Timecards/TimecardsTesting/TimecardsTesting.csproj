@@ -57,9 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj">
       <Project>{778660cb-7fcf-4b0d-b6d9-54db09a080ec}</Project>
       <Name>TimecardsCore</Name>
@@ -68,6 +65,9 @@
       <Project>{8301e562-2600-468b-982a-7176bf5e0f23}</Project>
       <Name>TimecardsData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
