@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using core = TimecardsCore.Models;
+using TimecardsCore.Interfaces;
 
 namespace TimecardsData
 {
-    public class Repository : IDisposable
+    public class Repository : IRepository, IDisposable
     {
         private TimecardsContext _context = null;
 
