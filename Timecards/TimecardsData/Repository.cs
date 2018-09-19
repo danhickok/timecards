@@ -25,27 +25,48 @@ namespace TimecardsData
 
         #endregion
 
+        // Note:  Throughout these methods you'll see ToList() between the queries and
+        // the end result.  This is because we're using extension methods to map bewteen
+        // the EF (data) classes and the core classes the application works with, and EF
+        // complains that the extension methods do not map to any stored procedures in
+        // the database.  For large volumes of data, forcing the result early like this
+        // would be a bad practice; but for this application, the amount of data
+        // retrieved is expected to be manageable.
+
         public List<core.Timecard> GetTimecards()
         {
             return _context.Timecards
+                .ToList()
                 .Select(t => t.ToCore())
                 .ToList();
         }
 
         public core.Timecard GetTimecard(int id)
         {
-            return _context.Timecards
+            var timecard = _context.Timecards
                 .Where(t => t.ID == id)
+                .ToList()
                 .Select(t => t.ToCore())
                 .FirstOrDefault();
+
+            if (timecard != null)
+                GetActivities(timecard);
+
+            return timecard;
         }
 
         public core.Timecard GetTimecard(DateTime date)
         {
-            return _context.Timecards
+            var timecard = _context.Timecards
                 .Where(t => t.Date == date)
+                .ToList()
                 .Select(t => t.ToCore())
                 .FirstOrDefault();
+
+            if (timecard != null)
+                GetActivities(timecard);
+
+            return timecard;
         }
 
         public void SaveTimecard(core.Timecard timecard)
@@ -68,6 +89,9 @@ namespace TimecardsData
             }
 
             timecard.UpdateFromData(data);
+
+            if (timecard.Activities.Any())
+                SaveActivities(timecard);
         }
 
         public void DeleteTimecard(int id)
@@ -85,6 +109,7 @@ namespace TimecardsData
             var activities = _context.Activities
                 .Where(a => a.TimecardID == timecard.ID)
                 .OrderBy(a => a.Time)
+                .ToList()
                 .Select(a => a.ToCore())
                 .ToList();
 
@@ -116,6 +141,7 @@ namespace TimecardsData
         {
             return _context.Activities
                 .Where(a => a.ID == id)
+                .ToList()
                 .Select(a => a.ToCore())
                 .FirstOrDefault();
         }
@@ -154,7 +180,7 @@ namespace TimecardsData
 
         public List<core.ReportItem> GetReport(DateTime startDate, DateTime endDate)
         {
-            // query doesn't get exact matches on dates, so expand range by one second on each end
+            // query doesn't seem to get exact matches on dates, so expand range by one second on each end
             var minDate = startDate.AddSeconds(-1);
             var maxDate = endDate.AddSeconds(1);
 
@@ -165,11 +191,20 @@ namespace TimecardsData
                         orderby t.Date, a.Time
                         select new
                         {
-                            Timecard = t.ToCore(),
-                            Activity = a.ToCore(),
+                            Timecard = t,
+                            Activity = a,
                         };
 
-            var rawData = query.ToList();
+            var rawData = query
+                .ToList()
+                .OrderBy(q => q.Timecard.Date)
+                .ThenBy(q => q.Activity.Time)
+                .Select(q => new
+                {
+                    Timecard = q.Timecard.ToCore(),
+                    Activity = q.Activity.ToCore(),
+                })
+                .ToList();
 
             // consolidate raw data into a dictionary
             var result = new Dictionary<string, core.ReportItem>();

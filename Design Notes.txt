@@ -108,8 +108,28 @@ version 3 becomes available.
 
 
 
+09/19/2018
+----------
 
+The biggest challenge so far has been the use of SQLite for a data store. Visual
+Studio expects you to use MS SQL Server, of course, so that's always the easiest
+path to take.  But with a little determination and some help from StackOverflow
+and other sources, I came up with a system that works.  It uses EF and CodeFirst
+to create the database on the fly with the first use.
 
+The trickiest part was getting the settings right in app.config.  for those of
+you who are interested in using SQLite in your .NET products, you're welcome to
+use what I have in this project as an example.
 
+Oddly enough, one of the supposed advantages of using SQLite is that it can work
+with an "in-memory" database.  But you can't work with this when using Code
+First because the database disappears as soon as the connection is closed - and
+since EF and ADO.NET are designed not to keep the connection open all the time,
+this doesn't work.  I found a note by the SQLite CodeFirst developers saying
+they're not going to address this.  (And I don't blame them.)
 
+But I will say that EF works rather nicely with SQLite once it's configured
+properly.  For testing, I just added another connection string - and in the test
+setup, I make sure to delete this test database file so that the contents are
+predictable.
 
