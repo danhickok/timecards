@@ -12,6 +12,5 @@ namespace TimecardsCore.Models
         public DateTime EarliestDate { get; set; }
         public DateTime LatestDate { get; set; }
         public int TotalMinutes { get; set; }
-        public int TotalHours { get; set; }
     }
 }

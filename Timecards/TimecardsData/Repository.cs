@@ -162,20 +162,52 @@ namespace TimecardsData
                         where t.Date >= minDate && t.Date <= maxDate
                         join a in _context.Activities on t.ID equals a.TimecardID
                         orderby t.Date, a.Time
-                        select new { a.Code, t.Date, a.Time };
+                        select new
+                        {
+                            Timecard = t.ToCore(),
+                            Activity = a.ToCore(),
+                        };
+
             var rawData = query.ToList();
 
-            // process raw data
-            var result = new List<core.ReportItem>();
+            // consolidate raw data into a dictionary
+            var result = new Dictionary<string, core.ReportItem>();
 
-            foreach (var item in rawData)
+            // (we go one short of total list because we're interested
+            // in elapsed time from item to item)
+            for (var i = 0; i < rawData.Count - 1; ++i)
             {
-                //TODO: this won't work - need the delta between the starting time and the next item
+                var code = rawData[i].Activity.Code;
+                if (string.IsNullOrWhiteSpace(code))
+                    continue;
+
+                if (!result.ContainsKey(code))
+                    result[code] = new core.ReportItem
+                    {
+                        Code = code,
+                        EarliestDate = rawData[i].Timecard.Date,
+                        LatestDate = rawData[i].Timecard.Date,
+                        TotalMinutes = 0,
+                    };
+
+                if (rawData[i].Timecard.Date < result[code].EarliestDate)
+                    result[code].EarliestDate = rawData[i].Timecard.Date;
+
+                if (rawData[i].Timecard.Date > result[code].LatestDate)
+                    result[code].LatestDate = rawData[i].Timecard.Date;
+
+                // elapsed time is only valid within the same day
+                if (rawData[i].Timecard.Date == rawData[i + 1].Timecard.Date)
+                {
+                    result[code].TotalMinutes += rawData[i + 1].Activity.StartMinute -
+                        rawData[i].Activity.StartMinute;
+                }
             }
-            
 
-
-            return result;
+            // return list from dictionary
+            return result.Values
+                .OrderBy(item => item.Code)
+                .ToList();
         }
 
         #region IDisposable Support

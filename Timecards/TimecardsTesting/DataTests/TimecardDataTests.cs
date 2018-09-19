@@ -27,12 +27,6 @@ namespace TimecardsTesting.DataTests
             using (var repo = new data.Repository("TestDb"))
             {
                 var timecard = new core.Timecard();
-                //timecard.Activities.AddRange(new List<core.Activity>
-                //{
-                //    new core.Activity("00000", "Beginning", "08:00"),
-                //    new core.Activity("00200", "Middle", "11:00"),
-                //    new core.Activity("", "End", "16:00"),
-                //});
 
                 repo.SaveTimecard(timecard);
             }
