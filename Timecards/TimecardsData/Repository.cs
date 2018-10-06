@@ -33,9 +33,21 @@ namespace TimecardsData
         // would be a bad practice; but for this application, the amount of data
         // retrieved is expected to be manageable.
 
-        public List<core.Timecard> GetTimecards()
+        public List<core.Timecard> GetTimecards(int offset, int limit, bool descending)
         {
-            return _context.Timecards
+            IOrderedQueryable<Timecard> query;
+            if (descending)
+                query = _context.Timecards
+                    .OrderByDescending(t => t.Date)
+                    .ThenByDescending(t => t.ID);
+            else
+                query = _context.Timecards
+                    .OrderBy(t => t.Date)
+                    .ThenBy(t => t.ID);
+
+            return query
+                .Skip(offset)
+                .Take(limit)
                 .ToList()
                 .Select(t => t.ToCore())
                 .ToList();

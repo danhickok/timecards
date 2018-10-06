@@ -207,8 +207,13 @@ namespace TimecardsTesting.DataTests
                 // test timecard list and deletes
                 //
 
-                var timecardList = repo.GetTimecards();
+                var timecardList = repo.GetTimecards(0, 10, true);
                 Assert.AreEqual(2, timecardList.Count, "Did not retrieve list of two timecards");
+                Assert.IsTrue(timecardList[0].Date > timecardList[1].Date, "List of timecards did not retrieve in correct order");
+
+                timecardList = repo.GetTimecards(0, 10, false);
+                Assert.AreEqual(2, timecardList.Count, "Did not retrieve list of two timecards");
+                Assert.IsTrue(timecardList[0].Date < timecardList[1].Date, "List of timecards did not retrieve in correct order");
 
                 retrievedTimecard = repo.GetTimecard(anotherTimecard.ID);
                 var activityCountBefore = retrievedTimecard.Activities.Count;
@@ -222,7 +227,7 @@ namespace TimecardsTesting.DataTests
 
                 repo.DeleteTimecard(timecardList[0].ID);
                 repo.DeleteTimecard(timecardList[1].ID);
-                timecardList = repo.GetTimecards();
+                timecardList = repo.GetTimecards(10, 10, false);
                 Assert.AreEqual(0, timecardList.Count, "Still some timecards after deletion");
             }
         }

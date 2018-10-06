@@ -9,7 +9,7 @@ namespace TimecardsCore.Interfaces
 {
     public interface IRepository
     {
-        List<Timecard> GetTimecards();
+        List<Timecard> GetTimecards(int offset, int limit, bool descending);
 
         Timecard GetTimecard(int id);
 
