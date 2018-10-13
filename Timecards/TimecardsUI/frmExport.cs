@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TimecardsUI
 {
-    public partial class frmMain : Form
+    public partial class frmExport : Form
     {
-        public frmMain()
+        public frmExport()
         {
             InitializeComponent();
         }
