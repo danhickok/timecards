@@ -16,5 +16,15 @@ namespace TimecardsUI
         {
             InitializeComponent();
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

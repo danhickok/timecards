@@ -16,5 +16,34 @@ namespace TimecardsUI
         {
             InitializeComponent();
         }
+
+        private void mnuFileMainExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mnuMainFilePreferences_Click(object sender, EventArgs e)
+        {
+            var configForm = new frmConfiguration();
+            configForm.ShowDialog(this);
+        }
+
+        private void mnuMainFileExport_Click(object sender, EventArgs e)
+        {
+            var exportForm = new frmExport();
+            exportForm.ShowDialog(this);
+        }
+
+        private void mnuMainFileImport_Click(object sender, EventArgs e)
+        {
+            var importForm = new frmImport();
+            importForm.ShowDialog(this);
+        }
+
+        private void mnuMainHelpAbout_Click(object sender, EventArgs e)
+        {
+            var aboutForm = new frmAbout();
+            aboutForm.ShowDialog(this);
+        }
     }
 }

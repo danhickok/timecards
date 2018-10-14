@@ -46,46 +46,48 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(269, 286);
+            this.btnOK.Location = new System.Drawing.Point(314, 330);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(87, 27);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(350, 286);
+            this.btnCancel.Location = new System.Drawing.Point(408, 330);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblCodeMask
             // 
             this.lblCodeMask.AutoSize = true;
-            this.lblCodeMask.Location = new System.Drawing.Point(12, 21);
+            this.lblCodeMask.Location = new System.Drawing.Point(14, 24);
             this.lblCodeMask.Name = "lblCodeMask";
-            this.lblCodeMask.Size = new System.Drawing.Size(64, 13);
+            this.lblCodeMask.Size = new System.Drawing.Size(74, 15);
             this.lblCodeMask.TabIndex = 2;
             this.lblCodeMask.Text = "Code format";
             // 
             // txtCodeFormat
             // 
-            this.txtCodeFormat.Location = new System.Drawing.Point(130, 17);
+            this.txtCodeFormat.Location = new System.Drawing.Point(152, 20);
             this.txtCodeFormat.Name = "txtCodeFormat";
-            this.txtCodeFormat.Size = new System.Drawing.Size(100, 20);
+            this.txtCodeFormat.Size = new System.Drawing.Size(116, 23);
             this.txtCodeFormat.TabIndex = 3;
             // 
             // lblRoundTime
             // 
             this.lblRoundTime.AutoSize = true;
-            this.lblRoundTime.Location = new System.Drawing.Point(12, 47);
+            this.lblRoundTime.Location = new System.Drawing.Point(14, 54);
             this.lblRoundTime.Name = "lblRoundTime";
-            this.lblRoundTime.Size = new System.Drawing.Size(109, 13);
+            this.lblRoundTime.Size = new System.Drawing.Size(124, 15);
             this.lblRoundTime.TabIndex = 4;
             this.lblRoundTime.Text = "Round current time to";
             // 
@@ -98,17 +100,17 @@
             "nearest 15 minutes",
             "nearest half hour",
             "nearest hour"});
-            this.cboRoundTime.Location = new System.Drawing.Point(130, 43);
+            this.cboRoundTime.Location = new System.Drawing.Point(152, 50);
             this.cboRoundTime.Name = "cboRoundTime";
-            this.cboRoundTime.Size = new System.Drawing.Size(186, 21);
+            this.cboRoundTime.Size = new System.Drawing.Size(216, 23);
             this.cboRoundTime.TabIndex = 5;
             // 
             // lblDefaultDescriptions
             // 
             this.lblDefaultDescriptions.AutoSize = true;
-            this.lblDefaultDescriptions.Location = new System.Drawing.Point(12, 94);
+            this.lblDefaultDescriptions.Location = new System.Drawing.Point(14, 108);
             this.lblDefaultDescriptions.Name = "lblDefaultDescriptions";
-            this.lblDefaultDescriptions.Size = new System.Drawing.Size(186, 13);
+            this.lblDefaultDescriptions.Size = new System.Drawing.Size(207, 15);
             this.lblDefaultDescriptions.TabIndex = 6;
             this.lblDefaultDescriptions.Text = "Default descriptions for specific codes";
             // 
@@ -123,9 +125,9 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.LabelEdit = true;
-            this.listView1.Location = new System.Drawing.Point(12, 110);
+            this.listView1.Location = new System.Drawing.Point(14, 127);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(412, 161);
+            this.listView1.Size = new System.Drawing.Size(480, 185);
             this.listView1.TabIndex = 7;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -142,28 +144,28 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(376, 85);
+            this.btnAdd.Location = new System.Drawing.Point(439, 98);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(23, 23);
+            this.btnAdd.Size = new System.Drawing.Size(27, 27);
             this.btnAdd.TabIndex = 8;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(401, 85);
+            this.btnDelete.Location = new System.Drawing.Point(468, 98);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(23, 23);
+            this.btnDelete.Size = new System.Drawing.Size(27, 27);
             this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "-";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // frmConfiguration
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(436, 321);
+            this.ClientSize = new System.Drawing.Size(509, 370);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.listView1);
@@ -174,9 +176,11 @@
             this.Controls.Add(this.lblCodeMask);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmConfiguration";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Timecards - Preferences";
             this.ResumeLayout(false);
             this.PerformLayout();
