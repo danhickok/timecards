@@ -41,6 +41,13 @@
             this.mnuMainFilePreferences = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainFileSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileMainExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMainData = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMainDataDateFirst = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMainDataDatePrevious = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMainDataDateNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMainDataDateLast = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMainDataSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuMainDataActivitiesSort = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain = new System.Windows.Forms.TabControl();
@@ -68,13 +75,6 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.lblStart = new System.Windows.Forms.Label();
-            this.mnuMainData = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMainDataDateFirst = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMainDataDatePrevious = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMainDataDateNext = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMainDataDateLast = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMainDataSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuMainDataActivitiesSort = new System.Windows.Forms.ToolStripMenuItem();
             this.staMain.SuspendLayout();
             this.mnuMain.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -127,40 +127,88 @@
             // mnuMainFileImport
             // 
             this.mnuMainFileImport.Name = "mnuMainFileImport";
-            this.mnuMainFileImport.Size = new System.Drawing.Size(180, 22);
+            this.mnuMainFileImport.Size = new System.Drawing.Size(144, 22);
             this.mnuMainFileImport.Text = "Import...";
             this.mnuMainFileImport.Click += new System.EventHandler(this.mnuMainFileImport_Click);
             // 
             // mnuMainFileExport
             // 
             this.mnuMainFileExport.Name = "mnuMainFileExport";
-            this.mnuMainFileExport.Size = new System.Drawing.Size(180, 22);
+            this.mnuMainFileExport.Size = new System.Drawing.Size(144, 22);
             this.mnuMainFileExport.Text = "Export...";
             this.mnuMainFileExport.Click += new System.EventHandler(this.mnuMainFileExport_Click);
             // 
             // mnuMainFileSep1
             // 
             this.mnuMainFileSep1.Name = "mnuMainFileSep1";
-            this.mnuMainFileSep1.Size = new System.Drawing.Size(177, 6);
+            this.mnuMainFileSep1.Size = new System.Drawing.Size(141, 6);
             // 
             // mnuMainFilePreferences
             // 
             this.mnuMainFilePreferences.Name = "mnuMainFilePreferences";
-            this.mnuMainFilePreferences.Size = new System.Drawing.Size(180, 22);
+            this.mnuMainFilePreferences.Size = new System.Drawing.Size(144, 22);
             this.mnuMainFilePreferences.Text = "Preferences...";
             this.mnuMainFilePreferences.Click += new System.EventHandler(this.mnuMainFilePreferences_Click);
             // 
             // mnuMainFileSep2
             // 
             this.mnuMainFileSep2.Name = "mnuMainFileSep2";
-            this.mnuMainFileSep2.Size = new System.Drawing.Size(177, 6);
+            this.mnuMainFileSep2.Size = new System.Drawing.Size(141, 6);
             // 
             // mnuFileMainExit
             // 
             this.mnuFileMainExit.Name = "mnuFileMainExit";
-            this.mnuFileMainExit.Size = new System.Drawing.Size(180, 22);
+            this.mnuFileMainExit.Size = new System.Drawing.Size(144, 22);
             this.mnuFileMainExit.Text = "Exit";
             this.mnuFileMainExit.Click += new System.EventHandler(this.mnuFileMainExit_Click);
+            // 
+            // mnuMainData
+            // 
+            this.mnuMainData.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuMainDataDateFirst,
+            this.mnuMainDataDatePrevious,
+            this.mnuMainDataDateNext,
+            this.mnuMainDataDateLast,
+            this.mnuMainDataSep1,
+            this.mnuMainDataActivitiesSort});
+            this.mnuMainData.Name = "mnuMainData";
+            this.mnuMainData.Size = new System.Drawing.Size(43, 20);
+            this.mnuMainData.Text = "Data";
+            // 
+            // mnuMainDataDateFirst
+            // 
+            this.mnuMainDataDateFirst.Name = "mnuMainDataDateFirst";
+            this.mnuMainDataDateFirst.Size = new System.Drawing.Size(192, 22);
+            this.mnuMainDataDateFirst.Text = "Move to first date";
+            // 
+            // mnuMainDataDatePrevious
+            // 
+            this.mnuMainDataDatePrevious.Name = "mnuMainDataDatePrevious";
+            this.mnuMainDataDatePrevious.Size = new System.Drawing.Size(192, 22);
+            this.mnuMainDataDatePrevious.Text = "Move to previous date";
+            // 
+            // mnuMainDataDateNext
+            // 
+            this.mnuMainDataDateNext.Name = "mnuMainDataDateNext";
+            this.mnuMainDataDateNext.Size = new System.Drawing.Size(192, 22);
+            this.mnuMainDataDateNext.Text = "Move to next date";
+            // 
+            // mnuMainDataDateLast
+            // 
+            this.mnuMainDataDateLast.Name = "mnuMainDataDateLast";
+            this.mnuMainDataDateLast.Size = new System.Drawing.Size(192, 22);
+            this.mnuMainDataDateLast.Text = "Move to last date";
+            // 
+            // mnuMainDataSep1
+            // 
+            this.mnuMainDataSep1.Name = "mnuMainDataSep1";
+            this.mnuMainDataSep1.Size = new System.Drawing.Size(189, 6);
+            // 
+            // mnuMainDataActivitiesSort
+            // 
+            this.mnuMainDataActivitiesSort.Name = "mnuMainDataActivitiesSort";
+            this.mnuMainDataActivitiesSort.Size = new System.Drawing.Size(192, 22);
+            this.mnuMainDataActivitiesSort.Text = "Sort activities by time";
             // 
             // mnuMainHelp
             // 
@@ -173,7 +221,7 @@
             // mnuMainHelpAbout
             // 
             this.mnuMainHelpAbout.Name = "mnuMainHelpAbout";
-            this.mnuMainHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.mnuMainHelpAbout.Size = new System.Drawing.Size(174, 22);
             this.mnuMainHelpAbout.Text = "About Timecards...";
             this.mnuMainHelpAbout.Click += new System.EventHandler(this.mnuMainHelpAbout_Click);
             // 
@@ -422,54 +470,6 @@
             this.lblStart.TabIndex = 0;
             this.lblStart.Text = "From";
             // 
-            // mnuMainData
-            // 
-            this.mnuMainData.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuMainDataDateFirst,
-            this.mnuMainDataDatePrevious,
-            this.mnuMainDataDateNext,
-            this.mnuMainDataDateLast,
-            this.mnuMainDataSep1,
-            this.mnuMainDataActivitiesSort});
-            this.mnuMainData.Name = "mnuMainData";
-            this.mnuMainData.Size = new System.Drawing.Size(43, 20);
-            this.mnuMainData.Text = "Data";
-            // 
-            // mnuMainDataDateFirst
-            // 
-            this.mnuMainDataDateFirst.Name = "mnuMainDataDateFirst";
-            this.mnuMainDataDateFirst.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDateFirst.Text = "Move to first date";
-            // 
-            // mnuMainDataDatePrevious
-            // 
-            this.mnuMainDataDatePrevious.Name = "mnuMainDataDatePrevious";
-            this.mnuMainDataDatePrevious.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDatePrevious.Text = "Move to previous date";
-            // 
-            // mnuMainDataDateNext
-            // 
-            this.mnuMainDataDateNext.Name = "mnuMainDataDateNext";
-            this.mnuMainDataDateNext.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDateNext.Text = "Move to next date";
-            // 
-            // mnuMainDataDateLast
-            // 
-            this.mnuMainDataDateLast.Name = "mnuMainDataDateLast";
-            this.mnuMainDataDateLast.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDateLast.Text = "Move to last date";
-            // 
-            // mnuMainDataSep1
-            // 
-            this.mnuMainDataSep1.Name = "mnuMainDataSep1";
-            this.mnuMainDataSep1.Size = new System.Drawing.Size(189, 6);
-            // 
-            // mnuMainDataActivitiesSort
-            // 
-            this.mnuMainDataActivitiesSort.Name = "mnuMainDataActivitiesSort";
-            this.mnuMainDataActivitiesSort.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataActivitiesSort.Text = "Sort activities by time";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -486,6 +486,8 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Timecards";
+            this.Move += new System.EventHandler(this.frmMain_Move);
+            this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.staMain.ResumeLayout(false);
             this.staMain.PerformLayout();
             this.mnuMain.ResumeLayout(false);
