@@ -30,6 +30,7 @@
       {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.staMain = new System.Windows.Forms.StatusStrip();
             this.staMainLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -261,40 +262,56 @@
             this.grdActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdActivities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdActivities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdActivities.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCode,
             this.colDescription,
             this.colTime});
+            this.grdActivities.EnableHeadersVisualStyles = false;
             this.grdActivities.Location = new System.Drawing.Point(9, 54);
             this.grdActivities.Name = "grdActivities";
             this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.grdActivities.Size = new System.Drawing.Size(446, 541);
             this.grdActivities.TabIndex = 8;
+            this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
             // 
             // colCode
             // 
-            dataGridViewCellStyle1.Format = "#####";
-            dataGridViewCellStyle1.NullValue = null;
-            this.colCode.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Format = "#####";
+            dataGridViewCellStyle2.NullValue = null;
+            this.colCode.DefaultCellStyle = dataGridViewCellStyle2;
             this.colCode.HeaderText = "Code";
             this.colCode.Name = "colCode";
-            this.colCode.Width = 90;
+            this.colCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCode.Width = 80;
             // 
             // colDescription
             // 
+            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.colDescription.HeaderText = "Description";
             this.colDescription.Name = "colDescription";
-            this.colDescription.Width = 240;
+            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colDescription.Width = 250;
             // 
             // colTime
             // 
-            dataGridViewCellStyle2.Format = "t";
-            dataGridViewCellStyle2.NullValue = null;
-            this.colTime.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Format = "t";
+            dataGridViewCellStyle3.NullValue = null;
+            this.colTime.DefaultCellStyle = dataGridViewCellStyle3;
             this.colTime.HeaderText = "Time";
             this.colTime.Name = "colTime";
-            this.colTime.Width = 70;
+            this.colTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colTime.Width = 80;
             // 
             // btnToday
             // 
@@ -539,9 +556,6 @@
         private System.Windows.Forms.ColumnHeader rptColToDate;
         private System.Windows.Forms.ColumnHeader rptColMinutes;
         private System.Windows.Forms.ColumnHeader rptColHours;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
         private System.Windows.Forms.ToolStripMenuItem mnuMainData;
         private System.Windows.Forms.ToolStripMenuItem mnuMainDataDateFirst;
         private System.Windows.Forms.ToolStripMenuItem mnuMainDataDatePrevious;
@@ -549,6 +563,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuMainDataDateLast;
         private System.Windows.Forms.ToolStripSeparator mnuMainDataSep1;
         private System.Windows.Forms.ToolStripMenuItem mnuMainDataActivitiesSort;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
     }
 }
 

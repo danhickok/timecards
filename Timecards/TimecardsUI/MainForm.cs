@@ -18,11 +18,14 @@ namespace TimecardsUI
         public frmMain()
         {
             InitializeComponent();
+
+            grdActivities.RowsDefaultCellStyle.BackColor = SystemColors.Window;
+            grdActivities.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
         }
 
         private void mnuFileMainExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void mnuMainFilePreferences_Click(object sender, EventArgs e)
@@ -54,8 +57,9 @@ namespace TimecardsUI
             if (InitialPositioning)
                 return;
 
-            MainFormSettings.Top = this.Top;
-            MainFormSettings.Left = this.Left;
+            MainFormSettings.Top = Top;
+            MainFormSettings.Left = Left;
+            MainFormSettings.Height = Height;
         }
 
         private void frmMain_Resize(object sender, EventArgs e)
@@ -63,11 +67,32 @@ namespace TimecardsUI
             if (InitialPositioning)
                 return;
 
-            if (this.WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized)
                 return;
 
-            MainFormSettings.Height = this.Height;
-            MainFormSettings.Width = this.Width;
+            MainFormSettings.Height = Height;
+            MainFormSettings.Width = Width;
+
+            RecalculateColumnWidths();
+        }
+
+        private void grdActivities_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            RecalculateColumnWidths(e.Column);
+        }
+
+        private void RecalculateColumnWidths(DataGridViewColumn targetColumn = null)
+        {
+            var oldTotalWidth = grdActivities.RowHeadersWidth
+                + colCode.Width + colDescription.Width + colTime.Width;
+
+            var newTotalWidth = grdActivities.ClientRectangle.Width;
+            var delta = newTotalWidth - oldTotalWidth - 2;
+
+            //if (targetColumn != null)
+            //    targetColumn.Width += delta;
+            //else
+            colDescription.Width += delta;
         }
     }
 }

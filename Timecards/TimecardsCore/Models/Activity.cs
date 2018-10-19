@@ -116,7 +116,7 @@ namespace TimecardsCore.Models
             return (hour, minute);
         }
 
-        private (int, int) Normalize(ValueTuple<int, int> value)
+        private (int, int) Normalize((int, int) value)
         {
             var (hour, minute) = value;
 
