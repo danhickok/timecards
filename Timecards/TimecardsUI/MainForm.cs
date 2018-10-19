@@ -54,9 +54,8 @@ namespace TimecardsUI
             if (InitialPositioning)
                 return;
 
-            Configuration.MainFormTop = this.Top;
-            Configuration.MainFormLeft = this.Left;
-            Configuration.Save(true);
+            MainFormSettings.Top = this.Top;
+            MainFormSettings.Left = this.Left;
         }
 
         private void frmMain_Resize(object sender, EventArgs e)
@@ -67,9 +66,8 @@ namespace TimecardsUI
             if (this.WindowState == FormWindowState.Minimized)
                 return;
 
-            Configuration.MainFormHeight = this.Height;
-            Configuration.MainFormWidth = this.Width;
-            Configuration.Save(true);
+            MainFormSettings.Height = this.Height;
+            MainFormSettings.Width = this.Width;
         }
     }
 }

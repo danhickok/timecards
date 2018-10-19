@@ -22,25 +22,21 @@ namespace TimecardsUI
 
             var mainForm = new frmMain();
 
-            mainForm.InitialPositioning = true;
-
-            if (Configuration.MainFormHeight > 0)
-                mainForm.Height = Configuration.MainFormHeight;
-            if (Configuration.MainFormWidth > 0)
-                mainForm.Width = Configuration.MainFormWidth;
-
-            if (Configuration.MainFormTop < 0 && Configuration.MainFormLeft < 0)
+            if (MainFormSettings.HaveBeenSet)
             {
-                mainForm.Top = Screen.PrimaryScreen.WorkingArea.Height - mainForm.Height / 2;
-                mainForm.Left = Screen.PrimaryScreen.WorkingArea.Width - mainForm.Width / 2;
+                mainForm.InitialPositioning = true;
+
+                mainForm.Top = MainFormSettings.Top;
+                mainForm.Left = MainFormSettings.Left;
+                mainForm.Height = MainFormSettings.Height;
+                mainForm.Width = MainFormSettings.Width;
+
+                mainForm.InitialPositioning = false;
             }
             else
             {
-                mainForm.Top = Configuration.MainFormTop;
-                mainForm.Left = Configuration.MainFormLeft;
+                mainForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
             }
-
-            mainForm.InitialPositioning = false;
 
             Application.Run(mainForm);
         }

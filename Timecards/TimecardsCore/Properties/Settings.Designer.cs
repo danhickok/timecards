@@ -58,53 +58,5 @@ namespace TimecardsCore.Properties {
                 this["DefaultCodes"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int MainFormTop {
-            get {
-                return ((int)(this["MainFormTop"]));
-            }
-            set {
-                this["MainFormTop"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int MainFormLeft {
-            get {
-                return ((int)(this["MainFormLeft"]));
-            }
-            set {
-                this["MainFormLeft"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int MainFormHeight {
-            get {
-                return ((int)(this["MainFormHeight"]));
-            }
-            set {
-                this["MainFormHeight"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public int MainFormWidth {
-            get {
-                return ((int)(this["MainFormWidth"]));
-            }
-            set {
-                this["MainFormWidth"] = value;
-            }
-        }
     }
 }

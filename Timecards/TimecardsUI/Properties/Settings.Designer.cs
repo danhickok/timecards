@@ -8,23 +8,79 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TimecardsUI.Properties
-{
-
-
-   [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-   [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-   internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-   {
-
-      private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-      public static Settings Default
-      {
-         get
-         {
-            return defaultInstance;
-         }
-      }
-   }
+namespace TimecardsUI.Properties {
+    
+    
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int MainFormTop {
+            get {
+                return ((int)(this["MainFormTop"]));
+            }
+            set {
+                this["MainFormTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int MainFormLeft {
+            get {
+                return ((int)(this["MainFormLeft"]));
+            }
+            set {
+                this["MainFormLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int MainFormHeight {
+            get {
+                return ((int)(this["MainFormHeight"]));
+            }
+            set {
+                this["MainFormHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int MainFormWidth {
+            get {
+                return ((int)(this["MainFormWidth"]));
+            }
+            set {
+                this["MainFormWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MainFormSettingsHaveBeenSet {
+            get {
+                return ((bool)(this["MainFormSettingsHaveBeenSet"]));
+            }
+            set {
+                this["MainFormSettingsHaveBeenSet"] = value;
+            }
+        }
+    }
 }

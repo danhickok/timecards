@@ -11,17 +11,5 @@
     <Setting Name="DefaultCodes" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="MainFormTop" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="MainFormLeft" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="MainFormHeight" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="MainFormWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">-1</Value>
-    </Setting>
   </Settings>
 </SettingsFile>
