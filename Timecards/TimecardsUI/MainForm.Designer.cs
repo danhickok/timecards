@@ -504,6 +504,7 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Timecards";
+            this.Activated += new System.EventHandler(this.frmMain_Activated);
             this.Move += new System.EventHandler(this.frmMain_Move);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.staMain.ResumeLayout(false);

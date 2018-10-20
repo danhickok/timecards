@@ -90,6 +90,11 @@ namespace TimecardsUI
             RecalculateColumnWidths();
         }
 
+        private void frmMain_Activated(object sender, EventArgs e)
+        {
+            RecalculateColumnWidths();
+        }
+
         private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
         {
             _loading = true;
