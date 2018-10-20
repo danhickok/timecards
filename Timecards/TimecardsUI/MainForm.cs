@@ -15,6 +15,7 @@ namespace TimecardsUI
     {
         public bool InitialPositioning = false;
         private bool _loading = false;
+        private Keys _lastGridKeyCode = 0;
 
         public frmMain()
         {
@@ -29,6 +30,8 @@ namespace TimecardsUI
 
             grdActivities.RowsDefaultCellStyle.BackColor = SystemColors.Window;
             grdActivities.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
+
+            ClearStatusMessage();
         }
 
         private void frmMain_Activated(object sender, EventArgs e)
@@ -108,15 +111,13 @@ namespace TimecardsUI
 
         private void grdActivities_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Tab)
-            {
-                //didn't work
-                //SelectNextControl(grdActivities, true, true, true, true);
-                //e.Handled = true;
-                //didn't work
-                //grdActivities.Focus();
-                //e.Handled = true;
-            }
+            _lastGridKeyCode = e.KeyCode;
+        }
+
+        private void grdActivities_Leave(object sender, EventArgs e)
+        {
+            if (_lastGridKeyCode == Keys.Tab)
+                grdActivities.Focus();
         }
 
         private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
@@ -133,6 +134,18 @@ namespace TimecardsUI
                     - colCode.Width - colTime.Width - grdActivities.RowHeadersWidth - 2;
 
             _loading = false;
+        }
+
+        private void SetStatusMessage(string message)
+        {
+            staMainLabel.Text = message;
+            Refresh();
+        }
+
+        private void ClearStatusMessage()
+        {
+            staMainLabel.Text = "Ready";
+            Refresh();
         }
     }
 }
