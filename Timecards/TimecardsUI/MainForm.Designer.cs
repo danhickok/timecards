@@ -281,6 +281,7 @@
             this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.grdActivities.Size = new System.Drawing.Size(446, 541);
             this.grdActivities.TabIndex = 8;
+            this.grdActivities.RowHeadersWidthChanged += new System.EventHandler(this.grdActivities_RowHeadersWidthChanged);
             this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
             // 
             // colCode

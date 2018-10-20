@@ -14,6 +14,7 @@ namespace TimecardsUI
     public partial class frmMain : Form
     {
         public bool InitialPositioning = false;
+        private bool _loading = false;
 
         public frmMain()
         {
@@ -78,21 +79,31 @@ namespace TimecardsUI
 
         private void grdActivities_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
+            if (_loading)
+                return;
+
             RecalculateColumnWidths(e.Column);
         }
 
-        private void RecalculateColumnWidths(DataGridViewColumn targetColumn = null)
+        private void grdActivities_RowHeadersWidthChanged(object sender, EventArgs e)
         {
-            var oldTotalWidth = grdActivities.RowHeadersWidth
-                + colCode.Width + colDescription.Width + colTime.Width;
+            RecalculateColumnWidths();
+        }
 
-            var newTotalWidth = grdActivities.ClientRectangle.Width;
-            var delta = newTotalWidth - oldTotalWidth - 2;
+        private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
+        {
+            _loading = true;
 
-            //if (targetColumn != null)
-            //    targetColumn.Width += delta;
-            //else
-            colDescription.Width += delta;
+            var cols = grdActivities.Columns;
+
+            if (eventColumn?.Name == "colDescription")
+                colTime.Width = grdActivities.ClientRectangle.Width
+                    - colCode.Width - colDescription.Width - grdActivities.RowHeadersWidth - 2;
+            else
+                colDescription.Width = grdActivities.ClientRectangle.Width
+                    - colCode.Width - colTime.Width - grdActivities.RowHeadersWidth - 2;
+
+            _loading = false;
         }
     }
 }
