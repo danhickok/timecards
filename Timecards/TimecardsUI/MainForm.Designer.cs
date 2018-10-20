@@ -40,7 +40,7 @@
             this.mnuMainFileExport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainFileSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuMainFilePreferences = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMainFileSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuMainFileSep3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileMainExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainData = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainDataDateFirst = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,9 +54,6 @@
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabMainActivities = new System.Windows.Forms.TabPage();
             this.grdActivities = new System.Windows.Forms.DataGridView();
-            this.colCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnToday = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
@@ -76,6 +73,13 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.lblStart = new System.Windows.Forms.Label();
+            this.colCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mnuMainFileSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuMainFileResetColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDataSearchForDate = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.staMain.SuspendLayout();
             this.mnuMain.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -120,47 +124,49 @@
             this.mnuMainFileSep1,
             this.mnuMainFilePreferences,
             this.mnuMainFileSep2,
+            this.mnuMainFileResetColumnWidths,
+            this.mnuMainFileSep3,
             this.mnuFileMainExit});
             this.mnuMainFile.Name = "mnuMainFile";
             this.mnuMainFile.Size = new System.Drawing.Size(37, 20);
-            this.mnuMainFile.Text = "File";
+            this.mnuMainFile.Text = "&File";
             // 
             // mnuMainFileImport
             // 
             this.mnuMainFileImport.Name = "mnuMainFileImport";
-            this.mnuMainFileImport.Size = new System.Drawing.Size(144, 22);
-            this.mnuMainFileImport.Text = "Import...";
+            this.mnuMainFileImport.Size = new System.Drawing.Size(184, 22);
+            this.mnuMainFileImport.Text = "&Import...";
             this.mnuMainFileImport.Click += new System.EventHandler(this.mnuMainFileImport_Click);
             // 
             // mnuMainFileExport
             // 
             this.mnuMainFileExport.Name = "mnuMainFileExport";
-            this.mnuMainFileExport.Size = new System.Drawing.Size(144, 22);
-            this.mnuMainFileExport.Text = "Export...";
+            this.mnuMainFileExport.Size = new System.Drawing.Size(184, 22);
+            this.mnuMainFileExport.Text = "&Export...";
             this.mnuMainFileExport.Click += new System.EventHandler(this.mnuMainFileExport_Click);
             // 
             // mnuMainFileSep1
             // 
             this.mnuMainFileSep1.Name = "mnuMainFileSep1";
-            this.mnuMainFileSep1.Size = new System.Drawing.Size(141, 6);
+            this.mnuMainFileSep1.Size = new System.Drawing.Size(181, 6);
             // 
             // mnuMainFilePreferences
             // 
             this.mnuMainFilePreferences.Name = "mnuMainFilePreferences";
-            this.mnuMainFilePreferences.Size = new System.Drawing.Size(144, 22);
-            this.mnuMainFilePreferences.Text = "Preferences...";
+            this.mnuMainFilePreferences.Size = new System.Drawing.Size(184, 22);
+            this.mnuMainFilePreferences.Text = "&Preferences...";
             this.mnuMainFilePreferences.Click += new System.EventHandler(this.mnuMainFilePreferences_Click);
             // 
-            // mnuMainFileSep2
+            // mnuMainFileSep3
             // 
-            this.mnuMainFileSep2.Name = "mnuMainFileSep2";
-            this.mnuMainFileSep2.Size = new System.Drawing.Size(141, 6);
+            this.mnuMainFileSep3.Name = "mnuMainFileSep3";
+            this.mnuMainFileSep3.Size = new System.Drawing.Size(181, 6);
             // 
             // mnuFileMainExit
             // 
             this.mnuFileMainExit.Name = "mnuFileMainExit";
-            this.mnuFileMainExit.Size = new System.Drawing.Size(144, 22);
-            this.mnuFileMainExit.Text = "Exit";
+            this.mnuFileMainExit.Size = new System.Drawing.Size(184, 22);
+            this.mnuFileMainExit.Text = "E&xit";
             this.mnuFileMainExit.Click += new System.EventHandler(this.mnuFileMainExit_Click);
             // 
             // mnuMainData
@@ -170,35 +176,36 @@
             this.mnuMainDataDatePrevious,
             this.mnuMainDataDateNext,
             this.mnuMainDataDateLast,
+            this.mnuDataSearchForDate,
             this.mnuMainDataSep1,
             this.mnuMainDataActivitiesSort});
             this.mnuMainData.Name = "mnuMainData";
             this.mnuMainData.Size = new System.Drawing.Size(43, 20);
-            this.mnuMainData.Text = "Data";
+            this.mnuMainData.Text = "&Data";
             // 
             // mnuMainDataDateFirst
             // 
             this.mnuMainDataDateFirst.Name = "mnuMainDataDateFirst";
             this.mnuMainDataDateFirst.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDateFirst.Text = "Move to first date";
+            this.mnuMainDataDateFirst.Text = "Move to &first date";
             // 
             // mnuMainDataDatePrevious
             // 
             this.mnuMainDataDatePrevious.Name = "mnuMainDataDatePrevious";
             this.mnuMainDataDatePrevious.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDatePrevious.Text = "Move to previous date";
+            this.mnuMainDataDatePrevious.Text = "Move to &previous date";
             // 
             // mnuMainDataDateNext
             // 
             this.mnuMainDataDateNext.Name = "mnuMainDataDateNext";
             this.mnuMainDataDateNext.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDateNext.Text = "Move to next date";
+            this.mnuMainDataDateNext.Text = "Move to &next date";
             // 
             // mnuMainDataDateLast
             // 
             this.mnuMainDataDateLast.Name = "mnuMainDataDateLast";
             this.mnuMainDataDateLast.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataDateLast.Text = "Move to last date";
+            this.mnuMainDataDateLast.Text = "Move to &last date";
             // 
             // mnuMainDataSep1
             // 
@@ -209,7 +216,7 @@
             // 
             this.mnuMainDataActivitiesSort.Name = "mnuMainDataActivitiesSort";
             this.mnuMainDataActivitiesSort.Size = new System.Drawing.Size(192, 22);
-            this.mnuMainDataActivitiesSort.Text = "Sort activities by time";
+            this.mnuMainDataActivitiesSort.Text = "Sort activities by &time";
             // 
             // mnuMainHelp
             // 
@@ -217,13 +224,13 @@
             this.mnuMainHelpAbout});
             this.mnuMainHelp.Name = "mnuMainHelp";
             this.mnuMainHelp.Size = new System.Drawing.Size(44, 20);
-            this.mnuMainHelp.Text = "Help";
+            this.mnuMainHelp.Text = "&Help";
             // 
             // mnuMainHelpAbout
             // 
             this.mnuMainHelpAbout.Name = "mnuMainHelpAbout";
-            this.mnuMainHelpAbout.Size = new System.Drawing.Size(174, 22);
-            this.mnuMainHelpAbout.Text = "About Timecards...";
+            this.mnuMainHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.mnuMainHelpAbout.Text = "&About Timecards...";
             this.mnuMainHelpAbout.Click += new System.EventHandler(this.mnuMainHelpAbout_Click);
             // 
             // tabMain
@@ -241,6 +248,7 @@
             // 
             // tabMainActivities
             // 
+            this.tabMainActivities.Controls.Add(this.btnSearch);
             this.tabMainActivities.Controls.Add(this.grdActivities);
             this.tabMainActivities.Controls.Add(this.btnToday);
             this.tabMainActivities.Controls.Add(this.btnLast);
@@ -278,41 +286,13 @@
             this.grdActivities.EnableHeadersVisualStyles = false;
             this.grdActivities.Location = new System.Drawing.Point(9, 54);
             this.grdActivities.Name = "grdActivities";
+            this.grdActivities.RowHeadersWidth = 30;
+            this.grdActivities.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.grdActivities.Size = new System.Drawing.Size(446, 541);
             this.grdActivities.TabIndex = 8;
-            this.grdActivities.RowHeadersWidthChanged += new System.EventHandler(this.grdActivities_RowHeadersWidthChanged);
             this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
-            // 
-            // colCode
-            // 
-            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Format = "#####";
-            dataGridViewCellStyle2.NullValue = null;
-            this.colCode.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colCode.HeaderText = "Code";
-            this.colCode.Name = "colCode";
-            this.colCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colCode.Width = 80;
-            // 
-            // colDescription
-            // 
-            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colDescription.HeaderText = "Description";
-            this.colDescription.Name = "colDescription";
-            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colDescription.Width = 250;
-            // 
-            // colTime
-            // 
-            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Format = "t";
-            dataGridViewCellStyle3.NullValue = null;
-            this.colTime.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colTime.HeaderText = "Time";
-            this.colTime.Name = "colTime";
-            this.colTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colTime.Width = 80;
+            this.grdActivities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdActivities_KeyDown);
             // 
             // btnToday
             // 
@@ -326,41 +306,41 @@
             // btnLast
             // 
             this.btnLast.Font = new System.Drawing.Font("Segoe UI Symbol", 9F);
-            this.btnLast.Location = new System.Drawing.Point(348, 6);
+            this.btnLast.Location = new System.Drawing.Point(313, 6);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(28, 28);
             this.btnLast.TabIndex = 6;
-            this.btnLast.Text = "⏭";
+            this.btnLast.Text = "";
             this.btnLast.UseVisualStyleBackColor = true;
             // 
             // btnNext
             // 
             this.btnNext.Font = new System.Drawing.Font("Segoe UI Symbol", 9F);
-            this.btnNext.Location = new System.Drawing.Point(317, 6);
+            this.btnNext.Location = new System.Drawing.Point(285, 6);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(28, 28);
             this.btnNext.TabIndex = 5;
-            this.btnNext.Text = "⏵";
+            this.btnNext.Text = "";
             this.btnNext.UseVisualStyleBackColor = true;
             // 
             // btnPrev
             // 
             this.btnPrev.Font = new System.Drawing.Font("Segoe UI Symbol", 9F);
-            this.btnPrev.Location = new System.Drawing.Point(286, 6);
+            this.btnPrev.Location = new System.Drawing.Point(257, 6);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(28, 28);
             this.btnPrev.TabIndex = 4;
-            this.btnPrev.Text = "⏴";
+            this.btnPrev.Text = "";
             this.btnPrev.UseVisualStyleBackColor = true;
             // 
             // btnFirst
             // 
             this.btnFirst.Font = new System.Drawing.Font("Segoe UI Symbol", 9F);
-            this.btnFirst.Location = new System.Drawing.Point(255, 6);
+            this.btnFirst.Location = new System.Drawing.Point(229, 6);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(28, 28);
             this.btnFirst.TabIndex = 3;
-            this.btnFirst.Text = "⏮";
+            this.btnFirst.Text = "";
             this.btnFirst.UseVisualStyleBackColor = true;
             // 
             // lblDayOfWeek
@@ -368,16 +348,16 @@
             this.lblDayOfWeek.AutoSize = true;
             this.lblDayOfWeek.Location = new System.Drawing.Point(131, 12);
             this.lblDayOfWeek.Name = "lblDayOfWeek";
-            this.lblDayOfWeek.Size = new System.Drawing.Size(113, 17);
+            this.lblDayOfWeek.Size = new System.Drawing.Size(81, 17);
             this.lblDayOfWeek.TabIndex = 2;
-            this.lblDayOfWeek.Text = "Day of Week Here";
+            this.lblDayOfWeek.Text = "Day of Week";
             // 
             // dtpDate
             // 
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDate.Location = new System.Drawing.Point(8, 8);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(116, 25);
+            this.dtpDate.Size = new System.Drawing.Size(117, 25);
             this.dtpDate.TabIndex = 1;
             // 
             // tabMainReport
@@ -488,6 +468,64 @@
             this.lblStart.TabIndex = 0;
             this.lblStart.Text = "From";
             // 
+            // colCode
+            // 
+            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Format = "#####";
+            dataGridViewCellStyle2.NullValue = null;
+            this.colCode.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colCode.HeaderText = "Code";
+            this.colCode.Name = "colCode";
+            this.colCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCode.Width = 80;
+            // 
+            // colDescription
+            // 
+            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colDescription.HeaderText = "Description";
+            this.colDescription.Name = "colDescription";
+            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colDescription.Width = 253;
+            // 
+            // colTime
+            // 
+            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Format = "t";
+            dataGridViewCellStyle3.NullValue = null;
+            this.colTime.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colTime.HeaderText = "Time";
+            this.colTime.Name = "colTime";
+            this.colTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colTime.Width = 80;
+            // 
+            // mnuMainFileSep2
+            // 
+            this.mnuMainFileSep2.Name = "mnuMainFileSep2";
+            this.mnuMainFileSep2.Size = new System.Drawing.Size(181, 6);
+            // 
+            // mnuMainFileResetColumnWidths
+            // 
+            this.mnuMainFileResetColumnWidths.Name = "mnuMainFileResetColumnWidths";
+            this.mnuMainFileResetColumnWidths.Size = new System.Drawing.Size(184, 22);
+            this.mnuMainFileResetColumnWidths.Text = "&Reset column widths";
+            this.mnuMainFileResetColumnWidths.Click += new System.EventHandler(this.mnuMainFileResetColumnWidths_Click);
+            // 
+            // mnuDataSearchForDate
+            // 
+            this.mnuDataSearchForDate.Name = "mnuDataSearchForDate";
+            this.mnuDataSearchForDate.Size = new System.Drawing.Size(192, 22);
+            this.mnuDataSearchForDate.Text = "&Search for date";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI Symbol", 9F);
+            this.btnSearch.Location = new System.Drawing.Point(347, 6);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(28, 28);
+            this.btnSearch.TabIndex = 9;
+            this.btnSearch.Text = "";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -552,7 +590,7 @@
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.ToolStripMenuItem mnuMainFilePreferences;
-        private System.Windows.Forms.ToolStripSeparator mnuMainFileSep2;
+        private System.Windows.Forms.ToolStripSeparator mnuMainFileSep3;
         private System.Windows.Forms.ColumnHeader rtpColCode;
         private System.Windows.Forms.ColumnHeader rptColFromDate;
         private System.Windows.Forms.ColumnHeader rptColToDate;
@@ -568,6 +606,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
+        private System.Windows.Forms.ToolStripSeparator mnuMainFileSep2;
+        private System.Windows.Forms.ToolStripMenuItem mnuMainFileResetColumnWidths;
+        private System.Windows.Forms.ToolStripMenuItem mnuDataSearchForDate;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 

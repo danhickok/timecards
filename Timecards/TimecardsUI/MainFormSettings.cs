@@ -74,5 +74,35 @@
                 Properties.Settings.Default.Save();
             }
         }
+
+        public static int ColumnCodeWidth
+        {
+            get
+            {
+                return Properties.Settings.Default.ColumnCodeWidth;
+            }
+
+            set
+            {
+                Properties.Settings.Default.ColumnCodeWidth = value;
+                HaveBeenSet = true;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public static int ColumnTimeWidth
+        {
+            get
+            {
+                return Properties.Settings.Default.ColumnTimeWidth;
+            }
+
+            set
+            {
+                Properties.Settings.Default.ColumnTimeWidth = value;
+                HaveBeenSet = true;
+                Properties.Settings.Default.Save();
+            }
+        }
     }
 }

@@ -82,5 +82,29 @@ namespace TimecardsUI.Properties {
                 this["MainFormSettingsHaveBeenSet"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        public int ColumnCodeWidth {
+            get {
+                return ((int)(this["ColumnCodeWidth"]));
+            }
+            set {
+                this["ColumnCodeWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        public int ColumnTimeWidth {
+            get {
+                return ((int)(this["ColumnTimeWidth"]));
+            }
+            set {
+                this["ColumnTimeWidth"] = value;
+            }
+        }
     }
 }

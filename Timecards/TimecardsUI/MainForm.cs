@@ -18,10 +18,22 @@ namespace TimecardsUI
 
         public frmMain()
         {
+            _loading = true;
+
             InitializeComponent();
+
+            colCode.Width = MainFormSettings.ColumnCodeWidth;
+            colTime.Width = MainFormSettings.ColumnTimeWidth;
+
+            _loading = false;
 
             grdActivities.RowsDefaultCellStyle.BackColor = SystemColors.Window;
             grdActivities.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
+        }
+
+        private void frmMain_Activated(object sender, EventArgs e)
+        {
+            RecalculateColumnWidths();
         }
 
         private void mnuFileMainExit_Click(object sender, EventArgs e)
@@ -33,6 +45,12 @@ namespace TimecardsUI
         {
             var configForm = new frmConfiguration();
             configForm.ShowDialog(this);
+        }
+
+        private void mnuMainFileResetColumnWidths_Click(object sender, EventArgs e)
+        {
+            colCode.Width = 80;
+            colTime.Width = 80;
         }
 
         private void mnuMainFileExport_Click(object sender, EventArgs e)
@@ -83,16 +101,22 @@ namespace TimecardsUI
                 return;
 
             RecalculateColumnWidths(e.Column);
+
+            MainFormSettings.ColumnCodeWidth = colCode.Width;
+            MainFormSettings.ColumnTimeWidth = colTime.Width;
         }
 
-        private void grdActivities_RowHeadersWidthChanged(object sender, EventArgs e)
+        private void grdActivities_KeyDown(object sender, KeyEventArgs e)
         {
-            RecalculateColumnWidths();
-        }
-
-        private void frmMain_Activated(object sender, EventArgs e)
-        {
-            RecalculateColumnWidths();
+            if (e.KeyCode == Keys.Tab)
+            {
+                //didn't work
+                //SelectNextControl(grdActivities, true, true, true, true);
+                //e.Handled = true;
+                //didn't work
+                //grdActivities.Focus();
+                //e.Handled = true;
+            }
         }
 
         private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
