@@ -39,6 +39,30 @@ namespace TimecardsUI
             RecalculateColumnWidths();
         }
 
+        private void frmMain_Move(object sender, EventArgs e)
+        {
+            if (InitialPositioning)
+                return;
+
+            MainFormSettings.Top = Top;
+            MainFormSettings.Left = Left;
+            MainFormSettings.Height = Height;
+        }
+
+        private void frmMain_Resize(object sender, EventArgs e)
+        {
+            if (InitialPositioning)
+                return;
+
+            if (WindowState == FormWindowState.Minimized)
+                return;
+
+            MainFormSettings.Height = Height;
+            MainFormSettings.Width = Width;
+
+            RecalculateColumnWidths();
+        }
+
         private void mnuFileMainExit_Click(object sender, EventArgs e)
         {
             Close();
@@ -74,28 +98,85 @@ namespace TimecardsUI
             aboutForm.ShowDialog(this);
         }
 
-        private void frmMain_Move(object sender, EventArgs e)
+        private void mnuMainDataDateFirst_Click(object sender, EventArgs e)
         {
-            if (InitialPositioning)
-                return;
-
-            MainFormSettings.Top = Top;
-            MainFormSettings.Left = Left;
-            MainFormSettings.Height = Height;
+            //TODO:
         }
 
-        private void frmMain_Resize(object sender, EventArgs e)
+        private void mnuMainDataDatePrevious_Click(object sender, EventArgs e)
         {
-            if (InitialPositioning)
-                return;
+            //TODO:
+        }
 
-            if (WindowState == FormWindowState.Minimized)
-                return;
+        private void mnuMainDataDateNext_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
 
-            MainFormSettings.Height = Height;
-            MainFormSettings.Width = Width;
+        private void mnuMainDataDateLast_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
 
-            RecalculateColumnWidths();
+        private void mnuDataSearchForDate_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void mnuMainDataActivitiesSort_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void btnToday_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var dateSearchForm = new frmDateSearch();
+            dateSearchForm.ShowDialog();
+        }
+
+        private void btnGo_Click(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+            lblDayOfWeek.Text = dtpDate.Value.DayOfWeek.ToString();
+        }
+
+        private void dtpStart_ValueChanged(object sender, EventArgs e)
+        {
+            //TODO:
+        }
+
+        private void dtpEnd_ValueChanged(object sender, EventArgs e)
+        {
+            //TODO:
         }
 
         private void grdActivities_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
@@ -120,6 +201,18 @@ namespace TimecardsUI
                 grdActivities.Focus();
         }
 
+        private void SetStatusMessage(string message)
+        {
+            staMainLabel.Text = message;
+            Refresh();
+        }
+
+        private void ClearStatusMessage()
+        {
+            staMainLabel.Text = "Ready";
+            Refresh();
+        }
+
         private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
         {
             _loading = true;
@@ -134,18 +227,6 @@ namespace TimecardsUI
                     - colCode.Width - colTime.Width - grdActivities.RowHeadersWidth - 2;
 
             _loading = false;
-        }
-
-        private void SetStatusMessage(string message)
-        {
-            staMainLabel.Text = message;
-            Refresh();
-        }
-
-        private void ClearStatusMessage()
-        {
-            staMainLabel.Text = "Ready";
-            Refresh();
         }
     }
 }
