@@ -41,26 +41,26 @@
             // 
             // btnFileDialog
             // 
-            this.btnFileDialog.Location = new System.Drawing.Point(359, 11);
+            this.btnFileDialog.Location = new System.Drawing.Point(419, 13);
             this.btnFileDialog.Name = "btnFileDialog";
-            this.btnFileDialog.Size = new System.Drawing.Size(35, 23);
+            this.btnFileDialog.Size = new System.Drawing.Size(41, 27);
             this.btnFileDialog.TabIndex = 8;
             this.btnFileDialog.Text = "...";
             this.btnFileDialog.UseVisualStyleBackColor = true;
             // 
             // txtFileName
             // 
-            this.txtFileName.Location = new System.Drawing.Point(80, 12);
+            this.txtFileName.Location = new System.Drawing.Point(93, 14);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(271, 20);
+            this.txtFileName.Size = new System.Drawing.Size(315, 23);
             this.txtFileName.TabIndex = 7;
             // 
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(12, 16);
+            this.lblFileName.Location = new System.Drawing.Point(14, 18);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(52, 13);
+            this.lblFileName.Size = new System.Drawing.Size(58, 15);
             this.lblFileName.TabIndex = 6;
             this.lblFileName.Text = "File name";
             // 
@@ -72,17 +72,17 @@
             "JSON",
             "Tab-delimited text",
             "XML"});
-            this.cboFileType.Location = new System.Drawing.Point(80, 38);
+            this.cboFileType.Location = new System.Drawing.Point(93, 44);
             this.cboFileType.Name = "cboFileType";
-            this.cboFileType.Size = new System.Drawing.Size(179, 21);
+            this.cboFileType.Size = new System.Drawing.Size(208, 23);
             this.cboFileType.TabIndex = 12;
             // 
             // lblFileType
             // 
             this.lblFileType.AutoSize = true;
-            this.lblFileType.Location = new System.Drawing.Point(12, 43);
+            this.lblFileType.Location = new System.Drawing.Point(14, 50);
             this.lblFileType.Name = "lblFileType";
-            this.lblFileType.Size = new System.Drawing.Size(46, 13);
+            this.lblFileType.Size = new System.Drawing.Size(51, 15);
             this.lblFileType.TabIndex = 11;
             this.lblFileType.Text = "File type";
             // 
@@ -90,9 +90,9 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(307, 78);
+            this.btnCancel.Location = new System.Drawing.Point(358, 90);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(87, 27);
+            this.btnCancel.Size = new System.Drawing.Size(101, 31);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -101,9 +101,9 @@
             // btnExport
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.Location = new System.Drawing.Point(214, 78);
+            this.btnExport.Location = new System.Drawing.Point(250, 90);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(87, 27);
+            this.btnExport.Size = new System.Drawing.Size(101, 31);
             this.btnExport.TabIndex = 9;
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -111,10 +111,10 @@
             // 
             // frmExport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(406, 117);
+            this.ClientSize = new System.Drawing.Size(474, 135);
             this.Controls.Add(this.cboFileType);
             this.Controls.Add(this.lblFileType);
             this.Controls.Add(this.btnCancel);
@@ -122,6 +122,7 @@
             this.Controls.Add(this.btnFileDialog);
             this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.lblFileName);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmExport";

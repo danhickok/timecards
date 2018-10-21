@@ -37,9 +37,9 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(191, 205);
+            this.btnCancel.Location = new System.Drawing.Point(223, 237);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -50,24 +50,25 @@
             this.lvwDates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwDates.Location = new System.Drawing.Point(13, 13);
+            this.lvwDates.Location = new System.Drawing.Point(15, 15);
             this.lvwDates.MultiSelect = false;
             this.lvwDates.Name = "lvwDates";
-            this.lvwDates.Size = new System.Drawing.Size(253, 183);
+            this.lvwDates.Size = new System.Drawing.Size(294, 211);
             this.lvwDates.TabIndex = 1;
             this.lvwDates.UseCompatibleStateImageBehavior = false;
             this.lvwDates.View = System.Windows.Forms.View.List;
             // 
             // frmDateSearch
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(278, 237);
+            this.ClientSize = new System.Drawing.Size(324, 273);
             this.Controls.Add(this.lvwDates);
             this.Controls.Add(this.btnCancel);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(143, 201);
+            this.MinimumSize = new System.Drawing.Size(164, 226);
             this.Name = "frmDateSearch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Timecards - Date Search";
