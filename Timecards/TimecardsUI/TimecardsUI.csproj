@@ -71,6 +71,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityCodeCell.cs" />
+    <Compile Include="ActivityCodeColumn.cs" />
+    <Compile Include="ActivityTimeCell.cs" />
+    <Compile Include="ActivityTimeColumn.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
