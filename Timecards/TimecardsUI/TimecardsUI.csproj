@@ -73,8 +73,14 @@
   <ItemGroup>
     <Compile Include="ActivityCodeCell.cs" />
     <Compile Include="ActivityCodeColumn.cs" />
+    <Compile Include="ActivityCodeControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ActivityTimeCell.cs" />
     <Compile Include="ActivityTimeColumn.cs" />
+    <Compile Include="ActivityTimeControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>

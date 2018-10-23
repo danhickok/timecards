@@ -9,5 +9,9 @@ namespace TimecardsUI
 {
     public class ActivityTimeCell : DataGridViewCell
     {
+        public ActivityTimeCell() : base()
+        {
+
+        }
     }
 }
