@@ -58,7 +58,8 @@ namespace TimecardsTesting.CoreTests
         public void LoadSaveTest()
         {
             var backupRound = Configuration.RoundCurrentTimeToMinutes;
-            var backupMask = Configuration.TicketNumberMask;
+            var backupCodeMask = Configuration.CodeMask;
+            var backupTimeMask = Configuration.TimeMask;
             var backupCodes = BackupOfConfigurationDefaultCodes();
 
             string error = null;
@@ -66,7 +67,8 @@ namespace TimecardsTesting.CoreTests
             try
             {
                 Configuration.RoundCurrentTimeToMinutes = 777;
-                Configuration.TicketNumberMask = "777";
+                Configuration.CodeMask = "777";
+                Configuration.TimeMask = "77:77";
                 Configuration.DefaultCodes.Clear();
                 Configuration.DefaultCodes["7771"] = "777771";
                 Configuration.DefaultCodes["7772"] = "777772";
@@ -75,7 +77,8 @@ namespace TimecardsTesting.CoreTests
                 Configuration.DefaultCodes["7775"] = "777775";
 
                 Assert.AreEqual(777, Configuration.RoundCurrentTimeToMinutes, "Configuration value didn't set");
-                Assert.AreEqual("777", Configuration.TicketNumberMask, "Configuration value didn't set");
+                Assert.AreEqual("777", Configuration.CodeMask, "Configuration value didn't set");
+                Assert.AreEqual("77:77", Configuration.TimeMask, "Configuration value didn't set");
                 Assert.AreEqual(5, Configuration.DefaultCodes.Count, "Configuration value didn't set");
                 Assert.AreEqual("777771", Configuration.DefaultCodes["7771"], "Configuration value didn't set");
                 Assert.AreEqual("777772", Configuration.DefaultCodes["7772"], "Configuration value didn't set");
@@ -86,14 +89,16 @@ namespace TimecardsTesting.CoreTests
                 Configuration.Save();
 
                 Configuration.RoundCurrentTimeToMinutes = 888;
-                Configuration.TicketNumberMask = "888";
+                Configuration.CodeMask = "888";
+                Configuration.TimeMask = "88:88";
                 Configuration.DefaultCodes.Clear();
                 Configuration.DefaultCodes["888"] = "88888";
 
                 Configuration.Load();
 
                 Assert.AreEqual(777, Configuration.RoundCurrentTimeToMinutes, "Configuration value didn't load");
-                Assert.AreEqual("777", Configuration.TicketNumberMask, "Configuration value didn't load");
+                Assert.AreEqual("777", Configuration.CodeMask, "Configuration value didn't load");
+                Assert.AreEqual("77:77", Configuration.CodeMask, "Configuration value didn't load");
                 Assert.AreEqual(5, Configuration.DefaultCodes.Count, "Configuration value didn't load");
                 Assert.AreEqual("777771", Configuration.DefaultCodes["7771"], "Configuration value didn't load");
                 Assert.AreEqual("777772", Configuration.DefaultCodes["7772"], "Configuration value didn't load");
@@ -108,7 +113,8 @@ namespace TimecardsTesting.CoreTests
             finally
             {
                 Configuration.RoundCurrentTimeToMinutes = backupRound;
-                Configuration.TicketNumberMask = backupMask;
+                Configuration.CodeMask = backupCodeMask;
+                Configuration.TimeMask = backupTimeMask;
                 RestoreConfigurationDefaultCodesFromBackup(backupCodes);
                 Configuration.Save();
             }

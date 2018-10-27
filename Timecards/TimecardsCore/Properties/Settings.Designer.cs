@@ -38,12 +38,12 @@ namespace TimecardsCore.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#####")]
-        public string TicketNumberMask {
+        public string CodeMask {
             get {
-                return ((string)(this["TicketNumberMask"]));
+                return ((string)(this["CodeMask"]));
             }
             set {
-                this["TicketNumberMask"] = value;
+                this["CodeMask"] = value;
             }
         }
         
@@ -56,6 +56,18 @@ namespace TimecardsCore.Properties {
             }
             set {
                 this["DefaultCodes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("##:##")]
+        public string TimeMask {
+            get {
+                return ((string)(this["TimeMask"]));
+            }
+            set {
+                this["TimeMask"] = value;
             }
         }
     }

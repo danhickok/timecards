@@ -12,7 +12,8 @@ namespace TimecardsCore
         private static readonly char SEP2 = '\t';
 
         public static int RoundCurrentTimeToMinutes { get; set; }
-        public static string TicketNumberMask { get; set; }
+        public static string CodeMask { get; set; }
+        public static string TimeMask { get; set; }
         public static Dictionary<string, string> DefaultCodes { get; private set; }
 
         static Configuration()
@@ -23,7 +24,8 @@ namespace TimecardsCore
         public static void Load()
         {
             RoundCurrentTimeToMinutes = Properties.Settings.Default.RoundCurrentTimeToMinutes;
-            TicketNumberMask = Properties.Settings.Default.TicketNumberMask;
+            CodeMask = Properties.Settings.Default.CodeMask;
+            TimeMask = Properties.Settings.Default.TimeMask;
 
             DefaultCodes.Clear();
             var dfString = Properties.Settings.Default.DefaultCodes;
@@ -41,7 +43,8 @@ namespace TimecardsCore
         public static void Save()
         {
             Properties.Settings.Default.RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
-            Properties.Settings.Default.TicketNumberMask = TicketNumberMask;
+            Properties.Settings.Default.CodeMask = CodeMask;
+            Properties.Settings.Default.TimeMask = TimeMask;
 
             var dfStringBuilder = new StringBuilder();
             foreach (var key in DefaultCodes.Keys)

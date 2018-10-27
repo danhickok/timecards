@@ -4,38 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TimecardsCore;
 
 namespace TimecardsUI
 {
     public class ActivityCodeControl : MaskedTextBox, IDataGridViewEditingControl
     {
-        public DataGridView EditingControlDataGridView { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public object EditingControlFormattedValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int EditingControlRowIndex { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool EditingControlValueChanged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ActivityCodeControl()
+        {
+            this.Mask = Configuration.CodeMask;
+        }
 
-        public Cursor EditingPanelCursor => throw new NotImplementedException();
+        public DataGridView EditingControlDataGridView { get; set; }
+        public int EditingControlRowIndex { get; set; }
+        public bool EditingControlValueChanged { get; set; }
+        public Cursor EditingPanelCursor => base.Cursor;
+        public bool RepositionEditingControlOnValueChange => false;
 
-        public bool RepositionEditingControlOnValueChange => throw new NotImplementedException();
+        public object EditingControlFormattedValue
+        {
+            get => this.Text;
+            set => this.Text = value.ToString();
+        }
 
         public void ApplyCellStyleToEditingControl(DataGridViewCellStyle dataGridViewCellStyle)
         {
-            throw new NotImplementedException();
+            this.Font = dataGridViewCellStyle.Font;
+            this.ForeColor = dataGridViewCellStyle.ForeColor;
+            this.BackColor = dataGridViewCellStyle.BackColor;
         }
 
         public bool EditingControlWantsInputKey(Keys keyData, bool dataGridViewWantsInputKey)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context)
         {
-            throw new NotImplementedException();
+            return EditingControlFormattedValue;
         }
 
         public void PrepareEditingControlForEdit(bool selectAll)
         {
-            throw new NotImplementedException();
+            // nothing to do here
         }
     }
 }
