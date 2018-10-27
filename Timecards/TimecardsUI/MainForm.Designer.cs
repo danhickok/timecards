@@ -77,9 +77,12 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.lblStart = new System.Windows.Forms.Label();
-            this.colCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCode = new TimecardsUI.ActivityCodeColumn();
             this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTime = new TimecardsUI.ActivityTimeColumn();
             this.staMain.SuspendLayout();
             this.mnuMain.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -253,7 +256,7 @@
             // mnuMainHelpAbout
             // 
             this.mnuMainHelpAbout.Name = "mnuMainHelpAbout";
-            this.mnuMainHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.mnuMainHelpAbout.Size = new System.Drawing.Size(174, 22);
             this.mnuMainHelpAbout.Text = "&About Timecards...";
             this.mnuMainHelpAbout.Click += new System.EventHandler(this.mnuMainHelpAbout_Click);
             // 
@@ -324,7 +327,7 @@
             this.grdActivities.RowHeadersWidth = 30;
             this.grdActivities.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grdActivities.Size = new System.Drawing.Size(446, 541);
+            this.grdActivities.Size = new System.Drawing.Size(446, 537);
             this.grdActivities.TabIndex = 8;
             this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
             this.grdActivities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdActivities_KeyDown);
@@ -513,14 +516,40 @@
             this.lblStart.TabIndex = 0;
             this.lblStart.Text = "From";
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.NullValue = null;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Code";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn2.Width = 253;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Time";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn3.Width = 80;
+            // 
             // colCode
             // 
             this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.NullValue = null;
-            this.colCode.DefaultCellStyle = dataGridViewCellStyle2;
             this.colCode.HeaderText = "Code";
             this.colCode.Name = "colCode";
-            this.colCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colCode.Width = 80;
             // 
             // colDescription
@@ -534,11 +563,9 @@
             // colTime
             // 
             this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.NullValue = null;
-            this.colTime.DefaultCellStyle = dataGridViewCellStyle3;
             this.colTime.HeaderText = "Time";
             this.colTime.Name = "colTime";
-            this.colTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colTime.Width = 80;
             // 
             // frmMain
@@ -622,9 +649,12 @@
         private System.Windows.Forms.ToolStripMenuItem mnuMainFileResetColumnWidths;
         private System.Windows.Forms.ToolStripMenuItem mnuDataSearchForDate;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private ActivityCodeColumn colCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
+        private ActivityTimeColumn colTime;
     }
 }
 

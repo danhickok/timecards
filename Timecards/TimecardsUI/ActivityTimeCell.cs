@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace TimecardsUI
 {
-    public class ActivityTimeCell : DataGridViewCell
+    public class ActivityTimeCell : DataGridViewTextBoxCell
     {
         public ActivityTimeCell() : base()
         {
