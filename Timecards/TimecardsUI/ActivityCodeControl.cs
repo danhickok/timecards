@@ -10,21 +10,40 @@ namespace TimecardsUI
 {
     public class ActivityCodeControl : MaskedTextBox, IDataGridViewEditingControl
     {
+        private DataGridView _dataGridView;
+        private bool _valueChanged = false;
+        private int _rowIndex;
+
         public ActivityCodeControl()
         {
             this.Mask = Configuration.CodeMask;
+            this.BeepOnError = false;
         }
 
-        public DataGridView EditingControlDataGridView { get; set; }
-        public int EditingControlRowIndex { get; set; }
-        public bool EditingControlValueChanged { get; set; }
         public Cursor EditingPanelCursor => base.Cursor;
         public bool RepositionEditingControlOnValueChange => false;
+
+        public DataGridView EditingControlDataGridView
+        {
+            get => _dataGridView;
+            set => _dataGridView = value;
+        }
+
+        public int EditingControlRowIndex
+        {
+            get => _rowIndex;
+            set => _rowIndex = value;
+        }
 
         public object EditingControlFormattedValue
         {
             get => this.Text;
             set => this.Text = value.ToString();
+        }
+
+        public bool EditingControlValueChanged {
+            get => _valueChanged;
+            set => _valueChanged = value;
         }
 
         public void ApplyCellStyleToEditingControl(DataGridViewCellStyle dataGridViewCellStyle)
@@ -46,7 +65,15 @@ namespace TimecardsUI
 
         public void PrepareEditingControlForEdit(bool selectAll)
         {
-            // nothing to do here
+            this.SelectAll();
+        }
+
+        protected override void OnTextChanged(EventArgs eventargs)
+        {
+            _valueChanged = true;
+            if (this.EditingControlDataGridView != null)
+                this.EditingControlDataGridView.NotifyCurrentCellDirty(true);
+            base.OnTextChanged(eventargs);
         }
     }
 }

@@ -13,6 +13,13 @@ namespace TimecardsUI
         {
         }
 
+        public override object Clone()
+        {
+            var cloned = base.Clone() as ActivityTimeCell;
+
+            return cloned;
+        }
+
         public override void InitializeEditingControl(
            int rowIndex,
            object initialFormattedValue,
