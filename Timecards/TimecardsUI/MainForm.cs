@@ -14,8 +14,10 @@ namespace TimecardsUI
     public partial class frmMain : Form
     {
         public bool InitialPositioning = false;
+
         private bool _loading = false;
         private Keys _lastGridKeyCode = 0;
+        private VScrollBar _gridVScrollBar = null;
 
         public frmMain()
         {
@@ -30,6 +32,7 @@ namespace TimecardsUI
 
             grdActivities.RowsDefaultCellStyle.BackColor = SystemColors.Window;
             grdActivities.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
+            FindGridVScrollBarControl();
 
             ClearStatusMessage();
         }
@@ -61,6 +64,11 @@ namespace TimecardsUI
             MainFormSettings.Width = Width;
 
             RecalculateColumnWidths();
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _gridVScrollBar = null;
         }
 
         private void mnuFileMainExit_Click(object sender, EventArgs e)
@@ -179,6 +187,14 @@ namespace TimecardsUI
             //TODO:
         }
 
+        private void grdActivities_ClientSizeChanged(object sender, EventArgs e)
+        {
+            if (_loading)
+                return;
+
+            RecalculateColumnWidths();
+        }
+
         private void grdActivities_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
             if (_loading)
@@ -213,17 +229,42 @@ namespace TimecardsUI
             Refresh();
         }
 
+        private void FindGridVScrollBarControl()
+        {
+            _gridVScrollBar = null;
+            for (int i = 0; i < grdActivities.Controls.Count; ++i)
+            {
+                if (grdActivities.Controls[i] is VScrollBar)
+                {
+                    _gridVScrollBar = grdActivities.Controls[i] as VScrollBar;
+                    break;
+                }
+            }
+
+            if (_gridVScrollBar != null)
+            {
+                _gridVScrollBar.VisibleChanged += new EventHandler(grdVScrollBar_VisibleChanged);
+            }
+        }
+
+        private void grdVScrollBar_VisibleChanged(object sender, EventArgs e)
+        {
+            RecalculateColumnWidths();
+        }
+
         private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
         {
             _loading = true;
 
-            var cols = grdActivities.Columns;
+            var availableWidth = grdActivities.ClientRectangle.Width;
+            if (_gridVScrollBar != null && _gridVScrollBar.Visible)
+                availableWidth -= _gridVScrollBar.Width;
 
             if (eventColumn?.Name == "colDescription")
-                colTime.Width = grdActivities.ClientRectangle.Width
+                colTime.Width = availableWidth
                     - colCode.Width - colDescription.Width - grdActivities.RowHeadersWidth - 2;
             else
-                colDescription.Width = grdActivities.ClientRectangle.Width
+                colDescription.Width = availableWidth
                     - colCode.Width - colTime.Width - grdActivities.RowHeadersWidth - 2;
 
             _loading = false;

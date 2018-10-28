@@ -58,6 +58,9 @@
             this.tabMainActivities = new System.Windows.Forms.TabPage();
             this.btnSearch = new System.Windows.Forms.Button();
             this.grdActivities = new System.Windows.Forms.DataGridView();
+            this.colCode = new TimecardsUI.ActivityCodeColumn();
+            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTime = new TimecardsUI.ActivityTimeColumn();
             this.btnToday = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
@@ -80,9 +83,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCode = new TimecardsUI.ActivityCodeColumn();
-            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTime = new TimecardsUI.ActivityTimeColumn();
             this.staMain.SuspendLayout();
             this.mnuMain.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -327,11 +327,36 @@
             this.grdActivities.RowHeadersWidth = 30;
             this.grdActivities.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grdActivities.Size = new System.Drawing.Size(446, 537);
+            this.grdActivities.Size = new System.Drawing.Size(446, 517);
             this.grdActivities.TabIndex = 8;
             this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
+            this.grdActivities.ClientSizeChanged += new System.EventHandler(this.grdActivities_ClientSizeChanged);
             this.grdActivities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdActivities_KeyDown);
             this.grdActivities.Leave += new System.EventHandler(this.grdActivities_Leave);
+            // 
+            // colCode
+            // 
+            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colCode.HeaderText = "Code";
+            this.colCode.Name = "colCode";
+            this.colCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCode.Width = 80;
+            // 
+            // colDescription
+            // 
+            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colDescription.HeaderText = "Description";
+            this.colDescription.Name = "colDescription";
+            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colDescription.Width = 253;
+            // 
+            // colTime
+            // 
+            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colTime.HeaderText = "Time";
+            this.colTime.Name = "colTime";
+            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colTime.Width = 80;
             // 
             // btnToday
             // 
@@ -544,30 +569,6 @@
             this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn3.Width = 80;
             // 
-            // colCode
-            // 
-            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colCode.HeaderText = "Code";
-            this.colCode.Name = "colCode";
-            this.colCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colCode.Width = 80;
-            // 
-            // colDescription
-            // 
-            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colDescription.HeaderText = "Description";
-            this.colDescription.Name = "colDescription";
-            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colDescription.Width = 253;
-            // 
-            // colTime
-            // 
-            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colTime.HeaderText = "Time";
-            this.colTime.Name = "colTime";
-            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colTime.Width = 80;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -585,6 +586,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Timecards";
             this.Activated += new System.EventHandler(this.frmMain_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
             this.Move += new System.EventHandler(this.frmMain_Move);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.staMain.ResumeLayout(false);
@@ -626,7 +628,6 @@
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.DateTimePicker dtpStart;
         private System.Windows.Forms.Label lblStart;
-        private System.Windows.Forms.DataGridView grdActivities;
         private System.Windows.Forms.ListView lvwReport;
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.Label lblEnd;
@@ -655,6 +656,7 @@
         private ActivityCodeColumn colCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
         private ActivityTimeColumn colTime;
+        private System.Windows.Forms.DataGridView grdActivities;
     }
 }
 

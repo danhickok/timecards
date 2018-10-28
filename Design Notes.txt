@@ -38,7 +38,7 @@ and maybe even the Mac platform.  But we'll see.
 09/04/2018
 ----------
 
-Here are some intial criteria and constraints for this project.
+Here are some initial criteria and constraints for this project.
 
 
 Criteria
@@ -132,4 +132,49 @@ But I will say that EF works rather nicely with SQLite once it's configured
 properly.  For testing, I just added another connection string - and in the test
 setup, I make sure to delete this test database file so that the contents are
 predictable.
+
+
+
+10/27/2018
+----------
+
+I've got the Core project fairly complete, the Data project fairly complete, and
+I've got the UI project nearly complete.  The main task remaining is wiring
+everything up so that it all works together.
+
+I wanted this application to follow something like the Onion or Hexagonal
+architecture, in that the inner Core project would have no references to the
+outer "layers" -- namely the Data project and the UI project -- while the outer
+layers would have a reference to the inner Core project (but not to each other).
+
+So now the challenge will be to "wire up" the controls to data without violating
+this architecture.  I'm not quite sure how I'll do that yet.  I imagine that the
+startup program will have to instantiate the data tier, and perhaps make it
+available to the Core project via events or something.
+
+
+The UI project was surprisingly challenging.  I used a DataGridView control to
+hold the activities the user will enter.  I learned how to host custom controls
+for the Code and Time columns in the grid.  I also learned how to access the
+vertical scroll bar control inside the grid so that I could know when it becomes
+visible, so I can use its width to adjust the width of the columns.
+
+
+There's been a design change nagging me since I started this project.  My
+original Access project stored the time as a string (e.g., "14:30") -- and I
+kept that idea in the original layout of the SQLite table holding activities.
+However, I made sure to write the Core Activity class so that you could access
+the time as either a string or as the number of minutes since midnight.
+
+As I've been writing this, I've been wondering what the best way would be to
+support people who work past midnight.  I've decided to change the storage so
+the number of minutes is stored rather than the time.  (The Activity class
+should probably also have an "after midnight" flag or something, so that
+changing the time doesn't move the activity to the early morning of the previous
+day.)
+
+This way, not only will I be able to handle working after midnight, I will also
+be in better shape for supporting other time formats besides a 24-hour clock.
+This will also make it easier to query in time order from the table.
+
 
