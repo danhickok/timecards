@@ -57,10 +57,6 @@
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabMainActivities = new System.Windows.Forms.TabPage();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.grdActivities = new System.Windows.Forms.DataGridView();
-            this.colCode = new TimecardsUI.ActivityCodeColumn();
-            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTime = new TimecardsUI.ActivityTimeColumn();
             this.btnToday = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
@@ -80,6 +76,10 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.lblStart = new System.Windows.Forms.Label();
+            this.grdActivities = new System.Windows.Forms.DataGridView();
+            this.colCode = new TimecardsUI.ActivityCodeColumn();
+            this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTime = new TimecardsUI.ActivityTimeColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,8 +87,8 @@
             this.mnuMain.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabMainActivities.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdActivities)).BeginInit();
             this.tabMainReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdActivities)).BeginInit();
             this.SuspendLayout();
             // 
             // staMain
@@ -303,61 +303,6 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // grdActivities
-            // 
-            this.grdActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdActivities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.grdActivities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdActivities.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCode,
-            this.colDescription,
-            this.colTime});
-            this.grdActivities.EnableHeadersVisualStyles = false;
-            this.grdActivities.Location = new System.Drawing.Point(9, 54);
-            this.grdActivities.Name = "grdActivities";
-            this.grdActivities.RowHeadersWidth = 30;
-            this.grdActivities.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grdActivities.Size = new System.Drawing.Size(446, 517);
-            this.grdActivities.TabIndex = 8;
-            this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
-            this.grdActivities.ClientSizeChanged += new System.EventHandler(this.grdActivities_ClientSizeChanged);
-            this.grdActivities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdActivities_KeyDown);
-            this.grdActivities.Leave += new System.EventHandler(this.grdActivities_Leave);
-            // 
-            // colCode
-            // 
-            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colCode.HeaderText = "Code";
-            this.colCode.Name = "colCode";
-            this.colCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colCode.Width = 80;
-            // 
-            // colDescription
-            // 
-            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colDescription.HeaderText = "Description";
-            this.colDescription.Name = "colDescription";
-            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colDescription.Width = 253;
-            // 
-            // colTime
-            // 
-            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colTime.HeaderText = "Time";
-            this.colTime.Name = "colTime";
-            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colTime.Width = 80;
-            // 
             // btnToday
             // 
             this.btnToday.Location = new System.Drawing.Point(382, 6);
@@ -541,6 +486,61 @@
             this.lblStart.TabIndex = 0;
             this.lblStart.Text = "From";
             // 
+            // grdActivities
+            // 
+            this.grdActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdActivities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.grdActivities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdActivities.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCode,
+            this.colDescription,
+            this.colTime});
+            this.grdActivities.EnableHeadersVisualStyles = false;
+            this.grdActivities.Location = new System.Drawing.Point(9, 54);
+            this.grdActivities.Name = "grdActivities";
+            this.grdActivities.RowHeadersWidth = 30;
+            this.grdActivities.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.grdActivities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.grdActivities.Size = new System.Drawing.Size(446, 541);
+            this.grdActivities.TabIndex = 8;
+            this.grdActivities.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.grdActivities_ColumnWidthChanged);
+            this.grdActivities.ClientSizeChanged += new System.EventHandler(this.grdActivities_ClientSizeChanged);
+            this.grdActivities.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grdActivities_KeyDown);
+            this.grdActivities.Leave += new System.EventHandler(this.grdActivities_Leave);
+            // 
+            // colCode
+            // 
+            this.colCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colCode.HeaderText = "Code";
+            this.colCode.Name = "colCode";
+            this.colCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCode.Width = 80;
+            // 
+            // colDescription
+            // 
+            this.colDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colDescription.HeaderText = "Description";
+            this.colDescription.Name = "colDescription";
+            this.colDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colDescription.Width = 253;
+            // 
+            // colTime
+            // 
+            this.colTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colTime.HeaderText = "Time";
+            this.colTime.Name = "colTime";
+            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colTime.Width = 80;
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -596,9 +596,9 @@
             this.tabMain.ResumeLayout(false);
             this.tabMainActivities.ResumeLayout(false);
             this.tabMainActivities.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdActivities)).EndInit();
             this.tabMainReport.ResumeLayout(false);
             this.tabMainReport.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdActivities)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
