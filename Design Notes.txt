@@ -306,12 +306,58 @@ It's interesting that Jason recommends a ReadMe.md file in each layer.
 
 
 
+11/23/2018
+----------
+
+The problem I've been trying to solve is this:  How do you get all the layers to
+talk to each other while maintaining a clean architecture?
+
+After much consideration, I've decided that:
+
+   1) I don't need to break the core into domain and application layers.  I
+      still have a clean architecture, though without a feature that could be
+      shared in the enterprise -- namely, domain classes.
+
+   2) There has to be some feature in the application that knows about all
+      layers.  Otherwise, there's no way for an inner layer to request something
+      of an outer layer.  This comes up because the outer layers are not allowed
+      to reference each other.
+
+This was the main reason for the use of MediatR as discussed in Jason Taylor's
+presentation.  If the Presentation layer is not supposed to have any references
+to the Persistence layer, then you need some way for the Presentation layer to
+give the inner Application layer an implementation of a Persistence layer object
+-- needed to retrieve data.
+
+MediatR makes possible a request/response system that is key to CQRS.  But this
+requires the mediator -- which is handling each command or query request -- to
+know (that is, have references to) all the outer layers, so that one outer layer
+can ask another outer layer for something.
+
+It's an entirely different matter if objects of the inner layer can be created
+once at the start of the application and survive until the application is
+stopped.  If that is the case, then the objects can be "injected" with
+implementations they need of the outer layer and just hold onto those objects
+and use them as needed.  But that still implies that the part of the application
+responsible for startup has access to both the outer and inner layers.
+
+We can't operate this way if we're using Entity Framework and (indirectly)
+ADO.NET for our persistence layer.  For scalability reasons, ADO.NET is designed
+to be used as needed, not continually -- that is, to operate without a
+persistent connection to the database.
 
 
+So, we need a mediator that knows about all layers.
 
+My solution is this:  Simply move the UI to its own class library.  This means
+the UI layer needs only to have a reference to the core, and the data layer also
+needs only a reference to the core -- satisfying the requirements of a clean
+architecture.
 
+What was originally the UI project can now be just the startup project.  It can
+hold references to all layers, and it can contain a mediator object that is
+responsible for handling requests coming from the UI layer being fulfilled by
+resources from the data layer.
 
-
-
-
+Problem solved -- I hope.  Let's see how the implementation pans out.
 
