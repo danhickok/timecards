@@ -11,6 +11,7 @@ namespace TimecardsCore
         private static readonly char SEP1 = '\n';
         private static readonly char SEP2 = '\t';
 
+        public static string DatabasePath { get; set; }
         public static int RoundCurrentTimeToMinutes { get; set; }
         public static string CodeMask { get; set; }
         public static string TimeMask { get; set; }
@@ -23,6 +24,7 @@ namespace TimecardsCore
 
         public static void Load()
         {
+            DatabasePath = Properties.Settings.Default.DatabasePath;
             RoundCurrentTimeToMinutes = Properties.Settings.Default.RoundCurrentTimeToMinutes;
             CodeMask = Properties.Settings.Default.CodeMask;
             TimeMask = Properties.Settings.Default.TimeMask;
@@ -42,6 +44,7 @@ namespace TimecardsCore
 
         public static void Save()
         {
+            Properties.Settings.Default.DatabasePath = DatabasePath;
             Properties.Settings.Default.RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
             Properties.Settings.Default.CodeMask = CodeMask;
             Properties.Settings.Default.TimeMask = TimeMask;

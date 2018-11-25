@@ -120,7 +120,7 @@ namespace TimecardsData
         {
             var activities = _context.Activities
                 .Where(a => a.TimecardID == timecard.ID)
-                .OrderBy(a => a.Time)
+                .OrderBy(a => a.StartMinute)
                 .ToList()
                 .Select(a => a.ToCore())
                 .ToList();
@@ -200,7 +200,7 @@ namespace TimecardsData
             var query = from t in _context.Timecards
                         where t.Date >= minDate && t.Date <= maxDate
                         join a in _context.Activities on t.ID equals a.TimecardID
-                        orderby t.Date, a.Time
+                        orderby t.Date, a.StartMinute
                         select new
                         {
                             Timecard = t,
@@ -210,7 +210,7 @@ namespace TimecardsData
             var rawData = query
                 .ToList()
                 .OrderBy(q => q.Timecard.Date)
-                .ThenBy(q => q.Activity.Time)
+                .ThenBy(q => q.Activity.StartMinute)
                 .Select(q => new
                 {
                     Timecard = q.Timecard.ToCore(),

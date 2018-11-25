@@ -12,7 +12,7 @@ namespace TimecardsData
         public int TimecardID { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
-        public string Time { get; set; }
+        public int StartMinute { get; set; }
 
         public Timecard Timecard { get; set; } 
     }

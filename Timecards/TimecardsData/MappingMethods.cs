@@ -58,7 +58,7 @@ namespace TimecardsData
                 TimecardID = data.TimecardID,
                 Code = data.Code,
                 Description = data.Description,
-                Time = data.Time,
+                StartMinute = data.StartMinute,
             };
 
             return core;
@@ -72,7 +72,7 @@ namespace TimecardsData
                 TimecardID = core.TimecardID,
                 Code = core.Code,
                 Description = core.Description,
-                Time = core.Time,
+                StartMinute = core.StartMinute,
             };
         }
 
@@ -81,7 +81,7 @@ namespace TimecardsData
             data.ID = core.ID;
             data.Code = core.Code;
             data.Description = core.Description;
-            data.Time = core.Time;
+            data.StartMinute = core.StartMinute;
         }
 
         public static void UpdateFromData(this core.Activity core, Activity data)
@@ -89,7 +89,7 @@ namespace TimecardsData
             core.ID = data.ID;
             core.Code = data.Code;
             core.Description = data.Description;
-            core.Time = data.Time;
+            core.StartMinute = data.StartMinute;
         }
 
         #endregion
