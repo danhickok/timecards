@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity.cs" />
+    <Compile Include="DatabaseConnectionFactory.cs" />
     <Compile Include="MappingMethods.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Repository.cs" />
