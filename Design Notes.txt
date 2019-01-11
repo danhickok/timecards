@@ -361,3 +361,14 @@ resources from the data layer.
 
 Problem solved -- I hope.  Let's see how the implementation pans out.
 
+
+
+01/11/2019
+----------
+
+Here's another take on what MediatR tries to accomplish:  a configuration
+service.  While the article focuses on .NET Core, I think I could implement such
+a service without much trouble.
+
+https://visualstudiomagazine.com/articles/2018/12/01/finding-objects-aspnet-core.aspx
+
