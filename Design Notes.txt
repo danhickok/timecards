@@ -372,3 +372,21 @@ a service without much trouble.
 
 https://visualstudiomagazine.com/articles/2018/12/01/finding-objects-aspnet-core.aspx
 
+
+
+06/07/2019
+----------
+
+<rant>Man, I wish I could work on this more consistently.  Too many other things
+taking top priority, one right after the other.</rant>
+
+Rather than use MediatR, really all I need is an inversion-of-control container,
+or IOC container.  There are a lot of professional packages out there:  Autofac,
+Spring.NET, Castle Windsor, etc. - some good, some bad.
+
+But really, all an IOC container needs to be is something that registers
+abstract types (interfaces) and corresponding concrete implementations of those
+types.  Here are some instructions for building your own IOC container:
+
+https://timross.wordpress.com/2010/01/21/creating-a-simple-ioc-container/
+

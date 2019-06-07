@@ -8,9 +8,9 @@ namespace TimecardsData
 {
     public class DatabaseConnectionFactory
     {
-        public static DbConnection Create()
-        {
-
-        }
+        //public static DbConnection Create()
+        //{
+        //
+        //}
     }
 }
