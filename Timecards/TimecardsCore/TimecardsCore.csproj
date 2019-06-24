@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="Interfaces\IIOCFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ReportItem.cs" />
