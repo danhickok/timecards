@@ -3,34 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimecardsCore.Interfaces;
 
 namespace TimecardsIOC
 {
-    public class Factory
+    public class Factory : IFactory
     {
-        private static Factory _self = null;
-        private static Factory Self
+        private Dictionary<Type, RegisteredType> _registry { get; }
+        private Dictionary<Type, object> _singletons { get; }
+
+        public Factory()
         {
-            get
-            {
-                if (_self == null)
-                    _self = new Factory();
-                return _self;
-            }
+            _registry = new Dictionary<Type, RegisteredType>();
+            _singletons = new Dictionary<Type, object>();
         }
 
-        private Dictionary<Type, RegisteredType> Registry { get; }
-        private Dictionary<Type, object> Singletons { get; }
-
-        private Factory()
+        public void Register<TTypeToResolve>(Type concreteType, bool isSingleton = false, params Type[] constructorParameterTypes)
         {
-            Registry = new Dictionary<Type, RegisteredType>();
-            Singletons = new Dictionary<Type, object>();
-        }
-
-        public static void Register<TTypeToResolve>(Type concreteType, bool isSingleton = false, params Type[] constructorParameterTypes)
-        {
-            Self.Registry[typeof(TTypeToResolve)] = new RegisteredType
+            _registry[typeof(TTypeToResolve)] = new RegisteredType
             {
                 ConcreteType = concreteType,
                 IsSingleton = isSingleton,
@@ -38,14 +28,14 @@ namespace TimecardsIOC
             };
         }
 
-        public static TTypeToResolve Resolve<TTypeToResolve>()
+        public TTypeToResolve Resolve<TTypeToResolve>()
         {
             TTypeToResolve result = default;
 
-            if (!Self.Registry.ContainsKey(typeof(TTypeToResolve)))
+            if (!_registry.ContainsKey(typeof(TTypeToResolve)))
                 throw new Exception($"Unregistered type {typeof(TTypeToResolve)}");
 
-            var registeredType = Self.Registry[typeof(TTypeToResolve)];
+            var registeredType = _registry[typeof(TTypeToResolve)];
 
             //TODO: if singleton, check Singletons; if there, return it; if not, create one, add it, and return it
             //TODO: if not singleton, create type and return it
