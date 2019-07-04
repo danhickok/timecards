@@ -7,7 +7,7 @@ using TimecardsCore.Interfaces;
 
 namespace TimecardsIOC
 {
-    public class Factory : IFactory
+    public class Factory : IFactory, IDisposable
     {
         private readonly Dictionary<Type, RegisteredType> _registry;
         private readonly Dictionary<Type, object> _singletons;
@@ -78,5 +78,32 @@ namespace TimecardsIOC
             public bool IsSingleton { get; set; }
             public Type[] ConstructorParameterTypes { get; set; }
         }
+
+        #region IDisposable Support
+        private bool isDisposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!isDisposed)
+            {
+                if (disposing)
+                {
+                    foreach (var key in _singletons.Keys)
+                    {
+                        if (_singletons[key] is IDisposable)
+                            ((IDisposable)_singletons[key]).Dispose();
+                        _singletons[key] = null;
+                    }
+                }
+
+                isDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }
