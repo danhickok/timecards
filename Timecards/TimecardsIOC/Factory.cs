@@ -30,37 +30,45 @@ namespace TimecardsIOC
 
         public TTypeToResolve Resolve<TTypeToResolve>()
         {
-            TTypeToResolve result = default;
+            return (TTypeToResolve)Resolve(typeof(TTypeToResolve));
+        }
 
-            if (!_registry.ContainsKey(typeof(TTypeToResolve)))
-                throw new Exception($"Unregistered type {typeof(TTypeToResolve)}");
+        private object Resolve(Type typeToResolve)
+        {
+            if (!_registry.ContainsKey(typeToResolve))
+                throw new Exception($"Requested unregistered type {typeToResolve}");
 
-            var registeredType = _registry[typeof(TTypeToResolve)];
+            var registeredType = _registry[typeToResolve];
+
+            object result;
 
             if (registeredType.IsSingleton)
             {
-                if (_singletons.ContainsKey(typeof(TTypeToResolve)))
+                if (_singletons.ContainsKey(typeToResolve))
                 {
-                    result = (TTypeToResolve)_singletons[typeof(TTypeToResolve)];
+                    result = _singletons[typeToResolve];
                 }
                 else
                 {
-                    result = ObjectFromRegisteredType<TTypeToResolve>(registeredType);
-                    _singletons[typeof(TTypeToResolve)] = result;
+                    result = ObjectFromRegisteredType(registeredType);
+                    _singletons[typeToResolve] = result;
                 }
             }
             else
             {
-                result = ObjectFromRegisteredType<TTypeToResolve>(registeredType);
+                result = ObjectFromRegisteredType(registeredType);
             }
 
             return result;
         }
 
-        private TTypeToResolve ObjectFromRegisteredType<TTypeToResolve>(RegisteredType registeredType)
+        private object ObjectFromRegisteredType(RegisteredType registeredType)
         {
-            //TODO: make an object - do we need reflection?
-            return default;
+            var parameterList = new List<object>();
+            foreach (var constructorParameterType in registeredType.ConstructorParameterTypes)
+                parameterList.Add(Resolve(constructorParameterType));
+
+            return Activator.CreateInstance(registeredType.ConcreteType, parameterList.ToArray());
         }
 
         // nested class
