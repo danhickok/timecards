@@ -9,8 +9,8 @@ namespace TimecardsIOC
 {
     public class Factory : IFactory
     {
-        private Dictionary<Type, RegisteredType> _registry { get; }
-        private Dictionary<Type, object> _singletons { get; }
+        private readonly Dictionary<Type, RegisteredType> _registry;
+        private readonly Dictionary<Type, object> _singletons;
 
         public Factory()
         {
@@ -37,8 +37,22 @@ namespace TimecardsIOC
 
             var registeredType = _registry[typeof(TTypeToResolve)];
 
-            //TODO: if singleton, check Singletons; if there, return it; if not, create one, add it, and return it
-            //TODO: if not singleton, create type and return it
+            if (registeredType.IsSingleton)
+            {
+                if (_singletons.ContainsKey(typeof(TTypeToResolve)))
+                {
+                    result = (TTypeToResolve)_singletons[typeof(TTypeToResolve)];
+                }
+                else
+                {
+                    result = ObjectFromRegisteredType<TTypeToResolve>(registeredType);
+                    _singletons[typeof(TTypeToResolve)] = result;
+                }
+            }
+            else
+            {
+                result = ObjectFromRegisteredType<TTypeToResolve>(registeredType);
+            }
 
             return result;
         }
