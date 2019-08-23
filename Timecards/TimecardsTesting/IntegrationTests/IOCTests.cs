@@ -33,9 +33,20 @@ namespace TimecardsTesting.IntegrationTests
             // get a reference to the factory
             core.IFactory ifactory = _factory;
 
-            // get the singleton
-            object a1 = ifactory.Resolve<IAlpha>();
+            // get a singleton
+            var a1 = ifactory.Resolve<IAlpha>();
             Assert.IsTrue(a1 is IAlpha, "Did not receive singleton object");
+            var a2 = ifactory.Resolve<IAlpha>();
+            Assert.AreEqual(a1, a2, "Second resolution of singleton resulted in a different object");
+            Assert.AreEqual(a1.Concat(), "12", "Singleton has unexpected behavior");
+
+            // manufacture some objects
+            var b1 = ifactory.Resolve<IBeta>();
+            var b2 = ifactory.Resolve<IBeta>();
+            Assert.AreNotEqual(b1, b2, "Received same object for non-singleton type");
+            Assert.AreEqual(b1.Flip(), "21", "Non-singleton #1 has unexpected behavior");
+            Assert.AreEqual(b2.Flip(), "21", "Non-singleton #2 has unexpected behavior");
+            Assert.AreNotEqual(b1.Third, b2.Third, "Non-singletons have non-unique property values");
         }
 
         [TestCleanup]
@@ -108,7 +119,7 @@ namespace TimecardsTesting.IntegrationTests
                 do
                 {
                     Third = random.Next(1000, 9999).ToString();
-                } while (!previousStrings.Contains(Third));
+                } while (previousStrings.Contains(Third));
 
                 previousStrings.Add(Third);
             }
