@@ -50,6 +50,7 @@
             this.lvwDates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwDates.HideSelection = false;
             this.lvwDates.Location = new System.Drawing.Point(15, 15);
             this.lvwDates.MultiSelect = false;
             this.lvwDates.Name = "lvwDates";
@@ -60,8 +61,7 @@
             // 
             // frmDateSearch
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(324, 273);
             this.Controls.Add(this.lvwDates);

@@ -69,7 +69,7 @@
             this.lblFileName.AutoSize = true;
             this.lblFileName.Location = new System.Drawing.Point(15, 18);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(58, 15);
+            this.lblFileName.Size = new System.Drawing.Size(73, 20);
             this.lblFileName.TabIndex = 2;
             this.lblFileName.Text = "File name";
             // 
@@ -78,7 +78,7 @@
             this.lblFileType.AutoSize = true;
             this.lblFileType.Location = new System.Drawing.Point(15, 47);
             this.lblFileType.Name = "lblFileType";
-            this.lblFileType.Size = new System.Drawing.Size(51, 15);
+            this.lblFileType.Size = new System.Drawing.Size(65, 20);
             this.lblFileType.TabIndex = 3;
             this.lblFileType.Text = "File type";
             // 
@@ -86,7 +86,7 @@
             // 
             this.txtFileName.Location = new System.Drawing.Point(83, 14);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(271, 23);
+            this.txtFileName.Size = new System.Drawing.Size(271, 27);
             this.txtFileName.TabIndex = 4;
             // 
             // btnFileDialog
@@ -108,7 +108,7 @@
             "XML"});
             this.cboFileType.Location = new System.Drawing.Point(83, 43);
             this.cboFileType.Name = "cboFileType";
-            this.cboFileType.Size = new System.Drawing.Size(179, 23);
+            this.cboFileType.Size = new System.Drawing.Size(179, 28);
             this.cboFileType.TabIndex = 6;
             // 
             // chkEraseExistingData
@@ -116,7 +116,7 @@
             this.chkEraseExistingData.AutoSize = true;
             this.chkEraseExistingData.Location = new System.Drawing.Point(83, 85);
             this.chkEraseExistingData.Name = "chkEraseExistingData";
-            this.chkEraseExistingData.Size = new System.Drawing.Size(122, 19);
+            this.chkEraseExistingData.Size = new System.Drawing.Size(155, 24);
             this.chkEraseExistingData.TabIndex = 7;
             this.chkEraseExistingData.Text = "Erase existing data";
             this.chkEraseExistingData.UseVisualStyleBackColor = true;
@@ -135,8 +135,7 @@
             // 
             // frmImport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(413, 211);
             this.Controls.Add(this.prgImport);

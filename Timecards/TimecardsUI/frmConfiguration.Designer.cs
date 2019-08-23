@@ -73,7 +73,7 @@
             this.lblCodeMask.AutoSize = true;
             this.lblCodeMask.Location = new System.Drawing.Point(14, 24);
             this.lblCodeMask.Name = "lblCodeMask";
-            this.lblCodeMask.Size = new System.Drawing.Size(74, 15);
+            this.lblCodeMask.Size = new System.Drawing.Size(93, 20);
             this.lblCodeMask.TabIndex = 0;
             this.lblCodeMask.Text = "Code format";
             // 
@@ -81,7 +81,7 @@
             // 
             this.txtCodeMask.Location = new System.Drawing.Point(152, 20);
             this.txtCodeMask.Name = "txtCodeMask";
-            this.txtCodeMask.Size = new System.Drawing.Size(116, 23);
+            this.txtCodeMask.Size = new System.Drawing.Size(116, 27);
             this.txtCodeMask.TabIndex = 1;
             // 
             // lblRoundTime
@@ -89,7 +89,7 @@
             this.lblRoundTime.AutoSize = true;
             this.lblRoundTime.Location = new System.Drawing.Point(14, 82);
             this.lblRoundTime.Name = "lblRoundTime";
-            this.lblRoundTime.Size = new System.Drawing.Size(124, 15);
+            this.lblRoundTime.Size = new System.Drawing.Size(154, 20);
             this.lblRoundTime.TabIndex = 4;
             this.lblRoundTime.Text = "Round current time to";
             // 
@@ -104,7 +104,7 @@
             "nearest hour"});
             this.cboRoundTime.Location = new System.Drawing.Point(152, 78);
             this.cboRoundTime.Name = "cboRoundTime";
-            this.cboRoundTime.Size = new System.Drawing.Size(216, 23);
+            this.cboRoundTime.Size = new System.Drawing.Size(216, 28);
             this.cboRoundTime.TabIndex = 5;
             // 
             // lblDefaultDescriptions
@@ -112,7 +112,7 @@
             this.lblDefaultDescriptions.AutoSize = true;
             this.lblDefaultDescriptions.Location = new System.Drawing.Point(14, 141);
             this.lblDefaultDescriptions.Name = "lblDefaultDescriptions";
-            this.lblDefaultDescriptions.Size = new System.Drawing.Size(207, 15);
+            this.lblDefaultDescriptions.Size = new System.Drawing.Size(262, 20);
             this.lblDefaultDescriptions.TabIndex = 6;
             this.lblDefaultDescriptions.Text = "Default descriptions for specific codes";
             // 
@@ -126,6 +126,7 @@
             this.colDescription});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
             this.listView1.LabelEdit = true;
             this.listView1.Location = new System.Drawing.Point(14, 162);
             this.listView1.Name = "listView1";
@@ -166,7 +167,7 @@
             // 
             this.txtTimeMask.Location = new System.Drawing.Point(152, 49);
             this.txtTimeMask.Name = "txtTimeMask";
-            this.txtTimeMask.Size = new System.Drawing.Size(116, 23);
+            this.txtTimeMask.Size = new System.Drawing.Size(116, 27);
             this.txtTimeMask.TabIndex = 3;
             // 
             // lblTimeMask
@@ -174,14 +175,13 @@
             this.lblTimeMask.AutoSize = true;
             this.lblTimeMask.Location = new System.Drawing.Point(14, 53);
             this.lblTimeMask.Name = "lblTimeMask";
-            this.lblTimeMask.Size = new System.Drawing.Size(73, 15);
+            this.lblTimeMask.Size = new System.Drawing.Size(91, 20);
             this.lblTimeMask.TabIndex = 2;
             this.lblTimeMask.Text = "Time format";
             // 
             // frmConfiguration
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(509, 406);
             this.Controls.Add(this.txtTimeMask);

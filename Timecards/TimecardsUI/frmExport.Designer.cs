@@ -52,7 +52,7 @@
             // 
             this.txtFileName.Location = new System.Drawing.Point(93, 14);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(315, 23);
+            this.txtFileName.Size = new System.Drawing.Size(315, 27);
             this.txtFileName.TabIndex = 7;
             // 
             // lblFileName
@@ -60,7 +60,7 @@
             this.lblFileName.AutoSize = true;
             this.lblFileName.Location = new System.Drawing.Point(14, 18);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(58, 15);
+            this.lblFileName.Size = new System.Drawing.Size(73, 20);
             this.lblFileName.TabIndex = 6;
             this.lblFileName.Text = "File name";
             // 
@@ -74,7 +74,7 @@
             "XML"});
             this.cboFileType.Location = new System.Drawing.Point(93, 44);
             this.cboFileType.Name = "cboFileType";
-            this.cboFileType.Size = new System.Drawing.Size(208, 23);
+            this.cboFileType.Size = new System.Drawing.Size(208, 28);
             this.cboFileType.TabIndex = 12;
             // 
             // lblFileType
@@ -82,7 +82,7 @@
             this.lblFileType.AutoSize = true;
             this.lblFileType.Location = new System.Drawing.Point(14, 50);
             this.lblFileType.Name = "lblFileType";
-            this.lblFileType.Size = new System.Drawing.Size(51, 15);
+            this.lblFileType.Size = new System.Drawing.Size(65, 20);
             this.lblFileType.TabIndex = 11;
             this.lblFileType.Text = "File type";
             // 
@@ -111,8 +111,7 @@
             // 
             // frmExport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(474, 135);
             this.Controls.Add(this.cboFileType);

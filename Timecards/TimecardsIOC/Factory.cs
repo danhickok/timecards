@@ -88,11 +88,12 @@ namespace TimecardsIOC
             {
                 if (disposing)
                 {
-                    foreach (var key in _singletons.Keys)
+                    var keys = _singletons.Keys.ToArray();
+                    foreach (var key in keys)
                     {
                         if (_singletons[key] is IDisposable)
                             ((IDisposable)_singletons[key]).Dispose();
-                        _singletons[key] = null;
+                        _singletons.Remove(key);
                     }
                 }
 
