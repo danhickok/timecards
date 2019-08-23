@@ -9,25 +9,13 @@ using data = TimecardsData;
 namespace TimecardsTesting.DataTests
 {
     [TestClass]
-    public class TimecardDataTests
+    public class TimecardDataTests : DataTestCore
     {
-        private const string TEST_CONNECTION_STRING_NAME = "TestDb";
-
         [TestInitialize]
         public void Initialize()
         {
-            // delete the test database if it exists - it will be recreated on first use of EF
-            var connString = ConfigurationManager.ConnectionStrings[TEST_CONNECTION_STRING_NAME].ConnectionString;
-            var pieces = connString.Split(';');
-            foreach (var piece in pieces)
-            {
-                if (piece.ToLower().Contains("data source="))
-                {
-                    var fileName = piece.Substring(piece.IndexOf("=") + 1).Trim();
-                    File.Delete(fileName);
-                    break;
-                }
-            }
+            // test database will be recreated on first use of EF
+            DeleteTestDatabase();
         }
 
         [TestMethod]
@@ -230,6 +218,12 @@ namespace TimecardsTesting.DataTests
                 timecardList = repo.GetTimecards(10, 10, false);
                 Assert.AreEqual(0, timecardList.Count, "Still some timecards after deletion");
             }
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            DeleteTestDatabase();
         }
     }
 }

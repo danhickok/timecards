@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using core = TimecardsCore.Interfaces;
+using ci = TimecardsCore.Interfaces;
 using ioc = TimecardsIOC;
 
 namespace TimecardsTesting.IntegrationTests
@@ -12,13 +12,11 @@ namespace TimecardsTesting.IntegrationTests
     public class IOCTests
     {
         private ioc.Factory _factory = null;
-        private HashSet<string> _randomStrings = null;
 
         [TestInitialize]
         public void Initialize()
         {
             _factory = new ioc.Factory();
-            _randomStrings = CollectionOfUniqueRandomStrings(10);
         }
 
         [TestMethod]
@@ -31,18 +29,18 @@ namespace TimecardsTesting.IntegrationTests
             _factory.Register<IBeta>(typeof(Beta), false, typeof(IAlpha));
 
             // get a reference to the factory
-            core.IFactory ifactory = _factory;
+            ci.IFactory factory = _factory;
 
             // get a singleton
-            var a1 = ifactory.Resolve<IAlpha>();
+            var a1 = factory.Resolve<IAlpha>();
             Assert.IsTrue(a1 is IAlpha, "Did not receive singleton object");
-            var a2 = ifactory.Resolve<IAlpha>();
+            var a2 = factory.Resolve<IAlpha>();
             Assert.AreEqual(a1, a2, "Second resolution of singleton resulted in a different object");
             Assert.AreEqual(a1.Concat(), "12", "Singleton has unexpected behavior");
 
             // manufacture some objects
-            var b1 = ifactory.Resolve<IBeta>();
-            var b2 = ifactory.Resolve<IBeta>();
+            var b1 = factory.Resolve<IBeta>();
+            var b2 = factory.Resolve<IBeta>();
             Assert.AreNotEqual(b1, b2, "Received same object for non-singleton type");
             Assert.AreEqual(b1.Flip(), "21", "Non-singleton #1 has unexpected behavior");
             Assert.AreEqual(b2.Flip(), "21", "Non-singleton #2 has unexpected behavior");
@@ -57,17 +55,6 @@ namespace TimecardsTesting.IntegrationTests
                 _factory.Dispose();
                 _factory = null;
             }
-        }
-
-        private HashSet<string> CollectionOfUniqueRandomStrings(int quantity)
-        {
-            var random = new Random();
-            var collection = new HashSet<string>();
-
-            while (collection.Count < quantity)
-                collection.Add(random.Next(10000, 99999).ToString());
-
-            return collection;
         }
 
         //
@@ -103,28 +90,21 @@ namespace TimecardsTesting.IntegrationTests
 
         private class Beta : IBeta
         {
-            private static readonly HashSet<string> previousStrings = new HashSet<string>();
-            private static readonly Random random = new Random();
+            private static int InstanceCounter = 0;
 
-            public string First { get; private set; }
-            public string Second { get; private set; }
+            private string _first;
+            public string _second;
+
             public string Third { get; private set; }
 
             public Beta(IAlpha alpha)
             {
-                First = alpha.First;
-                Second = alpha.Second;
-
-                // assign a guaranteed unique string value to Third
-                do
-                {
-                    Third = random.Next(1000, 9999).ToString();
-                } while (previousStrings.Contains(Third));
-
-                previousStrings.Add(Third);
+                _first = alpha.First;
+                _second = alpha.Second;
+                Third = (++InstanceCounter).ToString();
             }
 
-            public string Flip() => Second + First;
+            public string Flip() => _second + _first;
         }
     }
 }
