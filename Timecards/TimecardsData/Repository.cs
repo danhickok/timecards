@@ -10,17 +10,13 @@ namespace TimecardsData
 {
     public class Repository : IRepository, IDisposable
     {
-        private TimecardsContext _context = null;
+        private readonly TimecardsContext _context = null;
 
         #region Constructors
 
-        public Repository() : this("TimecardsDb")
+        public Repository(IConnectionInfo info)
         {
-        }
-
-        public Repository(string connectionStringName)
-        {
-            _context = new TimecardsContext(connectionStringName);
+            _context = new TimecardsContext(info.ConnectionStringName);
         }
 
         #endregion

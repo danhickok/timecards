@@ -2,20 +2,19 @@
 using System.Configuration;
 using System.IO;
 
-namespace TimecardsTesting.DataTests
+namespace TimecardsTesting.Base
 {
-    public class DataTestCore
+    public class DataTestBase
     {
-        protected const string TEST_CONNECTION_STRING_NAME = "TestDb";
-
         protected void DeleteTestDatabase()
         {
-            // force garbage collector to clean up SqlLite's open file handles
+            // force garbage collector to run finalizers to clean up SqlLite's open file handles
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
             // delete the test database if it exists
-            var connString = ConfigurationManager.ConnectionStrings[TEST_CONNECTION_STRING_NAME].ConnectionString;
+            var connStringName = new TestConnectionInfo().ConnectionStringName;
+            var connString = ConfigurationManager.ConnectionStrings[connStringName].ConnectionString;
             var pieces = connString.Split(';');
             foreach (var piece in pieces)
             {

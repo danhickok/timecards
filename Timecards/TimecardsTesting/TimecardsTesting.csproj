@@ -70,10 +70,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\TestConnectionInfo.cs" />
     <Compile Include="CoreTests\TimecardCoreTests.cs" />
     <Compile Include="CoreTests\ActivityCoreTests.cs" />
     <Compile Include="CoreTests\ConfigurationTests.cs" />
-    <Compile Include="DataTests\DataTestCore.cs" />
+    <Compile Include="Base\DataTestBase.cs" />
     <Compile Include="DataTests\TimecardDataTests.cs" />
     <Compile Include="IntegrationTests\DataIntegrationTests.cs" />
     <Compile Include="IntegrationTests\IOCTests.cs" />

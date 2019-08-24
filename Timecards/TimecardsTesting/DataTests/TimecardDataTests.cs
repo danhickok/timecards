@@ -9,7 +9,7 @@ using data = TimecardsData;
 namespace TimecardsTesting.DataTests
 {
     [TestClass]
-    public class TimecardDataTests : DataTestCore
+    public class TimecardDataTests : Base.DataTestBase
     {
         [TestInitialize]
         public void Initialize()
@@ -21,7 +21,7 @@ namespace TimecardsTesting.DataTests
         [TestMethod]
         public void LoadSaveReportTest()
         {
-            using (var repo = new data.Repository(TEST_CONNECTION_STRING_NAME))
+            using (var repo = new data.Repository(new Base.TestConnectionInfo()))
             {
                 DateTime FirstDate = new DateTime(2018, 9, 10);
                 DateTime SecondDate = new DateTime(2018, 9, 11);
@@ -223,7 +223,7 @@ namespace TimecardsTesting.DataTests
         [TestCleanup]
         public void Cleanup()
         {
-            DeleteTestDatabase();
+            //DeleteTestDatabase();
         }
     }
 }
