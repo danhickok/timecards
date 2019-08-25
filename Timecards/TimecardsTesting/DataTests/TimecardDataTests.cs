@@ -9,15 +9,8 @@ using data = TimecardsData;
 namespace TimecardsTesting.DataTests
 {
     [TestClass]
-    public class TimecardDataTests : Base.DataTestBase
+    public class TimecardDataTests
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-            // test database will be recreated on first use of EF
-            DeleteTestDatabase();
-        }
-
         [TestMethod]
         public void LoadSaveReportTest()
         {
@@ -218,12 +211,6 @@ namespace TimecardsTesting.DataTests
                 timecardList = repo.GetTimecards(10, 10, false);
                 Assert.AreEqual(0, timecardList.Count, "Still some timecards after deletion");
             }
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            //DeleteTestDatabase();
         }
     }
 }

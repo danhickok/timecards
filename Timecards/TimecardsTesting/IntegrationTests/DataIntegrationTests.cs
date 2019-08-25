@@ -11,7 +11,7 @@ using ioc = TimecardsIOC;
 namespace TimecardsTesting.IntegrationTests
 {
     [TestClass]
-    public class DataIntegrationTests : Base.DataTestBase
+    public class DataIntegrationTests
     {
         private ioc.Factory _factory = null;
 
@@ -24,9 +24,6 @@ namespace TimecardsTesting.IntegrationTests
             // register a data repository like outermost layer would do
             _factory.Register<ci.IConnectionInfo>(typeof(Base.TestConnectionInfo), false);
             _factory.Register<ci.IRepository>(typeof(data.Repository), true, typeof(ci.IConnectionInfo));
-
-            // test database will be recreated on first use of EF
-            DeleteTestDatabase();
         }
 
         [TestMethod]
@@ -71,8 +68,6 @@ namespace TimecardsTesting.IntegrationTests
         [TestCleanup]
         public void Cleanup()
         {
-            DeleteTestDatabase();
-
             if (_factory != null)
             {
                 _factory.Dispose();

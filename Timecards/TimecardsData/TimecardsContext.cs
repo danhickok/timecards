@@ -11,10 +11,6 @@ namespace TimecardsData
 {
     public class TimecardsContext : DbContext
     {
-        public TimecardsContext() : base("TimecardsDb")
-        {
-        }
-
         public TimecardsContext(string connectionStringName) : base(connectionStringName)
         {
         }
