@@ -11,6 +11,12 @@ namespace TimecardsTesting.DataTests
     [TestClass]
     public class TimecardDataTests
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            DeleteAllData();
+        }
+
         [TestMethod]
         public void LoadSaveReportTest()
         {
@@ -210,6 +216,22 @@ namespace TimecardsTesting.DataTests
                 repo.DeleteTimecard(timecardList[1].ID);
                 timecardList = repo.GetTimecards(10, 10, false);
                 Assert.AreEqual(0, timecardList.Count, "Still some timecards after deletion");
+            }
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            DeleteAllData();
+        }
+
+        private void DeleteAllData()
+        {
+            using (var repo = new data.Repository(new Base.TestConnectionInfo()))
+            {
+                var timecards = repo.GetTimecards(0, 9999, false);
+                foreach (var timecard in timecards)
+                    repo.DeleteTimecard(timecard.ID);
             }
         }
     }
