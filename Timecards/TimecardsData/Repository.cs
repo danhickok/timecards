@@ -14,7 +14,7 @@ namespace TimecardsData
 
         #region Constructors
 
-        public Repository(IConnectionInfo info)
+        public Repository(IAppConstants info)
         {
             _context = new TimecardsContext(info.ConnectionStringName);
         }

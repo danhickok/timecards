@@ -2,7 +2,7 @@
 
 namespace TimecardsTesting.Base
 {
-    public class TestConnectionInfo : IConnectionInfo
+    public class TestAppConstants : IAppConstants
     {
         public string ConnectionStringName => "TestDb";
     }

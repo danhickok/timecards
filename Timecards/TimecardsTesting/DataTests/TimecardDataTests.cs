@@ -20,7 +20,7 @@ namespace TimecardsTesting.DataTests
         [TestMethod]
         public void LoadSaveReportTest()
         {
-            using (var repo = new data.Repository(new Base.TestConnectionInfo()))
+            using (var repo = new data.Repository(new Base.TestAppConstants()))
             {
                 DateTime FirstDate = new DateTime(2018, 9, 10);
                 DateTime SecondDate = new DateTime(2018, 9, 11);
@@ -227,7 +227,7 @@ namespace TimecardsTesting.DataTests
 
         private void DeleteAllData()
         {
-            using (var repo = new data.Repository(new Base.TestConnectionInfo()))
+            using (var repo = new data.Repository(new Base.TestAppConstants()))
             {
                 var timecards = repo.GetTimecards(0, 9999, false);
                 foreach (var timecard in timecards)

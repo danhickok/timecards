@@ -22,8 +22,8 @@ namespace TimecardsTesting.IntegrationTests
             _factory = new ioc.Factory();
 
             // register a data repository like outermost layer would do
-            _factory.Register<ci.IConnectionInfo>(typeof(Base.TestConnectionInfo), false);
-            _factory.Register<ci.IRepository>(typeof(data.Repository), true, typeof(ci.IConnectionInfo));
+            _factory.Register<ci.IAppConstants>(typeof(Base.TestAppConstants), false);
+            _factory.Register<ci.IRepository>(typeof(data.Repository), true, typeof(ci.IAppConstants));
         }
 
         [TestMethod]

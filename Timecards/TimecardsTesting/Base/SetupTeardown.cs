@@ -29,7 +29,7 @@ namespace TimecardsTesting.Base
             GC.WaitForPendingFinalizers();
             
             // delete the test database if it exists
-            var connStringName = new TestConnectionInfo().ConnectionStringName;
+            var connStringName = new TestAppConstants().ConnectionStringName;
             var connString = ConfigurationManager.ConnectionStrings[connStringName].ConnectionString;
             var pieces = connString.Split(';');
             foreach (var piece in pieces)

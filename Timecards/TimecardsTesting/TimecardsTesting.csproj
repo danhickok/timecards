@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\SetupTeardown.cs" />
-    <Compile Include="Base\TestConnectionInfo.cs" />
+    <Compile Include="Base\TestAppConstants.cs" />
     <Compile Include="CoreTests\TimecardCoreTests.cs" />
     <Compile Include="CoreTests\ActivityCoreTests.cs" />
     <Compile Include="CoreTests\ConfigurationTests.cs" />

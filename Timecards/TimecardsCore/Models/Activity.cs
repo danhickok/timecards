@@ -54,6 +54,17 @@ namespace TimecardsCore.Models
             }
         }
 
+        private bool _isAfterMidnight;
+        public bool IsAfterMidnight
+        {
+            get => _isAfterMidnight;
+            set
+            {
+                _isAfterMidnight = value;
+                ComputeStartMinuteFromTime();
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -62,11 +73,13 @@ namespace TimecardsCore.Models
         {
             _startMinute = 0;
             _time = "00" + TIMESEP + "00";
+            _isAfterMidnight = false;
+
             Code = string.Empty;
             Description = string.Empty;
         }
 
-        public Activity(string code)
+        public Activity(string code) : this()
         {
             Code = code;
         }
@@ -143,7 +156,7 @@ namespace TimecardsCore.Models
         private void ComputeStartMinuteFromTime()
         {
             var (hour, minute) = ParseTime(_time);
-            _startMinute = hour * 60 + minute;
+            _startMinute = hour * 60 + minute + (_isAfterMidnight ? 1440 : 0);
         }
 
         private void ComputeTimeFromStartMinute()

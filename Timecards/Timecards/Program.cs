@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using TimecardsCore;
 using TimecardsUI;
 
-namespace TimecardsUI
+namespace Timecards
 {
     static class Program
     {

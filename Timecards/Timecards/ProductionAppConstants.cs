@@ -1,8 +1,8 @@
 ﻿using TimecardsCore.Interfaces;
 
-namespace TimecardsData
+namespace Timecards
 {
-    public class ConnectionInfo : IConnectionInfo
+    public class ProductionAppConstants : IAppConstants
     {
         public string ConnectionStringName => "TimecardsDb";
     }

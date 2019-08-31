@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="Interfaces\IConnectionInfo.cs" />
+    <Compile Include="Events\NeedFactoryEvent.cs" />
+    <Compile Include="Interfaces\IAppConstants.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Models\Activity.cs" />
