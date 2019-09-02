@@ -10,14 +10,19 @@ using System.Windows.Forms;
 
 namespace TimecardsUI
 {
-    public partial class frmAbout : Form
+    public partial class ConfigurationForm : Form
     {
-        public frmAbout()
+        public ConfigurationForm()
         {
             InitializeComponent();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

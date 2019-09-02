@@ -27,13 +27,13 @@ namespace TimecardsUI
 
             InitializeComponent();
 
-            colCode.Width = MainFormSettings.ColumnCodeWidth;
-            colTime.Width = MainFormSettings.ColumnTimeWidth;
+            CodeColumn.Width = MainFormSettings.ColumnCodeWidth;
+            TimeColumn.Width = MainFormSettings.ColumnTimeWidth;
 
             _loading = false;
 
-            grdActivities.RowsDefaultCellStyle.BackColor = SystemColors.Window;
-            grdActivities.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
+            ActivitiesGrid.RowsDefaultCellStyle.BackColor = SystemColors.Window;
+            ActivitiesGrid.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
             FindGridVScrollBarControl();
 
             ClearStatusMessage();
@@ -85,14 +85,14 @@ namespace TimecardsUI
 
         private void MainMenuFilePreferences_Click(object sender, EventArgs e)
         {
-            var configForm = new frmConfiguration();
+            var configForm = new ConfigurationForm();
             configForm.ShowDialog(this);
         }
 
         private void MainMenuFileResetColumnWidths_Click(object sender, EventArgs e)
         {
-            colCode.Width = 80;
-            colTime.Width = 80;
+            CodeColumn.Width = 80;
+            TimeColumn.Width = 80;
         }
 
         private void MainMenuFileExport_Click(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace TimecardsUI
 
         private void MainMenuHelpAbout_Click(object sender, EventArgs e)
         {
-            var aboutForm = new frmAbout();
+            var aboutForm = new AboutForm();
             aboutForm.ShowDialog(this);
         }
 
@@ -181,7 +181,7 @@ namespace TimecardsUI
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
         {
-            lblDayOfWeek.Text = dtpDate.Value.DayOfWeek.ToString();
+            MainDateLabel.Text = MainDate.Value.DayOfWeek.ToString();
         }
 
         private void dtpStart_ValueChanged(object sender, EventArgs e)
@@ -209,8 +209,8 @@ namespace TimecardsUI
 
             RecalculateColumnWidths(e.Column);
 
-            MainFormSettings.ColumnCodeWidth = colCode.Width;
-            MainFormSettings.ColumnTimeWidth = colTime.Width;
+            MainFormSettings.ColumnCodeWidth = CodeColumn.Width;
+            MainFormSettings.ColumnTimeWidth = TimeColumn.Width;
         }
 
         private void grdActivities_KeyDown(object sender, KeyEventArgs e)
@@ -221,29 +221,29 @@ namespace TimecardsUI
         private void grdActivities_Leave(object sender, EventArgs e)
         {
             if (_lastGridKeyCode == Keys.Tab)
-                grdActivities.Focus();
+                ActivitiesGrid.Focus();
         }
 
         private void SetStatusMessage(string message)
         {
-            staMainLabel.Text = message;
+            MainStatusLabel.Text = message;
             Refresh();
         }
 
         private void ClearStatusMessage()
         {
-            staMainLabel.Text = "Ready";
+            MainStatusLabel.Text = "Ready";
             Refresh();
         }
 
         private void FindGridVScrollBarControl()
         {
             _gridVScrollBar = null;
-            for (int i = 0; i < grdActivities.Controls.Count; ++i)
+            for (int i = 0; i < ActivitiesGrid.Controls.Count; ++i)
             {
-                if (grdActivities.Controls[i] is VScrollBar)
+                if (ActivitiesGrid.Controls[i] is VScrollBar)
                 {
-                    _gridVScrollBar = grdActivities.Controls[i] as VScrollBar;
+                    _gridVScrollBar = ActivitiesGrid.Controls[i] as VScrollBar;
                     break;
                 }
             }
@@ -263,16 +263,16 @@ namespace TimecardsUI
         {
             _loading = true;
 
-            var availableWidth = grdActivities.ClientRectangle.Width;
+            var availableWidth = ActivitiesGrid.ClientRectangle.Width;
             if (_gridVScrollBar != null && _gridVScrollBar.Visible)
                 availableWidth -= _gridVScrollBar.Width;
 
-            if (eventColumn?.Name == "colDescription")
-                colTime.Width = availableWidth
-                    - colCode.Width - colDescription.Width - grdActivities.RowHeadersWidth - 2;
+            if (eventColumn?.Name == "DescriptionColumn")
+                TimeColumn.Width = availableWidth
+                    - CodeColumn.Width - DescriptionColumn.Width - ActivitiesGrid.RowHeadersWidth - 2;
             else
-                colDescription.Width = availableWidth
-                    - colCode.Width - colTime.Width - grdActivities.RowHeadersWidth - 2;
+                DescriptionColumn.Width = availableWidth
+                    - CodeColumn.Width - TimeColumn.Width - ActivitiesGrid.RowHeadersWidth - 2;
 
             _loading = false;
         }
