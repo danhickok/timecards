@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IAppConstants.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Logic\TimecardLogic.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ReportItem.cs" />
     <Compile Include="Models\Timecard.cs" />
