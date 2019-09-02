@@ -7,7 +7,7 @@ using TimecardsCore.Models;
 
 namespace TimecardsCore.Logic
 {
-    public static class TimecardLogic
+    public class TimecardLogic
     {
 
 

@@ -28,7 +28,7 @@ namespace Timecards
             factory.Register<core.Interfaces.IRepository>(typeof(data.Repository), true,
                 typeof(core.Interfaces.IAppConstants));
 
-            var mainForm = new ui.frmMain
+            var mainForm = new ui.MainForm
             {
                 Factory = factory
             };

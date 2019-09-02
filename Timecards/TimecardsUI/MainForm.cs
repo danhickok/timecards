@@ -12,7 +12,7 @@ using TimecardsCore.Interfaces;
 
 namespace TimecardsUI
 {
-    public partial class frmMain : Form
+    public partial class MainForm : Form
     {
         public bool InitialPositioning = false;
         public IFactory Factory = null;
@@ -21,7 +21,7 @@ namespace TimecardsUI
         private Keys _lastGridKeyCode = 0;
         private VScrollBar _gridVScrollBar = null;
 
-        public frmMain()
+        public MainForm()
         {
             _loading = true;
 
@@ -39,12 +39,12 @@ namespace TimecardsUI
             ClearStatusMessage();
         }
 
-        private void frmMain_Activated(object sender, EventArgs e)
+        private void MainForm_Activated(object sender, EventArgs e)
         {
             RecalculateColumnWidths();
         }
 
-        private void frmMain_Move(object sender, EventArgs e)
+        private void MainForm_Move(object sender, EventArgs e)
         {
             if (InitialPositioning)
                 return;
@@ -54,7 +54,7 @@ namespace TimecardsUI
             MainFormSettings.Height = Height;
         }
 
-        private void frmMain_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             if (InitialPositioning)
                 return;
@@ -68,108 +68,113 @@ namespace TimecardsUI
             RecalculateColumnWidths();
         }
 
-        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (_gridVScrollBar != null)
+                _gridVScrollBar.Dispose();
             _gridVScrollBar = null;
+
+            if (Factory != null)
+                Factory.Dispose();
         }
 
-        private void mnuFileMainExit_Click(object sender, EventArgs e)
+        private void MainMenuFileExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void mnuMainFilePreferences_Click(object sender, EventArgs e)
+        private void MainMenuFilePreferences_Click(object sender, EventArgs e)
         {
             var configForm = new frmConfiguration();
             configForm.ShowDialog(this);
         }
 
-        private void mnuMainFileResetColumnWidths_Click(object sender, EventArgs e)
+        private void MainMenuFileResetColumnWidths_Click(object sender, EventArgs e)
         {
             colCode.Width = 80;
             colTime.Width = 80;
         }
 
-        private void mnuMainFileExport_Click(object sender, EventArgs e)
+        private void MainMenuFileExport_Click(object sender, EventArgs e)
         {
             var exportForm = new frmExport();
             exportForm.ShowDialog(this);
         }
 
-        private void mnuMainFileImport_Click(object sender, EventArgs e)
+        private void MainMenuFileImport_Click(object sender, EventArgs e)
         {
             var importForm = new frmImport();
             importForm.ShowDialog(this);
         }
 
-        private void mnuMainHelpAbout_Click(object sender, EventArgs e)
+        private void MainMenuHelpAbout_Click(object sender, EventArgs e)
         {
             var aboutForm = new frmAbout();
             aboutForm.ShowDialog(this);
         }
 
-        private void mnuMainDataDateFirst_Click(object sender, EventArgs e)
+        private void MainMenuDataDateFirst_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void mnuMainDataDatePrevious_Click(object sender, EventArgs e)
+        private void MainMenuDataDatePrevious_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void mnuMainDataDateNext_Click(object sender, EventArgs e)
+        private void MainMenuDataDateNext_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void mnuMainDataDateLast_Click(object sender, EventArgs e)
+        private void MainMenuDataDateLast_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void mnuDataSearchForDate_Click(object sender, EventArgs e)
+        private void MainMenuDataSearchForDate_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void mnuMainDataActivitiesSort_Click(object sender, EventArgs e)
+        private void MainMenuDataActivitiesSort_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void btnFirst_Click(object sender, EventArgs e)
+        private void NavButtonFirst_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void btnPrev_Click(object sender, EventArgs e)
+        private void NavButtonPrev_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void NavButtonNext_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void btnLast_Click(object sender, EventArgs e)
+        private void NavButtonLast_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void btnToday_Click(object sender, EventArgs e)
+        private void NavButtonToday_Click(object sender, EventArgs e)
         {
             //TODO:
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void NavButtonSearch_Click(object sender, EventArgs e)
         {
             var dateSearchForm = new frmDateSearch();
             dateSearchForm.ShowDialog();
         }
 
-        private void btnGo_Click(object sender, EventArgs e)
+        private void ReportButtonGo_Click(object sender, EventArgs e)
         {
             //TODO:
         }
