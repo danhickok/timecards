@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimecardsCore;
+using TimecardsCore.Interfaces;
 
 namespace TimecardsUI
 {
     public partial class frmMain : Form
     {
         public bool InitialPositioning = false;
+        public IFactory Factory = null;
 
         private bool _loading = false;
         private Keys _lastGridKeyCode = 0;

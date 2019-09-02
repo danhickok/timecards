@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TimecardsCore;
-using TimecardsUI;
+using core = TimecardsCore;
+using data = TimecardsData;
+using ioc = TimecardsIOC;
+using ui = TimecardsUI;
 
 namespace Timecards
 {
@@ -19,18 +21,26 @@ namespace Timecards
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Configuration.Load();
+            core.Configuration.Load();
 
-            var mainForm = new frmMain();
+            var factory = new ioc.Factory();
+            factory.Register<core.Interfaces.IAppConstants>(typeof(ProductionAppConstants), true);
+            factory.Register<core.Interfaces.IRepository>(typeof(data.Repository), true,
+                typeof(core.Interfaces.IAppConstants));
 
-            if (MainFormSettings.HaveBeenSet)
+            var mainForm = new ui.frmMain
+            {
+                Factory = factory
+            };
+
+            if (ui.MainFormSettings.HaveBeenSet)
             {
                 mainForm.InitialPositioning = true;
 
-                mainForm.Top = MainFormSettings.Top;
-                mainForm.Left = MainFormSettings.Left;
-                mainForm.Height = MainFormSettings.Height;
-                mainForm.Width = MainFormSettings.Width;
+                mainForm.Top = ui.MainFormSettings.Top;
+                mainForm.Left = ui.MainFormSettings.Left;
+                mainForm.Height = ui.MainFormSettings.Height;
+                mainForm.Width = ui.MainFormSettings.Width;
 
                 mainForm.InitialPositioning = false;
             }

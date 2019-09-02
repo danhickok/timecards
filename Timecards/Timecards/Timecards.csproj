@@ -90,6 +90,10 @@
       <Project>{8301e562-2600-468b-982a-7176bf5e0f23}</Project>
       <Name>TimecardsData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TimecardsIOC\TimecardsIOC.csproj">
+      <Project>{a4da85eb-7660-4431-9496-4dd55b8ae177}</Project>
+      <Name>TimecardsIOC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimecardsUI\TimecardsUI.csproj">
       <Project>{b8d80d32-1c4f-405e-a6dd-fe27cec1a933}</Project>
       <Name>TimecardsUI</Name>
