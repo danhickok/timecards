@@ -10,19 +10,19 @@ using System.Windows.Forms;
 
 namespace TimecardsUI
 {
-    public partial class frmExport : Form
+    public partial class ExportForm : Form
     {
-        public frmExport()
+        public ExportForm()
         {
             InitializeComponent();
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        private void ExportButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

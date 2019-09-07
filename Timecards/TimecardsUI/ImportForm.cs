@@ -10,16 +10,21 @@ using System.Windows.Forms;
 
 namespace TimecardsUI
 {
-    public partial class frmDateSearch : Form
+    public partial class ImportForm : Form
     {
-        public frmDateSearch()
+        public ImportForm()
         {
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void ImportButton_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -97,13 +97,13 @@ namespace TimecardsUI
 
         private void MainMenuFileExport_Click(object sender, EventArgs e)
         {
-            var exportForm = new frmExport();
+            var exportForm = new ExportForm();
             exportForm.ShowDialog(this);
         }
 
         private void MainMenuFileImport_Click(object sender, EventArgs e)
         {
-            var importForm = new frmImport();
+            var importForm = new ImportForm();
             importForm.ShowDialog(this);
         }
 
@@ -170,7 +170,7 @@ namespace TimecardsUI
 
         private void NavButtonSearch_Click(object sender, EventArgs e)
         {
-            var dateSearchForm = new frmDateSearch();
+            var dateSearchForm = new DateSearchForm();
             dateSearchForm.ShowDialog();
         }
 

@@ -29,177 +29,177 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationForm));
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.lblCodeMask = new System.Windows.Forms.Label();
-            this.txtCodeMask = new System.Windows.Forms.TextBox();
-            this.lblRoundTime = new System.Windows.Forms.Label();
-            this.cboRoundTime = new System.Windows.Forms.ComboBox();
-            this.lblDefaultDescriptions = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.colCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.txtTimeMask = new System.Windows.Forms.TextBox();
-            this.lblTimeMask = new System.Windows.Forms.Label();
+            this.OKButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.CodeMaskLabel = new System.Windows.Forms.Label();
+            this.CodeMaskTextBox = new System.Windows.Forms.TextBox();
+            this.RoundTimeLabel = new System.Windows.Forms.Label();
+            this.RoundTimeComboBox = new System.Windows.Forms.ComboBox();
+            this.DefaultDescriptionsLabel = new System.Windows.Forms.Label();
+            this.DefaultCodesListView = new System.Windows.Forms.ListView();
+            this.CodeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DescriptionColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.AddButton = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            this.TimeMaskTextBox = new System.Windows.Forms.TextBox();
+            this.TimeMaskLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnOK
+            // OKButton
             // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(314, 366);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(87, 27);
-            this.btnOK.TabIndex = 10;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OKButton.Location = new System.Drawing.Point(314, 366);
+            this.OKButton.Name = "OKButton";
+            this.OKButton.Size = new System.Drawing.Size(87, 27);
+            this.OKButton.TabIndex = 10;
+            this.OKButton.Text = "OK";
+            this.OKButton.UseVisualStyleBackColor = true;
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // btnCancel
+            // CancelButton
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(408, 366);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 11;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelButton.Location = new System.Drawing.Point(408, 366);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(87, 27);
+            this.CancelButton.TabIndex = 11;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // lblCodeMask
+            // CodeMaskLabel
             // 
-            this.lblCodeMask.AutoSize = true;
-            this.lblCodeMask.Location = new System.Drawing.Point(14, 24);
-            this.lblCodeMask.Name = "lblCodeMask";
-            this.lblCodeMask.Size = new System.Drawing.Size(93, 20);
-            this.lblCodeMask.TabIndex = 0;
-            this.lblCodeMask.Text = "Code format";
+            this.CodeMaskLabel.AutoSize = true;
+            this.CodeMaskLabel.Location = new System.Drawing.Point(14, 24);
+            this.CodeMaskLabel.Name = "CodeMaskLabel";
+            this.CodeMaskLabel.Size = new System.Drawing.Size(74, 15);
+            this.CodeMaskLabel.TabIndex = 0;
+            this.CodeMaskLabel.Text = "Code format";
             // 
-            // txtCodeMask
+            // CodeMaskTextBox
             // 
-            this.txtCodeMask.Location = new System.Drawing.Point(152, 20);
-            this.txtCodeMask.Name = "txtCodeMask";
-            this.txtCodeMask.Size = new System.Drawing.Size(116, 27);
-            this.txtCodeMask.TabIndex = 1;
+            this.CodeMaskTextBox.Location = new System.Drawing.Point(152, 20);
+            this.CodeMaskTextBox.Name = "CodeMaskTextBox";
+            this.CodeMaskTextBox.Size = new System.Drawing.Size(116, 23);
+            this.CodeMaskTextBox.TabIndex = 1;
             // 
-            // lblRoundTime
+            // RoundTimeLabel
             // 
-            this.lblRoundTime.AutoSize = true;
-            this.lblRoundTime.Location = new System.Drawing.Point(14, 82);
-            this.lblRoundTime.Name = "lblRoundTime";
-            this.lblRoundTime.Size = new System.Drawing.Size(154, 20);
-            this.lblRoundTime.TabIndex = 4;
-            this.lblRoundTime.Text = "Round current time to";
+            this.RoundTimeLabel.AutoSize = true;
+            this.RoundTimeLabel.Location = new System.Drawing.Point(14, 82);
+            this.RoundTimeLabel.Name = "RoundTimeLabel";
+            this.RoundTimeLabel.Size = new System.Drawing.Size(124, 15);
+            this.RoundTimeLabel.TabIndex = 4;
+            this.RoundTimeLabel.Text = "Round current time to";
             // 
-            // cboRoundTime
+            // RoundTimeComboBox
             // 
-            this.cboRoundTime.FormattingEnabled = true;
-            this.cboRoundTime.Items.AddRange(new object[] {
+            this.RoundTimeComboBox.FormattingEnabled = true;
+            this.RoundTimeComboBox.Items.AddRange(new object[] {
             "nearest minute",
             "nearest five minutes",
             "nearest 15 minutes",
             "nearest half hour",
             "nearest hour"});
-            this.cboRoundTime.Location = new System.Drawing.Point(152, 78);
-            this.cboRoundTime.Name = "cboRoundTime";
-            this.cboRoundTime.Size = new System.Drawing.Size(216, 28);
-            this.cboRoundTime.TabIndex = 5;
+            this.RoundTimeComboBox.Location = new System.Drawing.Point(152, 78);
+            this.RoundTimeComboBox.Name = "RoundTimeComboBox";
+            this.RoundTimeComboBox.Size = new System.Drawing.Size(216, 23);
+            this.RoundTimeComboBox.TabIndex = 5;
             // 
-            // lblDefaultDescriptions
+            // DefaultDescriptionsLabel
             // 
-            this.lblDefaultDescriptions.AutoSize = true;
-            this.lblDefaultDescriptions.Location = new System.Drawing.Point(14, 141);
-            this.lblDefaultDescriptions.Name = "lblDefaultDescriptions";
-            this.lblDefaultDescriptions.Size = new System.Drawing.Size(262, 20);
-            this.lblDefaultDescriptions.TabIndex = 6;
-            this.lblDefaultDescriptions.Text = "Default descriptions for specific codes";
+            this.DefaultDescriptionsLabel.AutoSize = true;
+            this.DefaultDescriptionsLabel.Location = new System.Drawing.Point(14, 141);
+            this.DefaultDescriptionsLabel.Name = "DefaultDescriptionsLabel";
+            this.DefaultDescriptionsLabel.Size = new System.Drawing.Size(207, 15);
+            this.DefaultDescriptionsLabel.TabIndex = 6;
+            this.DefaultDescriptionsLabel.Text = "Default descriptions for specific codes";
             // 
-            // listView1
+            // DefaultCodesListView
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.DefaultCodesListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colCode,
-            this.colDescription});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.LabelEdit = true;
-            this.listView1.Location = new System.Drawing.Point(14, 162);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(480, 186);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.DefaultCodesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.CodeColumn,
+            this.DescriptionColumn});
+            this.DefaultCodesListView.FullRowSelect = true;
+            this.DefaultCodesListView.GridLines = true;
+            this.DefaultCodesListView.HideSelection = false;
+            this.DefaultCodesListView.LabelEdit = true;
+            this.DefaultCodesListView.Location = new System.Drawing.Point(14, 162);
+            this.DefaultCodesListView.Name = "DefaultCodesListView";
+            this.DefaultCodesListView.Size = new System.Drawing.Size(480, 186);
+            this.DefaultCodesListView.TabIndex = 7;
+            this.DefaultCodesListView.UseCompatibleStateImageBehavior = false;
+            this.DefaultCodesListView.View = System.Windows.Forms.View.Details;
             // 
-            // colCode
+            // CodeColumn
             // 
-            this.colCode.Text = "Code";
-            this.colCode.Width = 75;
+            this.CodeColumn.Text = "Code";
+            this.CodeColumn.Width = 75;
             // 
-            // colDescription
+            // DescriptionColumn
             // 
-            this.colDescription.Text = "Description";
-            this.colDescription.Width = 367;
+            this.DescriptionColumn.Text = "Description";
+            this.DescriptionColumn.Width = 367;
             // 
-            // btnAdd
+            // AddButton
             // 
-            this.btnAdd.Location = new System.Drawing.Point(439, 131);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(27, 27);
-            this.btnAdd.TabIndex = 8;
-            this.btnAdd.Text = "+";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.AddButton.Location = new System.Drawing.Point(439, 131);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(27, 27);
+            this.AddButton.TabIndex = 8;
+            this.AddButton.Text = "+";
+            this.AddButton.UseVisualStyleBackColor = true;
             // 
-            // btnDelete
+            // DeleteButton
             // 
-            this.btnDelete.Location = new System.Drawing.Point(468, 131);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(27, 27);
-            this.btnDelete.TabIndex = 9;
-            this.btnDelete.Text = "-";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.DeleteButton.Location = new System.Drawing.Point(468, 131);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(27, 27);
+            this.DeleteButton.TabIndex = 9;
+            this.DeleteButton.Text = "-";
+            this.DeleteButton.UseVisualStyleBackColor = true;
             // 
-            // txtTimeMask
+            // TimeMaskTextBox
             // 
-            this.txtTimeMask.Location = new System.Drawing.Point(152, 49);
-            this.txtTimeMask.Name = "txtTimeMask";
-            this.txtTimeMask.Size = new System.Drawing.Size(116, 27);
-            this.txtTimeMask.TabIndex = 3;
+            this.TimeMaskTextBox.Location = new System.Drawing.Point(152, 49);
+            this.TimeMaskTextBox.Name = "TimeMaskTextBox";
+            this.TimeMaskTextBox.Size = new System.Drawing.Size(116, 23);
+            this.TimeMaskTextBox.TabIndex = 3;
             // 
-            // lblTimeMask
+            // TimeMaskLabel
             // 
-            this.lblTimeMask.AutoSize = true;
-            this.lblTimeMask.Location = new System.Drawing.Point(14, 53);
-            this.lblTimeMask.Name = "lblTimeMask";
-            this.lblTimeMask.Size = new System.Drawing.Size(91, 20);
-            this.lblTimeMask.TabIndex = 2;
-            this.lblTimeMask.Text = "Time format";
+            this.TimeMaskLabel.AutoSize = true;
+            this.TimeMaskLabel.Location = new System.Drawing.Point(14, 53);
+            this.TimeMaskLabel.Name = "TimeMaskLabel";
+            this.TimeMaskLabel.Size = new System.Drawing.Size(72, 15);
+            this.TimeMaskLabel.TabIndex = 2;
+            this.TimeMaskLabel.Text = "Time format";
             // 
-            // frmConfiguration
+            // ConfigurationForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.btnCancel;
+            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(509, 406);
-            this.Controls.Add(this.txtTimeMask);
-            this.Controls.Add(this.lblTimeMask);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.lblDefaultDescriptions);
-            this.Controls.Add(this.cboRoundTime);
-            this.Controls.Add(this.lblRoundTime);
-            this.Controls.Add(this.txtCodeMask);
-            this.Controls.Add(this.lblCodeMask);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.TimeMaskTextBox);
+            this.Controls.Add(this.TimeMaskLabel);
+            this.Controls.Add(this.DeleteButton);
+            this.Controls.Add(this.AddButton);
+            this.Controls.Add(this.DefaultCodesListView);
+            this.Controls.Add(this.DefaultDescriptionsLabel);
+            this.Controls.Add(this.RoundTimeComboBox);
+            this.Controls.Add(this.RoundTimeLabel);
+            this.Controls.Add(this.CodeMaskTextBox);
+            this.Controls.Add(this.CodeMaskLabel);
+            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.OKButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmConfiguration";
+            this.Name = "ConfigurationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Timecards - Preferences";
             this.ResumeLayout(false);
@@ -209,19 +209,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label lblCodeMask;
-        private System.Windows.Forms.TextBox txtCodeMask;
-        private System.Windows.Forms.Label lblRoundTime;
-        private System.Windows.Forms.ComboBox cboRoundTime;
-        private System.Windows.Forms.Label lblDefaultDescriptions;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader colCode;
-        private System.Windows.Forms.ColumnHeader colDescription;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.TextBox txtTimeMask;
-        private System.Windows.Forms.Label lblTimeMask;
+        private System.Windows.Forms.Button OKButton;
+        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Label CodeMaskLabel;
+        private System.Windows.Forms.TextBox CodeMaskTextBox;
+        private System.Windows.Forms.Label RoundTimeLabel;
+        private System.Windows.Forms.ComboBox RoundTimeComboBox;
+        private System.Windows.Forms.Label DefaultDescriptionsLabel;
+        private System.Windows.Forms.ListView DefaultCodesListView;
+        private System.Windows.Forms.ColumnHeader CodeColumn;
+        private System.Windows.Forms.ColumnHeader DescriptionColumn;
+        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.TextBox TimeMaskTextBox;
+        private System.Windows.Forms.Label TimeMaskLabel;
     }
 }
