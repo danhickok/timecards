@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DateSearchForm));
             this.CancelButton = new System.Windows.Forms.Button();
             this.DatesListView = new System.Windows.Forms.ListView();
+            this.TimcardDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TimecardDayColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // CancelButton
@@ -50,19 +52,36 @@
             this.DatesListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TimcardDateColumn,
+            this.TimecardDayColumn});
+            this.DatesListView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DatesListView.FullRowSelect = true;
+            this.DatesListView.GridLines = true;
             this.DatesListView.HideSelection = false;
+            this.DatesListView.HoverSelection = true;
+            this.DatesListView.LabelWrap = false;
             this.DatesListView.Location = new System.Drawing.Point(15, 15);
             this.DatesListView.MultiSelect = false;
             this.DatesListView.Name = "DatesListView";
             this.DatesListView.Size = new System.Drawing.Size(294, 211);
             this.DatesListView.TabIndex = 1;
             this.DatesListView.UseCompatibleStateImageBehavior = false;
-            this.DatesListView.View = System.Windows.Forms.View.List;
+            this.DatesListView.View = System.Windows.Forms.View.Details;
+            // 
+            // TimcardDateColumn
+            // 
+            this.TimcardDateColumn.Text = "Date";
+            this.TimcardDateColumn.Width = 120;
+            // 
+            // TimecardDayColumn
+            // 
+            this.TimecardDayColumn.Text = "Day of week";
+            this.TimecardDayColumn.Width = 140;
             // 
             // DateSearchForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(324, 273);
             this.Controls.Add(this.DatesListView);
             this.Controls.Add(this.CancelButton);
@@ -80,5 +99,7 @@
 
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.ListView DatesListView;
+        private System.Windows.Forms.ColumnHeader TimcardDateColumn;
+        private System.Windows.Forms.ColumnHeader TimecardDayColumn;
     }
 }
