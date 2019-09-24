@@ -34,7 +34,7 @@
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.FileTypeComboBox = new System.Windows.Forms.ComboBox();
             this.FileTypeLabel = new System.Windows.Forms.Label();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelExportButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
             this.FileSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
@@ -86,17 +86,17 @@
             this.FileTypeLabel.TabIndex = 11;
             this.FileTypeLabel.Text = "File type";
             // 
-            // CancelButton
+            // CancelExportButton
             // 
-            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(358, 90);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(101, 31);
-            this.CancelButton.TabIndex = 10;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelExportButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelExportButton.Location = new System.Drawing.Point(358, 90);
+            this.CancelExportButton.Name = "CancelExportButton";
+            this.CancelExportButton.Size = new System.Drawing.Size(101, 31);
+            this.CancelExportButton.TabIndex = 10;
+            this.CancelExportButton.Text = "Cancel";
+            this.CancelExportButton.UseVisualStyleBackColor = true;
+            this.CancelExportButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ExportButton
             // 
@@ -112,11 +112,10 @@
             // ExportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(474, 135);
             this.Controls.Add(this.FileTypeComboBox);
             this.Controls.Add(this.FileTypeLabel);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelExportButton);
             this.Controls.Add(this.ExportButton);
             this.Controls.Add(this.FileDialogButton);
             this.Controls.Add(this.FileNameTextBox);
@@ -139,7 +138,7 @@
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.ComboBox FileTypeComboBox;
         private System.Windows.Forms.Label FileTypeLabel;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelExportButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.SaveFileDialog FileSaveDialog;
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using core = TimecardsCore.Models;
 
 namespace TimecardsData
@@ -13,11 +9,7 @@ namespace TimecardsData
 
         public static core.Timecard ToCore(this Timecard data)
         {
-            var core = new core.Timecard
-            {
-                ID = data.ID,
-                Date = data.Date,
-            };
+            var core = new core.Timecard(data.ID, data.Date);
 
             if (data.Activities != null)
                 core.Activities.AddRange(data.Activities.Select(a => a.ToCore()));
@@ -52,14 +44,7 @@ namespace TimecardsData
 
         public static core.Activity ToCore(this Activity data)
         {
-            var core = new core.Activity
-            {
-                ID = data.ID,
-                TimecardID = data.TimecardID,
-                Code = data.Code,
-                Description = data.Description,
-                StartMinute = data.StartMinute,
-            };
+            var core = new core.Activity(data.ID, data.TimecardID, data.Code, data.Description, data.StartMinute);
 
             return core;
         }
@@ -79,6 +64,7 @@ namespace TimecardsData
         public static void UpdateFromCore(this Activity data, core.Activity core)
         {
             data.ID = core.ID;
+            data.TimecardID = core.TimecardID;
             data.Code = core.Code;
             data.Description = core.Description;
             data.StartMinute = core.StartMinute;
@@ -87,6 +73,7 @@ namespace TimecardsData
         public static void UpdateFromData(this core.Activity core, Activity data)
         {
             core.ID = data.ID;
+            core.TimecardID = data.TimecardID;
             core.Code = data.Code;
             core.Description = data.Description;
             core.StartMinute = data.StartMinute;

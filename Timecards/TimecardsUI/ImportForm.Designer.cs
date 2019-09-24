@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportForm));
             this.ImportButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelImportButton = new System.Windows.Forms.Button();
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.FileTypeLabel = new System.Windows.Forms.Label();
             this.FileNameTextBox = new System.Windows.Forms.TextBox();
@@ -52,17 +52,17 @@
             this.ImportButton.UseVisualStyleBackColor = true;
             this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
             // 
-            // CancelButton
+            // CancelImportButton
             // 
-            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(309, 171);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(87, 27);
-            this.CancelButton.TabIndex = 1;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelImportButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelImportButton.Location = new System.Drawing.Point(309, 171);
+            this.CancelImportButton.Name = "CancelImportButton";
+            this.CancelImportButton.Size = new System.Drawing.Size(87, 27);
+            this.CancelImportButton.TabIndex = 1;
+            this.CancelImportButton.Text = "Cancel";
+            this.CancelImportButton.UseVisualStyleBackColor = true;
+            this.CancelImportButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // FileNameLabel
             // 
@@ -136,7 +136,6 @@
             // ImportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(413, 211);
             this.Controls.Add(this.ImportProgressBar);
             this.Controls.Add(this.EraseExistingDataCheckBox);
@@ -145,7 +144,7 @@
             this.Controls.Add(this.FileNameTextBox);
             this.Controls.Add(this.FileTypeLabel);
             this.Controls.Add(this.FileNameLabel);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelImportButton);
             this.Controls.Add(this.ImportButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -161,7 +160,7 @@
         #endregion
 
         private System.Windows.Forms.Button ImportButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelImportButton;
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.Label FileTypeLabel;
         private System.Windows.Forms.TextBox FileNameTextBox;

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using core = TimecardsCore.Models;
 using ci = TimecardsCore.Interfaces;

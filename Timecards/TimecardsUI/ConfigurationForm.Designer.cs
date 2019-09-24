@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationForm));
             this.OKButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelConfigurationButton = new System.Windows.Forms.Button();
             this.CodeMaskLabel = new System.Windows.Forms.Label();
             this.CodeMaskTextBox = new System.Windows.Forms.TextBox();
             this.RoundTimeLabel = new System.Windows.Forms.Label();
@@ -56,17 +56,17 @@
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // CancelButton
+            // CancelConfigurationButton
             // 
-            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(408, 366);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(87, 27);
-            this.CancelButton.TabIndex = 11;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelConfigurationButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelConfigurationButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelConfigurationButton.Location = new System.Drawing.Point(408, 366);
+            this.CancelConfigurationButton.Name = "CancelConfigurationButton";
+            this.CancelConfigurationButton.Size = new System.Drawing.Size(87, 27);
+            this.CancelConfigurationButton.TabIndex = 11;
+            this.CancelConfigurationButton.Text = "Cancel";
+            this.CancelConfigurationButton.UseVisualStyleBackColor = true;
+            this.CancelConfigurationButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // CodeMaskLabel
             // 
@@ -182,7 +182,6 @@
             // ConfigurationForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(509, 406);
             this.Controls.Add(this.TimeMaskTextBox);
             this.Controls.Add(this.TimeMaskLabel);
@@ -194,7 +193,7 @@
             this.Controls.Add(this.RoundTimeLabel);
             this.Controls.Add(this.CodeMaskTextBox);
             this.Controls.Add(this.CodeMaskLabel);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelConfigurationButton);
             this.Controls.Add(this.OKButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -210,7 +209,7 @@
         #endregion
 
         private System.Windows.Forms.Button OKButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelConfigurationButton;
         private System.Windows.Forms.Label CodeMaskLabel;
         private System.Windows.Forms.TextBox CodeMaskTextBox;
         private System.Windows.Forms.Label RoundTimeLabel;

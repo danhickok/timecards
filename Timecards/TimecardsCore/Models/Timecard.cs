@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimecardsCore.Models
 {
@@ -10,28 +7,30 @@ namespace TimecardsCore.Models
     {
         #region Public properties
 
+        private int _id;
         public int ID
         {
             get
             {
-                return ID;
+                return _id;
             }
             set
             {
-                ID = value;
+                _id = value;
                 IsDirty = true;
             }
         }
 
+        private DateTime _date;
         public DateTime Date
         {
             get
             {
-                return Date;
+                return _date;
             }
             set
             {
-                Date = value;
+                _date = value;
                 IsDirty = true;
             }
         }
@@ -46,16 +45,16 @@ namespace TimecardsCore.Models
 
         public Timecard()
         {
-            ID = 0;
-            Date = DateTime.Today;
+            _id = 0;
+            _date = DateTime.Today;
             Activities = new List<Activity>();
             IsDirty = false;
         }
 
         public Timecard(int id, DateTime date)
         {
-            ID = id;
-            Date = date;
+            _id = id;
+            _date = date;
             Activities = new List<Activity>();
             IsDirty = false;
         }

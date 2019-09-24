@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimecardsCore.Models;
 using ci = TimecardsCore.Interfaces;
 
@@ -10,7 +6,7 @@ namespace TimecardsCore.Logic
 {
     public class TimecardLogic
     {
-        private ci.IFactory _factory;
+        private readonly ci.IFactory _factory;
         
         public TimecardLogic(ci.IFactory factory)
         {

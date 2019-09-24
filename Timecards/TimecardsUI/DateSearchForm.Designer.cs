@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DateSearchForm));
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelDateSearchButton = new System.Windows.Forms.Button();
             this.DatesListView = new System.Windows.Forms.ListView();
             this.TimcardDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TimecardDayColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // CancelButton
+            // CancelDateSearchButton
             // 
-            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(223, 237);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(87, 27);
-            this.CancelButton.TabIndex = 0;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelDateSearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelDateSearchButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelDateSearchButton.Location = new System.Drawing.Point(223, 237);
+            this.CancelDateSearchButton.Name = "CancelDateSearchButton";
+            this.CancelDateSearchButton.Size = new System.Drawing.Size(87, 27);
+            this.CancelDateSearchButton.TabIndex = 0;
+            this.CancelDateSearchButton.Text = "Cancel";
+            this.CancelDateSearchButton.UseVisualStyleBackColor = true;
+            this.CancelDateSearchButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // DatesListView
             // 
@@ -84,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(324, 273);
             this.Controls.Add(this.DatesListView);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelDateSearchButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(164, 226);
@@ -97,7 +97,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelDateSearchButton;
         private System.Windows.Forms.ListView DatesListView;
         private System.Windows.Forms.ColumnHeader TimcardDateColumn;
         private System.Windows.Forms.ColumnHeader TimecardDayColumn;
