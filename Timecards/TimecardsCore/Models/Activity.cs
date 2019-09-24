@@ -12,58 +12,87 @@ namespace TimecardsCore.Models
 
         #region Public properties
 
-        public int ID { get; set; }
-        public int TimecardID { get; set; }
+        public int ID {
+            get => ID;
+            set
+            {
+                ID = value;
+                IsDirty = true;
+            }
+        }
 
-        private string _code;
+        public int TimecardID
+        {
+            get => TimecardID;
+            set
+            {
+                TimecardID = value;
+                IsDirty = true;
+            }
+        }
+
         public string Code
         {
-            get
-            {
-                return _code;
-            }
+            get => Code;
             set
             {
-                _code = value;
-                if (string.IsNullOrWhiteSpace(Description) && Configuration.DefaultCodes.ContainsKey(_code))
-                    Description = Configuration.DefaultCodes[_code];
+                Code = value;
+                if (string.IsNullOrWhiteSpace(Description) && Configuration.DefaultCodes.ContainsKey(Code))
+                    Description = Configuration.DefaultCodes[Code];
+                IsDirty = true;
             }
         }
 
-        public string Description { get; set; }
+        public string Description
+        {
+            get => Description;
+            set
+            {
+                Description = value;
+                IsDirty = true;
+            }
+        }
 
-        private string _time;
         public string Time
         {
-            get => _time;
+            get => Time;
             set
             {
-                _time = PadTime(value);
+                Time = PadTime(value);
                 ComputeStartMinuteFromTime();
+                IsDirty = true;
             }
         }
 
-        private int _startMinute;
         public int StartMinute
         {
-            get => _startMinute;
+            get => StartMinute;
             set
             {
-                _startMinute = value;
+                StartMinute = value;
                 ComputeTimeFromStartMinute();
+                IsDirty = true;
             }
         }
 
-        private bool _isAfterMidnight;
         public bool IsAfterMidnight
         {
-            get => _isAfterMidnight;
+            get => IsAfterMidnight;
             set
             {
-                _isAfterMidnight = value;
+                IsAfterMidnight = value;
                 ComputeStartMinuteFromTime();
+                IsDirty = true;
             }
         }
+
+        public bool IsDirty { get; private set; }
+
+        #endregion
+
+        #region Private properties
+
+        private bool _isLoading;
 
         #endregion
 
@@ -71,32 +100,67 @@ namespace TimecardsCore.Models
 
         public Activity()
         {
-            _startMinute = 0;
-            _time = "00" + TIMESEP + "00";
-            _isAfterMidnight = false;
+            ID = 0;
+
+            _isLoading = true;
+            StartMinute = 0;
+            Time = "00" + TIMESEP + "00";
+            IsAfterMidnight = false;
+            _isLoading = false;
 
             Code = string.Empty;
             Description = string.Empty;
+
+            IsDirty = false;
         }
 
         public Activity(string code) : this()
         {
             Code = code;
+            IsDirty = false;
         }
 
         public Activity(string code, string description) : this(code)
         {
             Description = description;
+            IsDirty = false;
         }
 
         public Activity(string code, string description, string time) : this(code, description)
         {
             Time = time;
+            IsDirty = false;
         }
 
         public Activity(string code, string description, int startMinute) : this(code, description)
         {
             StartMinute = startMinute;
+            IsDirty = false;
+        }
+
+        public Activity(int id, string code) : this()
+        {
+            ID = id;
+            Code = code;
+            IsDirty = false;
+        }
+
+        public Activity(int id, string code, string description) : this(id, code)
+        {
+            Description = description;
+            IsDirty = false;
+        }
+
+        public Activity(int id, string code, string description, string time) : this(id, code, description)
+        {
+            Time = time;
+            IsDirty = false;
+        }
+
+        public Activity(int id, string code, string description, int startMinute) : this(id, code, description)
+        {
+            StartMinute = startMinute;
+            IsDirty = false;
         }
 
         #endregion
@@ -155,15 +219,23 @@ namespace TimecardsCore.Models
 
         private void ComputeStartMinuteFromTime()
         {
-            var (hour, minute) = ParseTime(_time);
-            _startMinute = hour * 60 + minute + (_isAfterMidnight ? 1440 : 0);
+            if (_isLoading)
+                return;
+
+            var (hour, minute) = ParseTime(Time);
+            StartMinute = hour * 60 + minute + (IsAfterMidnight ? 1440 : 0);
         }
 
         private void ComputeTimeFromStartMinute()
         {
-            var hour = (_startMinute / 60) % 24;
-            var minute = _startMinute % 60;
-            _time = string.Format($"{hour:D2}:{minute:D2}");
+            if (_isLoading)
+                return;
+
+            var hour = (StartMinute / 60) % 24;
+            var minute = StartMinute % 60;
+            IsAfterMidnight = (StartMinute > 24 * 60);
+
+            Time = string.Format($"{hour:D2}:{minute:D2}");
         }
 
         #endregion

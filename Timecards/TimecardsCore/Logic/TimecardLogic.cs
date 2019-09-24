@@ -8,46 +8,53 @@ using ci = TimecardsCore.Interfaces;
 
 namespace TimecardsCore.Logic
 {
-    public static class TimecardLogic
+    public class TimecardLogic
     {
-        public static Timecard GetSpecificTimecard(int key)
+        private ci.IFactory _factory;
+        
+        public TimecardLogic(ci.IFactory factory)
+        {
+            _factory = factory;
+        }
+
+        public Timecard GetSpecificTimecard(int key)
         {
             throw new NotImplementedException();
         }
 
-        public static Timecard GetLatestTimecard()
+        public Timecard GetLatestTimecard()
         {
             throw new NotImplementedException();
         }
 
-        public static Timecard GetEarliestTimecard()
+        public Timecard GetEarliestTimecard()
         {
             throw new NotImplementedException();
         }
 
-        public static Timecard GetTodaysTimecard()
+        public Timecard GetTodaysTimecard()
         {
             throw new NotImplementedException();
         }
 
-        public static Timecard GetPreviousTimecard(Timecard currentTimecard)
+        public  Timecard GetPreviousTimecard(Timecard currentTimecard)
         {
             throw new NotImplementedException();
         }
 
-        public static Timecard GetNextTimecard(Timecard currentTimecard)
+        public Timecard GetNextTimecard(Timecard currentTimecard)
         {
             throw new NotImplementedException();
         }
 
-        public static (int Key, DateTime Date) GetTimecardList()
+        public (int Key, DateTime Date) GetTimecardList()
         {
             throw new NotImplementedException();
         }
 
-        public static void SaveTimecard(Timecard currentTimecard)
+        public void SaveTimecard(Timecard currentTimecard)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
