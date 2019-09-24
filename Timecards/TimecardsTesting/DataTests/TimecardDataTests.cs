@@ -211,9 +211,17 @@ namespace TimecardsTesting.DataTests
                     "Did not see a difference of 1 in tally of activities after delete");
 
                 repo.DeleteTimecard(timecardList[0].ID);
-                repo.DeleteTimecard(timecardList[1].ID);
                 timecardList = repo.GetTimecards(10, 10, false);
-                Assert.AreEqual(0, timecardList.Count, "Still some timecards after deletion");
+                Assert.AreEqual(1, timecardList.Count,
+                    "Did not get expected number of timecards after a deletion");
+
+                var numberOfTimecards = repo.GetTimecardCount();
+                Assert.AreEqual(timecardList.Count, numberOfTimecards,
+                    "Number of timecards by list is not the same as repo's count function");
+
+                repo.DeleteAllTimecards();
+                numberOfTimecards = repo.GetTimecardCount();
+                Assert.AreEqual(0, numberOfTimecards, "Timcard count not zero after deleting all timecards");
             }
         }
 

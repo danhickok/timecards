@@ -6,6 +6,8 @@ namespace TimecardsCore.Interfaces
 {
     public interface IRepository
     {
+        int GetTimecardCount();
+
         List<Timecard> GetTimecards(int offset, int limit, bool descending);
 
         Timecard GetTimecard(int id);
@@ -25,6 +27,8 @@ namespace TimecardsCore.Interfaces
         void SaveActivity(Activity activity);
 
         void DeleteActivity(int id);
+
+        void DeleteAllTimecards();
 
         List<ReportItem> GetReport(DateTime startDate, DateTime endDate);
     }

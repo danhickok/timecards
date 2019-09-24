@@ -6,6 +6,14 @@ using TimecardsCore.Interfaces;
 
 namespace TimecardsData
 {
+    // Note:  Throughout these methods you'll see ToList() between the queries and
+    // the end result.  This is because we're using extension methods to map bewteen
+    // the EF (data) classes and the core classes the application works with, and EF
+    // complains that the extension methods do not map to any stored procedures in
+    // the database.  For large volumes of data, forcing the result early like this
+    // would be a bad practice; but for this application, the amount of data
+    // retrieved is expected to be manageable.
+
     public class Repository : IRepository, IDisposable
     {
         private readonly TimecardsContext _context = null;
@@ -19,13 +27,10 @@ namespace TimecardsData
 
         #endregion
 
-        // Note:  Throughout these methods you'll see ToList() between the queries and
-        // the end result.  This is because we're using extension methods to map bewteen
-        // the EF (data) classes and the core classes the application works with, and EF
-        // complains that the extension methods do not map to any stored procedures in
-        // the database.  For large volumes of data, forcing the result early like this
-        // would be a bad practice; but for this application, the amount of data
-        // retrieved is expected to be manageable.
+        public int GetTimecardCount()
+        {
+            return _context.Timecards.Count();
+        }
 
         public List<core.Timecard> GetTimecards(int offset, int limit, bool descending)
         {
@@ -108,6 +113,12 @@ namespace TimecardsData
                 _context.Timecards.Remove(data);
                 _context.SaveChanges();
             }
+        }
+
+        public void DeleteAllTimecards()
+        {
+            _context.Database.ExecuteSqlCommand("DELETE FROM Activities;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Timecards;");
         }
 
         public void GetActivities(core.Timecard timecard)

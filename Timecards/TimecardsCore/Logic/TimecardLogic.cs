@@ -7,10 +7,28 @@ namespace TimecardsCore.Logic
     public class TimecardLogic
     {
         private readonly ci.IFactory _factory;
+        private Timecard _timecard;
         
         public TimecardLogic(ci.IFactory factory)
         {
             _factory = factory;
+            _timecard = new Timecard();
+        }
+
+        public int GetTimecardCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Timecard GetCurrentTimecard()
+        {
+            return _timecard;
+        }
+
+        public Timecard GetNewTimecard()
+        {
+            _timecard = new Timecard();
+            return _timecard;
         }
 
         public Timecard GetSpecificTimecard(int key)
@@ -33,12 +51,12 @@ namespace TimecardsCore.Logic
             throw new NotImplementedException();
         }
 
-        public  Timecard GetPreviousTimecard(Timecard currentTimecard)
+        public  Timecard GetPreviousTimecard()
         {
             throw new NotImplementedException();
         }
 
-        public Timecard GetNextTimecard(Timecard currentTimecard)
+        public Timecard GetNextTimecard()
         {
             throw new NotImplementedException();
         }
@@ -48,7 +66,17 @@ namespace TimecardsCore.Logic
             throw new NotImplementedException();
         }
 
-        public void SaveTimecard(Timecard currentTimecard)
+        public void SaveTimecard()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteTimecard()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAllTimecards()
         {
             throw new NotImplementedException();
         }
