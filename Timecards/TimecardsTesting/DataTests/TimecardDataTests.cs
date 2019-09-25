@@ -211,7 +211,7 @@ namespace TimecardsTesting.DataTests
                     "Did not see a difference of 1 in tally of activities after delete");
 
                 repo.DeleteTimecard(timecardList[0].ID);
-                timecardList = repo.GetTimecards(10, 10, false);
+                timecardList = repo.GetTimecards(0, 10, false);
                 Assert.AreEqual(1, timecardList.Count,
                     "Did not get expected number of timecards after a deletion");
 

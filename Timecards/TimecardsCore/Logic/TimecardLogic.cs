@@ -17,7 +17,8 @@ namespace TimecardsCore.Logic
 
         public int GetTimecardCount()
         {
-            throw new NotImplementedException();
+            var repo = _factory.Resolve<ci.IRepository>();
+            return repo.GetTimecardCount();
         }
 
         public Timecard GetCurrentTimecard()
@@ -33,22 +34,45 @@ namespace TimecardsCore.Logic
 
         public Timecard GetSpecificTimecard(int key)
         {
-            throw new NotImplementedException();
+            var repo = _factory.Resolve<ci.IRepository>();
+            _timecard = repo.GetTimecard(key);
+            return _timecard;
+        }
+
+        private void RetrieveTimecardFromEdge(bool latest)
+        {
+            var repo = _factory.Resolve<ci.IRepository>();
+            var list = repo.GetTimecards(0, 1, latest);
+
+            if (list.Count == 0)
+            {
+                _timecard = new Timecard();
+            }
+            else
+            {
+                _timecard = repo.GetTimecard(list[0].ID);
+            }
         }
 
         public Timecard GetLatestTimecard()
         {
-            throw new NotImplementedException();
+            RetrieveTimecardFromEdge(true);
+            return _timecard;
         }
 
         public Timecard GetEarliestTimecard()
         {
-            throw new NotImplementedException();
+            RetrieveTimecardFromEdge(false);
+            return _timecard;
         }
 
         public Timecard GetTodaysTimecard()
         {
-            throw new NotImplementedException();
+            RetrieveTimecardFromEdge(true);
+            if (_timecard.ID != 0 && _timecard.Date != DateTime.Today)
+                _timecard = new Timecard();
+
+            return _timecard;
         }
 
         public  Timecard GetPreviousTimecard()

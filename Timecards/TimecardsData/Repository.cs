@@ -80,6 +80,33 @@ namespace TimecardsData
             return timecard;
         }
 
+        public core.Timecard GetNearestTimecard(DateTime date, bool after)
+        {
+            core.Timecard timecard = null;
+            IOrderedQueryable<Timecard> query;
+
+            if (after)
+                query = _context.Timecards
+                    .Where(t => t.Date > date)
+                    .OrderByDescending(t => t.Date)
+                    .ThenByDescending(t => t.ID);
+            else
+                query = _context.Timecards
+                    .Where(t => t.Date < date)
+                    .OrderBy(t => t.Date)
+                    .ThenBy(t => t.ID);
+
+            var data = query
+                .FirstOrDefault();
+            if (data != null)
+                timecard = data.ToCore();
+
+            if (timecard != null)
+                GetActivities(timecard);
+
+            return timecard;
+        }
+
         public void SaveTimecard(core.Timecard timecard)
         {
             Timecard data;
