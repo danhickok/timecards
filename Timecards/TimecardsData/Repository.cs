@@ -88,13 +88,13 @@ namespace TimecardsData
             if (after)
                 query = _context.Timecards
                     .Where(t => t.Date > date)
-                    .OrderByDescending(t => t.Date)
-                    .ThenByDescending(t => t.ID);
+                    .OrderBy(t => t.Date)
+                    .ThenBy(t => t.ID);
             else
                 query = _context.Timecards
                     .Where(t => t.Date < date)
-                    .OrderBy(t => t.Date)
-                    .ThenBy(t => t.ID);
+                    .OrderByDescending(t => t.Date)
+                    .ThenByDescending(t => t.ID);
 
             var data = query
                 .FirstOrDefault();

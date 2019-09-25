@@ -47,6 +47,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Exceptions\InvalidValueException.cs" />
     <Compile Include="Exceptions\NullNotAllowedException.cs" />
+    <Compile Include="Exceptions\TimecardNotFoundException.cs" />
     <Compile Include="Interfaces\IAppConstants.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />

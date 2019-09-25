@@ -61,6 +61,9 @@ namespace TimecardsTesting.IntegrationTests
             tcOut = repoOut.GetTimecard(tcIn.ID);
             Assert.AreEqual(tcIn.ID, tcOut.ID, "Retrieved timecard ID doesn't match saved timecard ID");
             Assert.AreEqual(tcOut.Activities.Count, 6, "Didn't receive expected number of activity children");
+
+            // cleanup at end of test
+            repoOut.DeleteAllTimecards();
         }
 
         [TestMethod]
@@ -153,6 +156,8 @@ namespace TimecardsTesting.IntegrationTests
             // get count of timecards
             var count = logic.GetTimecardCount();
             Assert.AreEqual(4, count, "logic did not return expected number of timecards");
+
+            //TODO: test next/previous
 
             //TODO: get report
 

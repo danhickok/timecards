@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TimecardsCore.Models;
-using ci = TimecardsCore.Interfaces;
+using TimecardsCore.Interfaces;
+using TimecardsCore.Exceptions;
 
 namespace TimecardsCore.Logic
 {
     public class TimecardLogic
     {
-        private readonly ci.IFactory _factory;
+        private readonly IFactory _factory;
         private Timecard _timecard;
         
-        public TimecardLogic(ci.IFactory factory)
+        public TimecardLogic(IFactory factory)
         {
             _factory = factory;
             _timecard = new Timecard();
@@ -17,7 +20,7 @@ namespace TimecardsCore.Logic
 
         public int GetTimecardCount()
         {
-            var repo = _factory.Resolve<ci.IRepository>();
+            var repo = _factory.Resolve<IRepository>();
             return repo.GetTimecardCount();
         }
 
@@ -34,24 +37,22 @@ namespace TimecardsCore.Logic
 
         public Timecard GetSpecificTimecard(int key)
         {
-            var repo = _factory.Resolve<ci.IRepository>();
-            _timecard = repo.GetTimecard(key);
+            var repo = _factory.Resolve<IRepository>();
+            var timecard  = repo.GetTimecard(key);
+            _timecard = timecard
+                ?? throw new TimecardNotFoundException();
             return _timecard;
         }
 
         private void RetrieveTimecardFromEdge(bool latest)
         {
-            var repo = _factory.Resolve<ci.IRepository>();
+            var repo = _factory.Resolve<IRepository>();
             var list = repo.GetTimecards(0, 1, latest);
 
-            if (list.Count == 0)
-            {
-                _timecard = new Timecard();
-            }
-            else
-            {
+            if (list.Count > 0)
                 _timecard = repo.GetTimecard(list[0].ID);
-            }
+            else
+                throw new TimecardNotFoundException();
         }
 
         public Timecard GetLatestTimecard()
@@ -68,41 +69,68 @@ namespace TimecardsCore.Logic
 
         public Timecard GetTodaysTimecard()
         {
-            RetrieveTimecardFromEdge(true);
-            if (_timecard.ID != 0 && _timecard.Date != DateTime.Today)
+            try
+            {
+                RetrieveTimecardFromEdge(true);
+                if (_timecard.ID != 0 && _timecard.Date != DateTime.Today)
+                    _timecard = new Timecard();
+            }
+            catch (TimecardNotFoundException)
+            {
                 _timecard = new Timecard();
+            }
 
             return _timecard;
         }
 
         public  Timecard GetPreviousTimecard()
         {
-            throw new NotImplementedException();
+            var repo = _factory.Resolve<IRepository>();
+            _timecard = repo.GetNearestTimecard(_timecard.Date, false)
+                ?? throw new TimecardNotFoundException();
+            return _timecard;
         }
 
         public Timecard GetNextTimecard()
         {
-            throw new NotImplementedException();
+            var repo = _factory.Resolve<IRepository>();
+            _timecard = repo.GetNearestTimecard(_timecard.Date, true)
+                ?? throw new TimecardNotFoundException();
+            return _timecard;
         }
 
-        public (int Key, DateTime Date) GetTimecardList()
+        public List<(int Key, DateTime Date)> GetTimecardList()
         {
-            throw new NotImplementedException();
+            var repo = _factory.Resolve<IRepository>();
+            var timecards = repo.GetTimecards(0, 99999, true);
+            var list = timecards.Select(tc => (tc.ID, tc.Date)).ToList();
+            return list;
         }
 
         public void SaveTimecard()
         {
-            throw new NotImplementedException();
+            if (_timecard.IsDirty)
+            {
+                var repo = _factory.Resolve<IRepository>();
+                repo.SaveTimecard(_timecard);
+            }
         }
 
         public void DeleteTimecard()
         {
-            throw new NotImplementedException();
+            var id = _timecard.ID;
+            var date = _timecard.Date;
+
+            var repo = _factory.Resolve<IRepository>();
+            repo.DeleteTimecard(id);
+            _timecard = repo.GetNearestTimecard(date, false)
+                ?? throw new TimecardNotFoundException();
         }
 
         public void DeleteAllTimecards()
         {
-            throw new NotImplementedException();
+            var repo = _factory.Resolve<IRepository>();
+            repo.DeleteAllTimecards();
         }
     }
 }
