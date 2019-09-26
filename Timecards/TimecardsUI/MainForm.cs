@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using TimecardsCore.Models;
 using TimecardsCore.Logic;
 using TimecardsCore.Interfaces;
+using TimecardsCore.Exceptions;
 
 namespace TimecardsUI
 {
@@ -51,8 +52,16 @@ namespace TimecardsUI
             _timecardLogic = new TimecardLogic(Factory);
 
             _loading = true;
-            
-            var tc = _timecardLogic.GetTodaysTimecard();
+
+            Timecard tc;
+            try
+            {
+                tc = _timecardLogic.GetLatestTimecard();
+            }
+            catch (TimecardNotFoundException)
+            {
+                tc = _timecardLogic.GetNewTimecard();
+            }
             
             MainDate.Value = tc.Date;
             UpdateMainDateLabel();
@@ -272,6 +281,34 @@ namespace TimecardsUI
         {
             if (_lastGridKeyCode == Keys.Tab)
                 ActivitiesGrid.Focus();
+        }
+
+        private void ActivitiesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_timecardLogic == null)
+                return;
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+            
+            while (tc.Activities.Count() - 1 < e.RowIndex)
+                tc.Activities.Add(new Activity());
+
+            var value = ActivitiesGrid.CurrentRow.Cells[e.ColumnIndex].Value.ToString();
+
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    tc.Activities[e.RowIndex].Code = value;
+                    break;
+                case 1:
+                    tc.Activities[e.RowIndex].Description = value;
+                    break;
+                case 2:
+                    tc.Activities[e.RowIndex].Time = value;
+                    break;
+            }
+
+            _timecardLogic.SaveTimecard();
         }
 
         private void PopulateActivitiesGrid()

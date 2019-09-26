@@ -112,7 +112,7 @@ namespace TimecardsCore.Logic
 
         public void SaveTimecard()
         {
-            if (_timecard.IsDirty)
+            if (_timecard.IsDirty || _timecard.Activities.Any(a => a.IsDirty))
             {
                 var repo = _factory.Resolve<IRepository>();
                 repo.SaveTimecard(_timecard);
