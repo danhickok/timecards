@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TimecardsCore;
+using TimecardsCore.Models;
+using TimecardsCore.Logic;
 using TimecardsCore.Interfaces;
 
 namespace TimecardsUI
@@ -19,7 +20,13 @@ namespace TimecardsUI
 
         private bool _loading = false;
         private Keys _lastGridKeyCode = 0;
-        private VScrollBar _gridVScrollBar = null;
+
+        // this object is disposed of in FormClosed event
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality",
+            "IDE0069:Disposable fields should be disposed", Justification = "<Pending>")]
+        private VScrollBar _activitiesGridVScrollBar = null;
+        
+        private TimecardLogic _timecardLogic = null;
 
         public MainForm()
         {
@@ -37,6 +44,22 @@ namespace TimecardsUI
             FindGridVScrollBarControl();
 
             ClearStatusMessage();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            _timecardLogic = new TimecardLogic(Factory);
+
+            _loading = true;
+            
+            var tc = _timecardLogic.GetTodaysTimecard();
+            
+            MainDate.Value = tc.Date;
+            UpdateMainDateLabel();
+            PopulateActivitiesGrid();
+            SetStatusMessage("Ready");
+
+            _loading = false;
         }
 
         private void MainForm_Activated(object sender, EventArgs e)
@@ -70,9 +93,14 @@ namespace TimecardsUI
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (_gridVScrollBar != null)
-                _gridVScrollBar.Dispose();
-            _gridVScrollBar = null;
+            if (_activitiesGridVScrollBar != null)
+                _activitiesGridVScrollBar.Dispose();
+            _activitiesGridVScrollBar = null;
+
+            if (_timecardLogic != null && _timecardLogic.GetCurrentTimecard().IsDirty)
+                _timecardLogic.SaveTimecard();
+
+            _timecardLogic = null;
 
             if (Factory != null)
                 Factory.Dispose();
@@ -87,6 +115,7 @@ namespace TimecardsUI
         {
             var configForm = new ConfigurationForm();
             configForm.ShowDialog(this);
+            configForm.Dispose();
         }
 
         private void MainMenuFileResetColumnWidths_Click(object sender, EventArgs e)
@@ -99,18 +128,21 @@ namespace TimecardsUI
         {
             var exportForm = new ExportForm();
             exportForm.ShowDialog(this);
+            exportForm.Dispose();
         }
 
         private void MainMenuFileImport_Click(object sender, EventArgs e)
         {
             var importForm = new ImportForm();
             importForm.ShowDialog(this);
+            importForm.Dispose();
         }
 
         private void MainMenuHelpAbout_Click(object sender, EventArgs e)
         {
             var aboutForm = new AboutForm();
             aboutForm.ShowDialog(this);
+            aboutForm.Dispose();
         }
 
         private void MainMenuDataDateFirst_Click(object sender, EventArgs e)
@@ -172,6 +204,7 @@ namespace TimecardsUI
         {
             var dateSearchForm = new DateSearchForm();
             dateSearchForm.ShowDialog();
+            dateSearchForm.Dispose();
         }
 
         private void ReportButtonGo_Click(object sender, EventArgs e)
@@ -179,22 +212,39 @@ namespace TimecardsUI
             //TODO:
         }
 
-        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        private void MainDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (_loading)
+                return;
+
+            _timecardLogic.GetCurrentTimecard().Date = MainDate.Value;
+            _timecardLogic.SaveTimecard();
+
+            UpdateMainDateLabel();
+        }
+
+        private void UpdateMainDateLabel()
         {
             MainDateLabel.Text = MainDate.Value.DayOfWeek.ToString();
         }
 
-        private void dtpStart_ValueChanged(object sender, EventArgs e)
+        private void ReportDateStart_ValueChanged(object sender, EventArgs e)
         {
+            if (_loading)
+                return;
+
             //TODO:
         }
 
-        private void dtpEnd_ValueChanged(object sender, EventArgs e)
+        private void ReportDateEnd_ValueChanged(object sender, EventArgs e)
         {
+            if (_loading)
+                return;
+
             //TODO:
         }
 
-        private void grdActivities_ClientSizeChanged(object sender, EventArgs e)
+        private void ActivitiesGrid_ClientSizeChanged(object sender, EventArgs e)
         {
             if (_loading)
                 return;
@@ -202,7 +252,7 @@ namespace TimecardsUI
             RecalculateColumnWidths();
         }
 
-        private void grdActivities_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        private void ActivitiesGrid_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
             if (_loading)
                 return;
@@ -213,15 +263,24 @@ namespace TimecardsUI
             MainFormSettings.ColumnTimeWidth = TimeColumn.Width;
         }
 
-        private void grdActivities_KeyDown(object sender, KeyEventArgs e)
+        private void ActivitiesGrid_KeyDown(object sender, KeyEventArgs e)
         {
             _lastGridKeyCode = e.KeyCode;
         }
 
-        private void grdActivities_Leave(object sender, EventArgs e)
+        private void ActivitiesGrid_Leave(object sender, EventArgs e)
         {
             if (_lastGridKeyCode == Keys.Tab)
                 ActivitiesGrid.Focus();
+        }
+
+        private void PopulateActivitiesGrid()
+        {
+            ActivitiesGrid.Rows.Clear();
+            foreach (var activity in _timecardLogic.GetCurrentTimecard().Activities)
+            {
+                ActivitiesGrid.Rows.Add(activity.Code, activity.Description, activity.Time);
+            }
         }
 
         private void SetStatusMessage(string message)
@@ -238,23 +297,23 @@ namespace TimecardsUI
 
         private void FindGridVScrollBarControl()
         {
-            _gridVScrollBar = null;
+            _activitiesGridVScrollBar = null;
             for (int i = 0; i < ActivitiesGrid.Controls.Count; ++i)
             {
                 if (ActivitiesGrid.Controls[i] is VScrollBar)
                 {
-                    _gridVScrollBar = ActivitiesGrid.Controls[i] as VScrollBar;
+                    _activitiesGridVScrollBar = ActivitiesGrid.Controls[i] as VScrollBar;
                     break;
                 }
             }
 
-            if (_gridVScrollBar != null)
+            if (_activitiesGridVScrollBar != null)
             {
-                _gridVScrollBar.VisibleChanged += new EventHandler(grdVScrollBar_VisibleChanged);
+                _activitiesGridVScrollBar.VisibleChanged += new EventHandler(ActivitiesGridVScrollBar_VisibleChanged);
             }
         }
 
-        private void grdVScrollBar_VisibleChanged(object sender, EventArgs e)
+        private void ActivitiesGridVScrollBar_VisibleChanged(object sender, EventArgs e)
         {
             RecalculateColumnWidths();
         }
@@ -264,8 +323,8 @@ namespace TimecardsUI
             _loading = true;
 
             var availableWidth = ActivitiesGrid.ClientRectangle.Width;
-            if (_gridVScrollBar != null && _gridVScrollBar.Visible)
-                availableWidth -= _gridVScrollBar.Width;
+            if (_activitiesGridVScrollBar != null && _activitiesGridVScrollBar.Visible)
+                availableWidth -= _activitiesGridVScrollBar.Width;
 
             if (eventColumn?.Name == "DescriptionColumn")
                 TimeColumn.Width = availableWidth
