@@ -39,19 +39,9 @@ namespace TimecardsTesting.DataTests
 
                 savedTimecard.Date = FirstDate;
                 repo.SaveTimecard(savedTimecard);
-                retrievedTimecard = repo.GetTimecard(FirstDate);
-                Assert.AreNotEqual(null, retrievedTimecard, "Could not retrieve timecard by date");
-                Assert.AreEqual(savedTimecard.ID, retrievedTimecard.ID, "ID is different on timecard retrieved by date");
-                Assert.AreEqual(FirstDate, retrievedTimecard.Date, "Date is different on timecard retrieved by date");
 
-                try
-                {
-                    var notUsedTimecard = repo.GetTimecard(987654321);
-                }
-                catch (data.NotFoundException)
-                {
-                    // successful if this exception is caught
-                }
+                var nonexistentTimecard = repo.GetTimecard(987654321);
+                Assert.IsTrue(nonexistentTimecard == null, "Somehow retrieved timecard that doesn't exist");
 
                 //
                 // test saving and retrieving set of activities
@@ -131,14 +121,8 @@ namespace TimecardsTesting.DataTests
                 Assert.AreEqual(savedActivity.StartMinute, retrievedActivity.StartMinute,
                     "Updated activity does not have the same StartMinute");
 
-                try
-                {
-                    var notUsedActivity = repo.GetActivity(987654321);
-                }
-                catch (data.NotFoundException)
-                {
-                    // successful if this exception is caught
-                }
+                var nonexistentActivity = repo.GetActivity(987654321);
+                Assert.IsTrue(nonexistentActivity == null, "Somehow retrieved activity that doesn't exist");
 
                 //
                 // test reporting on activity by code

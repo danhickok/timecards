@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TimecardsData
 {
@@ -10,7 +12,10 @@ namespace TimecardsData
             Activities = new HashSet<Activity>();
         }
 
+        [Key]
         public int ID { get; set; }
+
+        [Index]
         public DateTime Date { get; set; }
 
         public ICollection<Activity> Activities { get; set; }

@@ -2,7 +2,7 @@
 
 namespace TimecardsCore.Exceptions
 {
-    class NullNotAllowedException : Exception
+    public class NullNotAllowedException : Exception
     {
     }
 }

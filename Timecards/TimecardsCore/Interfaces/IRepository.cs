@@ -12,8 +12,6 @@ namespace TimecardsCore.Interfaces
 
         Timecard GetTimecard(int id);
 
-        Timecard GetTimecard(DateTime date);
-
         Timecard GetNearestTimecard(DateTime date, bool after);
 
         void SaveTimecard(Timecard timecard);

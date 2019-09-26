@@ -47,10 +47,13 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Exceptions\InvalidValueException.cs" />
     <Compile Include="Exceptions\NullNotAllowedException.cs" />
+    <Compile Include="Exceptions\RecordNotFoundException.cs" />
     <Compile Include="Exceptions\TimecardNotFoundException.cs" />
     <Compile Include="Interfaces\IAppConstants.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Logic\BulkLogic.cs" />
+    <Compile Include="Logic\ReportLogic.cs" />
     <Compile Include="Logic\TimecardLogic.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ReportItem.cs" />

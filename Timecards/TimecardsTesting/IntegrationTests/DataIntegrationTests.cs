@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using core = TimecardsCore.Models;
 using ci = TimecardsCore.Interfaces;
+using cx = TimecardsCore.Exceptions;
 using cl = TimecardsCore.Logic;
 using data = TimecardsData;
 using ioc = TimecardsIOC;
@@ -67,7 +69,7 @@ namespace TimecardsTesting.IntegrationTests
         }
 
         [TestMethod]
-        public void CoreLogicTest()
+        public void CoreTimecardLogicTest()
         {
             core.Timecard tc;
             var logic = new cl.TimecardLogic(_factory);
@@ -126,6 +128,8 @@ namespace TimecardsTesting.IntegrationTests
             tc = logic.GetSpecificTimecard(ids[1]);
             Assert.AreEqual(ids[1], tc.ID, "logic did not return specific timecard");
             Assert.AreEqual(dates[1], tc.Date, "logic did not return expected date in specific timecard");
+            Assert.ThrowsException<cx.TimecardNotFoundException>(() => { logic.GetSpecificTimecard(987654321); },
+                "Did not get expected exception when retrieving nonexistent timecard");
 
             // get today's timecard (should return a new, empty timecard)
             tc = logic.GetTodaysTimecard();
@@ -141,9 +145,9 @@ namespace TimecardsTesting.IntegrationTests
             tc.Activities.Add(new core.Activity("00200", "Worked more on second project", "13:00"));
             tc.Activities.Add(new core.Activity("", "Departed", "17:00"));
             logic.SaveTimecard();
+            ids[3] = tc.ID;
 
             // make a new timecard, then get latest card again
-            tc = null;
             logic.GetNewTimecard();
             tc = logic.GetLatestTimecard();
             Assert.IsTrue(tc.ID != ids[0] && tc.ID != ids[1] && tc.ID != ids[2],
@@ -157,9 +161,31 @@ namespace TimecardsTesting.IntegrationTests
             var count = logic.GetTimecardCount();
             Assert.AreEqual(4, count, "logic did not return expected number of timecards");
 
-            //TODO: test next/previous
+            // test next/previous
+            logic.GetSpecificTimecard(ids[1]);
+            tc = logic.GetPreviousTimecard();
+            Assert.AreEqual(ids[0], tc.ID, "Did not get expected previous timecard");
+            Assert.ThrowsException<cx.TimecardNotFoundException>(() => { logic.GetPreviousTimecard(); },
+                "Did not get exception when navigating before first timecard");
 
-            //TODO: get report
+            logic.GetSpecificTimecard(ids[1]);
+            tc = logic.GetNextTimecard();
+            Assert.AreEqual(ids[2], tc.ID, "Did not get expected next timecard");
+            logic.GetTodaysTimecard();
+            Assert.ThrowsException<cx.TimecardNotFoundException>(() => { logic.GetNextTimecard(); },
+                "Did not get exception when navigating after latest timecard");
+
+            // test timecard list
+            var tclist = logic.GetTimecardList();
+            Assert.AreEqual(4, tclist.Count, "Did not receive expected number of items in timecard list");
+            Assert.AreEqual(ids[3], tclist[0].Key, "First item in timecard list isn't latest timecard");
+            Assert.AreEqual(ids[0], tclist[3].Key, "Last item in timecard list isn't first timecard");
+
+            // test deleting timecard
+            logic.GetTodaysTimecard();
+            logic.DeleteTimecard();
+            tc = logic.GetCurrentTimecard();
+            Assert.AreEqual(ids[2], tc.ID, "Did not end up on previous timecard after deletion");
 
             // wipe out all timecards
             logic.DeleteAllTimecards();

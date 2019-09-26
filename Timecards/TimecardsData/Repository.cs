@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using core = TimecardsCore.Models;
 using TimecardsCore.Interfaces;
+using TimecardsCore.Exceptions;
 
 namespace TimecardsData
 {
@@ -66,20 +67,6 @@ namespace TimecardsData
             return timecard;
         }
 
-        public core.Timecard GetTimecard(DateTime date)
-        {
-            var timecard = _context.Timecards
-                .Where(t => t.Date == date)
-                .ToList()
-                .Select(t => t.ToCore())
-                .FirstOrDefault();
-
-            if (timecard != null)
-                GetActivities(timecard);
-
-            return timecard;
-        }
-
         public core.Timecard GetNearestTimecard(DateTime date, bool after)
         {
             core.Timecard timecard = null;
@@ -115,7 +102,7 @@ namespace TimecardsData
             {
                 data = _context.Timecards.Find(timecard.ID);
                 if (data == null)
-                    throw new NotFoundException();
+                    throw new RecordNotFoundException();
                 data.UpdateFromCore(timecard);
                 _context.SaveChanges();
             }
@@ -198,7 +185,7 @@ namespace TimecardsData
             {
                 data = _context.Activities.Find(activity.ID);
                 if (data == null)
-                    throw new NotFoundException();
+                    throw new RecordNotFoundException();
                 data.UpdateFromCore(activity);
                 _context.SaveChanges();
             }

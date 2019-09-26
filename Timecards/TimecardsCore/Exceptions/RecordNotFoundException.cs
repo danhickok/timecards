@@ -2,7 +2,7 @@
 
 namespace TimecardsCore.Exceptions
 {
-    public class TimecardNotFoundException : Exception
+    public class RecordNotFoundException : Exception
     {
     }
 }

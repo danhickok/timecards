@@ -103,7 +103,10 @@ namespace TimecardsCore.Logic
         {
             var repo = _factory.Resolve<IRepository>();
             var timecards = repo.GetTimecards(0, 99999, true);
-            var list = timecards.Select(tc => (tc.ID, tc.Date)).ToList();
+            var list = timecards
+                .OrderByDescending(tc => tc.Date)
+                .ThenByDescending(tc => tc.ID)
+                .Select(tc => (tc.ID, tc.Date)).ToList();
             return list;
         }
 
