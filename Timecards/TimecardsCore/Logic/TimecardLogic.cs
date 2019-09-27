@@ -112,10 +112,13 @@ namespace TimecardsCore.Logic
 
         public void SaveTimecard()
         {
-            var repo = _factory.Resolve<IRepository>();
+            IRepository repo = null;
 
             if (_timecard.IsDirty)
             {
+                if (repo == null)
+                    repo = _factory.Resolve<IRepository>();
+
                 repo.SaveTimecard(_timecard);
             }
 
@@ -123,10 +126,29 @@ namespace TimecardsCore.Logic
             {
                 if (activity.IsDirty)
                 {
+                    if (repo == null)
+                        repo = _factory.Resolve<IRepository>();
+
                     activity.TimecardID = _timecard.ID;
                     repo.SaveActivity(activity);
                 }
             }
+        }
+
+        public void DeleteActivity(int index)
+        {
+            if (index < 0 || index > _timecard.Activities.Count)
+                throw new ActivityNotFoundException();
+
+            var activity = _timecard.Activities[index];
+
+            if (activity.ID != 0)
+            {
+                var repo = _factory.Resolve<IRepository>();
+                repo.DeleteActivity(activity.ID);
+            }
+
+            _timecard.Activities.Remove(activity);
         }
 
         public void DeleteTimecard()

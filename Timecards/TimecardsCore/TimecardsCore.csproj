@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Exceptions\ActivityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidValueException.cs" />
     <Compile Include="Exceptions\NullNotAllowedException.cs" />
     <Compile Include="Exceptions\RecordNotFoundException.cs" />

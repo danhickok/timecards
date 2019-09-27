@@ -157,6 +157,12 @@ namespace TimecardsTesting.IntegrationTests
             Assert.AreEqual(6, tc.Activities.Count,
                 "logic did not return expected number of activities for populated latest card");
 
+            // delete an activity
+            logic.DeleteActivity(2);
+            logic.GetNewTimecard();
+            tc = logic.GetLatestTimecard();
+            Assert.AreEqual(5, tc.Activities.Count, "Count wrong after deleting an activity");
+
             // get count of timecards
             var count = logic.GetTimecardCount();
             Assert.AreEqual(4, count, "logic did not return expected number of timecards");

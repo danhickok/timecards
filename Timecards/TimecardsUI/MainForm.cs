@@ -293,7 +293,7 @@ namespace TimecardsUI
             while (tc.Activities.Count() - 1 < e.RowIndex)
                 tc.Activities.Add(new Activity());
 
-            var value = ActivitiesGrid.CurrentRow.Cells[e.ColumnIndex].Value.ToString();
+            var value = ActivitiesGrid.CurrentRow.Cells[e.ColumnIndex]?.Value?.ToString() ?? string.Empty;
 
             switch (e.ColumnIndex)
             {
@@ -309,6 +309,20 @@ namespace TimecardsUI
             }
 
             _timecardLogic.SaveTimecard();
+        }
+
+        private void ActivitiesGrid_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            if (MessageBox.Show(this, "Delete this row?", this.Text,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var index = ActivitiesGrid.Rows.IndexOf(e.Row);
+                _timecardLogic.DeleteActivity(index);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void PopulateActivitiesGrid()

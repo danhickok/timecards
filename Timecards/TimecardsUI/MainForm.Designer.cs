@@ -96,7 +96,7 @@
             this.MainStatus.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainStatusLabel});
-            this.MainStatus.Location = new System.Drawing.Point(0, 638);
+            this.MainStatus.Location = new System.Drawing.Point(0, 622);
             this.MainStatus.Name = "MainStatus";
             this.MainStatus.Size = new System.Drawing.Size(471, 22);
             this.MainStatus.TabIndex = 0;
@@ -272,7 +272,7 @@
             this.MainTab.Location = new System.Drawing.Point(0, 27);
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(471, 608);
+            this.MainTab.Size = new System.Drawing.Size(471, 592);
             this.MainTab.TabIndex = 0;
             // 
             // MainTabActivities
@@ -289,7 +289,7 @@
             this.MainTabActivities.Location = new System.Drawing.Point(4, 26);
             this.MainTabActivities.Name = "MainTabActivities";
             this.MainTabActivities.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabActivities.Size = new System.Drawing.Size(463, 578);
+            this.MainTabActivities.Size = new System.Drawing.Size(463, 562);
             this.MainTabActivities.TabIndex = 0;
             this.MainTabActivities.Text = "Activities";
             this.MainTabActivities.UseVisualStyleBackColor = true;
@@ -301,6 +301,7 @@
             this.NavButtonSearch.Name = "NavButtonSearch";
             this.NavButtonSearch.Size = new System.Drawing.Size(28, 28);
             this.NavButtonSearch.TabIndex = 6;
+            this.NavButtonSearch.TabStop = false;
             this.NavButtonSearch.Text = "";
             this.NavButtonSearch.UseVisualStyleBackColor = true;
             this.NavButtonSearch.Click += new System.EventHandler(this.NavButtonSearch_Click);
@@ -311,6 +312,7 @@
             this.NavButtonToday.Name = "NavButtonToday";
             this.NavButtonToday.Size = new System.Drawing.Size(75, 28);
             this.NavButtonToday.TabIndex = 7;
+            this.NavButtonToday.TabStop = false;
             this.NavButtonToday.Text = "Today";
             this.NavButtonToday.UseVisualStyleBackColor = true;
             this.NavButtonToday.Click += new System.EventHandler(this.NavButtonToday_Click);
@@ -322,6 +324,7 @@
             this.NavButtonLast.Name = "NavButtonLast";
             this.NavButtonLast.Size = new System.Drawing.Size(28, 28);
             this.NavButtonLast.TabIndex = 5;
+            this.NavButtonLast.TabStop = false;
             this.NavButtonLast.Text = "";
             this.NavButtonLast.UseVisualStyleBackColor = true;
             this.NavButtonLast.Click += new System.EventHandler(this.NavButtonLast_Click);
@@ -333,6 +336,7 @@
             this.NavButtonNext.Name = "NavButtonNext";
             this.NavButtonNext.Size = new System.Drawing.Size(28, 28);
             this.NavButtonNext.TabIndex = 4;
+            this.NavButtonNext.TabStop = false;
             this.NavButtonNext.Text = "▶";
             this.NavButtonNext.UseVisualStyleBackColor = true;
             this.NavButtonNext.Click += new System.EventHandler(this.NavButtonNext_Click);
@@ -344,6 +348,7 @@
             this.NavButtonPrev.Name = "NavButtonPrev";
             this.NavButtonPrev.Size = new System.Drawing.Size(28, 28);
             this.NavButtonPrev.TabIndex = 3;
+            this.NavButtonPrev.TabStop = false;
             this.NavButtonPrev.Text = "◀";
             this.NavButtonPrev.UseVisualStyleBackColor = true;
             this.NavButtonPrev.Click += new System.EventHandler(this.NavButtonPrev_Click);
@@ -355,6 +360,7 @@
             this.NavButtonFirst.Name = "NavButtonFirst";
             this.NavButtonFirst.Size = new System.Drawing.Size(28, 28);
             this.NavButtonFirst.TabIndex = 2;
+            this.NavButtonFirst.TabStop = false;
             this.NavButtonFirst.Text = "";
             this.NavButtonFirst.UseVisualStyleBackColor = true;
             this.NavButtonFirst.Click += new System.EventHandler(this.NavButtonFirst_Click);
@@ -375,6 +381,7 @@
             this.MainDate.Name = "MainDate";
             this.MainDate.Size = new System.Drawing.Size(117, 25);
             this.MainDate.TabIndex = 0;
+            this.MainDate.TabStop = false;
             this.MainDate.ValueChanged += new System.EventHandler(this.MainDate_ValueChanged);
             // 
             // MainTabReport
@@ -385,10 +392,10 @@
             this.MainTabReport.Controls.Add(this.ReportDateEnd);
             this.MainTabReport.Controls.Add(this.ReportDateStart);
             this.MainTabReport.Controls.Add(this.ReportStartLabel);
-            this.MainTabReport.Location = new System.Drawing.Point(4, 22);
+            this.MainTabReport.Location = new System.Drawing.Point(4, 26);
             this.MainTabReport.Name = "MainTabReport";
             this.MainTabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabReport.Size = new System.Drawing.Size(463, 582);
+            this.MainTabReport.Size = new System.Drawing.Size(463, 578);
             this.MainTabReport.TabIndex = 1;
             this.MainTabReport.Text = "Report";
             this.MainTabReport.UseVisualStyleBackColor = true;
@@ -411,7 +418,7 @@
             this.ReportListView.Location = new System.Drawing.Point(22, 104);
             this.ReportListView.MultiSelect = false;
             this.ReportListView.Name = "ReportListView";
-            this.ReportListView.Size = new System.Drawing.Size(417, 466);
+            this.ReportListView.Size = new System.Drawing.Size(417, 462);
             this.ReportListView.TabIndex = 5;
             this.ReportListView.UseCompatibleStateImageBehavior = false;
             this.ReportListView.View = System.Windows.Forms.View.Details;
@@ -513,10 +520,11 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 506);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 502);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellValueChanged);
             this.ActivitiesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ActivitiesGrid_ColumnWidthChanged);
+            this.ActivitiesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.ActivitiesGrid_UserDeletingRow);
             this.ActivitiesGrid.ClientSizeChanged += new System.EventHandler(this.ActivitiesGrid_ClientSizeChanged);
             this.ActivitiesGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ActivitiesGrid_KeyDown);
             this.ActivitiesGrid.Leave += new System.EventHandler(this.ActivitiesGrid_Leave);
@@ -582,7 +590,7 @@
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(471, 660);
+            this.ClientSize = new System.Drawing.Size(471, 644);
             this.Controls.Add(this.MainTab);
             this.Controls.Add(this.MainStatus);
             this.Controls.Add(this.MainMenu);
