@@ -51,12 +51,19 @@
             this.MainMenuDataDateLast = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuDataSearchForDate = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuDataSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.MainMenuDataDeleteTimecard = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuDataSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainMenuDataActivitiesSort = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuDataToggleAfterMidnight = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTab = new System.Windows.Forms.TabControl();
             this.MainTabActivities = new System.Windows.Forms.TabPage();
             this.NavButtonSearch = new System.Windows.Forms.Button();
+            this.ActivitiesGrid = new System.Windows.Forms.DataGridView();
+            this.CodeColumn = new TimecardsUI.ActivityCodeColumn();
+            this.DescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TimeColumn = new TimecardsUI.ActivityTimeColumn();
             this.NavButtonToday = new System.Windows.Forms.Button();
             this.NavButtonLast = new System.Windows.Forms.Button();
             this.NavButtonNext = new System.Windows.Forms.Button();
@@ -76,22 +83,15 @@
             this.ReportDateEnd = new System.Windows.Forms.DateTimePicker();
             this.ReportDateStart = new System.Windows.Forms.DateTimePicker();
             this.ReportStartLabel = new System.Windows.Forms.Label();
-            this.MainMenuDataDeleteTimecard = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainMenuDataSep2 = new System.Windows.Forms.ToolStripSeparator();
-            this.ActivitiesGrid = new System.Windows.Forms.DataGridView();
-            this.CodeColumn = new TimecardsUI.ActivityCodeColumn();
-            this.DescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TimeColumn = new TimecardsUI.ActivityTimeColumn();
             this.DataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MainMenuDataToggleAfterMidnight = new System.Windows.Forms.ToolStripMenuItem();
             this.MainStatus.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.MainTab.SuspendLayout();
             this.MainTabActivities.SuspendLayout();
-            this.MainTabReport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ActivitiesGrid)).BeginInit();
+            this.MainTabReport.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainStatus
@@ -246,12 +246,31 @@
             this.MainMenuDataSep1.Name = "MainMenuDataSep1";
             this.MainMenuDataSep1.Size = new System.Drawing.Size(201, 6);
             // 
+            // MainMenuDataDeleteTimecard
+            // 
+            this.MainMenuDataDeleteTimecard.Name = "MainMenuDataDeleteTimecard";
+            this.MainMenuDataDeleteTimecard.Size = new System.Drawing.Size(204, 22);
+            this.MainMenuDataDeleteTimecard.Text = "Delete this timecard...";
+            this.MainMenuDataDeleteTimecard.Click += new System.EventHandler(this.MainMenuDataDeleteTimecard_Click);
+            // 
+            // MainMenuDataSep2
+            // 
+            this.MainMenuDataSep2.Name = "MainMenuDataSep2";
+            this.MainMenuDataSep2.Size = new System.Drawing.Size(201, 6);
+            // 
             // MainMenuDataActivitiesSort
             // 
             this.MainMenuDataActivitiesSort.Name = "MainMenuDataActivitiesSort";
             this.MainMenuDataActivitiesSort.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataActivitiesSort.Text = "Sort activities by &time";
             this.MainMenuDataActivitiesSort.Click += new System.EventHandler(this.MainMenuDataActivitiesSort_Click);
+            // 
+            // MainMenuDataToggleAfterMidnight
+            // 
+            this.MainMenuDataToggleAfterMidnight.Name = "MainMenuDataToggleAfterMidnight";
+            this.MainMenuDataToggleAfterMidnight.Size = new System.Drawing.Size(204, 22);
+            this.MainMenuDataToggleAfterMidnight.Text = "Activity is after midnight";
+            this.MainMenuDataToggleAfterMidnight.Click += new System.EventHandler(this.MainMenuDataToggleAfterMidnight_Click);
             // 
             // MainMenuHelp
             // 
@@ -311,6 +330,66 @@
             this.NavButtonSearch.Text = "";
             this.NavButtonSearch.UseVisualStyleBackColor = true;
             this.NavButtonSearch.Click += new System.EventHandler(this.NavButtonSearch_Click);
+            // 
+            // ActivitiesGrid
+            // 
+            this.ActivitiesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ActivitiesGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.ActivitiesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ActivitiesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CodeColumn,
+            this.DescriptionColumn,
+            this.TimeColumn});
+            this.ActivitiesGrid.EnableHeadersVisualStyles = false;
+            this.ActivitiesGrid.Location = new System.Drawing.Point(9, 54);
+            this.ActivitiesGrid.Name = "ActivitiesGrid";
+            this.ActivitiesGrid.RowHeadersWidth = 30;
+            this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 490);
+            this.ActivitiesGrid.TabIndex = 8;
+            this.ActivitiesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellValueChanged);
+            this.ActivitiesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ActivitiesGrid_ColumnWidthChanged);
+            this.ActivitiesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.ActivitiesGrid_UserDeletingRow);
+            this.ActivitiesGrid.ClientSizeChanged += new System.EventHandler(this.ActivitiesGrid_ClientSizeChanged);
+            this.ActivitiesGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ActivitiesGrid_KeyDown);
+            this.ActivitiesGrid.Leave += new System.EventHandler(this.ActivitiesGrid_Leave);
+            // 
+            // CodeColumn
+            // 
+            this.CodeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CodeColumn.HeaderText = "Code";
+            this.CodeColumn.MinimumWidth = 6;
+            this.CodeColumn.Name = "CodeColumn";
+            this.CodeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CodeColumn.Width = 80;
+            // 
+            // DescriptionColumn
+            // 
+            this.DescriptionColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DescriptionColumn.HeaderText = "Description";
+            this.DescriptionColumn.MinimumWidth = 6;
+            this.DescriptionColumn.Name = "DescriptionColumn";
+            this.DescriptionColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DescriptionColumn.Width = 253;
+            // 
+            // TimeColumn
+            // 
+            this.TimeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TimeColumn.HeaderText = "Time";
+            this.TimeColumn.MinimumWidth = 6;
+            this.TimeColumn.Name = "TimeColumn";
+            this.TimeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TimeColumn.Width = 80;
             // 
             // NavButtonToday
             // 
@@ -398,10 +477,10 @@
             this.MainTabReport.Controls.Add(this.ReportDateEnd);
             this.MainTabReport.Controls.Add(this.ReportDateStart);
             this.MainTabReport.Controls.Add(this.ReportStartLabel);
-            this.MainTabReport.Location = new System.Drawing.Point(4, 22);
+            this.MainTabReport.Location = new System.Drawing.Point(4, 26);
             this.MainTabReport.Name = "MainTabReport";
             this.MainTabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabReport.Size = new System.Drawing.Size(463, 566);
+            this.MainTabReport.Size = new System.Drawing.Size(463, 562);
             this.MainTabReport.TabIndex = 1;
             this.MainTabReport.Text = "Report";
             this.MainTabReport.UseVisualStyleBackColor = true;
@@ -424,7 +503,7 @@
             this.ReportListView.Location = new System.Drawing.Point(22, 104);
             this.ReportListView.MultiSelect = false;
             this.ReportListView.Name = "ReportListView";
-            this.ReportListView.Size = new System.Drawing.Size(417, 462);
+            this.ReportListView.Size = new System.Drawing.Size(417, 438);
             this.ReportListView.TabIndex = 5;
             this.ReportListView.UseCompatibleStateImageBehavior = false;
             this.ReportListView.View = System.Windows.Forms.View.Details;
@@ -502,78 +581,6 @@
             this.ReportStartLabel.TabIndex = 0;
             this.ReportStartLabel.Text = "From";
             // 
-            // MainMenuDataDeleteTimecard
-            // 
-            this.MainMenuDataDeleteTimecard.Name = "MainMenuDataDeleteTimecard";
-            this.MainMenuDataDeleteTimecard.Size = new System.Drawing.Size(204, 22);
-            this.MainMenuDataDeleteTimecard.Text = "Delete this timecard...";
-            this.MainMenuDataDeleteTimecard.Click += new System.EventHandler(this.MainMenuDataDeleteTimecard_Click);
-            // 
-            // MainMenuDataSep2
-            // 
-            this.MainMenuDataSep2.Name = "MainMenuDataSep2";
-            this.MainMenuDataSep2.Size = new System.Drawing.Size(201, 6);
-            // 
-            // ActivitiesGrid
-            // 
-            this.ActivitiesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ActivitiesGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.ActivitiesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ActivitiesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CodeColumn,
-            this.DescriptionColumn,
-            this.TimeColumn});
-            this.ActivitiesGrid.EnableHeadersVisualStyles = false;
-            this.ActivitiesGrid.Location = new System.Drawing.Point(9, 54);
-            this.ActivitiesGrid.Name = "ActivitiesGrid";
-            this.ActivitiesGrid.RowHeadersWidth = 30;
-            this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 494);
-            this.ActivitiesGrid.TabIndex = 8;
-            this.ActivitiesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellValueChanged);
-            this.ActivitiesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ActivitiesGrid_ColumnWidthChanged);
-            this.ActivitiesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.ActivitiesGrid_UserDeletingRow);
-            this.ActivitiesGrid.ClientSizeChanged += new System.EventHandler(this.ActivitiesGrid_ClientSizeChanged);
-            this.ActivitiesGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ActivitiesGrid_KeyDown);
-            this.ActivitiesGrid.Leave += new System.EventHandler(this.ActivitiesGrid_Leave);
-            // 
-            // CodeColumn
-            // 
-            this.CodeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.CodeColumn.HeaderText = "Code";
-            this.CodeColumn.MinimumWidth = 6;
-            this.CodeColumn.Name = "CodeColumn";
-            this.CodeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CodeColumn.Width = 80;
-            // 
-            // DescriptionColumn
-            // 
-            this.DescriptionColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DescriptionColumn.HeaderText = "Description";
-            this.DescriptionColumn.MinimumWidth = 6;
-            this.DescriptionColumn.Name = "DescriptionColumn";
-            this.DescriptionColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.DescriptionColumn.Width = 253;
-            // 
-            // TimeColumn
-            // 
-            this.TimeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TimeColumn.HeaderText = "Time";
-            this.TimeColumn.MinimumWidth = 6;
-            this.TimeColumn.Name = "TimeColumn";
-            this.TimeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TimeColumn.Width = 80;
-            // 
             // DataGridViewTextBoxColumn1
             // 
             this.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -605,13 +612,6 @@
             this.DataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.DataGridViewTextBoxColumn3.Width = 80;
             // 
-            // MainMenuDataToggleAfterMidnight
-            // 
-            this.MainMenuDataToggleAfterMidnight.Name = "MainMenuDataToggleAfterMidnight";
-            this.MainMenuDataToggleAfterMidnight.Size = new System.Drawing.Size(204, 22);
-            this.MainMenuDataToggleAfterMidnight.Text = "Activity is after midnight";
-            this.MainMenuDataToggleAfterMidnight.Click += new System.EventHandler(this.MainMenuDataToggleAfterMidnight_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -639,9 +639,9 @@
             this.MainTab.ResumeLayout(false);
             this.MainTabActivities.ResumeLayout(false);
             this.MainTabActivities.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ActivitiesGrid)).EndInit();
             this.MainTabReport.ResumeLayout(false);
             this.MainTabReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ActivitiesGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

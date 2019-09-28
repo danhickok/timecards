@@ -171,15 +171,15 @@ namespace TimecardsTesting.IntegrationTests
             logic.GetSpecificTimecard(ids[1]);
             tc = logic.GetPreviousTimecard();
             Assert.AreEqual(ids[0], tc.ID, "Did not get expected previous timecard");
-            Assert.ThrowsException<cx.TimecardNotFoundException>(() => { logic.GetPreviousTimecard(); },
-                "Did not get exception when navigating before first timecard");
+            tc = logic.GetPreviousTimecard();
+            Assert.AreEqual(ids[0], tc.ID, "Navigation before earliest timecard not get earliest timecard");
 
             logic.GetSpecificTimecard(ids[1]);
             tc = logic.GetNextTimecard();
             Assert.AreEqual(ids[2], tc.ID, "Did not get expected next timecard");
             logic.GetTodaysTimecard();
-            Assert.ThrowsException<cx.TimecardNotFoundException>(() => { logic.GetNextTimecard(); },
-                "Did not get exception when navigating after latest timecard");
+            tc = logic.GetNextTimecard();
+            Assert.AreEqual(ids[3], tc.ID, "Navigation after latest timecard not get latest timecard");
 
             // test timecard list
             var tclist = logic.GetTimecardList();

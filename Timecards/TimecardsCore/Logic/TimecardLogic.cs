@@ -86,16 +86,22 @@ namespace TimecardsCore.Logic
         public  Timecard GetPreviousTimecard()
         {
             var repo = _factory.Resolve<IRepository>();
-            _timecard = repo.GetNearestTimecard(_timecard.Date, false)
-                ?? throw new TimecardNotFoundException();
+            _timecard = repo.GetNearestTimecard(_timecard.Date, false);
+            if (_timecard == null)
+            {
+                RetrieveTimecardFromEdge(false);
+            }
             return _timecard;
         }
 
         public Timecard GetNextTimecard()
         {
             var repo = _factory.Resolve<IRepository>();
-            _timecard = repo.GetNearestTimecard(_timecard.Date, true)
-                ?? throw new TimecardNotFoundException();
+            _timecard = repo.GetNearestTimecard(_timecard.Date, true);
+            if (_timecard == null)
+            {
+                RetrieveTimecardFromEdge(true);
+            }
             return _timecard;
         }
 
@@ -114,7 +120,7 @@ namespace TimecardsCore.Logic
         {
             IRepository repo = null;
 
-            if (_timecard.IsDirty)
+            if (_timecard.IsDirty || _timecard.ID == 0)
             {
                 if (repo == null)
                     repo = _factory.Resolve<IRepository>();

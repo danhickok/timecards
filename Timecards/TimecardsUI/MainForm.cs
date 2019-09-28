@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TimecardsCore.Models;
-using TimecardsCore.Logic;
-using TimecardsCore.Interfaces;
 using TimecardsCore.Exceptions;
+using TimecardsCore.Interfaces;
+using TimecardsCore.Logic;
+using TimecardsCore.Models;
 
 namespace TimecardsUI
 {
@@ -66,7 +61,7 @@ namespace TimecardsUI
             MainDate.Value = tc.Date;
             UpdateMainDateLabel();
             PopulateActivitiesGrid();
-            SetStatusMessage("Ready");
+            ClearStatusMessage();
 
             _loading = false;
         }
@@ -197,26 +192,31 @@ namespace TimecardsUI
         private void NavButtonFirst_Click(object sender, EventArgs e)
         {
             NavigateTo(Navigation.Earliest);
+            ActivitiesGrid.Focus();
         }
 
         private void NavButtonPrev_Click(object sender, EventArgs e)
         {
             NavigateTo(Navigation.Previous);
+            ActivitiesGrid.Focus();
         }
 
         private void NavButtonNext_Click(object sender, EventArgs e)
         {
             NavigateTo(Navigation.Next);
+            ActivitiesGrid.Focus();
         }
 
         private void NavButtonLast_Click(object sender, EventArgs e)
         {
             NavigateTo(Navigation.Latest);
+            ActivitiesGrid.Focus();
         }
 
         private void NavButtonToday_Click(object sender, EventArgs e)
         {
             NavigateTo(Navigation.Today);
+            ActivitiesGrid.Focus();
         }
 
         private void NavButtonSearch_Click(object sender, EventArgs e)
@@ -261,7 +261,7 @@ namespace TimecardsUI
             UpdateMainDateLabel();
             PopulateActivitiesGrid();
 
-            SetStatusMessage("Ready");
+            ClearStatusMessage();
             _loading = false;
 
         }
@@ -393,7 +393,7 @@ namespace TimecardsUI
 
         private void ClearStatusMessage()
         {
-            MainStatusLabel.Text = "Ready";
+            MainStatusLabel.Text = string.Empty;
             Refresh();
         }
 
