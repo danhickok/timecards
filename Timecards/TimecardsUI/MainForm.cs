@@ -171,7 +171,19 @@ namespace TimecardsUI
 
         private void MainMenuDataDeleteTimecard_Click(object sender, EventArgs e)
         {
-            //TODO:
+            if (MessageBox.Show(this,
+                "Delete this timecard?\nWarning: all activity for this timecard will also be deleted",
+                this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                SetStatusMessage("Deleting timecard...");
+
+                _timecardLogic.DeleteTimecard();
+                MainDate.Value = _timecardLogic.GetCurrentTimecard().Date;
+                UpdateMainDateLabel();
+                PopulateActivitiesGrid();
+
+                ClearStatusMessage();
+            }
         }
 
         private void MainMenuDataSearchForDate_Click(object sender, EventArgs e)

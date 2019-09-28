@@ -99,7 +99,7 @@
             this.MainStatus.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainStatusLabel});
-            this.MainStatus.Location = new System.Drawing.Point(0, 622);
+            this.MainStatus.Location = new System.Drawing.Point(0, 627);
             this.MainStatus.Name = "MainStatus";
             this.MainStatus.Size = new System.Drawing.Size(471, 22);
             this.MainStatus.TabIndex = 0;
@@ -297,7 +297,7 @@
             this.MainTab.Location = new System.Drawing.Point(0, 27);
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(471, 592);
+            this.MainTab.Size = new System.Drawing.Size(471, 597);
             this.MainTab.TabIndex = 0;
             // 
             // MainTabActivities
@@ -314,7 +314,7 @@
             this.MainTabActivities.Location = new System.Drawing.Point(4, 26);
             this.MainTabActivities.Name = "MainTabActivities";
             this.MainTabActivities.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabActivities.Size = new System.Drawing.Size(463, 562);
+            this.MainTabActivities.Size = new System.Drawing.Size(463, 567);
             this.MainTabActivities.TabIndex = 0;
             this.MainTabActivities.Text = "Activities";
             this.MainTabActivities.UseVisualStyleBackColor = true;
@@ -355,7 +355,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 490);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 507);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellValueChanged);
             this.ActivitiesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ActivitiesGrid_ColumnWidthChanged);
@@ -477,10 +477,10 @@
             this.MainTabReport.Controls.Add(this.ReportDateEnd);
             this.MainTabReport.Controls.Add(this.ReportDateStart);
             this.MainTabReport.Controls.Add(this.ReportStartLabel);
-            this.MainTabReport.Location = new System.Drawing.Point(4, 26);
+            this.MainTabReport.Location = new System.Drawing.Point(4, 22);
             this.MainTabReport.Name = "MainTabReport";
             this.MainTabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabReport.Size = new System.Drawing.Size(463, 562);
+            this.MainTabReport.Size = new System.Drawing.Size(463, 566);
             this.MainTabReport.TabIndex = 1;
             this.MainTabReport.Text = "Report";
             this.MainTabReport.UseVisualStyleBackColor = true;
@@ -615,7 +615,7 @@
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(471, 644);
+            this.ClientSize = new System.Drawing.Size(471, 649);
             this.Controls.Add(this.MainTab);
             this.Controls.Add(this.MainStatus);
             this.Controls.Add(this.MainMenu);
