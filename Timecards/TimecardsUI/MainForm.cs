@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -21,7 +22,15 @@ namespace TimecardsUI
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality",
             "IDE0069:Disposable fields should be disposed", Justification = "<Pending>")]
         private VScrollBar _activitiesGridVScrollBar = null;
-        
+
+        private readonly Color _beforeMidnightBackgroundColor;
+        private readonly Color _beforeMidnightAlternateBackgroundColor;
+        private readonly Color _afterMidnightBackgroundColor;
+        private readonly Color _afterMidnightAlternateBackgroundColor;
+        private readonly float _midnightColorFactorR = 0.89f;
+        private readonly float _midnightColorFactorG = 0.98f;
+        private readonly float _midnightColorFactorB = 1.00f;
+
         private TimecardLogic _timecardLogic = null;
 
         public MainForm()
@@ -35,8 +44,28 @@ namespace TimecardsUI
 
             _loading = false;
 
-            ActivitiesGrid.RowsDefaultCellStyle.BackColor = SystemColors.Window;
-            ActivitiesGrid.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.ButtonFace;
+            // set colors
+            _beforeMidnightBackgroundColor = SystemColors.Window;
+            _beforeMidnightAlternateBackgroundColor = SystemColors.ButtonFace;
+
+            _afterMidnightBackgroundColor =
+                Color.FromArgb(
+                    (byte)Math.Floor(SystemColors.Window.R * _midnightColorFactorR),
+                    (byte)Math.Floor(SystemColors.Window.G * _midnightColorFactorG),
+                    (byte)Math.Floor(SystemColors.Window.B * _midnightColorFactorB));
+            _afterMidnightAlternateBackgroundColor =
+                Color.FromArgb(
+                    (byte)Math.Floor(SystemColors.ButtonFace.R * _midnightColorFactorR),
+                    (byte)Math.Floor(SystemColors.ButtonFace.G * _midnightColorFactorG),
+                    (byte)Math.Floor(SystemColors.ButtonFace.B * _midnightColorFactorB));
+
+            ActivitiesGrid.RowsDefaultCellStyle.BackColor = _beforeMidnightBackgroundColor;
+            ActivitiesGrid.AlternatingRowsDefaultCellStyle.BackColor = _beforeMidnightAlternateBackgroundColor;
+            
+            // fix the creeping design problem in VS
+            ActivitiesGrid.Height =
+                MainTabActivities.ClientRectangle.Height - ActivitiesGrid.Top - ActivitiesGrid.Left;
+            
             FindGridVScrollBarControl();
 
             ClearStatusMessage();
@@ -193,12 +222,48 @@ namespace TimecardsUI
 
         private void MainMenuDataActivitiesSort_Click(object sender, EventArgs e)
         {
-            //TODO:
+            SetStatusMessage("Sorting activities by time...");
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+            tc.Activities.Sort((a, b) => {
+                if (a.StartMinute < b.StartMinute)
+                    return -1;
+                else if (a.StartMinute > b.StartMinute)
+                    return 1;
+                else
+                    return 0;
+            });
+            PopulateActivitiesGrid();
+
+            ClearStatusMessage();
         }
 
         private void MainMenuDataToggleAfterMidnight_Click(object sender, EventArgs e)
         {
-            //TODO:
+            MainMenuDataToggleAfterMidnight.Checked = !MainMenuDataToggleAfterMidnight.Checked;
+        }
+
+        private void MainMenuDataToggleAfterMidnight_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (_loading)
+                return;
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+
+            var index = ActivitiesGrid.CurrentRow.Index;
+            if (index < 0 || index > tc.Activities.Count - 1)
+            {
+                _loading = true;
+                MainMenuDataToggleAfterMidnight.Checked = false;
+                _loading = false;
+
+                return;
+            }
+
+            tc.Activities[index].IsAfterMidnight = MainMenuDataToggleAfterMidnight.Checked;
+            ActivitiesGrid.Rows[index].Tag = MainMenuDataToggleAfterMidnight.Checked;
+            SetRowBackgroundColor(index, MainMenuDataToggleAfterMidnight.Checked);
+            _timecardLogic.SaveTimecard();
         }
 
         private void NavButtonFirst_Click(object sender, EventArgs e)
@@ -388,12 +453,54 @@ namespace TimecardsUI
             }
         }
 
+        private void ActivitiesGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var index = e.RowIndex;
+            if ((bool?)ActivitiesGrid.Rows[index].Tag ?? false)
+                ActivitiesGrid.Rows[index].DefaultCellStyle.BackColor =
+                    index % 2 == 0
+                        ? _afterMidnightBackgroundColor
+                        : _afterMidnightAlternateBackgroundColor;
+        }
+
+        private void ActivitiesGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            var index = e.RowIndex;
+            var tc = _timecardLogic.GetCurrentTimecard();
+            if (index < 0 || index > tc.Activities.Count - 1)
+                return;
+
+            _loading = true;
+            MainMenuDataToggleAfterMidnight.Checked = tc.Activities[index].IsAfterMidnight;
+            _loading = false;
+        }
+
         private void PopulateActivitiesGrid()
         {
             ActivitiesGrid.Rows.Clear();
             foreach (var activity in _timecardLogic.GetCurrentTimecard().Activities)
             {
-                ActivitiesGrid.Rows.Add(activity.Code, activity.Description, activity.Time);
+                var index = ActivitiesGrid.Rows.Add(activity.Code, activity.Description, activity.Time);
+                ActivitiesGrid.Rows[index].Tag = activity.IsAfterMidnight;
+            }
+        }
+
+        private void SetRowBackgroundColor(int index, bool isAfterMidnight)
+        {
+            SetStatusMessage($"Index = {index}");
+            if (isAfterMidnight)
+            {
+                ActivitiesGrid.Rows[index].DefaultCellStyle.BackColor =
+                    index % 2 == 0
+                    ? _afterMidnightBackgroundColor
+                    : _afterMidnightAlternateBackgroundColor;
+            }
+            else
+            {
+                ActivitiesGrid.Rows[index].DefaultCellStyle.BackColor =
+                    index % 2 == 0
+                    ? _beforeMidnightBackgroundColor
+                    : _beforeMidnightAlternateBackgroundColor;
             }
         }
 
