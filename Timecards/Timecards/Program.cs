@@ -49,7 +49,20 @@ namespace Timecards
                 mainForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
             }
 
-            Application.Run(mainForm);
+            try
+            {
+                Application.Run(mainForm);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Exception: {e.Message}", "Timecards: Untrapped Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (factory != null)
+                    factory.Dispose();
+            }
         }
     }
 }
