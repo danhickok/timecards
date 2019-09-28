@@ -156,20 +156,25 @@ namespace TimecardsUI
 
         private void MainMenuDataDateFirst_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Earliest);
         }
 
         private void MainMenuDataDatePrevious_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Previous);
         }
 
         private void MainMenuDataDateNext_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Next);
         }
 
         private void MainMenuDataDateLast_Click(object sender, EventArgs e)
+        {
+            NavigateTo(Navigation.Latest);
+        }
+
+        private void MainMenuDataDeleteTimecard_Click(object sender, EventArgs e)
         {
             //TODO:
         }
@@ -184,29 +189,34 @@ namespace TimecardsUI
             //TODO:
         }
 
-        private void NavButtonFirst_Click(object sender, EventArgs e)
+        private void MainMenuDataToggleAfterMidnight_Click(object sender, EventArgs e)
         {
             //TODO:
+        }
+
+        private void NavButtonFirst_Click(object sender, EventArgs e)
+        {
+            NavigateTo(Navigation.Earliest);
         }
 
         private void NavButtonPrev_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Previous);
         }
 
         private void NavButtonNext_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Next);
         }
 
         private void NavButtonLast_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Latest);
         }
 
         private void NavButtonToday_Click(object sender, EventArgs e)
         {
-            //TODO:
+            NavigateTo(Navigation.Today);
         }
 
         private void NavButtonSearch_Click(object sender, EventArgs e)
@@ -214,6 +224,46 @@ namespace TimecardsUI
             var dateSearchForm = new DateSearchForm();
             dateSearchForm.ShowDialog();
             dateSearchForm.Dispose();
+        }
+
+        private void NavigateTo(Navigation direction)
+        {
+            _loading = true;
+            SetStatusMessage("Loading...");
+
+            try
+            {
+                switch (direction)
+                {
+                    case Navigation.Earliest:
+                        _timecardLogic.GetEarliestTimecard();
+                        break;
+                    case Navigation.Previous:
+                        _timecardLogic.GetPreviousTimecard();
+                        break;
+                    case Navigation.Next:
+                        _timecardLogic.GetNextTimecard();
+                        break;
+                    case Navigation.Latest:
+                        _timecardLogic.GetLatestTimecard();
+                        break;
+                    case Navigation.Today:
+                        _timecardLogic.GetTodaysTimecard();
+                        break;
+                }
+            }
+            catch (TimecardNotFoundException)
+            {
+                _timecardLogic.GetNewTimecard();
+            }
+
+            MainDate.Value = _timecardLogic.GetCurrentTimecard().Date;
+            UpdateMainDateLabel();
+            PopulateActivitiesGrid();
+
+            SetStatusMessage("Ready");
+            _loading = false;
+
         }
 
         private void ReportButtonGo_Click(object sender, EventArgs e)
@@ -313,10 +363,11 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+            var index = ActivitiesGrid.Rows.IndexOf(e.Row);
+
             if (MessageBox.Show(this, "Delete this row?", this.Text,
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var index = ActivitiesGrid.Rows.IndexOf(e.Row);
                 _timecardLogic.DeleteActivity(index);
             }
             else
@@ -385,6 +436,15 @@ namespace TimecardsUI
                     - CodeColumn.Width - TimeColumn.Width - ActivitiesGrid.RowHeadersWidth - 2;
 
             _loading = false;
+        }
+
+        private enum Navigation
+        {
+            Earliest,
+            Previous,
+            Next,
+            Latest,
+            Today
         }
     }
 }

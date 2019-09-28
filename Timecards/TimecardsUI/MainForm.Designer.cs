@@ -76,6 +76,8 @@
             this.ReportDateEnd = new System.Windows.Forms.DateTimePicker();
             this.ReportDateStart = new System.Windows.Forms.DateTimePicker();
             this.ReportStartLabel = new System.Windows.Forms.Label();
+            this.MainMenuDataDeleteTimecard = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuDataSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.ActivitiesGrid = new System.Windows.Forms.DataGridView();
             this.CodeColumn = new TimecardsUI.ActivityCodeColumn();
             this.DescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,6 +85,7 @@
             this.DataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MainMenuDataToggleAfterMidnight = new System.Windows.Forms.ToolStripMenuItem();
             this.MainStatus.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.MainTab.SuspendLayout();
@@ -195,7 +198,10 @@
             this.MainMenuDataDateLast,
             this.MainMenuDataSearchForDate,
             this.MainMenuDataSep1,
-            this.MainMenuDataActivitiesSort});
+            this.MainMenuDataDeleteTimecard,
+            this.MainMenuDataSep2,
+            this.MainMenuDataActivitiesSort,
+            this.MainMenuDataToggleAfterMidnight});
             this.MainMenuData.Name = "MainMenuData";
             this.MainMenuData.Size = new System.Drawing.Size(43, 20);
             this.MainMenuData.Text = "&Data";
@@ -203,47 +209,47 @@
             // MainMenuDataDateFirst
             // 
             this.MainMenuDataDateFirst.Name = "MainMenuDataDateFirst";
-            this.MainMenuDataDateFirst.Size = new System.Drawing.Size(192, 22);
+            this.MainMenuDataDateFirst.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataDateFirst.Text = "Move to &first date";
             this.MainMenuDataDateFirst.Click += new System.EventHandler(this.MainMenuDataDateFirst_Click);
             // 
             // MainMenuDataDatePrevious
             // 
             this.MainMenuDataDatePrevious.Name = "MainMenuDataDatePrevious";
-            this.MainMenuDataDatePrevious.Size = new System.Drawing.Size(192, 22);
+            this.MainMenuDataDatePrevious.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataDatePrevious.Text = "Move to &previous date";
             this.MainMenuDataDatePrevious.Click += new System.EventHandler(this.MainMenuDataDatePrevious_Click);
             // 
             // MainMenuDataDateNext
             // 
             this.MainMenuDataDateNext.Name = "MainMenuDataDateNext";
-            this.MainMenuDataDateNext.Size = new System.Drawing.Size(192, 22);
+            this.MainMenuDataDateNext.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataDateNext.Text = "Move to &next date";
             this.MainMenuDataDateNext.Click += new System.EventHandler(this.MainMenuDataDateNext_Click);
             // 
             // MainMenuDataDateLast
             // 
             this.MainMenuDataDateLast.Name = "MainMenuDataDateLast";
-            this.MainMenuDataDateLast.Size = new System.Drawing.Size(192, 22);
+            this.MainMenuDataDateLast.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataDateLast.Text = "Move to &last date";
             this.MainMenuDataDateLast.Click += new System.EventHandler(this.MainMenuDataDateLast_Click);
             // 
             // MainMenuDataSearchForDate
             // 
             this.MainMenuDataSearchForDate.Name = "MainMenuDataSearchForDate";
-            this.MainMenuDataSearchForDate.Size = new System.Drawing.Size(192, 22);
+            this.MainMenuDataSearchForDate.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataSearchForDate.Text = "&Search for date";
             this.MainMenuDataSearchForDate.Click += new System.EventHandler(this.MainMenuDataSearchForDate_Click);
             // 
             // MainMenuDataSep1
             // 
             this.MainMenuDataSep1.Name = "MainMenuDataSep1";
-            this.MainMenuDataSep1.Size = new System.Drawing.Size(189, 6);
+            this.MainMenuDataSep1.Size = new System.Drawing.Size(201, 6);
             // 
             // MainMenuDataActivitiesSort
             // 
             this.MainMenuDataActivitiesSort.Name = "MainMenuDataActivitiesSort";
-            this.MainMenuDataActivitiesSort.Size = new System.Drawing.Size(192, 22);
+            this.MainMenuDataActivitiesSort.Size = new System.Drawing.Size(204, 22);
             this.MainMenuDataActivitiesSort.Text = "Sort activities by &time";
             this.MainMenuDataActivitiesSort.Click += new System.EventHandler(this.MainMenuDataActivitiesSort_Click);
             // 
@@ -392,10 +398,10 @@
             this.MainTabReport.Controls.Add(this.ReportDateEnd);
             this.MainTabReport.Controls.Add(this.ReportDateStart);
             this.MainTabReport.Controls.Add(this.ReportStartLabel);
-            this.MainTabReport.Location = new System.Drawing.Point(4, 26);
+            this.MainTabReport.Location = new System.Drawing.Point(4, 22);
             this.MainTabReport.Name = "MainTabReport";
             this.MainTabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabReport.Size = new System.Drawing.Size(463, 578);
+            this.MainTabReport.Size = new System.Drawing.Size(463, 566);
             this.MainTabReport.TabIndex = 1;
             this.MainTabReport.Text = "Report";
             this.MainTabReport.UseVisualStyleBackColor = true;
@@ -496,6 +502,18 @@
             this.ReportStartLabel.TabIndex = 0;
             this.ReportStartLabel.Text = "From";
             // 
+            // MainMenuDataDeleteTimecard
+            // 
+            this.MainMenuDataDeleteTimecard.Name = "MainMenuDataDeleteTimecard";
+            this.MainMenuDataDeleteTimecard.Size = new System.Drawing.Size(204, 22);
+            this.MainMenuDataDeleteTimecard.Text = "Delete this timecard...";
+            this.MainMenuDataDeleteTimecard.Click += new System.EventHandler(this.MainMenuDataDeleteTimecard_Click);
+            // 
+            // MainMenuDataSep2
+            // 
+            this.MainMenuDataSep2.Name = "MainMenuDataSep2";
+            this.MainMenuDataSep2.Size = new System.Drawing.Size(201, 6);
+            // 
             // ActivitiesGrid
             // 
             this.ActivitiesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -520,7 +538,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 502);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 494);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellValueChanged);
             this.ActivitiesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ActivitiesGrid_ColumnWidthChanged);
@@ -586,6 +604,13 @@
             this.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3";
             this.DataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.DataGridViewTextBoxColumn3.Width = 80;
+            // 
+            // MainMenuDataToggleAfterMidnight
+            // 
+            this.MainMenuDataToggleAfterMidnight.Name = "MainMenuDataToggleAfterMidnight";
+            this.MainMenuDataToggleAfterMidnight.Size = new System.Drawing.Size(204, 22);
+            this.MainMenuDataToggleAfterMidnight.Text = "Activity is after midnight";
+            this.MainMenuDataToggleAfterMidnight.Click += new System.EventHandler(this.MainMenuDataToggleAfterMidnight_Click);
             // 
             // MainForm
             // 
@@ -675,6 +700,9 @@
         private ActivityCodeColumn CodeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionColumn;
         private ActivityTimeColumn TimeColumn;
+        private System.Windows.Forms.ToolStripMenuItem MainMenuDataDeleteTimecard;
+        private System.Windows.Forms.ToolStripSeparator MainMenuDataSep2;
+        private System.Windows.Forms.ToolStripMenuItem MainMenuDataToggleAfterMidnight;
     }
 }
 
