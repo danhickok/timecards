@@ -27,6 +27,8 @@ namespace TimecardsUI
         private readonly Color _beforeMidnightAlternateBackgroundColor;
         private readonly Color _afterMidnightBackgroundColor;
         private readonly Color _afterMidnightAlternateBackgroundColor;
+        
+        //TODO: make "after midnight" tint user-configurable
         private readonly float _midnightColorFactorR = 0.89f;
         private readonly float _midnightColorFactorG = 0.98f;
         private readonly float _midnightColorFactorB = 1.00f;
@@ -206,7 +208,15 @@ namespace TimecardsUI
             {
                 SetStatusMessage("Deleting timecard...");
 
-                _timecardLogic.DeleteTimecard();
+                try
+                {
+                    _timecardLogic.DeleteTimecard();
+                }
+                catch (TimecardNotFoundException)
+                {
+                    _timecardLogic.GetNewTimecard();
+                }
+                
                 MainDate.Value = _timecardLogic.GetCurrentTimecard().Date;
                 UpdateMainDateLabel();
                 PopulateActivitiesGrid();
@@ -410,8 +420,33 @@ namespace TimecardsUI
                 ActivitiesGrid.Focus();
         }
 
-        private void ActivitiesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void ActivitiesGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+            if (_loading)
+                return;
+
+            if (_timecardLogic == null)
+                return;
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+
+            while (tc.Activities.Count() - 1 < e.RowIndex)
+                tc.Activities.Add(new Activity());
+            
+            if ((e.ColumnIndex == 0 || e.ColumnIndex == 1)
+                && string.IsNullOrWhiteSpace(ActivitiesGrid.Rows[e.RowIndex].Cells[2].Value?.ToString()))
+            {
+                _loading = true;
+                ActivitiesGrid.Rows[e.RowIndex].Cells[2].Value = tc.Activities[e.RowIndex].Time;
+                _loading = false;
+            }
+        }
+
+            private void ActivitiesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_loading)
+                return;
+
             if (_timecardLogic == null)
                 return;
 

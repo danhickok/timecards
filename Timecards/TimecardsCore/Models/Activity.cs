@@ -1,4 +1,5 @@
-﻿using TimecardsCore.Exceptions;
+﻿using System;
+using TimecardsCore.Exceptions;
 
 namespace TimecardsCore.Models
 {
@@ -108,11 +109,14 @@ namespace TimecardsCore.Models
         {
             _id = 0;
             _timecardID = 0;
-            _startMinute = 0;
-            _time = "00" + TIMESEP + "00";
             _isAfterMidnight = false;
             _code = string.Empty;
             _description = string.Empty;
+
+            var now = DateTime.Now;
+            var mins = now.Hour * 60 + now.Minute;
+            StartMinute = (int)(Math.Round(mins / (double)Configuration.RoundCurrentTimeToMinutes)
+                * Configuration.RoundCurrentTimeToMinutes);
 
             IsDirty = false;
         }
