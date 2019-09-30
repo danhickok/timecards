@@ -64,7 +64,7 @@ namespace TimecardsUI
             ActivitiesGrid.RowsDefaultCellStyle.BackColor = _beforeMidnightBackgroundColor;
             ActivitiesGrid.AlternatingRowsDefaultCellStyle.BackColor = _beforeMidnightAlternateBackgroundColor;
             
-            // fix the creeping design problem in VS
+            // fix the creeping bottom edge design problem in VS
             ActivitiesGrid.Height =
                 MainTabActivities.ClientRectangle.Height - ActivitiesGrid.Top - ActivitiesGrid.Left;
             
@@ -227,7 +227,7 @@ namespace TimecardsUI
 
         private void MainMenuDataSearchForDate_Click(object sender, EventArgs e)
         {
-            //TODO:
+            SelectTimecardBySearchForm();
         }
 
         private void MainMenuDataActivitiesSort_Click(object sender, EventArgs e)
@@ -308,9 +308,47 @@ namespace TimecardsUI
 
         private void NavButtonSearch_Click(object sender, EventArgs e)
         {
-            var dateSearchForm = new DateSearchForm();
+            SelectTimecardBySearchForm();
+        }
+
+        private void SelectTimecardBySearchForm()
+        {
+            SetStatusMessage("Loading timecard list...");
+            var tcList = _timecardLogic.GetTimecardList();
+            var dateSearchForm = new DateSearchForm
+            {
+                TimecardList = tcList
+            };
+            ClearStatusMessage();
+
             dateSearchForm.ShowDialog();
+            var selectedID = dateSearchForm.SelectedTimecardID;
+            var canceled = dateSearchForm.Canceled;
             dateSearchForm.Dispose();
+
+            if (!canceled && selectedID != 0)
+            {
+                try
+                {
+                    SetStatusMessage("Loading timecard...");
+
+                    _timecardLogic.GetSpecificTimecard(selectedID);
+
+                    _loading = true;
+                    MainDate.Value = _timecardLogic.GetCurrentTimecard().Date;
+                    UpdateMainDateLabel();
+                    PopulateActivitiesGrid();
+                    _loading = false;
+                }
+                catch (TimecardNotFoundException)
+                {
+                    MessageBox.Show("Timecard not found", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    ClearStatusMessage();
+                }
+            }
         }
 
         private void NavigateTo(Navigation direction)

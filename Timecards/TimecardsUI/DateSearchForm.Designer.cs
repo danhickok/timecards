@@ -39,7 +39,7 @@
             // 
             this.CancelDateSearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelDateSearchButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelDateSearchButton.Location = new System.Drawing.Point(223, 237);
+            this.CancelDateSearchButton.Location = new System.Drawing.Point(155, 237);
             this.CancelDateSearchButton.Name = "CancelDateSearchButton";
             this.CancelDateSearchButton.Size = new System.Drawing.Size(87, 27);
             this.CancelDateSearchButton.TabIndex = 0;
@@ -58,39 +58,42 @@
             this.DatesListView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DatesListView.FullRowSelect = true;
             this.DatesListView.GridLines = true;
+            this.DatesListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.DatesListView.HideSelection = false;
-            this.DatesListView.HoverSelection = true;
             this.DatesListView.LabelWrap = false;
             this.DatesListView.Location = new System.Drawing.Point(15, 15);
             this.DatesListView.MultiSelect = false;
             this.DatesListView.Name = "DatesListView";
-            this.DatesListView.Size = new System.Drawing.Size(294, 211);
+            this.DatesListView.Size = new System.Drawing.Size(227, 211);
             this.DatesListView.TabIndex = 1;
             this.DatesListView.UseCompatibleStateImageBehavior = false;
             this.DatesListView.View = System.Windows.Forms.View.Details;
+            this.DatesListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.DatesListView_ItemSelectionChanged);
             // 
             // TimcardDateColumn
             // 
             this.TimcardDateColumn.Text = "Date";
-            this.TimcardDateColumn.Width = 120;
+            this.TimcardDateColumn.Width = 90;
             // 
             // TimecardDayColumn
             // 
             this.TimecardDayColumn.Text = "Day of week";
-            this.TimecardDayColumn.Width = 140;
+            this.TimecardDayColumn.Width = 110;
             // 
             // DateSearchForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(324, 273);
+            this.ClientSize = new System.Drawing.Size(256, 273);
             this.Controls.Add(this.DatesListView);
             this.Controls.Add(this.CancelDateSearchButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(164, 226);
             this.Name = "DateSearchForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Timecards - Date Search";
+            this.Load += new System.EventHandler(this.DateSearchForm_Load);
             this.ResumeLayout(false);
 
         }
