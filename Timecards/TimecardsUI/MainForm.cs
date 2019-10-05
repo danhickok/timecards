@@ -393,7 +393,47 @@ namespace TimecardsUI
 
         private void ReportButtonGo_Click(object sender, EventArgs e)
         {
-            //TODO:
+            SetStatusMessage("Gathering data...");
+
+            var report = _timecardLogic.GetReport(ReportDateStart.Value, ReportDateEnd.Value);
+            
+            ReportListView.Items.Clear();
+
+            var totalMinutes = 0;
+            var totalHours = 0M;
+
+            foreach (var item in report)
+            {
+                var hours = Math.Round(item.TotalMinutes / 60M, 2);
+
+                var row = new ListViewItem(item.Code);
+                row.SubItems.AddRange(new[]
+                {
+                    $"{item.EarliestDate:d}",
+                    $"{item.LatestDate:d}",
+                    $"{item.TotalMinutes:D}",
+                    $"{hours:N2}",
+                });
+
+                ReportListView.Items.Add(row);
+                
+                totalMinutes += item.TotalMinutes;
+                totalHours += hours;
+            }
+
+            ReportListView.Items.Add(string.Empty);
+
+            var totals = new ListViewItem();
+            totals.SubItems.AddRange(new[]
+            {
+                string.Empty,
+                "Total",
+                $"{totalMinutes:D}",
+                $"{totalHours:N2}",
+            });
+            ReportListView.Items.Add(totals);
+
+            ClearStatusMessage();
         }
 
         private void MainDate_ValueChanged(object sender, EventArgs e)

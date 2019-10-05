@@ -11,7 +11,7 @@ namespace TimecardsCore.Logic
     {
         private readonly IFactory _factory;
         private Timecard _timecard;
-        
+
         public TimecardLogic(IFactory factory)
         {
             _factory = factory;
@@ -38,7 +38,7 @@ namespace TimecardsCore.Logic
         public Timecard GetSpecificTimecard(int key)
         {
             var repo = _factory.Resolve<IRepository>();
-            var timecard  = repo.GetTimecard(key);
+            var timecard = repo.GetTimecard(key);
             _timecard = timecard
                 ?? throw new TimecardNotFoundException();
             return _timecard;
@@ -83,7 +83,7 @@ namespace TimecardsCore.Logic
             return _timecard;
         }
 
-        public  Timecard GetPreviousTimecard()
+        public Timecard GetPreviousTimecard()
         {
             var repo = _factory.Resolve<IRepository>();
             _timecard = repo.GetNearestTimecard(_timecard.Date, false);
@@ -172,6 +172,12 @@ namespace TimecardsCore.Logic
         {
             var repo = _factory.Resolve<IRepository>();
             repo.DeleteAllTimecards();
+        }
+
+        public List<ReportItem> GetReport(DateTime start, DateTime end)
+        {
+            var repo = _factory.Resolve<IRepository>();
+            return repo.GetReport(start, end);
         }
     }
 }
