@@ -395,7 +395,8 @@ namespace TimecardsUI
         {
             SetStatusMessage("Gathering data...");
 
-            var report = _timecardLogic.GetReport(ReportDateStart.Value, ReportDateEnd.Value);
+            var report = _timecardLogic.GetReport(
+                ReportDateStart.Value.Date, ReportDateEnd.Value.Date);
             
             ReportListView.Items.Clear();
 
