@@ -390,3 +390,76 @@ types.  Here are some instructions for building your own IOC container:
 
 https://timross.wordpress.com/2010/01/21/creating-a-simple-ioc-container/
 
+
+
+10/05/2019
+----------
+
+I finally implemented that inversion-of-control (IOC) container - really, an
+object factory - and it works like a charm.  Now I have a way for the inner
+layers to request and make use of objects from the outer layer, all while
+maintaining the loose coupling that is the hallmark of clean architecture.
+
+Hey, remember when I described the application layer of clean architecture in
+November last year?  That layer is supposed to act as a go-between so that the
+core and the outer layers don't talk to each other directly.  This allows the
+UI, for example, to be changed without having to rewrite almost all the
+application.
+
+Well, once I had a working IOC factory, I implemented a few "logic" classes that
+act as go-between UI layer.  Objects of these classes use the IOC factory to get
+a repository and do the CRUD (create, retrieve, update, and delete) work for
+timecards, for getting a report of the timecards, and for doing bulk data
+operations (imports and exports).  I simultaneously developed integration tests
+to go with these new classes.
+
+These new logic classes reside in the Core project, but they're effectively
+separate from the rest of the core.  In a bigger application I suppose there
+would be a good reason for these to be in their own project, but this will do
+for my application. 
+
+With the logic classes - and unit and integration tests to prove them out - it's
+become dead simple to implement features in the UI.  At this point I have data
+entry, navigation, and reporting all working.  It's actually a usable
+application at this point, though there is quite a bit to finish before it's
+completed:
+
+* I need to finish the bulk data import and export functions.  This will mean
+  I need to complete the third of those three logic classes.
+
+* I need to implement the Configuration form, and make sure the user can specify
+  where the database is to be stored.
+
+* have a hard-coded color "tint" that's applied to activities that occur after
+  midnight.  These are an important visual cue for the user.  That tint ought
+  not to be hard-coded, however - I'll need to add a color chooser to the
+  Configuration form.
+
+* Speaking of midnight, I need to make sure that flag is set for any actions
+  that are created after midnight.  The activity object will need a (loosely-
+  coupled?) way to query the timecard parent for its date to make this possible.
+
+* I need to add more comments, especially the triple-slash kind so that
+  IntelliSense will work.
+
+* I ought to fill out the markdown "read me" documents in each project.
+
+* There's a code analysis feature built into Visual Studio - and it makes some
+  good suggestions.  I should go through the code and address the points it
+  makes.
+
+* I learned a long time ago that in a Windows application, every method that's
+  executed by a user action - like a button click event - ought to have its own
+  exception processing for gracefully handling errors.  While I've added a
+  global exception processor, that's supposed to be there as a last resort.
+
+* I need to pick a better icon for the application.
+
+* I need to add version number to all the components of the application.
+
+* I need to figure out packaging and deployment.  I know Visual Studio
+  Professional has some options for creating installers and whatnot - does the
+  community edition have that?  If not, there are open-source third party
+  options like Wix Toolkit.
+
+That's not an exhaustive list - I'm sure there will be more.

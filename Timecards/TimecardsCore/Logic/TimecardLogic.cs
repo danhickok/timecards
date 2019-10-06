@@ -173,11 +173,5 @@ namespace TimecardsCore.Logic
             var repo = _factory.Resolve<IRepository>();
             repo.DeleteAllTimecards();
         }
-
-        public List<ReportItem> GetReport(DateTime start, DateTime end)
-        {
-            var repo = _factory.Resolve<IRepository>();
-            return repo.GetReport(start, end);
-        }
     }
 }

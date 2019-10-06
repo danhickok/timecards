@@ -34,6 +34,7 @@ namespace TimecardsUI
         private readonly float _midnightColorFactorB = 1.00f;
 
         private TimecardLogic _timecardLogic = null;
+        private ReportLogic _reportLogic = null;
 
         public MainForm()
         {
@@ -76,6 +77,7 @@ namespace TimecardsUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             _timecardLogic = new TimecardLogic(Factory);
+            _reportLogic = new ReportLogic(Factory);
 
             _loading = true;
 
@@ -136,6 +138,7 @@ namespace TimecardsUI
                 _timecardLogic.SaveTimecard();
 
             _timecardLogic = null;
+            _reportLogic = null;
 
             if (Factory != null)
                 Factory.Dispose();
@@ -388,14 +391,13 @@ namespace TimecardsUI
 
             ClearStatusMessage();
             _loading = false;
-
         }
 
         private void ReportButtonGo_Click(object sender, EventArgs e)
         {
             SetStatusMessage("Gathering data...");
 
-            var report = _timecardLogic.GetReport(
+            var report = _reportLogic.GetReport(
                 ReportDateStart.Value.Date, ReportDateEnd.Value.Date);
             
             ReportListView.Items.Clear();
@@ -412,7 +414,7 @@ namespace TimecardsUI
                 {
                     $"{item.EarliestDate:d}",
                     $"{item.LatestDate:d}",
-                    $"{item.TotalMinutes:D}",
+                    $"{item.TotalMinutes:N0}",
                     $"{hours:N2}",
                 });
 
@@ -429,7 +431,7 @@ namespace TimecardsUI
             {
                 string.Empty,
                 "Total",
-                $"{totalMinutes:D}",
+                $"{totalMinutes:N0}",
                 $"{totalHours:N2}",
             });
             ReportListView.Items.Add(totals);
