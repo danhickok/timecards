@@ -12,6 +12,7 @@ namespace TimecardsCore
         public static int RoundCurrentTimeToMinutes { get; set; }
         public static string CodeMask { get; set; }
         public static string TimeMask { get; set; }
+        public static System.Drawing.Color MidnightTint { get; set; }
         public static Dictionary<string, string> DefaultCodes { get; private set; }
 
         static Configuration()
@@ -25,6 +26,7 @@ namespace TimecardsCore
             RoundCurrentTimeToMinutes = Properties.Settings.Default.RoundCurrentTimeToMinutes;
             CodeMask = Properties.Settings.Default.CodeMask;
             TimeMask = Properties.Settings.Default.TimeMask;
+            MidnightTint = Properties.Settings.Default.MidnightTint;
 
             DefaultCodes.Clear();
             var dfString = Properties.Settings.Default.DefaultCodes;
@@ -45,6 +47,7 @@ namespace TimecardsCore
             Properties.Settings.Default.RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
             Properties.Settings.Default.CodeMask = CodeMask;
             Properties.Settings.Default.TimeMask = TimeMask;
+            Properties.Settings.Default.MidnightTint = MidnightTint;
 
             var dfStringBuilder = new StringBuilder();
             foreach (var key in DefaultCodes.Keys)

@@ -43,15 +43,19 @@
             this.DeleteButton = new System.Windows.Forms.Button();
             this.TimeMaskTextBox = new System.Windows.Forms.TextBox();
             this.TimeMaskLabel = new System.Windows.Forms.Label();
+            this.MidnightTintLabel = new System.Windows.Forms.Label();
+            this.MidnightTintPictureBox = new System.Windows.Forms.PictureBox();
+            this.MidnightTintColorDialog = new System.Windows.Forms.ColorDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.MidnightTintPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OKButton.Location = new System.Drawing.Point(314, 366);
+            this.OKButton.Location = new System.Drawing.Point(314, 383);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(87, 27);
-            this.OKButton.TabIndex = 10;
+            this.OKButton.TabIndex = 11;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
@@ -60,10 +64,10 @@
             // 
             this.CancelConfigurationButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelConfigurationButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelConfigurationButton.Location = new System.Drawing.Point(408, 366);
+            this.CancelConfigurationButton.Location = new System.Drawing.Point(408, 383);
             this.CancelConfigurationButton.Name = "CancelConfigurationButton";
             this.CancelConfigurationButton.Size = new System.Drawing.Size(87, 27);
-            this.CancelConfigurationButton.TabIndex = 11;
+            this.CancelConfigurationButton.TabIndex = 12;
             this.CancelConfigurationButton.Text = "Cancel";
             this.CancelConfigurationButton.UseVisualStyleBackColor = true;
             this.CancelConfigurationButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -79,7 +83,7 @@
             // 
             // CodeMaskTextBox
             // 
-            this.CodeMaskTextBox.Location = new System.Drawing.Point(152, 20);
+            this.CodeMaskTextBox.Location = new System.Drawing.Point(201, 20);
             this.CodeMaskTextBox.Name = "CodeMaskTextBox";
             this.CodeMaskTextBox.Size = new System.Drawing.Size(116, 23);
             this.CodeMaskTextBox.TabIndex = 1;
@@ -99,21 +103,23 @@
             this.RoundTimeComboBox.Items.AddRange(new object[] {
             "nearest minute",
             "nearest five minutes",
+            "nearest six minutes (tenth of hour)",
+            "nearest 12 minutes (fifth of hour)",
             "nearest 15 minutes",
             "nearest half hour",
             "nearest hour"});
-            this.RoundTimeComboBox.Location = new System.Drawing.Point(152, 78);
+            this.RoundTimeComboBox.Location = new System.Drawing.Point(201, 78);
             this.RoundTimeComboBox.Name = "RoundTimeComboBox";
-            this.RoundTimeComboBox.Size = new System.Drawing.Size(216, 23);
+            this.RoundTimeComboBox.Size = new System.Drawing.Size(230, 23);
             this.RoundTimeComboBox.TabIndex = 5;
             // 
             // DefaultDescriptionsLabel
             // 
             this.DefaultDescriptionsLabel.AutoSize = true;
-            this.DefaultDescriptionsLabel.Location = new System.Drawing.Point(14, 141);
+            this.DefaultDescriptionsLabel.Location = new System.Drawing.Point(14, 158);
             this.DefaultDescriptionsLabel.Name = "DefaultDescriptionsLabel";
             this.DefaultDescriptionsLabel.Size = new System.Drawing.Size(207, 15);
-            this.DefaultDescriptionsLabel.TabIndex = 6;
+            this.DefaultDescriptionsLabel.TabIndex = 7;
             this.DefaultDescriptionsLabel.Text = "Default descriptions for specific codes";
             // 
             // DefaultCodesListView
@@ -128,10 +134,10 @@
             this.DefaultCodesListView.GridLines = true;
             this.DefaultCodesListView.HideSelection = false;
             this.DefaultCodesListView.LabelEdit = true;
-            this.DefaultCodesListView.Location = new System.Drawing.Point(14, 162);
+            this.DefaultCodesListView.Location = new System.Drawing.Point(14, 181);
             this.DefaultCodesListView.Name = "DefaultCodesListView";
-            this.DefaultCodesListView.Size = new System.Drawing.Size(480, 186);
-            this.DefaultCodesListView.TabIndex = 7;
+            this.DefaultCodesListView.Size = new System.Drawing.Size(480, 184);
+            this.DefaultCodesListView.TabIndex = 8;
             this.DefaultCodesListView.UseCompatibleStateImageBehavior = false;
             this.DefaultCodesListView.View = System.Windows.Forms.View.Details;
             // 
@@ -147,25 +153,27 @@
             // 
             // AddButton
             // 
-            this.AddButton.Location = new System.Drawing.Point(439, 131);
+            this.AddButton.Location = new System.Drawing.Point(439, 148);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(27, 27);
-            this.AddButton.TabIndex = 8;
+            this.AddButton.TabIndex = 9;
             this.AddButton.Text = "+";
             this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(468, 131);
+            this.DeleteButton.Location = new System.Drawing.Point(468, 148);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(27, 27);
-            this.DeleteButton.TabIndex = 9;
+            this.DeleteButton.TabIndex = 10;
             this.DeleteButton.Text = "-";
             this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // TimeMaskTextBox
             // 
-            this.TimeMaskTextBox.Location = new System.Drawing.Point(152, 49);
+            this.TimeMaskTextBox.Location = new System.Drawing.Point(201, 49);
             this.TimeMaskTextBox.Name = "TimeMaskTextBox";
             this.TimeMaskTextBox.Size = new System.Drawing.Size(116, 23);
             this.TimeMaskTextBox.TabIndex = 3;
@@ -179,10 +187,31 @@
             this.TimeMaskLabel.TabIndex = 2;
             this.TimeMaskLabel.Text = "Time format";
             // 
+            // MidnightTintLabel
+            // 
+            this.MidnightTintLabel.AutoSize = true;
+            this.MidnightTintLabel.Location = new System.Drawing.Point(14, 111);
+            this.MidnightTintLabel.Name = "MidnightTintLabel";
+            this.MidnightTintLabel.Size = new System.Drawing.Size(156, 15);
+            this.MidnightTintLabel.TabIndex = 6;
+            this.MidnightTintLabel.Text = "Tint for after midnight items";
+            // 
+            // MidnightTintPictureBox
+            // 
+            this.MidnightTintPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MidnightTintPictureBox.Location = new System.Drawing.Point(201, 107);
+            this.MidnightTintPictureBox.Name = "MidnightTintPictureBox";
+            this.MidnightTintPictureBox.Size = new System.Drawing.Size(100, 23);
+            this.MidnightTintPictureBox.TabIndex = 13;
+            this.MidnightTintPictureBox.TabStop = false;
+            this.MidnightTintPictureBox.Click += new System.EventHandler(this.MidnightTintPictureBox_Click);
+            // 
             // ConfigurationForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(509, 406);
+            this.ClientSize = new System.Drawing.Size(509, 423);
+            this.Controls.Add(this.MidnightTintPictureBox);
+            this.Controls.Add(this.MidnightTintLabel);
             this.Controls.Add(this.TimeMaskTextBox);
             this.Controls.Add(this.TimeMaskLabel);
             this.Controls.Add(this.DeleteButton);
@@ -198,10 +227,13 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConfigurationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Timecards - Preferences";
             this.Load += new System.EventHandler(this.ConfigurationForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.MidnightTintPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +255,8 @@
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.TextBox TimeMaskTextBox;
         private System.Windows.Forms.Label TimeMaskLabel;
+        private System.Windows.Forms.Label MidnightTintLabel;
+        private System.Windows.Forms.PictureBox MidnightTintPictureBox;
+        private System.Windows.Forms.ColorDialog MidnightTintColorDialog;
     }
 }
