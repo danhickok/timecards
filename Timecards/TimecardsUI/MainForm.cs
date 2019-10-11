@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TimecardsCore;
 using TimecardsCore.Exceptions;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Logic;
@@ -23,15 +24,10 @@ namespace TimecardsUI
             "IDE0069:Disposable fields should be disposed", Justification = "<Pending>")]
         private VScrollBar _activitiesGridVScrollBar = null;
 
-        private readonly Color _beforeMidnightBackgroundColor;
-        private readonly Color _beforeMidnightAlternateBackgroundColor;
-        private readonly Color _afterMidnightBackgroundColor;
-        private readonly Color _afterMidnightAlternateBackgroundColor;
-        
-        //TODO: make "after midnight" tint user-configurable
-        private readonly float _midnightColorFactorR = 0.89f;
-        private readonly float _midnightColorFactorG = 0.98f;
-        private readonly float _midnightColorFactorB = 1.00f;
+        private Color _beforeMidnightBackgroundColor;
+        private Color _beforeMidnightAlternateBackgroundColor;
+        private Color _afterMidnightBackgroundColor;
+        private Color _afterMidnightAlternateBackgroundColor;
 
         private TimecardLogic _timecardLogic = null;
         private ReportLogic _reportLogic = null;
@@ -47,23 +43,9 @@ namespace TimecardsUI
 
             _loading = false;
 
-            // set colors
             _beforeMidnightBackgroundColor = SystemColors.Window;
             _beforeMidnightAlternateBackgroundColor = SystemColors.ButtonFace;
-
-            _afterMidnightBackgroundColor =
-                Color.FromArgb(
-                    (byte)Math.Floor(SystemColors.Window.R * _midnightColorFactorR),
-                    (byte)Math.Floor(SystemColors.Window.G * _midnightColorFactorG),
-                    (byte)Math.Floor(SystemColors.Window.B * _midnightColorFactorB));
-            _afterMidnightAlternateBackgroundColor =
-                Color.FromArgb(
-                    (byte)Math.Floor(SystemColors.ButtonFace.R * _midnightColorFactorR),
-                    (byte)Math.Floor(SystemColors.ButtonFace.G * _midnightColorFactorG),
-                    (byte)Math.Floor(SystemColors.ButtonFace.B * _midnightColorFactorB));
-
-            ActivitiesGrid.RowsDefaultCellStyle.BackColor = _beforeMidnightBackgroundColor;
-            ActivitiesGrid.AlternatingRowsDefaultCellStyle.BackColor = _beforeMidnightAlternateBackgroundColor;
+            SetAfterMidnightRowColors();
             
             // fix the creeping bottom edge design problem in VS
             ActivitiesGrid.Height =
@@ -153,6 +135,14 @@ namespace TimecardsUI
         {
             var configForm = new ConfigurationForm();
             configForm.ShowDialog(this);
+
+            if (configForm.ConfigurationChanged)
+            {
+                //TODO: what about code and time masks?
+                SetAfterMidnightRowColors();
+                PopulateActivitiesGrid();
+            }
+
             configForm.Dispose();
         }
 
@@ -630,6 +620,28 @@ namespace TimecardsUI
         {
             MainStatusLabel.Text = string.Empty;
             Refresh();
+        }
+
+        private void SetAfterMidnightRowColors()
+        {
+            var tint = Configuration.MidnightTint;
+            double factorR = tint.R / 255.0;
+            double factorG = tint.G / 255.0;
+            double factorB = tint.B / 255.0;
+
+            _afterMidnightBackgroundColor =
+                Color.FromArgb(
+                    (byte)Math.Floor(SystemColors.Window.R * factorR),
+                    (byte)Math.Floor(SystemColors.Window.G * factorG),
+                    (byte)Math.Floor(SystemColors.Window.B * factorB));
+            _afterMidnightAlternateBackgroundColor =
+                Color.FromArgb(
+                    (byte)Math.Floor(SystemColors.ButtonFace.R * factorR),
+                    (byte)Math.Floor(SystemColors.ButtonFace.G * factorG),
+                    (byte)Math.Floor(SystemColors.ButtonFace.B * factorB));
+
+            ActivitiesGrid.RowsDefaultCellStyle.BackColor = _beforeMidnightBackgroundColor;
+            ActivitiesGrid.AlternatingRowsDefaultCellStyle.BackColor = _beforeMidnightAlternateBackgroundColor;
         }
 
         private void FindGridVScrollBarControl()
