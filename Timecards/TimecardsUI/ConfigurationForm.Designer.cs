@@ -201,6 +201,7 @@
             this.Name = "ConfigurationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Timecards - Preferences";
+            this.Load += new System.EventHandler(this.ConfigurationForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
