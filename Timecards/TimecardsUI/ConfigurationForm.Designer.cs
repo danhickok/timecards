@@ -46,6 +46,8 @@
             this.MidnightTintLabel = new System.Windows.Forms.Label();
             this.MidnightTintPictureBox = new System.Windows.Forms.PictureBox();
             this.MidnightTintColorDialog = new System.Windows.Forms.ColorDialog();
+            this.NewCodeTextBox = new System.Windows.Forms.TextBox();
+            this.NewDescriptionTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.MidnightTintPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,6 +137,7 @@
             this.DefaultCodesListView.HideSelection = false;
             this.DefaultCodesListView.LabelEdit = true;
             this.DefaultCodesListView.Location = new System.Drawing.Point(14, 181);
+            this.DefaultCodesListView.MultiSelect = false;
             this.DefaultCodesListView.Name = "DefaultCodesListView";
             this.DefaultCodesListView.Size = new System.Drawing.Size(480, 184);
             this.DefaultCodesListView.TabIndex = 8;
@@ -206,10 +209,30 @@
             this.MidnightTintPictureBox.TabStop = false;
             this.MidnightTintPictureBox.Click += new System.EventHandler(this.MidnightTintPictureBox_Click);
             // 
+            // NewCodeTextBox
+            // 
+            this.NewCodeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NewCodeTextBox.Location = new System.Drawing.Point(17, 383);
+            this.NewCodeTextBox.Name = "NewCodeTextBox";
+            this.NewCodeTextBox.Size = new System.Drawing.Size(100, 16);
+            this.NewCodeTextBox.TabIndex = 14;
+            this.NewCodeTextBox.Visible = false;
+            // 
+            // NewDescriptionTextBox
+            // 
+            this.NewDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NewDescriptionTextBox.Location = new System.Drawing.Point(134, 383);
+            this.NewDescriptionTextBox.Name = "NewDescriptionTextBox";
+            this.NewDescriptionTextBox.Size = new System.Drawing.Size(100, 16);
+            this.NewDescriptionTextBox.TabIndex = 15;
+            this.NewDescriptionTextBox.Visible = false;
+            // 
             // ConfigurationForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(509, 423);
+            this.Controls.Add(this.NewDescriptionTextBox);
+            this.Controls.Add(this.NewCodeTextBox);
             this.Controls.Add(this.MidnightTintPictureBox);
             this.Controls.Add(this.MidnightTintLabel);
             this.Controls.Add(this.TimeMaskTextBox);
@@ -258,5 +281,7 @@
         private System.Windows.Forms.Label MidnightTintLabel;
         private System.Windows.Forms.PictureBox MidnightTintPictureBox;
         private System.Windows.Forms.ColorDialog MidnightTintColorDialog;
+        private System.Windows.Forms.TextBox NewCodeTextBox;
+        private System.Windows.Forms.TextBox NewDescriptionTextBox;
     }
 }

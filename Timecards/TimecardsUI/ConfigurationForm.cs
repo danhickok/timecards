@@ -98,6 +98,18 @@ namespace TimecardsUI
                     break;
             }
 
+            Configuration.DefaultCodes.Clear();
+            foreach (ListViewItem item in DefaultCodesListView.Items)
+            {
+                var code = item.Text;
+                var description = item.SubItems[0].Text;
+                if (!string.IsNullOrWhiteSpace(code) &&
+                    !string.IsNullOrWhiteSpace(description))
+                {
+                    Configuration.DefaultCodes[code] = description;
+                }
+            }
+
             Configuration.Save();
             ConfigurationChanged = true;
             this.Close();
@@ -119,12 +131,48 @@ namespace TimecardsUI
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            //TODO: add a new item to list (somehow)
+            var item = new ListViewItem(string.Empty);
+            item.SubItems.Add(string.Empty);
+            DefaultCodesListView.Items.Add(item);
+            item.EnsureVisible();
+            EditItem(item);
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            //TODO: remove selected item from list
+            if (DefaultCodesListView.SelectedItems.Count == 0)
+                return;
+            var item = DefaultCodesListView.SelectedItems[0];
+            DefaultCodesListView.Items.Remove(item);
+        }
+
+        private void EditItem(ListViewItem item)
+        {
+            NewCodeTextBox.Text = item.Text;
+            NewDescriptionTextBox.Text = item.SubItems[0].Text;
+
+            //for debugging
+            NewCodeTextBox.BackColor = Color.Yellow;
+            NewDescriptionTextBox.BackColor = Color.LightGreen;
+
+            var codeTop = DefaultCodesListView.Location.Y + item.Position.Y + 2;
+            var codeLeft = DefaultCodesListView.Location.X + item.Position.X;
+            var codeWidth = DefaultCodesListView.Columns[0].Width - 4;
+            
+            var descriptionTop = codeTop;
+            var descriptionLeft = codeLeft + DefaultCodesListView.Columns[0].Width;
+            var descriptionWidth = DefaultCodesListView.Columns[1].Width - 4;
+
+            NewCodeTextBox.Location = new Point(codeLeft, codeTop);
+            NewDescriptionTextBox.Location = new Point(descriptionLeft, descriptionTop);
+
+            NewCodeTextBox.Width = codeWidth;
+            NewDescriptionTextBox.Width = descriptionWidth;
+
+            NewCodeTextBox.Visible = true;
+            NewDescriptionTextBox.Visible = true;
+
+            NewCodeTextBox.Focus();
         }
     }
 }
