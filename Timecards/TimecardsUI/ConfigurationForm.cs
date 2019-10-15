@@ -15,10 +15,13 @@ namespace TimecardsUI
     {
         public bool ConfigurationChanged { get; private set; }
 
+        private ListViewItem _itemBeingEdited;
+
         public ConfigurationForm()
         {
             InitializeComponent();
             ConfigurationChanged = false;
+            _itemBeingEdited = null;
         }
 
         private void ConfigurationForm_Load(object sender, EventArgs e)
@@ -56,7 +59,13 @@ namespace TimecardsUI
             }
 
             DefaultCodesListView.Items.Clear();
+
+            var keys = new List<string>();
             foreach (var key in Configuration.DefaultCodes.Keys)
+                keys.Add(key);
+            keys.Sort();
+
+            foreach (var key in keys)
             {
                 var item = new ListViewItem { Text = key };
                 item.SubItems.Add(Configuration.DefaultCodes[key]);
@@ -66,6 +75,8 @@ namespace TimecardsUI
 
         private void OKButton_Click(object sender, EventArgs e)
         {
+            StopItemEdit();
+
             Configuration.CodeMask = CodeMaskTextBox.Text;
             Configuration.TimeMask = TimeMaskTextBox.Text;
             Configuration.MidnightTint = MidnightTintPictureBox.BackColor;
@@ -102,7 +113,7 @@ namespace TimecardsUI
             foreach (ListViewItem item in DefaultCodesListView.Items)
             {
                 var code = item.Text;
-                var description = item.SubItems[0].Text;
+                var description = item.SubItems[1].Text;
                 if (!string.IsNullOrWhiteSpace(code) &&
                     !string.IsNullOrWhiteSpace(description))
                 {
@@ -117,51 +128,83 @@ namespace TimecardsUI
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            StopItemEdit();
+
             ConfigurationChanged = false;
             this.Close();
         }
 
+        private void CodeMaskTextBox_Enter(object sender, EventArgs e)
+        {
+            StopItemEdit();
+        }
+
+        private void TimeMaskTextBox_Enter(object sender, EventArgs e)
+        {
+            StopItemEdit();
+        }
+
         private void MidnightTintPictureBox_Click(object sender, EventArgs e)
         {
+            StopItemEdit();
+
             if (MidnightTintColorDialog.ShowDialog() == DialogResult.OK)
             {
                 MidnightTintPictureBox.BackColor = MidnightTintColorDialog.Color;
             }
         }
 
+        private void DefaultCodesListView_Enter(object sender, EventArgs e)
+        {
+            StopItemEdit();
+        }
+
+        private void NewCodeTextBox_Enter(object sender, EventArgs e)
+        {
+            NewCodeTextBox.SelectAll();
+        }
+
+        private void NewDescriptionTextBox_Enter(object sender, EventArgs e)
+        {
+            NewDescriptionTextBox.SelectAll();
+        }
+
         private void AddButton_Click(object sender, EventArgs e)
         {
+            StopItemEdit();
+
             var item = new ListViewItem(string.Empty);
             item.SubItems.Add(string.Empty);
             DefaultCodesListView.Items.Add(item);
             item.EnsureVisible();
-            EditItem(item);
+            _itemBeingEdited = item;
+            StartItemEdit();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            StopItemEdit();
+
             if (DefaultCodesListView.SelectedItems.Count == 0)
                 return;
             var item = DefaultCodesListView.SelectedItems[0];
             DefaultCodesListView.Items.Remove(item);
         }
 
-        private void EditItem(ListViewItem item)
+        private void StartItemEdit()
         {
-            NewCodeTextBox.Text = item.Text;
-            NewDescriptionTextBox.Text = item.SubItems[0].Text;
+            NewCodeTextBox.Text = _itemBeingEdited.Text;
+            NewDescriptionTextBox.Text = _itemBeingEdited.SubItems[1].Text;
 
-            //for debugging
-            NewCodeTextBox.BackColor = Color.Yellow;
-            NewDescriptionTextBox.BackColor = Color.LightGreen;
+            NewCodeTextBox.Mask = CodeMaskTextBox.Text;
 
-            var codeTop = DefaultCodesListView.Location.Y + item.Position.Y + 2;
-            var codeLeft = DefaultCodesListView.Location.X + item.Position.X;
-            var codeWidth = DefaultCodesListView.Columns[0].Width - 4;
+            var codeTop = DefaultCodesListView.Location.Y + _itemBeingEdited.Position.Y + 2;
+            var codeLeft = DefaultCodesListView.Location.X + _itemBeingEdited.Position.X + 4;
+            var codeWidth = DefaultCodesListView.Columns[0].Width - 8;
             
             var descriptionTop = codeTop;
             var descriptionLeft = codeLeft + DefaultCodesListView.Columns[0].Width;
-            var descriptionWidth = DefaultCodesListView.Columns[1].Width - 4;
+            var descriptionWidth = DefaultCodesListView.Columns[1].Width - 8;
 
             NewCodeTextBox.Location = new Point(codeLeft, codeTop);
             NewDescriptionTextBox.Location = new Point(descriptionLeft, descriptionTop);
@@ -173,6 +216,22 @@ namespace TimecardsUI
             NewDescriptionTextBox.Visible = true;
 
             NewCodeTextBox.Focus();
+        }
+
+        private void StopItemEdit()
+        {
+            if (_itemBeingEdited != null)
+            {
+                _itemBeingEdited.Text = NewCodeTextBox.Text;
+                _itemBeingEdited.SubItems[1].Text = NewDescriptionTextBox.Text;
+
+                _itemBeingEdited.Selected = true;
+            }
+
+            _itemBeingEdited = null;
+
+            NewCodeTextBox.Visible = false;
+            NewDescriptionTextBox.Visible = false;
         }
     }
 }
