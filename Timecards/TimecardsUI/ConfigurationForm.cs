@@ -226,6 +226,7 @@ namespace TimecardsUI
                 _itemBeingEdited.SubItems[1].Text = NewDescriptionTextBox.Text;
 
                 _itemBeingEdited.Selected = true;
+                _itemBeingEdited.Focused = true;
             }
 
             _itemBeingEdited = null;
