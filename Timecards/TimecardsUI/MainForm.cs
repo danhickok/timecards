@@ -491,6 +491,19 @@ namespace TimecardsUI
                 ActivitiesGrid.Focus();
         }
 
+        private void ActivitiesGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1 &&
+                string.IsNullOrWhiteSpace(ActivitiesGrid.CurrentCell.Value?.ToString()))
+            {
+                var code = ActivitiesGrid.CurrentRow.Cells[0].Value.ToString();
+                if (Configuration.DefaultCodes.ContainsKey(code))
+                {
+                    ActivitiesGrid.CurrentCell.Value = Configuration.DefaultCodes[code];
+                }
+            }
+        }
+
         private void ActivitiesGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (_loading)
@@ -513,7 +526,7 @@ namespace TimecardsUI
             }
         }
 
-            private void ActivitiesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void ActivitiesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (_loading)
                 return;
