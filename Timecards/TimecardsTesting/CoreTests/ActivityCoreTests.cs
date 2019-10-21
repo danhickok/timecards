@@ -41,7 +41,6 @@ namespace TimecardsTesting.CoreTests
             activity = new core.Activity();
             Assert.AreEqual(string.Empty, activity.Code, "Initial code should be empty string");
             Assert.AreEqual(string.Empty, activity.Description, "Initial description should be empty string");
-            Assert.AreEqual("00:00", activity.Time, "Initial time should be 00:00");
 
             activity = new core.Activity("12345");
             Assert.AreEqual("12345", activity.Code, "Code not assigned correctly in constructor");
@@ -57,8 +56,6 @@ namespace TimecardsTesting.CoreTests
 
             activity = new core.Activity("01010", "Matte", 180);
             Assert.AreEqual(180, activity.StartMinute, "Start minute not assigned correctly in constructor");
-
-            activity = new core.Activity();
         }
     }
 }

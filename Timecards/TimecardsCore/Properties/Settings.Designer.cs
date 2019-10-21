@@ -73,18 +73,6 @@ namespace TimecardsCore.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DatabasePath {
-            get {
-                return ((string)(this["DatabasePath"]));
-            }
-            set {
-                this["DatabasePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 255")]
         public global::System.Drawing.Color MidnightTint {
             get {

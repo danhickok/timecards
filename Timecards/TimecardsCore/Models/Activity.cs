@@ -43,8 +43,6 @@ namespace TimecardsCore.Models
             set
             {
                 _code = value ?? throw new NullNotAllowedException();
-                if (string.IsNullOrWhiteSpace(Description) && Configuration.DefaultCodes.ContainsKey(_code))
-                    Description = Configuration.DefaultCodes[_code];
                 IsDirty = true;
             }
         }

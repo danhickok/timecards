@@ -10,51 +10,6 @@ namespace TimecardsTesting.CoreTests
     public class ConfigurationTests
     {
         [TestMethod]
-        public void DefaultCodesTest()
-        {
-            const string SECOND = "Second Description";
-            const string PREEXISTING = "Preexisting Description";
-
-            var backup = BackupOfConfigurationDefaultCodes();
-
-            Configuration.DefaultCodes.Clear();
-            Configuration.DefaultCodes["00100"] = "First Description";
-            Configuration.DefaultCodes["00200"] = SECOND;
-            Configuration.DefaultCodes["00300"] = "Third Description";
-
-            string error = null;
-
-            try
-            {
-                core.Activity activity;
-
-                activity = new core.Activity();
-                activity.Code = "00000";
-                Assert.AreEqual(string.Empty, activity.Description, "Code not in dictionary should not assign a value");
-
-                activity = new core.Activity();
-                activity.Code = "00200";
-                Assert.AreEqual(SECOND, activity.Description, "Assigning code did not set default description");
-
-                activity = new core.Activity();
-                activity.Description = PREEXISTING;
-                activity.Code = "00200";
-                Assert.AreEqual(PREEXISTING, activity.Description, "Assigning code overwrote preexisting description");
-            }
-            catch (Exception ex)
-            {
-                error = ex.Message;
-            }
-            finally
-            {
-                RestoreConfigurationDefaultCodesFromBackup(backup);
-            }
-
-            if (error != null)
-                throw new Exception($"Error encountered: {error}");
-        }
-
-        [TestMethod]
         public void LoadSaveTest()
         {
             var backupRound = Configuration.RoundCurrentTimeToMinutes;

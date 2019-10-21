@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Configuration;
+using System.Drawing;
 using System.IO;
+using tc = TimecardsCore;
 
 namespace TimecardsTesting.Base
 {
@@ -11,7 +13,14 @@ namespace TimecardsTesting.Base
         [AssemblyInitialize]
         public static void Setup(TestContext context)
         {
-            // OK to delete at the beginning because first use of EF will create it
+            // testing configuration here - do not call Load()
+            tc.Configuration.CodeMask = "#####";
+            tc.Configuration.DefaultCodes.Clear();
+            tc.Configuration.MidnightTint = Color.CornflowerBlue;
+            tc.Configuration.RoundCurrentTimeToMinutes = 5;
+            tc.Configuration.TimeMask = "##:##";
+
+            // OK to delete database at the beginning because first use of EF will create it
             DeleteTestDatabase();
         }
 
