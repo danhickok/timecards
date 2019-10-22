@@ -82,5 +82,17 @@ namespace TimecardsCore.Properties {
                 this["MidnightTint"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(":")]
+        public char TimeSeparator {
+            get {
+                return ((char)(this["TimeSeparator"]));
+            }
+            set {
+                this["TimeSeparator"] = value;
+            }
+        }
     }
 }

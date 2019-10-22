@@ -5,7 +5,7 @@ namespace TimecardsCore.Models
 {
     public class Activity
     {
-        private const string TIMESEP = ":";
+        private readonly char TIMESEP;
 
         #region Public properties
 
@@ -105,6 +105,8 @@ namespace TimecardsCore.Models
 
         public Activity()
         {
+            TIMESEP = Configuration.TimeSeparator;
+
             _id = 0;
             _timecardID = 0;
             _isAfterMidnight = false;
