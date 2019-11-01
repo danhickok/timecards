@@ -15,9 +15,32 @@ namespace TimecardsCore
         public static char TimeSeparator { get; set; }
         public static System.Drawing.Color MidnightTint { get; set; }
         public static Dictionary<string, string> DefaultCodes { get; private set; }
+        public static bool TestMode { get; set; }
+
+        private static DateTime _testTime;
+        public static DateTime CurrentDateTime
+        {
+            get
+            {
+                if (TestMode)
+                    return _testTime;
+                else
+                    return DateTime.Now;
+            }
+            set
+            {
+                if (TestMode)
+                    _testTime = value;
+                else
+                    throw new Exception("Cannot set time when not in test mode");
+            }
+        }
 
         static Configuration()
         {
+            TestMode = false;
+            _testTime = DateTime.Now;
+
             DefaultCodes = new Dictionary<string, string>();
         }
 

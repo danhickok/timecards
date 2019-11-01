@@ -113,7 +113,7 @@ namespace TimecardsCore.Models
             _code = string.Empty;
             _description = string.Empty;
 
-            var now = DateTime.Now;
+            var now = Configuration.CurrentDateTime;
             var mins = now.Hour * 60 + now.Minute;
             StartMinute = (int)(Math.Round(mins / (double)Configuration.RoundCurrentTimeToMinutes)
                 * Configuration.RoundCurrentTimeToMinutes);

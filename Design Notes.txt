@@ -460,6 +460,6 @@ completed:
 * I need to figure out packaging and deployment.  I know Visual Studio
   Professional has some options for creating installers and whatnot - does the
   community edition have that?  If not, there are open-source third party
-  options like Wix Toolkit.
+  options like Wix Toolset.
 
 That's not an exhaustive list - I'm sure there will be more.

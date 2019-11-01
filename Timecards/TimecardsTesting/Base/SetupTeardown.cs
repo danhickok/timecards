@@ -19,6 +19,10 @@ namespace TimecardsTesting.Base
             tc.Configuration.MidnightTint = Color.CornflowerBlue;
             tc.Configuration.RoundCurrentTimeToMinutes = 5;
             tc.Configuration.TimeMask = "##:##";
+            tc.Configuration.TimeSeparator = ':';
+
+            // for control over date/time during testing
+            tc.Configuration.TestMode = true;
 
             // OK to delete database at the beginning because first use of EF will create it
             DeleteTestDatabase();
@@ -28,6 +32,8 @@ namespace TimecardsTesting.Base
         public static void Teardown()
         {
             DeleteTestDatabase();
+
+            tc.Configuration.TestMode = false;
         }
 
         private static void DeleteTestDatabase()
