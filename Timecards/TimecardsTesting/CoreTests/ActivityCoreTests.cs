@@ -9,7 +9,9 @@ namespace TimecardsTesting.CoreTests
         [TestMethod]
         public void TimeTest()
         {
-            var activity = new core.Activity();
+            core.Activity activity;
+
+            activity = new core.Activity();
 
             activity.Time = "5:4";
             Assert.AreEqual("05:04", activity.Time, "Time is not being padded correctly");
@@ -27,10 +29,13 @@ namespace TimecardsTesting.CoreTests
 
             activity.StartMinute = 0;
             Assert.AreEqual("00:00", activity.Time, "Starting minute 0 should be 00:00");
+            Assert.IsTrue(!activity.IsAfterMidnight, "'After midnight' flag not cleared for zero StartMinute value");
             activity.StartMinute = 158;
             Assert.AreEqual("02:38", activity.Time, "Starting minute 158 should be 02:38");
+            Assert.IsTrue(!activity.IsAfterMidnight, "'After midnight' flag not cleared for small StartMinute value");
             activity.StartMinute = 2345;
             Assert.AreEqual("15:05", activity.Time, "Starting minute 2345 should wrap to 15:05 the next day");
+            Assert.IsTrue(activity.IsAfterMidnight, "'After midnight' flag not set for large StartMinute value");
         }
 
         [TestMethod]
