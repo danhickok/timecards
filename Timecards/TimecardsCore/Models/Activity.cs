@@ -99,6 +99,8 @@ namespace TimecardsCore.Models
 
         public bool IsDirty { get; private set; }
 
+        public Func<DateTime> RequestTimecardDate; //TODO: when assigning this property, recalculate the start minute
+
         #endregion
 
         #region Constructors
@@ -115,6 +117,7 @@ namespace TimecardsCore.Models
 
             var now = Configuration.CurrentDateTime;
             var mins = now.Hour * 60 + now.Minute;
+
             StartMinute = (int)(Math.Round(mins / (double)Configuration.RoundCurrentTimeToMinutes)
                 * Configuration.RoundCurrentTimeToMinutes);
 
@@ -228,7 +231,7 @@ namespace TimecardsCore.Models
         private void ComputeStartMinuteFromTime()
         {
             var (hour, minute) = ParseTime(Time);
-            _startMinute = hour * 60 + minute + (_isAfterMidnight ? 1440 : 0);
+            _startMinute = hour * 60 + minute + (_isAfterMidnight ? 24 * 60 : 0);
         }
 
         private void ComputeTimeFromStartMinute()
