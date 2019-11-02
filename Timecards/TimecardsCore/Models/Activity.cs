@@ -99,7 +99,23 @@ namespace TimecardsCore.Models
 
         public bool IsDirty { get; private set; }
 
-        public Func<DateTime> RequestTimecardDate; //TODO: when assigning this property, recalculate the start minute
+        private Func<DateTime> _requestDateTime;
+        public Func<DateTime> RequestTimecardDate
+        {
+            get
+            {
+                return _requestDateTime;
+            }
+            set
+            {
+                _requestDateTime = value;
+                if (Configuration.CurrentDateTime.Date > _requestDateTime().Date)
+                {
+                    StartMinute += 24 * 60;
+                    ComputeTimeFromStartMinute();
+                }
+            }
+        }
 
         #endregion
 
@@ -108,6 +124,8 @@ namespace TimecardsCore.Models
         public Activity()
         {
             TIMESEP = Configuration.TimeSeparator;
+
+            _requestDateTime = null;
 
             _id = 0;
             _timecardID = 0;

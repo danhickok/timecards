@@ -22,10 +22,7 @@ namespace TimecardsTesting.CoreTests
             var timecard = new core.Models.Timecard();
 
             timecard.Date = core.Configuration.CurrentDateTime.Date;
-
-            var someDay = new DateTime(2018, 7, 9);
-            timecard.Date = someDay;
-            Assert.AreEqual(someDay, timecard.Date);
+            Assert.AreEqual(core.Configuration.CurrentDateTime.Date, timecard.Date);
 
             core.Configuration.CurrentDateTime = new DateTime(2019, 11, 1, 8, 5, 0);
             timecard.Activities.Add(new core.Models.Activity("00000", "First activity at 8:05am"));
