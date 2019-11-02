@@ -9,11 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimecardsCore;
 
+// Reference for masked text box format characters:
+// https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.maskedtextbox.mask?view=netframework-4.8
+
 namespace TimecardsUI
 {
     public partial class ConfigurationForm : Form
     {
         public bool ConfigurationChanged { get; private set; }
+
+        private readonly (string Format, string Description)[] _timeFormatChoices = new []
+        {
+            ("90:00<Lm", "12-hour (##:##am)"),
+            ("00:00",    "24-hour (##:##)"),
+            ("90.00<Lm", "12-hour with decimal (##.##am)"),
+            ("00.00",    "24-hour with decimal (##.##)"),
+        };
 
         private ListViewItem _itemBeingEdited;
 
@@ -26,8 +37,12 @@ namespace TimecardsUI
 
         private void ConfigurationForm_Load(object sender, EventArgs e)
         {
+            TimeFormatComboBox.Items.Clear();
+            foreach (var (Format, Description) in _timeFormatChoices)
+                TimeFormatComboBox.Items.Add(Description);
+            SetTimeFormatIndexFromConfiguration();
+
             CodeMaskTextBox.Text = Configuration.CodeMask;
-            TimeMaskTextBox.Text = Configuration.TimeMask;
             MidnightTintPictureBox.BackColor = Configuration.MidnightTint;
 
             switch (Configuration.RoundCurrentTimeToMinutes)
@@ -139,7 +154,7 @@ namespace TimecardsUI
             StopItemEdit();
         }
 
-        private void TimeMaskTextBox_Enter(object sender, EventArgs e)
+        private void TimeFormatComboBox_Enter(object sender, EventArgs e)
         {
             StopItemEdit();
         }
@@ -233,6 +248,50 @@ namespace TimecardsUI
 
             NewCodeTextBox.Visible = false;
             NewDescriptionTextBox.Visible = false;
+        }
+
+        private void SetTimeFormatIndexFromConfiguration()
+        {
+            int index;
+
+            switch (Configuration.TimeMask)
+            {
+                case "90:00<L":
+                    index = 0;
+                    break;
+                case "00:00":
+                    index = 1;
+                    break;
+                case "90.00<L":
+                    index = 2;
+                    break;
+                case "00.00":
+                    index = 3;
+                    break;
+                default:
+                    index = 0;
+                    break;
+            }
+
+            TimeFormatComboBox.SelectedIndex = index;
+        }
+
+        private void SetConfigurationFromTimeFormatIndex()
+        {
+            switch (TimeFormatComboBox.SelectedIndex)
+            {
+                case 0:
+                    Configuration.TimeMask = "90:00<L";
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
