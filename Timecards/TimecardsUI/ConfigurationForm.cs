@@ -92,8 +92,9 @@ namespace TimecardsUI
         {
             StopItemEdit();
 
+            SetConfigurationFromTimeFormatIndex();
+
             Configuration.CodeMask = CodeMaskTextBox.Text;
-            Configuration.TimeMask = TimeMaskTextBox.Text;
             Configuration.MidnightTint = MidnightTintPictureBox.BackColor;
 
             switch (RoundTimeComboBox.SelectedIndex)
@@ -252,25 +253,15 @@ namespace TimecardsUI
 
         private void SetTimeFormatIndexFromConfiguration()
         {
-            int index;
+            int index = 0;
 
-            switch (Configuration.TimeMask)
+            for (var i = 0; i < _timeFormatChoices.Length; ++i)
             {
-                case "90:00<L":
-                    index = 0;
+                if (_timeFormatChoices[i].Format == Configuration.TimeMask)
+                {
+                    index = i;
                     break;
-                case "00:00":
-                    index = 1;
-                    break;
-                case "90.00<L":
-                    index = 2;
-                    break;
-                case "00.00":
-                    index = 3;
-                    break;
-                default:
-                    index = 0;
-                    break;
+                }
             }
 
             TimeFormatComboBox.SelectedIndex = index;
@@ -278,20 +269,9 @@ namespace TimecardsUI
 
         private void SetConfigurationFromTimeFormatIndex()
         {
-            switch (TimeFormatComboBox.SelectedIndex)
-            {
-                case 0:
-                    Configuration.TimeMask = "90:00<L";
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-                    break;
-            }
+            var index = TimeFormatComboBox.SelectedIndex;
+            Configuration.TimeMask = _timeFormatChoices[index].Format;
+            Configuration.TimeSeparator = (index == 2 || index == 3) ? '.' : ':';
         }
     }
 }

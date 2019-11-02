@@ -226,7 +226,7 @@
             // 
             // TimeFormatComboBox
             // 
-            this.TimeFormatComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.TimeFormatComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimeFormatComboBox.FormattingEnabled = true;
             this.TimeFormatComboBox.Location = new System.Drawing.Point(201, 49);
             this.TimeFormatComboBox.Name = "TimeFormatComboBox";

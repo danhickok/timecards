@@ -61,7 +61,7 @@ namespace TimecardsCore.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("##:##")]
+        [global::System.Configuration.DefaultSettingValueAttribute("90:00<Lm")]
         public string TimeMask {
             get {
                 return ((string)(this["TimeMask"]));
@@ -73,7 +73,7 @@ namespace TimecardsCore.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 255")]
+        [global::System.Configuration.DefaultSettingValueAttribute("224, 224, 224")]
         public global::System.Drawing.Color MidnightTint {
             get {
                 return ((global::System.Drawing.Color)(this["MidnightTint"]));
@@ -92,6 +92,18 @@ namespace TimecardsCore.Properties {
             }
             set {
                 this["TimeSeparator"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Use24HourTime {
+            get {
+                return ((bool)(this["Use24HourTime"]));
+            }
+            set {
+                this["Use24HourTime"] = value;
             }
         }
     }

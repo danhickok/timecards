@@ -12,13 +12,16 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TimeMask" Type="System.String" Scope="User">
-      <Value Profile="(Default)">##:##</Value>
+      <Value Profile="(Default)">90:00&lt;Lm</Value>
     </Setting>
     <Setting Name="MidnightTint" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">192, 255, 255</Value>
+      <Value Profile="(Default)">224, 224, 224</Value>
     </Setting>
     <Setting Name="TimeSeparator" Type="System.Char" Scope="User">
       <Value Profile="(Default)">:</Value>
+    </Setting>
+    <Setting Name="Use24HourTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

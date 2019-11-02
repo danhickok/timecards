@@ -13,13 +13,14 @@ namespace TimecardsTesting.Base
         [AssemblyInitialize]
         public static void Setup(TestContext context)
         {
-            // testing configuration here - do not call Load()
+            // testing configuration here - do NOT call Load()
             tc.Configuration.CodeMask = "#####";
             tc.Configuration.DefaultCodes.Clear();
             tc.Configuration.MidnightTint = Color.CornflowerBlue;
             tc.Configuration.RoundCurrentTimeToMinutes = 5;
-            tc.Configuration.TimeMask = "##:##";
+            tc.Configuration.TimeMask = "00:00";
             tc.Configuration.TimeSeparator = ':';
+            tc.Configuration.Use24HourTime = true;
 
             // for control over date/time during testing
             tc.Configuration.TestMode = true;

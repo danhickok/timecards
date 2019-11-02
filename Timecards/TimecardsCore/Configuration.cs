@@ -13,6 +13,7 @@ namespace TimecardsCore
         public static string CodeMask { get; set; }
         public static string TimeMask { get; set; }
         public static char TimeSeparator { get; set; }
+        public static bool Use24HourTime { get; set; }
         public static System.Drawing.Color MidnightTint { get; set; }
         public static Dictionary<string, string> DefaultCodes { get; private set; }
         public static bool TestMode { get; set; }
@@ -50,6 +51,7 @@ namespace TimecardsCore
             CodeMask = Properties.Settings.Default.CodeMask;
             TimeMask = Properties.Settings.Default.TimeMask;
             TimeSeparator = Properties.Settings.Default.TimeSeparator;
+            Use24HourTime = Properties.Settings.Default.Use24HourTime;
             MidnightTint = Properties.Settings.Default.MidnightTint;
 
             DefaultCodes.Clear();
@@ -71,6 +73,7 @@ namespace TimecardsCore
             Properties.Settings.Default.CodeMask = CodeMask;
             Properties.Settings.Default.TimeMask = TimeMask;
             Properties.Settings.Default.TimeSeparator = TimeSeparator;
+            Properties.Settings.Default.Use24HourTime = Use24HourTime;
             Properties.Settings.Default.MidnightTint = MidnightTint;
 
             var dfStringBuilder = new StringBuilder();
