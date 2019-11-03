@@ -18,14 +18,6 @@ namespace TimecardsUI
     {
         public bool ConfigurationChanged { get; private set; }
 
-        private readonly (string Format, string Description)[] _timeFormatChoices = new []
-        {
-            ("90:00<Lm", "12-hour (##:##am)"),
-            ("00:00",    "24-hour (##:##)"),
-            ("90.00<Lm", "12-hour with decimal (##.##am)"),
-            ("00.00",    "24-hour with decimal (##.##)"),
-        };
-
         private readonly (int Minutes, string Description)[] _timeRoundingChoices = new[]
         {
             (1,  "nearest minute"),
@@ -49,7 +41,7 @@ namespace TimecardsUI
         private void ConfigurationForm_Load(object sender, EventArgs e)
         {
             TimeFormatComboBox.Items.Clear();
-            foreach (var (Format, Description) in _timeFormatChoices)
+            foreach (var (Format, Description) in Constants.TimeFormatChoices)
                 TimeFormatComboBox.Items.Add(Description);
             SetTimeFormatIndexFromConfiguration();
 
@@ -216,9 +208,9 @@ namespace TimecardsUI
         {
             int index = 0;
 
-            for (var i = 0; i < _timeFormatChoices.Length; ++i)
+            for (var i = 0; i < Constants.TimeFormatChoices.Length; ++i)
             {
-                if (_timeFormatChoices[i].Format == Configuration.TimeMask)
+                if (Constants.TimeFormatChoices[i].Format == Configuration.TimeMask)
                 {
                     index = i;
                     break;
@@ -231,7 +223,7 @@ namespace TimecardsUI
         private void SetConfigurationFromTimeFormatIndex()
         {
             var index = TimeFormatComboBox.SelectedIndex;
-            Configuration.TimeMask = _timeFormatChoices[index].Format;
+            Configuration.TimeMask = Constants.TimeFormatChoices[index].Format;
             Configuration.TimeSeparator = (index == 2 || index == 3) ? '.' : ':';
             Configuration.Use24HourTime = (index == 1 || index == 3);
         }

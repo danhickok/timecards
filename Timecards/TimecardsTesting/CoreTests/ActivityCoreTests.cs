@@ -24,6 +24,10 @@ namespace TimecardsTesting.CoreTests
         {
             tcm.Activity activity;
 
+            tc.Configuration.TimeMask = "90:00";
+            tc.Configuration.TimeSeparator = ':';
+            tc.Configuration.Use24HourTime = true;
+
             //TODO: test 12-hour formats
             //TODO: test decimal time formats
 
