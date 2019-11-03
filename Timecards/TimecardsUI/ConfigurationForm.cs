@@ -233,6 +233,7 @@ namespace TimecardsUI
             var index = TimeFormatComboBox.SelectedIndex;
             Configuration.TimeMask = _timeFormatChoices[index].Format;
             Configuration.TimeSeparator = (index == 2 || index == 3) ? '.' : ':';
+            Configuration.Use24HourTime = (index == 1 || index == 3);
         }
 
         private void SetTimeRoundingIndexFromConfiguration()
