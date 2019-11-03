@@ -102,15 +102,8 @@
             // 
             // RoundTimeComboBox
             // 
+            this.RoundTimeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RoundTimeComboBox.FormattingEnabled = true;
-            this.RoundTimeComboBox.Items.AddRange(new object[] {
-            "nearest minute",
-            "nearest five minutes",
-            "nearest six minutes (tenth of hour)",
-            "nearest 12 minutes (fifth of hour)",
-            "nearest 15 minutes",
-            "nearest half hour",
-            "nearest hour"});
             this.RoundTimeComboBox.Location = new System.Drawing.Point(201, 78);
             this.RoundTimeComboBox.Name = "RoundTimeComboBox";
             this.RoundTimeComboBox.Size = new System.Drawing.Size(230, 23);
@@ -203,6 +196,10 @@
             this.MidnightTintPictureBox.TabIndex = 13;
             this.MidnightTintPictureBox.TabStop = false;
             this.MidnightTintPictureBox.Click += new System.EventHandler(this.MidnightTintPictureBox_Click);
+            // 
+            // MidnightTintColorDialog
+            // 
+            this.MidnightTintColorDialog.FullOpen = true;
             // 
             // NewDescriptionTextBox
             // 

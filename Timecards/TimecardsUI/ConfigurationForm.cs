@@ -26,6 +26,17 @@ namespace TimecardsUI
             ("00.00",    "24-hour with decimal (##.##)"),
         };
 
+        private readonly (int Minutes, string Description)[] _timeRoundingChoices = new[]
+        {
+            (1,  "nearest minute"),
+            (5,  "nearest five minutes"),
+            (6,  "nearest six minutes (tenth of hour)"),
+            (12, "nearest 12 minutes (fifth of hour)"),
+            (15, "nearest 15 minutes"),
+            (30, "nearest half hour"),
+            (60, "nearest hour"),
+        };
+
         private ListViewItem _itemBeingEdited;
 
         public ConfigurationForm()
@@ -42,36 +53,13 @@ namespace TimecardsUI
                 TimeFormatComboBox.Items.Add(Description);
             SetTimeFormatIndexFromConfiguration();
 
+            RoundTimeComboBox.Items.Clear();
+            foreach (var (Minutes, Description) in _timeRoundingChoices)
+                RoundTimeComboBox.Items.Add(Description);
+            SetTimeRoundingIndexFromConfiguration();
+
             CodeMaskTextBox.Text = Configuration.CodeMask;
             MidnightTintPictureBox.BackColor = Configuration.MidnightTint;
-
-            switch (Configuration.RoundCurrentTimeToMinutes)
-            {
-                case 1:
-                    RoundTimeComboBox.SelectedIndex = 0;
-                    break;
-                case 5:
-                    RoundTimeComboBox.SelectedIndex = 1;
-                    break;
-                case 6:
-                    RoundTimeComboBox.SelectedIndex = 2;
-                    break;
-                case 12:
-                    RoundTimeComboBox.SelectedIndex = 3;
-                    break;
-                case 15:
-                    RoundTimeComboBox.SelectedIndex = 4;
-                    break;
-                case 30:
-                    RoundTimeComboBox.SelectedIndex = 5;
-                    break;
-                case 60:
-                    RoundTimeComboBox.SelectedIndex = 6;
-                    break;
-                default:
-                    RoundTimeComboBox.SelectedIndex = 0;
-                    break;
-            }
 
             DefaultCodesListView.Items.Clear();
 
@@ -93,37 +81,10 @@ namespace TimecardsUI
             StopItemEdit();
 
             SetConfigurationFromTimeFormatIndex();
+            SetConfigurationFromTimeRoundingIndex();
 
             Configuration.CodeMask = CodeMaskTextBox.Text;
             Configuration.MidnightTint = MidnightTintPictureBox.BackColor;
-
-            switch (RoundTimeComboBox.SelectedIndex)
-            {
-                case 0:
-                    Configuration.RoundCurrentTimeToMinutes = 1;
-                    break;
-                case 1:
-                    Configuration.RoundCurrentTimeToMinutes = 5;
-                    break;
-                case 2:
-                    Configuration.RoundCurrentTimeToMinutes = 6;
-                    break;
-                case 3:
-                    Configuration.RoundCurrentTimeToMinutes = 12;
-                    break;
-                case 4:
-                    Configuration.RoundCurrentTimeToMinutes = 15;
-                    break;
-                case 5:
-                    Configuration.RoundCurrentTimeToMinutes = 30;
-                    break;
-                case 6:
-                    Configuration.RoundCurrentTimeToMinutes = 60;
-                    break;
-                default:
-                    Configuration.RoundCurrentTimeToMinutes = 1;
-                    break;
-            }
 
             Configuration.DefaultCodes.Clear();
             foreach (ListViewItem item in DefaultCodesListView.Items)
@@ -272,6 +233,28 @@ namespace TimecardsUI
             var index = TimeFormatComboBox.SelectedIndex;
             Configuration.TimeMask = _timeFormatChoices[index].Format;
             Configuration.TimeSeparator = (index == 2 || index == 3) ? '.' : ':';
+        }
+
+        private void SetTimeRoundingIndexFromConfiguration()
+        {
+            int index = 0;
+
+            for (var i = 0; i < _timeRoundingChoices.Length; ++i)
+            {
+                if (_timeRoundingChoices[i].Minutes == Configuration.RoundCurrentTimeToMinutes)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            RoundTimeComboBox.SelectedIndex = index;
+        }
+
+        private void SetConfigurationFromTimeRoundingIndex()
+        {
+            var index = RoundTimeComboBox.SelectedIndex;
+            Configuration.RoundCurrentTimeToMinutes = _timeRoundingChoices[index].Minutes;
         }
     }
 }
