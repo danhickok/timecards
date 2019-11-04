@@ -22,20 +22,27 @@ namespace TimecardsTesting.CoreTests
         [TestMethod]
         public void TimeTest()
         {
-            tcm.Activity activity;
+            var activity = new tcm.Activity();
 
-            tc.Configuration.TimeMask = "90:00";
+            //
+            // test time-string property 
+            //
+
+            tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithColon;
+            tc.Configuration.TimeSeparator = ':';
+            tc.Configuration.Use24HourTime = false;
+
+            //TODO: test 12-hour-colon format
+
+            tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithDecimal;
+            tc.Configuration.TimeSeparator = '.';
+            tc.Configuration.Use24HourTime = false;
+
+            //TODO: test 12-hour-decimal format
+
+            tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
-
-            //TODO: test 12-hour formats
-            //TODO: test decimal time formats
-
-            tc.Configuration.TimeMask = "90:00";
-            tc.Configuration.TimeSeparator = ':';
-            tc.Configuration.Use24HourTime = true;
-            
-            activity = new tcm.Activity();
 
             activity.Time = "5:4";
             Assert.AreEqual("05:04", activity.Time, "24-hour time is not being padded correctly");
@@ -50,6 +57,16 @@ namespace TimecardsTesting.CoreTests
             Assert.AreEqual(0, activity.StartMinute, "00:00 should be starting at minute 0");
             activity.Time = "23:59";
             Assert.AreEqual(1439, activity.StartMinute, "23:59 should be starting at minute 1439");
+
+            tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithDecimal;
+            tc.Configuration.TimeSeparator = '.';
+            tc.Configuration.Use24HourTime = true;
+
+            //TODO: test 24-hour-decimal format
+
+            //
+            // test start-minute property
+            //
 
             activity.StartMinute = 0;
             Assert.AreEqual("00:00", activity.Time, "Starting minute 0 should be 00:00");

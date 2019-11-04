@@ -2,12 +2,20 @@
 {
     public static class Constants
     {
+        public static class TimeFormats
+        {
+            public static string TwelveHourWithColon = "90:00<L";
+            public static string TwentyFourHourWithColon = "00:00";
+            public static string TwelveHourWithDecimal = "90.00<L";
+            public static string TwentyFourHourWithDecimal = "00.00";
+        }
+
         public static (string Format, string Description)[] TimeFormatChoices = new[]
         {
-            ("90:00<Lm", "12-hour (##:##am)"),
-            ("00:00",    "24-hour (##:##)"),
-            ("90.00<Lm", "12-hour with decimal (##.##am)"),
-            ("00.00",    "24-hour with decimal (##.##)"),
+            (TimeFormats.TwelveHourWithColon,       "12-hour (##:##am)"),
+            (TimeFormats.TwentyFourHourWithColon,   "24-hour (##:##)"),
+            (TimeFormats.TwelveHourWithDecimal,     "12-hour with decimal (##.##am)"),
+            (TimeFormats.TwentyFourHourWithDecimal, "24-hour with decimal (##.##)"),
         };
     }
 }
