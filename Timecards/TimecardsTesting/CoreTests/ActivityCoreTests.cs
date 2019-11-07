@@ -28,18 +28,44 @@ namespace TimecardsTesting.CoreTests
             // test time-string property 
             //
 
+            // 12-hour time
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = false;
 
-            //TODO: test 12-hour-colon format
+            activity.Time = "5:4a";
+            Assert.AreEqual("5:04a", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(304, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = "3:7p";
+            Assert.AreEqual("3:07p", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(907, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = ":";
+            Assert.AreEqual("12:00a", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(0, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = "0:75";
+            Assert.AreEqual("01:15a", activity.Time, "12-hour time is not being normalized correctly");
+            Assert.AreEqual(75, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = "15:15a";
+            Assert.AreEqual("3:15p", activity.Time, "12-hour time is not being normalized correctly");
+            Assert.AreEqual(915, activity.StartMinute, "12-hour time is not being interpreted correctly");
 
+            // 12-hour time with decimal separator
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithDecimal;
             tc.Configuration.TimeSeparator = '.';
             tc.Configuration.Use24HourTime = false;
 
-            //TODO: test 12-hour-decimal format
+            activity.Time = "5.4a";
+            Assert.AreEqual("5.04a", activity.Time, "12-hour time is not being padded correctly");
+            activity.Time = "3.7p";
+            Assert.AreEqual("3.07p", activity.Time, "12-hour time is not being padded correctly");
+            activity.Time = ".";
+            Assert.AreEqual("12.00a", activity.Time, "12-hour time is not being padded correctly");
+            activity.Time = "0.75";
+            Assert.AreEqual("01.15a", activity.Time, "12-hour time is not being normalized correctly");
+            activity.Time = "15.15a";
+            Assert.AreEqual("3.15p", activity.Time, "12-hour time is not being normalized correctly");
 
+            // 24-hour time
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
@@ -58,15 +84,33 @@ namespace TimecardsTesting.CoreTests
             activity.Time = "23:59";
             Assert.AreEqual(1439, activity.StartMinute, "23:59 should be starting at minute 1439");
 
+            // 24-hour time with decimal separator
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithDecimal;
             tc.Configuration.TimeSeparator = '.';
             tc.Configuration.Use24HourTime = true;
 
-            //TODO: test 24-hour-decimal format
+            activity.Time = "5:4";
+            Assert.AreEqual("05:04", activity.Time, "24-hour time is not being padded correctly");
+            activity.Time = ":";
+            Assert.AreEqual("00:00", activity.Time, "24-hour time is not being padded correctly");
+            activity.Time = "0:75";
+            Assert.AreEqual("01:15", activity.Time, "24-hour time is not being normalized correctly");
+
+            activity.Time = "06:05";
+            Assert.AreEqual(365, activity.StartMinute, "06:05 should be starting at minute 365");
+            activity.Time = "00:00";
+            Assert.AreEqual(0, activity.StartMinute, "00:00 should be starting at minute 0");
+            activity.Time = "23:59";
+            Assert.AreEqual(1439, activity.StartMinute, "23:59 should be starting at minute 1439");
 
             //
             // test start-minute property
             //
+
+            // 24-hour time
+            tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
+            tc.Configuration.TimeSeparator = ':';
+            tc.Configuration.Use24HourTime = true;
 
             activity.StartMinute = 0;
             Assert.AreEqual("00:00", activity.Time, "Starting minute 0 should be 00:00");
