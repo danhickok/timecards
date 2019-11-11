@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using TimecardsCore.Exceptions;
 
 namespace TimecardsCore.Models
@@ -6,6 +7,7 @@ namespace TimecardsCore.Models
     public class Activity
     {
         private readonly char TIMESEP;
+        private readonly bool USE24HOUR;
 
         #region Public properties
 
@@ -124,6 +126,7 @@ namespace TimecardsCore.Models
         public Activity()
         {
             TIMESEP = Configuration.TimeSeparator;
+            USE24HOUR = Configuration.Use24HourTime;
 
             _requestDateTime = null;
 
@@ -215,7 +218,7 @@ namespace TimecardsCore.Models
                 else
                 {
                     int.TryParse(time.Substring(0, pos), out hour);
-                    int.TryParse(time.Substring(pos + 1), out minute);
+                    int.TryParse(Regex.Replace(time.Substring(pos + 1), "[^0-9]", ""), out minute);
                 }
             }
 
