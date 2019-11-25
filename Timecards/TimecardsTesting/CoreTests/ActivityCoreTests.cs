@@ -22,7 +22,7 @@ namespace TimecardsTesting.CoreTests
         [TestMethod]
         public void TimeTest()
         {
-            var activity = new tcm.Activity();
+            tcm.Activity activity;
 
             //
             // test time-string property 
@@ -32,48 +32,57 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = false;
+            activity = new tcm.Activity();
 
             activity.Time = "5:4a";
-            Assert.AreEqual("5:04a", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(" 5:04a", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(304, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = "3:7p";
-            Assert.AreEqual("3:07p", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(" 3:07p", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(907, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = "11:7p";
+            Assert.AreEqual("11:07p", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(1387, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = ":";
             Assert.AreEqual("12:00a", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(0, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = "0:75";
-            Assert.AreEqual("01:15a", activity.Time, "12-hour time is not being normalized correctly");
+            Assert.AreEqual(" 1:15a", activity.Time, "12-hour time is not being normalized correctly");
             Assert.AreEqual(75, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = "15:15a";
-            Assert.AreEqual("3:15p", activity.Time, "12-hour time is not being normalized correctly");
+            Assert.AreEqual(" 3:15p", activity.Time, "12-hour time is not being normalized correctly");
             Assert.AreEqual(915, activity.StartMinute, "12-hour time is not being interpreted correctly");
 
             // 12-hour time with decimal separator
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithDecimal;
             tc.Configuration.TimeSeparator = '.';
             tc.Configuration.Use24HourTime = false;
+            activity = new tcm.Activity();
 
             activity.Time = "5.4a";
-            Assert.AreEqual("5.04a", activity.Time, "12-hour decimal time is not being padded correctly");
+            Assert.AreEqual(" 5.04a", activity.Time, "12-hour decimal time is not being padded correctly");
             Assert.AreEqual(304, activity.StartMinute, "12-hour decimal time is not being interpreted correctly");
             activity.Time = "3.7p";
-            Assert.AreEqual("3.07p", activity.Time, "12-hour decimal time is not being padded correctly");
+            Assert.AreEqual(" 3.07p", activity.Time, "12-hour decimal time is not being padded correctly");
             Assert.AreEqual(907, activity.StartMinute, "12-hour decimal time is not being interpreted correctly");
+            activity.Time = "11.7p";
+            Assert.AreEqual("11.07p", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(1387, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = ".";
             Assert.AreEqual("12.00a", activity.Time, "12-hour decimal time is not being padded correctly");
             Assert.AreEqual(0, activity.StartMinute, "12-hour decimal time is not being interpreted correctly");
             activity.Time = "0.75";
-            Assert.AreEqual("01.15a", activity.Time, "12-hour decimal time is not being normalized correctly");
+            Assert.AreEqual(" 1.15a", activity.Time, "12-hour decimal time is not being normalized correctly");
             Assert.AreEqual(75, activity.StartMinute, "12-hour decimal time is not being interpreted correctly");
             activity.Time = "15.15a";
-            Assert.AreEqual("3.15p", activity.Time, "12-hour decimal time is not being normalized correctly");
+            Assert.AreEqual(" 3.15p", activity.Time, "12-hour decimal time is not being normalized correctly");
             Assert.AreEqual(915, activity.StartMinute, "12-hour decimal time is not being interpreted correctly");
 
             // 24-hour time
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
+            activity = new tcm.Activity();
 
             activity.Time = "5:4";
             Assert.AreEqual("05:04", activity.Time, "24-hour time is not being padded correctly");
@@ -95,6 +104,7 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithDecimal;
             tc.Configuration.TimeSeparator = '.';
             tc.Configuration.Use24HourTime = true;
+            activity = new tcm.Activity();
 
             activity.Time = "5.4";
             Assert.AreEqual("05.04", activity.Time, "24-hour decimal time is not being padded correctly");
@@ -120,6 +130,7 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
+            activity = new tcm.Activity();
 
             activity.StartMinute = 0;
             Assert.AreEqual("00:00", activity.Time, "Starting minute 0 should be 00:00");

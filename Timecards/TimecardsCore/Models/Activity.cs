@@ -220,6 +220,12 @@ namespace TimecardsCore.Models
                     int.TryParse(time.Substring(0, pos), out hour);
                     int.TryParse(Regex.Replace(time.Substring(pos + 1), "[^0-9]", ""), out minute);
                 }
+
+                if (!USE24HOUR && time.EndsWith("p", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (hour < 13)
+                        hour += 12;
+                }
             }
 
             return (hour, minute);
@@ -246,7 +252,7 @@ namespace TimecardsCore.Models
         private string PadTime(string time)
         {
             var (hour, minute) = Normalize(ParseTime(time));
-            return $"{hour:D2}{TIMESEP}{minute:D2}";
+            return FormatTime(hour, minute);
         }
 
         private void ComputeStartMinuteFromTime()
@@ -261,7 +267,30 @@ namespace TimecardsCore.Models
             var minute = _startMinute % 60;
             _isAfterMidnight = (_startMinute > 24 * 60);
 
-            _time = string.Format($"{hour:D2}:{minute:D2}");
+            _time = FormatTime(hour, minute);
+        }
+
+        private string FormatTime(int hour, int minute)
+        {
+            string time;
+
+            if (USE24HOUR)
+            {
+                time = $"{hour:D2}{TIMESEP}{minute:D2}";
+            }
+            else
+            {
+                var hour2 = hour % 12;
+                if (hour2 == 0)
+                    hour2 = 12;
+
+                time =
+                    (hour2 < 10 ? " " : "") +
+                    $"{hour2:D}{TIMESEP}{minute:D2}" +
+                    (hour >= 12 ? "p" : "a");
+            }
+
+            return time;
         }
 
         #endregion
