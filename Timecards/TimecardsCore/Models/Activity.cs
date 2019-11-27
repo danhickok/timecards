@@ -221,6 +221,12 @@ namespace TimecardsCore.Models
                     int.TryParse(Regex.Replace(time.Substring(pos + 1), "[^0-9]", ""), out minute);
                 }
 
+                if (!USE24HOUR && time.EndsWith("a", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (hour == 12)
+                        hour = 0;
+                }
+
                 if (!USE24HOUR && time.EndsWith("p", StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (hour < 13)
@@ -246,6 +252,11 @@ namespace TimecardsCore.Models
                 hour++;
             }
 
+            while (hour < 0)
+                hour += 24;
+
+            hour %= 24;
+
             return (hour, minute);
         }
 
@@ -257,7 +268,7 @@ namespace TimecardsCore.Models
 
         private void ComputeStartMinuteFromTime()
         {
-            var (hour, minute) = ParseTime(Time);
+            var (hour, minute) = Normalize(ParseTime(Time));
             _startMinute = hour * 60 + minute + (_isAfterMidnight ? 24 * 60 : 0);
         }
 

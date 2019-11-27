@@ -34,15 +34,24 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.Use24HourTime = false;
             activity = new tcm.Activity();
 
+            activity.Time = " 5:04a";
+            Assert.AreEqual(" 5:04a", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(304, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = "5:4a";
             Assert.AreEqual(" 5:04a", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(304, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = "3:07p";
+            Assert.AreEqual(" 3:07p", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(907, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = "3:7p";
             Assert.AreEqual(" 3:07p", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(907, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = "11:7p";
             Assert.AreEqual("11:07p", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(1387, activity.StartMinute, "12-hour time is not being interpreted correctly");
+            activity.Time = "12:00a";
+            Assert.AreEqual("12:00a", activity.Time, "12-hour time is not being padded correctly");
+            Assert.AreEqual(0, activity.StartMinute, "12-hour time is not being interpreted correctly");
             activity.Time = ":";
             Assert.AreEqual("12:00a", activity.Time, "12-hour time is not being padded correctly");
             Assert.AreEqual(0, activity.StartMinute, "12-hour time is not being interpreted correctly");
