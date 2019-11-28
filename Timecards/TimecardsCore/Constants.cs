@@ -12,9 +12,9 @@
 
         public static (string Format, string Description)[] TimeFormatChoices = new[]
         {
-            (TimeFormats.TwelveHourWithColon,       "12-hour (##:##am)"),
+            (TimeFormats.TwelveHourWithColon,       "12-hour (##:##a)"),
             (TimeFormats.TwentyFourHourWithColon,   "24-hour (##:##)"),
-            (TimeFormats.TwelveHourWithDecimal,     "12-hour with decimal (##.##am)"),
+            (TimeFormats.TwelveHourWithDecimal,     "12-hour with decimal (##.##a)"),
             (TimeFormats.TwentyFourHourWithDecimal, "24-hour with decimal (##.##)"),
         };
     }

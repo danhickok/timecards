@@ -12,7 +12,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TimeMask" Type="System.String" Scope="User">
-      <Value Profile="(Default)">90:00&lt;Lm</Value>
+      <Value Profile="(Default)">90:00&lt;L</Value>
     </Setting>
     <Setting Name="MidnightTint" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">224, 224, 224</Value>

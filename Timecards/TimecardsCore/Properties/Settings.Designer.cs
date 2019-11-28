@@ -61,7 +61,7 @@ namespace TimecardsCore.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("90:00<Lm")]
+        [global::System.Configuration.DefaultSettingValueAttribute("90:00<L")]
         public string TimeMask {
             get {
                 return ((string)(this["TimeMask"]));
