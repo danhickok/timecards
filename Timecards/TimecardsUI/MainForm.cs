@@ -637,7 +637,7 @@ namespace TimecardsUI
             }
 
             Log("Saving timecard");
-            DumpCurrentTimecard(_timecardLogic.GetCurrentTimecard());
+            //DumpCurrentTimecard(_timecardLogic.GetCurrentTimecard());
             _timecardLogic.SaveTimecard();
 
             _loading = false;
@@ -716,7 +716,7 @@ namespace TimecardsUI
             Log($"TimecardHasRow: row={row}");
 
             var tc = _timecardLogic.GetCurrentTimecard();
-            return row > tc.Activities.Count - 1;
+            return row <= tc.Activities.Count - 1;
         }
 
         private Activity CurrentActivity(int row)
