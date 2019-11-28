@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -58,6 +59,8 @@ namespace TimecardsUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Log("MainForm_Load event");
+
             _timecardLogic = new TimecardLogic(Factory);
             _reportLogic = new ReportLogic(Factory);
 
@@ -83,11 +86,15 @@ namespace TimecardsUI
 
         private void MainForm_Activated(object sender, EventArgs e)
         {
+            Log("MainForm_Activated event");
+
             RecalculateColumnWidths();
         }
 
         private void MainForm_Move(object sender, EventArgs e)
         {
+            Log("MainForm_Move event");
+
             if (InitialPositioning)
                 return;
 
@@ -98,6 +105,8 @@ namespace TimecardsUI
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
+            Log("MainForm_Resize event");
+
             if (InitialPositioning)
                 return;
 
@@ -112,6 +121,8 @@ namespace TimecardsUI
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Log("MainForm_FormClosed event");
+
             if (_activitiesGridVScrollBar != null)
                 _activitiesGridVScrollBar.Dispose();
             _activitiesGridVScrollBar = null;
@@ -128,11 +139,15 @@ namespace TimecardsUI
 
         private void MainMenuFileExit_Click(object sender, EventArgs e)
         {
+            Log("MainMenuFileExit_Click event");
+
             Close();
         }
 
         private void MainMenuFilePreferences_Click(object sender, EventArgs e)
         {
+            Log("MainMenuFilePreferences_Click event");
+
             var configForm = new ConfigurationForm();
             configForm.ShowDialog(this);
 
@@ -148,12 +163,16 @@ namespace TimecardsUI
 
         private void MainMenuFileResetColumnWidths_Click(object sender, EventArgs e)
         {
+            Log("MainMenuFileResetColumnWidths_Click event");
+
             CodeColumn.Width = 80;
             TimeColumn.Width = 80;
         }
 
         private void MainMenuFileExport_Click(object sender, EventArgs e)
         {
+            Log("MainMenuFileExport_Click event");
+
             var exportForm = new ExportForm();
             exportForm.ShowDialog(this);
             exportForm.Dispose();
@@ -161,6 +180,8 @@ namespace TimecardsUI
 
         private void MainMenuFileImport_Click(object sender, EventArgs e)
         {
+            Log("MainMenuFileImport_Click event");
+
             var importForm = new ImportForm();
             importForm.ShowDialog(this);
             importForm.Dispose();
@@ -168,6 +189,8 @@ namespace TimecardsUI
 
         private void MainMenuHelpAbout_Click(object sender, EventArgs e)
         {
+            Log("MainMenuHelpAbout_Click event");
+
             var aboutForm = new AboutForm();
             aboutForm.ShowDialog(this);
             aboutForm.Dispose();
@@ -175,26 +198,36 @@ namespace TimecardsUI
 
         private void MainMenuDataDateFirst_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataDateFirst_Click event");
+
             NavigateTo(Navigation.Earliest);
         }
 
         private void MainMenuDataDatePrevious_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataDatePrevious_Click event");
+
             NavigateTo(Navigation.Previous);
         }
 
         private void MainMenuDataDateNext_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataDateNext_Click event");
+
             NavigateTo(Navigation.Next);
         }
 
         private void MainMenuDataDateLast_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataDateLast_Click event");
+
             NavigateTo(Navigation.Latest);
         }
 
         private void MainMenuDataDeleteTimecard_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataDeleteTimecard_Click event");
+
             if (MessageBox.Show(this,
                 "Delete this timecard?\nWarning: all activity for this timecard will also be deleted",
                 this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -220,11 +253,15 @@ namespace TimecardsUI
 
         private void MainMenuDataSearchForDate_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataSearchForDate_Click event");
+
             SelectTimecardBySearchForm();
         }
 
         private void MainMenuDataActivitiesSort_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataActivitiesSort_Click event");
+
             SetStatusMessage("Sorting activities by time...");
 
             var tc = _timecardLogic.GetCurrentTimecard();
@@ -243,11 +280,15 @@ namespace TimecardsUI
 
         private void MainMenuDataToggleAfterMidnight_Click(object sender, EventArgs e)
         {
+            Log("MainMenuDataToggleAfterMidnight_Click event");
+
             MainMenuDataToggleAfterMidnight.Checked = !MainMenuDataToggleAfterMidnight.Checked;
         }
 
         private void MainMenuDataToggleAfterMidnight_CheckStateChanged(object sender, EventArgs e)
         {
+            Log("MainMenuDataToggleAfterMidnight_CheckStateChanged event");
+
             if (_loading)
                 return;
 
@@ -271,41 +312,55 @@ namespace TimecardsUI
 
         private void NavButtonFirst_Click(object sender, EventArgs e)
         {
+            Log("NavButtonFirst_Click event");
+
             NavigateTo(Navigation.Earliest);
             ActivitiesGrid.Focus();
         }
 
         private void NavButtonPrev_Click(object sender, EventArgs e)
         {
+            Log("NavButtonPrev_Click event");
+
             NavigateTo(Navigation.Previous);
             ActivitiesGrid.Focus();
         }
 
         private void NavButtonNext_Click(object sender, EventArgs e)
         {
+            Log("NavButtonNext_Click event");
+
             NavigateTo(Navigation.Next);
             ActivitiesGrid.Focus();
         }
 
         private void NavButtonLast_Click(object sender, EventArgs e)
         {
+            Log("NavButtonLast_Click event");
+
             NavigateTo(Navigation.Latest);
             ActivitiesGrid.Focus();
         }
 
         private void NavButtonToday_Click(object sender, EventArgs e)
         {
+            Log("NavButtonToday_Click event");
+
             NavigateTo(Navigation.Today);
             ActivitiesGrid.Focus();
         }
 
         private void NavButtonSearch_Click(object sender, EventArgs e)
         {
+            Log("NavButtonSearch_Click event");
+
             SelectTimecardBySearchForm();
         }
 
         private void SelectTimecardBySearchForm()
         {
+            Log("SelectTimecardBySearchForm");
+
             SetStatusMessage("Loading timecard list...");
             var tcList = _timecardLogic.GetTimecardList();
             var dateSearchForm = new DateSearchForm
@@ -346,6 +401,8 @@ namespace TimecardsUI
 
         private void NavigateTo(Navigation direction)
         {
+            Log($"NavigateTo: direction={direction}");
+
             _loading = true;
             SetStatusMessage("Loading...");
 
@@ -385,6 +442,8 @@ namespace TimecardsUI
 
         private void ReportButtonGo_Click(object sender, EventArgs e)
         {
+            Log("ReportButtonGo_Click event");
+
             SetStatusMessage("Gathering data...");
 
             var report = _reportLogic.GetReport(
@@ -431,6 +490,8 @@ namespace TimecardsUI
 
         private void MainDate_ValueChanged(object sender, EventArgs e)
         {
+            Log("MainDate_ValueChanged event");
+
             if (_loading)
                 return;
 
@@ -447,6 +508,8 @@ namespace TimecardsUI
 
         private void ReportDateStart_ValueChanged(object sender, EventArgs e)
         {
+            Log("ReportDateStart_ValueChanged event");
+
             if (_loading)
                 return;
 
@@ -455,6 +518,8 @@ namespace TimecardsUI
 
         private void ReportDateEnd_ValueChanged(object sender, EventArgs e)
         {
+            Log("ReportDateEnd_ValueChanged event");
+
             if (_loading)
                 return;
 
@@ -463,6 +528,8 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_ClientSizeChanged(object sender, EventArgs e)
         {
+            Log("ActivitiesGrid_ClientSizeChanged event");
+
             if (_loading)
                 return;
 
@@ -471,6 +538,8 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
+            Log("ActivitiesGrid_ColumnWidthChanged event");
+
             if (_loading)
                 return;
 
@@ -482,17 +551,23 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_KeyDown(object sender, KeyEventArgs e)
         {
+            Log("ActivitiesGrid_KeyDown event");
+
             _lastGridKeyCode = e.KeyCode;
         }
 
         private void ActivitiesGrid_Leave(object sender, EventArgs e)
         {
+            Log("ActivitiesGrid_Leave event");
+
             if (_lastGridKeyCode == Keys.Tab)
                 ActivitiesGrid.Focus();
         }
 
         private void ActivitiesGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
+            Log($"ActivitiesGrid_CellEnter event: RowIndex={e.RowIndex}, ColumnIndex={e.ColumnIndex}");
+
             if (e.ColumnIndex == 1 &&
                 string.IsNullOrWhiteSpace(ActivitiesGrid.CurrentCell.Value?.ToString()))
             {
@@ -506,59 +581,72 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+            Log($"ActivitiesGrid_CellBeginEdit event: RowIndex={e.RowIndex}, ColumnIndex={e.ColumnIndex}");
+
             if (_loading)
                 return;
 
             if (_timecardLogic == null)
                 return;
 
-            var tc = _timecardLogic.GetCurrentTimecard();
+            _loading = true;
 
-            while (tc.Activities.Count() - 1 < e.RowIndex)
-                tc.Activities.Add(new Activity());
+            var activity = CurrentActivity(e.RowIndex);
             
             if ((e.ColumnIndex == 0 || e.ColumnIndex == 1)
                 && string.IsNullOrWhiteSpace(ActivitiesGrid.Rows[e.RowIndex].Cells[2].Value?.ToString()))
             {
-                _loading = true;
-                ActivitiesGrid.Rows[e.RowIndex].Cells[2].Value = tc.Activities[e.RowIndex].Time;
-                _loading = false;
+                ActivitiesGrid.Rows[e.RowIndex].Cells[2].Value = activity.Time;
             }
+
+            _loading = false;
         }
 
         private void ActivitiesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            Log($"ActivitiesGrid_CellValueChanged event: RowIndex={e.RowIndex}, ColumnIndex={e.ColumnIndex}");
+
             if (_loading)
                 return;
 
             if (_timecardLogic == null)
                 return;
 
-            var tc = _timecardLogic.GetCurrentTimecard();
-            
-            while (tc.Activities.Count() - 1 < e.RowIndex)
-                tc.Activities.Add(new Activity());
+            _loading = true;
 
-            var value = ActivitiesGrid.CurrentRow.Cells[e.ColumnIndex]?.Value?.ToString() ?? string.Empty;
+            var activity = CurrentActivity(e.RowIndex);
+
+            var value = ActivitiesGrid.Rows[e.RowIndex].Cells[e.ColumnIndex]?.Value?.ToString() ?? string.Empty;
 
             switch (e.ColumnIndex)
             {
                 case 0:
-                    tc.Activities[e.RowIndex].Code = value;
+                    Log($"Setting row {e.RowIndex} Code = \"{value}\"");
+                    activity.Code = value;
                     break;
                 case 1:
-                    tc.Activities[e.RowIndex].Description = value;
+                    Log($"Setting row {e.RowIndex} Description = \"{value}\"");
+                    activity.Description = value;
                     break;
                 case 2:
-                    tc.Activities[e.RowIndex].Time = value;
+                    Log($"Setting row {e.RowIndex} Time = \"{value}\"");
+                    activity.Time = value;
+                    Log($"Setting row {e.RowIndex} Time reformatted to \"{activity.Time}\"");
+                    ActivitiesGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = activity.Time;
                     break;
             }
 
+            Log("Saving timecard");
+            DumpCurrentTimecard(_timecardLogic.GetCurrentTimecard());
             _timecardLogic.SaveTimecard();
+
+            _loading = false;
         }
 
         private void ActivitiesGrid_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+            Log($"ActivitiesGrid_UserDeletingRow event: Row.Index={e.Row.Index}");
+
             var index = ActivitiesGrid.Rows.IndexOf(e.Row);
 
             if (MessageBox.Show(this, "Delete this row?", this.Text,
@@ -574,6 +662,8 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
+            //Log($"ActivitiesGrid_RowPrePaint event: RowIndex={e.RowIndex}");
+
             var index = e.RowIndex;
             if ((bool?)ActivitiesGrid.Rows[index].Tag ?? false)
                 ActivitiesGrid.Rows[index].DefaultCellStyle.BackColor =
@@ -584,29 +674,72 @@ namespace TimecardsUI
 
         private void ActivitiesGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            var index = e.RowIndex;
-            var tc = _timecardLogic.GetCurrentTimecard();
-            if (index < 0 || index > tc.Activities.Count - 1)
+            Log($"ActivitiesGrid_RowEnter event: RowIndex={e.RowIndex}, ColumnIndex={e.ColumnIndex}");
+
+            if (_loading)
+                return;
+
+            if (_timecardLogic == null)
                 return;
 
             _loading = true;
-            MainMenuDataToggleAfterMidnight.Checked = tc.Activities[index].IsAfterMidnight;
+
+            if (TimecardHasRow(e.RowIndex))
+            {
+                var activity = CurrentActivity(e.RowIndex);
+                MainMenuDataToggleAfterMidnight.Checked = activity.IsAfterMidnight;
+            }
+
             _loading = false;
         }
 
         private void PopulateActivitiesGrid()
         {
+            Log("PopulateActivitiesGrid");
+
+            _loading = true;
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+
             ActivitiesGrid.Rows.Clear();
-            foreach (var activity in _timecardLogic.GetCurrentTimecard().Activities)
+            foreach (var activity in tc.Activities)
             {
                 var index = ActivitiesGrid.Rows.Add(activity.Code, activity.Description, activity.Time);
                 ActivitiesGrid.Rows[index].Tag = activity.IsAfterMidnight;
             }
+
+            _loading = false;
+        }
+
+        private bool TimecardHasRow(int row)
+        {
+            Log($"TimecardHasRow: row={row}");
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+            return row > tc.Activities.Count - 1;
+        }
+
+        private Activity CurrentActivity(int row)
+        {
+            Log($"CurrentActivity: row={row}");
+
+            var tc = _timecardLogic.GetCurrentTimecard();
+
+            while (tc.Activities.Count() - 1 < row)
+            {
+                Log($"Adding new Activity, asking for row {row}");
+                tc.Activities.Add(new Activity());
+            }
+
+            return tc.Activities[row];
         }
 
         private void SetRowBackgroundColor(int index, bool isAfterMidnight)
         {
-            SetStatusMessage($"Index = {index}");
+            Log($"SetRowBackgroundColor: index={index}, isAfterMidnight={isAfterMidnight}");
+
+            _loading = true;
+
             if (isAfterMidnight)
             {
                 ActivitiesGrid.Rows[index].DefaultCellStyle.BackColor =
@@ -621,22 +754,30 @@ namespace TimecardsUI
                     ? _beforeMidnightBackgroundColor
                     : _beforeMidnightAlternateBackgroundColor;
             }
+
+            _loading = false;
         }
 
         private void SetStatusMessage(string message)
         {
+            Log("SetStatusMessage");
+
             MainStatusLabel.Text = message;
             Refresh();
         }
 
         private void ClearStatusMessage()
         {
+            Log("ClearStatusMessage");
+
             MainStatusLabel.Text = string.Empty;
             Refresh();
         }
 
         private void SetAfterMidnightRowColors()
         {
+            Log("SetAfterMidnightRowColors");
+
             var tint = Configuration.MidnightTint;
             double factorR = tint.R / 255.0;
             double factorG = tint.G / 255.0;
@@ -659,6 +800,8 @@ namespace TimecardsUI
 
         private void FindGridVScrollBarControl()
         {
+            Log("FindGridVScrollBarControl");
+
             _activitiesGridVScrollBar = null;
             for (int i = 0; i < ActivitiesGrid.Controls.Count; ++i)
             {
@@ -677,11 +820,15 @@ namespace TimecardsUI
 
         private void ActivitiesGridVScrollBar_VisibleChanged(object sender, EventArgs e)
         {
+            Log("ActivitiesGridVScrollBar_VisibleChanged event");
+
             RecalculateColumnWidths();
         }
 
         private void RecalculateColumnWidths(DataGridViewColumn eventColumn = null)
         {
+            Log($"RecalculateColumnWidths: eventColumn.Index={eventColumn?.Index}");
+
             _loading = true;
 
             var availableWidth = ActivitiesGrid.ClientRectangle.Width;
@@ -696,6 +843,20 @@ namespace TimecardsUI
                     - CodeColumn.Width - TimeColumn.Width - ActivitiesGrid.RowHeadersWidth - 2;
 
             _loading = false;
+        }
+
+        private void Log(string message)
+        {
+            Debug.Print($"{DateTime.Now:HH:mm:ss.fff}  {message}");
+        }
+
+        private void DumpCurrentTimecard(Timecard tc)
+        {
+            Debug.Print($">> tc.ID = {tc.ID}, tc.Date = {tc.Date}");
+            for (var i = 0; i < tc.Activities.Count; ++i)
+            {
+                Debug.Print($">>  {i}: {tc.Activities[i]}");
+            }
         }
 
         private enum Navigation

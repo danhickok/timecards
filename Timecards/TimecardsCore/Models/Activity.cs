@@ -195,6 +195,11 @@ namespace TimecardsCore.Models
             IsDirty = false;
         }
 
+        public override string ToString()
+        {
+            return $"ID={_id}, TCID={_timecardID}, Code=\"{_code}\", Description=\"{_description}\", Time=\"{_time}\", StartMinue={_startMinute}, IsAfterMidnight={_isAfterMidnight}";
+        }
+
         #endregion
 
         #region Private methods
@@ -229,7 +234,7 @@ namespace TimecardsCore.Models
 
                 if (!USE24HOUR && time.EndsWith("p", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (hour < 13)
+                    if (hour < 12)
                         hour += 12;
                 }
             }
