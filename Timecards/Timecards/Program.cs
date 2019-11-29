@@ -55,7 +55,7 @@ namespace Timecards
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Exception: {e.Message}", "Timecards: Untrapped Error", MessageBoxButtons.OK,
+                MessageBox.Show($"Exception: {e.Message}\n\n{e.StackTrace}", "Timecards: Untrapped Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
             finally

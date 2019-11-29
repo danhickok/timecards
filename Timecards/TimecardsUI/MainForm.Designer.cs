@@ -358,7 +358,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 472);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 448);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ActivitiesGrid_CellBeginEdit);
             this.ActivitiesGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellEnter);
@@ -369,7 +369,6 @@
             this.ActivitiesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.ActivitiesGrid_UserDeletingRow);
             this.ActivitiesGrid.ClientSizeChanged += new System.EventHandler(this.ActivitiesGrid_ClientSizeChanged);
             this.ActivitiesGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ActivitiesGrid_KeyDown);
-            this.ActivitiesGrid.Leave += new System.EventHandler(this.ActivitiesGrid_Leave);
             // 
             // CodeColumn
             // 

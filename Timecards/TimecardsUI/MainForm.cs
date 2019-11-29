@@ -18,7 +18,6 @@ namespace TimecardsUI
         public IFactory Factory = null;
 
         private bool _loading = false;
-        private Keys _lastGridKeyCode = 0;
 
         // this object is disposed of in FormClosed event
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality",
@@ -55,6 +54,13 @@ namespace TimecardsUI
             FindGridVScrollBarControl();
 
             ClearStatusMessage();
+        }
+
+        // allows form to be closed when control validation would otherwise prevent it
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            e.Cancel = false;
+            base.OnFormClosing(e);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -153,7 +159,6 @@ namespace TimecardsUI
 
             if (configForm.ConfigurationChanged)
             {
-                //TODO: what about code and time masks?
                 SetAfterMidnightRowColors();
                 PopulateActivitiesGrid();
             }
@@ -549,19 +554,18 @@ namespace TimecardsUI
             MainFormSettings.ColumnTimeWidth = TimeColumn.Width;
         }
 
+        // allows delete key to erase current cell if highlighted (not in edit mode)
         private void ActivitiesGrid_KeyDown(object sender, KeyEventArgs e)
         {
             Log("ActivitiesGrid_KeyDown event");
 
-            _lastGridKeyCode = e.KeyCode;
-        }
-
-        private void ActivitiesGrid_Leave(object sender, EventArgs e)
-        {
-            Log("ActivitiesGrid_Leave event");
-
-            if (_lastGridKeyCode == Keys.Tab)
-                ActivitiesGrid.Focus();
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (!ActivitiesGrid.CurrentCell.IsInEditMode)
+                {
+                    ActivitiesGrid.CurrentCell.Value = string.Empty;
+                }
+            }
         }
 
         private void ActivitiesGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -637,7 +641,6 @@ namespace TimecardsUI
             }
 
             Log("Saving timecard");
-            //DumpCurrentTimecard(_timecardLogic.GetCurrentTimecard());
             _timecardLogic.SaveTimecard();
 
             _loading = false;
@@ -848,15 +851,6 @@ namespace TimecardsUI
         private void Log(string message)
         {
             Debug.Print($"{DateTime.Now:HH:mm:ss.fff}  {message}");
-        }
-
-        private void DumpCurrentTimecard(Timecard tc)
-        {
-            Debug.Print($">> tc.ID = {tc.ID}, tc.Date = {tc.Date}");
-            for (var i = 0; i < tc.Activities.Count; ++i)
-            {
-                Debug.Print($">>  {i}: {tc.Activities[i]}");
-            }
         }
 
         private enum Navigation
