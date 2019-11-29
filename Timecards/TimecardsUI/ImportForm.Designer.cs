@@ -47,7 +47,7 @@
             this.ImportButton.Location = new System.Drawing.Point(215, 171);
             this.ImportButton.Name = "ImportButton";
             this.ImportButton.Size = new System.Drawing.Size(87, 27);
-            this.ImportButton.TabIndex = 0;
+            this.ImportButton.TabIndex = 7;
             this.ImportButton.Text = "Import";
             this.ImportButton.UseVisualStyleBackColor = true;
             this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
@@ -59,7 +59,7 @@
             this.CancelImportButton.Location = new System.Drawing.Point(309, 171);
             this.CancelImportButton.Name = "CancelImportButton";
             this.CancelImportButton.Size = new System.Drawing.Size(87, 27);
-            this.CancelImportButton.TabIndex = 1;
+            this.CancelImportButton.TabIndex = 8;
             this.CancelImportButton.Text = "Cancel";
             this.CancelImportButton.UseVisualStyleBackColor = true;
             this.CancelImportButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -70,7 +70,7 @@
             this.FileNameLabel.Location = new System.Drawing.Point(15, 18);
             this.FileNameLabel.Name = "FileNameLabel";
             this.FileNameLabel.Size = new System.Drawing.Size(58, 15);
-            this.FileNameLabel.TabIndex = 2;
+            this.FileNameLabel.TabIndex = 0;
             this.FileNameLabel.Text = "File name";
             // 
             // FileTypeLabel
@@ -87,14 +87,14 @@
             this.FileNameTextBox.Location = new System.Drawing.Point(83, 14);
             this.FileNameTextBox.Name = "FileNameTextBox";
             this.FileNameTextBox.Size = new System.Drawing.Size(271, 23);
-            this.FileNameTextBox.TabIndex = 4;
+            this.FileNameTextBox.TabIndex = 1;
             // 
             // FileDialogButton
             // 
             this.FileDialogButton.Location = new System.Drawing.Point(361, 14);
             this.FileDialogButton.Name = "FileDialogButton";
             this.FileDialogButton.Size = new System.Drawing.Size(35, 23);
-            this.FileDialogButton.TabIndex = 5;
+            this.FileDialogButton.TabIndex = 2;
             this.FileDialogButton.Text = "...";
             this.FileDialogButton.UseVisualStyleBackColor = true;
             // 
@@ -109,7 +109,7 @@
             this.FileTypeComboBox.Location = new System.Drawing.Point(83, 43);
             this.FileTypeComboBox.Name = "FileTypeComboBox";
             this.FileTypeComboBox.Size = new System.Drawing.Size(179, 23);
-            this.FileTypeComboBox.TabIndex = 6;
+            this.FileTypeComboBox.TabIndex = 4;
             // 
             // EraseExistingDataCheckBox
             // 
@@ -117,7 +117,7 @@
             this.EraseExistingDataCheckBox.Location = new System.Drawing.Point(83, 85);
             this.EraseExistingDataCheckBox.Name = "EraseExistingDataCheckBox";
             this.EraseExistingDataCheckBox.Size = new System.Drawing.Size(123, 19);
-            this.EraseExistingDataCheckBox.TabIndex = 7;
+            this.EraseExistingDataCheckBox.TabIndex = 5;
             this.EraseExistingDataCheckBox.Text = "Erase existing data";
             this.EraseExistingDataCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -126,7 +126,7 @@
             this.ImportProgressBar.Location = new System.Drawing.Point(18, 131);
             this.ImportProgressBar.Name = "ImportProgressBar";
             this.ImportProgressBar.Size = new System.Drawing.Size(378, 27);
-            this.ImportProgressBar.TabIndex = 8;
+            this.ImportProgressBar.TabIndex = 6;
             this.ImportProgressBar.Visible = false;
             // 
             // FileOpenDialog

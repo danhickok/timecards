@@ -494,6 +494,7 @@ below,
   "[/]" means checked (completed)
   "[X]" means skipped (decided not to do it)
   "[o]" means partially completed
+  "[N]" means it can wait until the next release
 
 
 
@@ -519,4 +520,6 @@ TO DO
 [ ] Code refactoring: look for potential null reference causes and fix them
 [/] Look for remaining "TODO" comments in code and address them
 [ ] Add an option to report tab for rounding hours to nearest .1, .25, etc.
+[ ] Make entire UI DPI-aware
+[ ] The "after midnight" control (^M) seems to hit the wrong Activities row
 

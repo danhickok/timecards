@@ -41,10 +41,10 @@
             // 
             // FileDialogButton
             // 
-            this.FileDialogButton.Location = new System.Drawing.Point(419, 13);
+            this.FileDialogButton.Location = new System.Drawing.Point(419, 14);
             this.FileDialogButton.Name = "FileDialogButton";
-            this.FileDialogButton.Size = new System.Drawing.Size(41, 27);
-            this.FileDialogButton.TabIndex = 8;
+            this.FileDialogButton.Size = new System.Drawing.Size(41, 23);
+            this.FileDialogButton.TabIndex = 2;
             this.FileDialogButton.Text = "...";
             this.FileDialogButton.UseVisualStyleBackColor = true;
             // 
@@ -53,7 +53,7 @@
             this.FileNameTextBox.Location = new System.Drawing.Point(93, 14);
             this.FileNameTextBox.Name = "FileNameTextBox";
             this.FileNameTextBox.Size = new System.Drawing.Size(315, 23);
-            this.FileNameTextBox.TabIndex = 7;
+            this.FileNameTextBox.TabIndex = 1;
             // 
             // FileNameLabel
             // 
@@ -61,7 +61,7 @@
             this.FileNameLabel.Location = new System.Drawing.Point(14, 18);
             this.FileNameLabel.Name = "FileNameLabel";
             this.FileNameLabel.Size = new System.Drawing.Size(58, 15);
-            this.FileNameLabel.TabIndex = 6;
+            this.FileNameLabel.TabIndex = 0;
             this.FileNameLabel.Text = "File name";
             // 
             // FileTypeComboBox
@@ -75,7 +75,7 @@
             this.FileTypeComboBox.Location = new System.Drawing.Point(93, 44);
             this.FileTypeComboBox.Name = "FileTypeComboBox";
             this.FileTypeComboBox.Size = new System.Drawing.Size(208, 23);
-            this.FileTypeComboBox.TabIndex = 12;
+            this.FileTypeComboBox.TabIndex = 4;
             // 
             // FileTypeLabel
             // 
@@ -83,7 +83,7 @@
             this.FileTypeLabel.Location = new System.Drawing.Point(14, 50);
             this.FileTypeLabel.Name = "FileTypeLabel";
             this.FileTypeLabel.Size = new System.Drawing.Size(51, 15);
-            this.FileTypeLabel.TabIndex = 11;
+            this.FileTypeLabel.TabIndex = 3;
             this.FileTypeLabel.Text = "File type";
             // 
             // CancelExportButton
@@ -93,7 +93,7 @@
             this.CancelExportButton.Location = new System.Drawing.Point(358, 90);
             this.CancelExportButton.Name = "CancelExportButton";
             this.CancelExportButton.Size = new System.Drawing.Size(101, 31);
-            this.CancelExportButton.TabIndex = 10;
+            this.CancelExportButton.TabIndex = 6;
             this.CancelExportButton.Text = "Cancel";
             this.CancelExportButton.UseVisualStyleBackColor = true;
             this.CancelExportButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -104,7 +104,7 @@
             this.ExportButton.Location = new System.Drawing.Point(250, 90);
             this.ExportButton.Name = "ExportButton";
             this.ExportButton.Size = new System.Drawing.Size(101, 31);
-            this.ExportButton.TabIndex = 9;
+            this.ExportButton.TabIndex = 5;
             this.ExportButton.Text = "Export";
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
