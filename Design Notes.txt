@@ -463,3 +463,59 @@ completed:
   options like Wix Toolset.
 
 That's not an exhaustive list - I'm sure there will be more.
+
+
+
+11/29/2019
+----------
+
+This is the point in an application's life cycle historically called the "death
+march".  There are a lot of features that are complete, but there a lot of
+features that need completing - along with a lot of bugs found in alpha testing.
+What remains is slogging through the remaining issues in the pursuit of the
+shipping deadline.
+
+This is the time where you don't want to find design flaws.  This is the time
+where on each issue, especially major ones, you must decide to solve the issue
+or postpone it until the next release.
+
+Fortunately, in my case, this is purely a personal project and there are no
+actual shipping deadlines.  But I really have my heart set on making the first
+release of this program available by the end of the year, because I'd like to
+make use of it at work.
+
+
+So, below is a checklist of items that need completing or fixing. This list will
+change rapidly as I work on the project.  It is in no particular order, other
+than items as they come to mind or are discovered.  Note that for the list
+below,
+
+  "[ ]" is an unchecked box (needing to be completed)
+  "[/]" means checked (completed)
+  "[X]" means skipped (decided not to do it)
+  "[o]" means partially completed
+
+
+
+TO DO
+-----
+
+[/] Support for 12-hour as well as 24-hour time formats
+[ ] Make items entered by UI after midnight to be marked as such
+[ ] Resolve intermittent error that causes program-stopping exception
+[ ] Show program-stopping exception in a custom window that allows copy/paste
+[ ] Complete "About" dialog
+[ ] Find a way to show help information (most likely a web page, not CHM)
+[ ] Set up version numbers in each component
+[ ] Revise the icon - it looks terrible
+[ ] Finish the bulk data import
+[ ] Finish the bulk data export
+[X] Change configuration screen to let user specify where database is
+[ ] Code refactoring: make "using" abbreviations consistent across all projects
+[ ] Code refactoring: add comments where they ought to exist
+[ ] Fill in the "readme" markdown text files in each project
+[ ] Figure out how to make an installation package (Wix? VS? Other?)
+[ ] Code refactoring: look for potential null reference causes and fix them
+[ ] Look for remaining "TODO" comments in code and address them
+
+
