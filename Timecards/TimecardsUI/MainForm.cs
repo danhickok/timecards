@@ -518,7 +518,7 @@ namespace TimecardsUI
             if (_loading)
                 return;
 
-            //TODO:
+            ReportListView.Items.Clear();
         }
 
         private void ReportDateEnd_ValueChanged(object sender, EventArgs e)
@@ -528,7 +528,7 @@ namespace TimecardsUI
             if (_loading)
                 return;
 
-            //TODO:
+            ReportListView.Items.Clear();
         }
 
         private void ActivitiesGrid_ClientSizeChanged(object sender, EventArgs e)

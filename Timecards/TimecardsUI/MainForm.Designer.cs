@@ -358,7 +358,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 448);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 444);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ActivitiesGrid_CellBeginEdit);
             this.ActivitiesGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellEnter);
