@@ -37,6 +37,12 @@
             this.CancelExportButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
             this.FileSaveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.RadioButtonAllData = new System.Windows.Forms.RadioButton();
+            this.RadioButtonDateRange = new System.Windows.Forms.RadioButton();
+            this.LabelFromDate = new System.Windows.Forms.Label();
+            this.LabelToDate = new System.Windows.Forms.Label();
+            this.DateFrom = new System.Windows.Forms.DateTimePicker();
+            this.DateThrough = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // FileDialogButton
@@ -52,7 +58,7 @@
             // 
             this.FileNameTextBox.Location = new System.Drawing.Point(93, 14);
             this.FileNameTextBox.Name = "FileNameTextBox";
-            this.FileNameTextBox.Size = new System.Drawing.Size(315, 23);
+            this.FileNameTextBox.Size = new System.Drawing.Size(318, 23);
             this.FileNameTextBox.TabIndex = 1;
             // 
             // FileNameLabel
@@ -90,10 +96,10 @@
             // 
             this.CancelExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelExportButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelExportButton.Location = new System.Drawing.Point(358, 90);
+            this.CancelExportButton.Location = new System.Drawing.Point(358, 227);
             this.CancelExportButton.Name = "CancelExportButton";
             this.CancelExportButton.Size = new System.Drawing.Size(101, 31);
-            this.CancelExportButton.TabIndex = 6;
+            this.CancelExportButton.TabIndex = 12;
             this.CancelExportButton.Text = "Cancel";
             this.CancelExportButton.UseVisualStyleBackColor = true;
             this.CancelExportButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -101,18 +107,84 @@
             // ExportButton
             // 
             this.ExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportButton.Location = new System.Drawing.Point(250, 90);
+            this.ExportButton.Location = new System.Drawing.Point(250, 227);
             this.ExportButton.Name = "ExportButton";
             this.ExportButton.Size = new System.Drawing.Size(101, 31);
-            this.ExportButton.TabIndex = 5;
+            this.ExportButton.TabIndex = 11;
             this.ExportButton.Text = "Export";
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
+            // RadioButtonAllData
+            // 
+            this.RadioButtonAllData.AutoSize = true;
+            this.RadioButtonAllData.Checked = true;
+            this.RadioButtonAllData.Location = new System.Drawing.Point(17, 90);
+            this.RadioButtonAllData.Name = "RadioButtonAllData";
+            this.RadioButtonAllData.Size = new System.Drawing.Size(100, 19);
+            this.RadioButtonAllData.TabIndex = 5;
+            this.RadioButtonAllData.TabStop = true;
+            this.RadioButtonAllData.Text = "Export all data";
+            this.RadioButtonAllData.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonDateRange
+            // 
+            this.RadioButtonDateRange.AutoSize = true;
+            this.RadioButtonDateRange.Location = new System.Drawing.Point(17, 115);
+            this.RadioButtonDateRange.Name = "RadioButtonDateRange";
+            this.RadioButtonDateRange.Size = new System.Drawing.Size(134, 19);
+            this.RadioButtonDateRange.TabIndex = 6;
+            this.RadioButtonDateRange.Text = "Export data for dates";
+            this.RadioButtonDateRange.UseVisualStyleBackColor = true;
+            // 
+            // LabelFromDate
+            // 
+            this.LabelFromDate.AutoSize = true;
+            this.LabelFromDate.Enabled = false;
+            this.LabelFromDate.Location = new System.Drawing.Point(90, 153);
+            this.LabelFromDate.Name = "LabelFromDate";
+            this.LabelFromDate.Size = new System.Drawing.Size(35, 15);
+            this.LabelFromDate.TabIndex = 7;
+            this.LabelFromDate.Text = "From";
+            // 
+            // LabelToDate
+            // 
+            this.LabelToDate.AutoSize = true;
+            this.LabelToDate.Enabled = false;
+            this.LabelToDate.Location = new System.Drawing.Point(90, 183);
+            this.LabelToDate.Name = "LabelToDate";
+            this.LabelToDate.Size = new System.Drawing.Size(52, 15);
+            this.LabelToDate.TabIndex = 9;
+            this.LabelToDate.Text = "Through";
+            // 
+            // DateFrom
+            // 
+            this.DateFrom.Enabled = false;
+            this.DateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DateFrom.Location = new System.Drawing.Point(170, 147);
+            this.DateFrom.Name = "DateFrom";
+            this.DateFrom.Size = new System.Drawing.Size(109, 23);
+            this.DateFrom.TabIndex = 8;
+            // 
+            // DateThrough
+            // 
+            this.DateThrough.Enabled = false;
+            this.DateThrough.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DateThrough.Location = new System.Drawing.Point(170, 177);
+            this.DateThrough.Name = "DateThrough";
+            this.DateThrough.Size = new System.Drawing.Size(109, 23);
+            this.DateThrough.TabIndex = 10;
+            // 
             // ExportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(474, 135);
+            this.ClientSize = new System.Drawing.Size(474, 272);
+            this.Controls.Add(this.DateThrough);
+            this.Controls.Add(this.DateFrom);
+            this.Controls.Add(this.LabelToDate);
+            this.Controls.Add(this.LabelFromDate);
+            this.Controls.Add(this.RadioButtonDateRange);
+            this.Controls.Add(this.RadioButtonAllData);
             this.Controls.Add(this.FileTypeComboBox);
             this.Controls.Add(this.FileTypeLabel);
             this.Controls.Add(this.CancelExportButton);
@@ -143,5 +215,11 @@
         private System.Windows.Forms.Button CancelExportButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.SaveFileDialog FileSaveDialog;
+        private System.Windows.Forms.RadioButton RadioButtonAllData;
+        private System.Windows.Forms.RadioButton RadioButtonDateRange;
+        private System.Windows.Forms.Label LabelFromDate;
+        private System.Windows.Forms.Label LabelToDate;
+        private System.Windows.Forms.DateTimePicker DateFrom;
+        private System.Windows.Forms.DateTimePicker DateThrough;
     }
 }

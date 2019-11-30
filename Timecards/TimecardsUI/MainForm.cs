@@ -297,22 +297,24 @@ namespace TimecardsUI
             if (_loading)
                 return;
 
-            var tc = _timecardLogic.GetCurrentTimecard();
+            _loading = true;
 
-            var index = ActivitiesGrid.CurrentRow.Index;
-            if (index < 0 || index > tc.Activities.Count - 1)
+            var row = ActivitiesGrid.CurrentCell.RowIndex;
+
+            if (TimecardHasRow(row))
             {
-                _loading = true;
+                var activity = CurrentActivity(row);
+                activity.IsAfterMidnight = MainMenuDataToggleAfterMidnight.Checked;
+                ActivitiesGrid.Rows[row].Tag = MainMenuDataToggleAfterMidnight.Checked;
+                SetRowBackgroundColor(row, MainMenuDataToggleAfterMidnight.Checked);
+                _timecardLogic.SaveTimecard();
+            }
+            else
+            {
                 MainMenuDataToggleAfterMidnight.Checked = false;
-                _loading = false;
-
-                return;
             }
 
-            tc.Activities[index].IsAfterMidnight = MainMenuDataToggleAfterMidnight.Checked;
-            ActivitiesGrid.Rows[index].Tag = MainMenuDataToggleAfterMidnight.Checked;
-            SetRowBackgroundColor(index, MainMenuDataToggleAfterMidnight.Checked);
-            _timecardLogic.SaveTimecard();
+            _loading = false;
         }
 
         private void NavButtonFirst_Click(object sender, EventArgs e)
