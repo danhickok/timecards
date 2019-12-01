@@ -4,16 +4,25 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimecardsCore.Interfaces;
 
 namespace TimecardsCore.Logic
 {
     public class BulkLogic
     {
+        private readonly IFactory _factory;
+
+        public BulkLogic(IFactory factory)
+        {
+            _factory = factory;
+        }
+
         public string Export(DateTime? StartDate, DateTime? EndDate, DataFormat format)
         {
             var result = new StringBuilder();
 
-            //TODO: retrieve the data
+            // retrieve the timecards to be exported
+            //TODO: finish
             //TODO: transform the data
 
             return result.ToString();

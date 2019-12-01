@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using core = TimecardsCore.Models;
 using ci = TimecardsCore.Interfaces;
@@ -202,7 +204,71 @@ namespace TimecardsTesting.IntegrationTests
         [TestMethod]
         public void CoreBulkLogicTest()
         {
+            // make some data to be exported
+            var dates = new[]
+            {
+                new DateTime(2019, 12, 1),
+                new DateTime(2019, 12, 2),
+                new DateTime(2019, 12, 3),
+                new DateTime(2019, 12, 4),
+                new DateTime(2019, 12, 5),
+            };
 
+            core.Timecard tc;
+
+            ci.IFactory factory = _factory;
+            ci.IRepository repo = factory.Resolve<ci.IRepository>();
+
+            foreach (var date in dates)
+            {
+                tc = new core.Timecard() { Date = date };
+                tc.Activities.AddRange(new[]
+                {
+                    new core.Activity("00000", "Arrived", "08:00"),
+                    new core.Activity("00100", "Did some stuff", "08:15"),
+                    new core.Activity("", "Departed", "17:00"),
+                });
+                repo.SaveTimecard(tc);
+            }
+
+            tc = null;
+
+            // make a bulklogic object
+            var bulk = new cl.BulkLogic(factory);
+
+            // export all data, CSV
+            var csvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.CommaDelimitedText);
+            var csvLines = csvData.Split('\n');
+            Assert.AreEqual(5 * 3, csvLines.Length,
+                "Bulk export as CSV did not yield expected number of lines");
+
+            // export all data, tab-delimited
+            var tsvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.TabDelimitedText);
+            var tsvLines = tsvData.Split('\n');
+            Assert.AreEqual(5 * 3, tsvLines.Length,
+                "Bulk export as TSV did not yield expected number of lines");
+
+            // export all data, JSON
+            var json = bulk.Export(null, null, cl.BulkLogic.DataFormat.JSON);
+            using (var jdoc = JsonDocument.Parse(json))
+            {
+                Assert.AreEqual(5, jdoc.RootElement.GetArrayLength(),
+                    "Bulk export as JSON did not yield expected number of timecards");
+            }
+
+            // export all data, JSON
+            var xml = bulk.Export(null, null, cl.BulkLogic.DataFormat.XML);
+            //TODO: figure out how to parse XML document from string
+
+            //TODO: export a limited range of timecards
+
+            // wipe out timecards in preparation for import test
+            repo.DeleteAllTimecards();
+
+            //TODO: import tests
+
+            // cleanup
+            repo.DeleteAllTimecards();
         }
 
         [TestCleanup]
