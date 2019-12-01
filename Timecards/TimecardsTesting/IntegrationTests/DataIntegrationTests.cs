@@ -199,6 +199,12 @@ namespace TimecardsTesting.IntegrationTests
             Assert.AreEqual(0, count, "logic failed to delete all timecards");
         }
 
+        [TestMethod]
+        public void CoreBulkLogicTest()
+        {
+
+        }
+
         [TestCleanup]
         public void Cleanup()
         {

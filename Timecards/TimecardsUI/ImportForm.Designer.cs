@@ -101,11 +101,6 @@
             // FileTypeComboBox
             // 
             this.FileTypeComboBox.FormattingEnabled = true;
-            this.FileTypeComboBox.Items.AddRange(new object[] {
-            "Comma-delimited text",
-            "JSON",
-            "Tab-delimited text",
-            "XML"});
             this.FileTypeComboBox.Location = new System.Drawing.Point(83, 43);
             this.FileTypeComboBox.Name = "FileTypeComboBox";
             this.FileTypeComboBox.Size = new System.Drawing.Size(179, 23);

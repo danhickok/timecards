@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\NullNotAllowedException.cs" />
     <Compile Include="Exceptions\RecordNotFoundException.cs" />
     <Compile Include="Exceptions\TimecardNotFoundException.cs" />
+    <Compile Include="ExtensionMethods\EnumExtensionMethods.cs" />
     <Compile Include="Interfaces\IAppConstants.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
