@@ -10,6 +10,8 @@ namespace TimecardsCore.Interfaces
 
         List<Timecard> GetTimecards(int offset, int limit, bool descending);
 
+        List<Timecard> GetTimecards(DateTime? startDate, DateTime? endDate);
+
         Timecard GetTimecard(int id);
 
         Timecard GetNearestTimecard(DateTime date, bool after);

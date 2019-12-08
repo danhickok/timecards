@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,13 @@ namespace TimecardsCore.Logic
 
         public string Export(DateTime? StartDate, DateTime? EndDate, DataFormat format)
         {
-            var result = new StringBuilder();
+            var result = new StringWriter();
+
+            var repo = _factory.Resolve<IRepository>();
 
             // retrieve the timecards to be exported
+            var tcList = repo;
+
             //TODO: finish
             //TODO: transform the data
 

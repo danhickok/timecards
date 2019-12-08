@@ -53,6 +53,16 @@ namespace TimecardsData
                 .ToList();
         }
 
+        public List<core.Timecard> GetTimecards(DateTime? startDate, DateTime? endDate)
+        {
+            return _context.Timecards
+                .Where(tc =>
+                    (startDate == null || tc.Date >= startDate) &&
+                    (endDate == null || tc.Date <= endDate))
+                .Select(t => t.ToCore())
+                .ToList();
+        }
+
         public core.Timecard GetTimecard(int id)
         {
             var timecard = _context.Timecards
