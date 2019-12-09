@@ -59,6 +59,7 @@ namespace TimecardsData
                 .Where(tc =>
                     (startDate == null || tc.Date >= startDate) &&
                     (endDate == null || tc.Date <= endDate))
+                .OrderBy(tc => tc.Date)
                 .Select(t => t.ToCore())
                 .ToList();
         }

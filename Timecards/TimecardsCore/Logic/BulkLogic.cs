@@ -18,14 +18,14 @@ namespace TimecardsCore.Logic
             _factory = factory;
         }
 
-        public string Export(DateTime? StartDate, DateTime? EndDate, DataFormat format)
+        public string Export(DateTime? startDate, DateTime? endDate, DataFormat format)
         {
             var result = new StringWriter();
 
             var repo = _factory.Resolve<IRepository>();
 
             // retrieve the timecards to be exported
-            var tcList = repo;
+            var tcList = repo.GetTimecards(startDate, endDate);
 
             //TODO: finish
             //TODO: transform the data
