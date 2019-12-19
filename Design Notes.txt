@@ -508,7 +508,7 @@ TO DO
 [ ] Complete "About" dialog
 [ ] Find a way to show help information (most likely a web page, not CHM)
 [ ] Set up version numbers in each component
-[ ] Revise the icon - it looks terrible
+[/] Revise the icon - it looks terrible
 [ ] Finish the bulk data import
 [ ] Finish the bulk data export
 [X] Change configuration screen to let user specify where database is
