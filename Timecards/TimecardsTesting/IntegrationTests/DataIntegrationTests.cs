@@ -204,7 +204,11 @@ namespace TimecardsTesting.IntegrationTests
         [TestMethod]
         public void CoreBulkLogicTest()
         {
-            // make some data to be exported
+            //
+            // export tests
+            //
+
+            // define some data to be exported
             var dates = new[]
             {
                 new DateTime(2019, 12, 1),
@@ -218,6 +222,8 @@ namespace TimecardsTesting.IntegrationTests
 
             ci.IFactory factory = _factory;
             ci.IRepository repo = factory.Resolve<ci.IRepository>();
+
+            repo.DeleteAllTimecards();
 
             // create some timecards in the database
             foreach (var date in dates)
@@ -239,33 +245,80 @@ namespace TimecardsTesting.IntegrationTests
             var csvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.CommaDelimitedText);
             var csvLines = csvData.Split('\n');
             Assert.AreEqual(dates.Length * 3, csvLines.Length,
-                "Bulk export as CSV did not yield expected number of lines");
+                "Bulk export all data as CSV did not yield expected number of lines");
 
             // export all data, tab-delimited
             var tsvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.TabDelimitedText);
             var tsvLines = tsvData.Split('\n');
             Assert.AreEqual(dates.Length * 3, tsvLines.Length,
-                "Bulk export as TSV did not yield expected number of lines");
+                "Bulk export all data as TSV did not yield expected number of lines");
 
             // export all data, JSON
             var json = bulk.Export(null, null, cl.BulkLogic.DataFormat.JSON);
             using (var jdoc = JsonDocument.Parse(json))
             {
                 Assert.AreEqual(dates.Length, jdoc.RootElement.GetArrayLength(),
-                    "Bulk export as JSON did not yield expected number of timecards");
+                    "Bulk export all data as JSON did not yield expected number of timecards");
             }
 
             // export all data, XML
             var xmlString = bulk.Export(null, null, cl.BulkLogic.DataFormat.XML);
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
+            Assert.AreEqual(dates.Length, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
+                "Bulk export all data as XML did not yield expected number of timecards");
 
-            //TODO: export a limited range of timecards
+            // export limited range, CSV
+            csvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.CommaDelimitedText);
+            csvLines = csvData.Split('\n');
+            Assert.AreEqual(2 * 3, csvLines.Length,
+                "Bulk export range as CSV did not yield expected number of lines");
 
-            // wipe out timecards in preparation for import test
+            // export limited range, tab-delimited
+            tsvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.TabDelimitedText);
+            tsvLines = tsvData.Split('\n');
+            Assert.AreEqual(2 * 3, tsvLines.Length,
+                "Bulk export all data as TSV did not yield expected number of lines");
+
+            // export limited range, JSON
+            json = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.JSON);
+            using (var jdoc = JsonDocument.Parse(json))
+            {
+                Assert.AreEqual(2, jdoc.RootElement.GetArrayLength(),
+                    "Bulk export all data as JSON did not yield expected number of timecards");
+            }
+
+            // export limited range, XML
+            xmlString = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.XML);
+            xmlDoc = new XmlDocument();
+            xmlDoc.Load(new StringReader(xmlString));
+            Assert.AreEqual(2, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
+                "Bulk export all data as XML did not yield expected number of timecards");
+
+            //
+            // import tests
+            //
+
+            // import CSV
             repo.DeleteAllTimecards();
 
-            //TODO: import tests
+            var csvFileName = Path.GetTempFileName();
+            var tally = WriteCsvFile(csvFileName);
+            bulk.Import(csvFileName, cl.BulkLogic.DataFormat.CommaDelimitedText);
+
+            var tcList = repo.GetTimecards(0, 999, false);
+            Assert.AreEqual(tally, tcList.Count,
+                "Bulk import of CSV data does not produce expected number of timecards");
+
+
+
+
+
+
+
+
+
+
 
             // cleanup
             repo.DeleteAllTimecards();
@@ -279,6 +332,87 @@ namespace TimecardsTesting.IntegrationTests
                 _factory.Dispose();
                 _factory = null;
             }
+        }
+
+        private int WriteCsvFile(string path)
+        {
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine(@"");
+                sw.WriteLine(@"");
+                sw.WriteLine(@"");
+            }
+
+            return 3;
+        }
+
+        private int WriteTabFile(string path)
+        {
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine(@"");
+                sw.WriteLine(@"");
+                sw.WriteLine(@"");
+            }
+
+            return 3;
+        }
+
+        private int WriteJsonFile(string path)
+        {
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine(@"
+[
+	{
+		""Date"": ""2019-12-07T00:00:00"",
+		""Activities"": [
+			{
+				""Code"": ""00000"",
+				""Description"": ""Arrived"",
+				""Time"": ""08:00"",
+			},
+			{
+				""Code"": """",
+				""Description"": ""Departed"",
+				""Time"": ""17:00"",
+			}
+		]
+	},
+	{
+		""Date"": ""2019-12-08T00:00:00"",
+		""Activities"": [
+			{
+				""Code"": ""00000"",
+				""Description"": ""Arrived"",
+				""Time"": ""08:00"",
+				""StartMinute"": 480,
+				""IsAfterMidnight"": false
+			},
+			{
+				""Code"": """",
+				""Description"": ""Departed"",
+				""Time"": ""17:00"",
+				""StartMinute"": 1020,
+				""IsAfterMidnight"": false
+			}
+		]
+	}
+]                ");
+            }
+
+            return 2;
+        }
+
+        private int WriteXmlFile(string path)
+        {
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine(@"
+                ");
+            }
+
+            return 3;
         }
     }
 }
