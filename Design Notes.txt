@@ -526,10 +526,11 @@ TO DO
 12/19/2019
 ----------
 
-In implementing the tests (first) for the bulk data import and export, I wanted
-to straighten out the confusion there seemed to be in using XmlDataDocument vs.
-XmlDocument.  The former appears to be obsolete, but I couldn't use the latter
-because I was targeting a version of .NET that was too old.
+In implementing the tests (test-first development, yay!) for the bulk data
+import and export, I wanted to straighten out the confusion there seemed to be
+in using XmlDataDocument vs. XmlDocument.  The former appears to be obsolete,
+but I couldn't use the latter because I was targeting a version of .NET that was
+too old.
 
 So, I upgraded the target of each project from .NET Framework 4.6.1 to 4.7.2 -
 which is the latest version I have on my up-to-date Windows 10 OS.  Version 4.8
@@ -544,10 +545,11 @@ also contains a new System.Text.Json namespace.  Since I'm building JSON support
 into my bulk data import and export, this would save me having to install yet
 another third party library - namely the NewtonSoft package.
 
-I tested the Json library using LINQPad 6, which itself targets .NET Core and
-gives me access to the same library I'd be working with.
+I tested the System.Text.Json library using LINQPad 6, which itself targets .NET
+Core and gives me access to the same library I'd be working with.
 
-It didn't work.  It would not serialize or de-serialize children.  I did some
-searching and discovered this is a known problem.  The NewtonSoft package works,
-however.
+It didn't work.  It would not serialize or de-serialize children of the parent
+objects.  I did some searching and discovered this is a known problem.  The word
+on the street, however, is that where this new System library fails, the
+NewtonSoft package works.  So we'll go with that.
 

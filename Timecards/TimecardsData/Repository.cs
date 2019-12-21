@@ -56,6 +56,7 @@ namespace TimecardsData
         public List<core.Timecard> GetTimecards(DateTime? startDate, DateTime? endDate)
         {
             return _context.Timecards
+                .Include("Activities")
                 .Where(tc =>
                     (startDate == null || tc.Date >= startDate) &&
                     (endDate == null || tc.Date <= endDate))

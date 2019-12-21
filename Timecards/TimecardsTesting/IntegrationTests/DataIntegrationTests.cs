@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
+using System.Linq;
 using System.Xml;
 using ci = TimecardsCore.Interfaces;
 using cl = TimecardsCore.Logic;
@@ -31,14 +33,11 @@ namespace TimecardsTesting.IntegrationTests
         [TestMethod]
         public void CoreDataTest()
         {
-            // get a reference to factory like core would do
-            ci.IFactory factory = _factory;
-
             core.Timecard tcIn;
             core.Timecard tcOut;
 
             // use it to get a reference to the repo like core would do
-            ci.IRepository repoIn = factory.Resolve<ci.IRepository>();
+            ci.IRepository repoIn = _factory.Resolve<ci.IRepository>();
 
             // make a core timecard object
             tcIn = new core.Timecard { Date = new DateTime(2019, 6, 1) };
@@ -59,7 +58,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.IsTrue(tcIn.ID > 0, "Didn't get a valid ID after saving timecard");
 
             // get another reference to the repo
-            ci.IRepository repoOut = factory.Resolve<ci.IRepository>();
+            ci.IRepository repoOut = _factory.Resolve<ci.IRepository>();
 
             // retrieve the saved timecard
             tcOut = repoOut.GetTimecard(tcIn.ID);
@@ -204,6 +203,8 @@ namespace TimecardsTesting.IntegrationTests
         [TestMethod]
         public void CoreBulkLogicTest()
         {
+            List<core.Timecard> tcList;
+
             //
             // export tests
             //
@@ -218,75 +219,54 @@ namespace TimecardsTesting.IntegrationTests
                 new DateTime(2019, 12, 5),
             };
 
-            core.Timecard tc;
-
-            ci.IFactory factory = _factory;
-            ci.IRepository repo = factory.Resolve<ci.IRepository>();
-
-            repo.DeleteAllTimecards();
-
-            // create some timecards in the database
-            foreach (var date in dates)
-            {
-                tc = new core.Timecard() { Date = date };
-                tc.Activities.AddRange(new[]
-                {
-                    new core.Activity("00000", "Arrived", "08:00"),
-                    new core.Activity("00100", "Did some stuff", "08:15"),
-                    new core.Activity("", "Departed", "17:00"),
-                });
-                repo.SaveTimecard(tc);
-            }
+            DeleteAllTimecards();
+            var tally = MakeTimecardsForEachDate(dates);
 
             // make a bulklogic object
-            var bulk = new cl.BulkLogic(factory);
+            var bulk = new cl.BulkLogic(_factory);
 
             // export all data, CSV
             var csvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.CommaDelimitedText);
             var csvLines = csvData.Split('\n');
-            Assert.AreEqual(dates.Length * 3, csvLines.Length,
+            Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1, csvLines.Length,
                 "Bulk export all data as CSV did not yield expected number of lines");
 
             // export all data, tab-delimited
             var tsvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.TabDelimitedText);
             var tsvLines = tsvData.Split('\n');
-            Assert.AreEqual(dates.Length * 3, tsvLines.Length,
+            Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1, tsvLines.Length,
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export all data, JSON
             var json = bulk.Export(null, null, cl.BulkLogic.DataFormat.JSON);
-            using (var jdoc = JsonDocument.Parse(json))
-            {
-                Assert.AreEqual(dates.Length, jdoc.RootElement.GetArrayLength(),
-                    "Bulk export all data as JSON did not yield expected number of timecards");
-            }
+            var tcOut = JsonConvert.DeserializeObject<List<core.Timecard>>(json);
+            Assert.AreEqual(tally.TimecardCount, tcOut.Count,
+                "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export all data, XML
             var xmlString = bulk.Export(null, null, cl.BulkLogic.DataFormat.XML);
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
-            Assert.AreEqual(dates.Length, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
+            Assert.AreEqual(tally.TimecardCount, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             // export limited range, CSV
             csvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.CommaDelimitedText);
             csvLines = csvData.Split('\n');
-            Assert.AreEqual(2 * 3, csvLines.Length,
+            Assert.AreEqual(2 * tally.ActivityCount + 1, csvLines.Length,
                 "Bulk export range as CSV did not yield expected number of lines");
 
             // export limited range, tab-delimited
             tsvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.TabDelimitedText);
             tsvLines = tsvData.Split('\n');
-            Assert.AreEqual(2 * 3, tsvLines.Length,
+            Assert.AreEqual(2 * tally.ActivityCount + 1, tsvLines.Length,
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export limited range, JSON
             json = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.JSON);
-            using (var jdoc = JsonDocument.Parse(json))
-            {
-                Assert.AreEqual(2, jdoc.RootElement.GetArrayLength(),
-                    "Bulk export all data as JSON did not yield expected number of timecards");
-            }
+            tcOut = JsonConvert.DeserializeObject<List<core.Timecard>>(json);
+            Assert.AreEqual(2, tcOut.Count,
+                "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export limited range, XML
             xmlString = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.XML);
@@ -300,28 +280,64 @@ namespace TimecardsTesting.IntegrationTests
             //
 
             // import CSV
-            repo.DeleteAllTimecards();
+            DeleteAllTimecards();
 
-            var csvFileName = Path.GetTempFileName();
-            var tally = WriteCsvFile(csvFileName);
-            bulk.Import(csvFileName, cl.BulkLogic.DataFormat.CommaDelimitedText);
+            var csvPath = Path.GetTempFileName();
+            tally = WriteCsvFile(csvPath);
+            bulk.Import(csvPath, cl.BulkLogic.DataFormat.CommaDelimitedText);
 
-            var tcList = repo.GetTimecards(0, 999, false);
-            Assert.AreEqual(tally, tcList.Count,
+            tcList = GetAllTimecards();
+            Assert.AreEqual(tally.TimecardCount, tcList.Count,
                 "Bulk import of CSV data does not produce expected number of timecards");
+            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+                "Bulk import of CSV data resulted in one or more timecards without correct number of activities");
 
+            File.Delete(csvPath);
 
+            // import TSV
+            DeleteAllTimecards();
 
+            var tsvPath = Path.GetTempFileName();
+            tally = WriteTsvFile(tsvPath);
+            bulk.Import(tsvPath, cl.BulkLogic.DataFormat.TabDelimitedText);
 
+            tcList = GetAllTimecards();
+            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+                "Bulk import of TSV data does not produce expected number of timecards");
+            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+                "Bulk import of TSV data resulted in one or more timecards without correct number of activities");
 
+            File.Delete(tsvPath);
 
+            // import JSON
+            DeleteAllTimecards();
 
+            var jsonPath = Path.GetTempFileName();
+            tally = WriteJsonFile(jsonPath);
+            bulk.Import(jsonPath, cl.BulkLogic.DataFormat.JSON);
 
+            tcList = GetAllTimecards();
+            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+                "Bulk import of JSON data does not produce expected number of timecards");
+            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+                "Bulk import of JSON data resulted in one or more timecards without correct number of activities");
 
+            File.Delete(jsonPath);
 
+            // import XML
+            DeleteAllTimecards();
 
-            // cleanup
-            repo.DeleteAllTimecards();
+            var xmlPath = Path.GetTempFileName();
+            tally = WriteXmlFile(xmlPath);
+            bulk.Import(xmlPath, cl.BulkLogic.DataFormat.XML);
+
+            tcList = GetAllTimecards();
+            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+                "Bulk import of XML data does not produce expected number of timecards");
+            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+                "Bulk import of XML data resulted in one or more timecards without correct number of activities");
+
+            File.Delete(xmlPath);
         }
 
         [TestCleanup]
@@ -334,85 +350,142 @@ namespace TimecardsTesting.IntegrationTests
             }
         }
 
-        private int WriteCsvFile(string path)
+        #region Private methods
+
+        private (int TimecardCount, int ActivityCount) MakeTimecardsForEachDate(DateTime[] dates)
+        {
+            var repo = _factory.Resolve<ci.IRepository>();
+
+            var count = 0;
+
+            foreach (var date in dates)
+            {
+                var tc = new core.Timecard() { Date = date };
+                tc.Activities.AddRange(new[]
+                {
+                    new core.Activity("00000", "Arrived", "08:00"),
+                    new core.Activity("", "Departed", "17:00"),
+                });
+                repo.SaveTimecard(tc);
+                count++;
+            }
+
+            return (count, 2);
+        }
+
+        private List<core.Timecard> GetAllTimecards()
+        {
+            var repo = _factory.Resolve<ci.IRepository>();
+            return repo.GetTimecards(null, null);
+        }
+
+        private void DeleteAllTimecards()
+        {
+            var repo = _factory.Resolve<ci.IRepository>();
+            repo.DeleteAllTimecards();
+        }
+
+        private (int TimecardCount, int ActivityCount) WriteCsvFile(string path)
         {
             using (var sw = new StreamWriter(path))
             {
-                sw.WriteLine(@"");
-                sw.WriteLine(@"");
-                sw.WriteLine(@"");
+                sw.WriteLine("Date,Code,Description,Time,IsAfterMidnight");
+                sw.WriteLine("\"2019-12-07\",\"00000\",\"Arrived\",\"08:00\",false");
+                sw.WriteLine("\"2019-12-07\",\"\",\"Departed\",\"17:00\",false");
+                sw.WriteLine("\"2019-12-08\",\"00000\",\"Arrived\",\"08:00\",false");
+                sw.WriteLine("\"2019-12-08\",\"\",\"Departed\",\"17:00\",false");
             }
 
-            return 3;
+            return (2, 2);
         }
 
-        private int WriteTabFile(string path)
+        private (int TimecardCount, int ActivityCount) WriteTsvFile(string path)
         {
             using (var sw = new StreamWriter(path))
             {
-                sw.WriteLine(@"");
-                sw.WriteLine(@"");
-                sw.WriteLine(@"");
+                sw.WriteLine("Date\tCode\tDescription\tTime\tIsAfterMidnight");
+                sw.WriteLine("2019-12-07\t00000\tArrived\t08:00\tfalse");
+                sw.WriteLine("2019-12-07\t\tDeparted\t17:00\tfalse");
+                sw.WriteLine("2019-12-08\t00000\tArrived\t08:00\tfalse");
+                sw.WriteLine("2019-12-08\t\tDeparted\t17:00\tfalse");
             }
 
-            return 3;
+            return (2, 2);
         }
 
-        private int WriteJsonFile(string path)
+        private (int TimecardCount, int ActivityCount) WriteJsonFile(string path)
         {
             using (var sw = new StreamWriter(path))
             {
-                sw.WriteLine(@"
-[
-	{
-		""Date"": ""2019-12-07T00:00:00"",
-		""Activities"": [
-			{
-				""Code"": ""00000"",
-				""Description"": ""Arrived"",
-				""Time"": ""08:00"",
-			},
-			{
-				""Code"": """",
-				""Description"": ""Departed"",
-				""Time"": ""17:00"",
-			}
-		]
-	},
-	{
-		""Date"": ""2019-12-08T00:00:00"",
-		""Activities"": [
-			{
-				""Code"": ""00000"",
-				""Description"": ""Arrived"",
-				""Time"": ""08:00"",
-				""StartMinute"": 480,
-				""IsAfterMidnight"": false
-			},
-			{
-				""Code"": """",
-				""Description"": ""Departed"",
-				""Time"": ""17:00"",
-				""StartMinute"": 1020,
-				""IsAfterMidnight"": false
-			}
-		]
-	}
-]                ");
+                sw.WriteLine(
+@"[
+  {
+    ""Date"": ""2019-12-07"",
+    ""Activities"": [
+      {
+        ""Code"": ""00000"",
+        ""Description"": ""Arrived"",
+        ""Time"": ""08:00"",
+                ""IsAfterMidnight"": false
+      },
+      {
+        ""Code"": """",
+        ""Description"": ""Departed"",
+        ""Time"": ""17:00"",
+        ""IsAfterMidnight"": false
+      }
+    ]
+  },
+  {
+    ""Date"": ""2019-12-08"",
+    ""Activities"": [
+      {
+        ""Code"": ""00000"",
+        ""Description"": ""Arrived"",
+        ""Time"": ""08:00"",
+                ""IsAfterMidnight"": false
+      },
+      {
+        ""Code"": """",
+        ""Description"": ""Departed"",
+        ""Time"": ""17:00"",
+        ""IsAfterMidnight"": false
+      }
+    ]
+  }
+]"
+                );
             }
 
-            return 2;
+            return (2, 2);
         }
 
-        private int WriteXmlFile(string path)
+        private (int TimecardCount, int ActivityCount) WriteXmlFile(string path)
         {
             using (var sw = new StreamWriter(path))
             {
-                sw.WriteLine(@"
-                ");
+                sw.WriteLine(
+@"<?xml version=""1.0"" encoding=""utf-16""?>
+<Timecards>
+  <Timecard Date=""2019-12-07"">
+    <Activities>
+      <Activity Code=""00000"" Description=""Arrived"" Time=""08:00"" IsAfterMidnight=""False"" />
+      <Activity Code="""" Description=""Departed"" Time=""17:00"" IsAfterMidnight=""False"" />
+    </Activities>
+  </Timecard>
+  <Timecard Date=""2019-12-08"">
+    <Activities>
+      <Activity Code=""00000"" Description=""Arrived"" Time=""08:00"" IsAfterMidnight=""False"" />
+      <Activity Code="""" Description=""Departed"" Time=""17:00"" IsAfterMidnight=""False"" />
+    </Activities>
+  </Timecard>
+</Timecards>"
+                );
             }
 
-            return 3;
+            return (2, 2);
         }
+
+        #endregion
     }
 }
