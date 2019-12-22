@@ -506,12 +506,19 @@ TO DO
 [ ] Complete "About" dialog
 [ ] Find a way to show help information (most likely a web page, not CHM)
 [ ] Set up version numbers in each component
-[/] Revise the icon - it looks terrible
+[/] Revise the icon - it looks terrible (still not happy with it)
 [ ] Finish the bulk data import
 [ ] Finish the bulk data export
 [N] Change configuration screen to let user specify where database is
-[ ] Find app.config setting to allow db to exist in user files
-[ ] Code refactoring: make "using" abbreviations consistent across all projects
+[ ] Find app.config setting to allow database to exist in user files
+[ ] Code refactoring: make "using" abbreviations consistent across all projects:
+      using ic = TimecardsIOC;
+      using tc = TimecardsCore;
+      using td = TimecardsData;
+      using te = TimecardsCore.Exceptions;
+      using ti = TimecardsCore.Interfaces;
+      using tm = using TimecardsCore.Models;
+      using ui = TimecardsUI;
 [ ] Code refactoring: add comments where they ought to exist
 [ ] Fill in the "readme" markdown text files in each project
 [ ] Figure out how to make an installation package (Wix? VS? Other?)

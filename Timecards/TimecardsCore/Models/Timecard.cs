@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace TimecardsCore.Models
 {
@@ -8,6 +8,7 @@ namespace TimecardsCore.Models
         #region Public properties
 
         private int _id;
+        [JsonIgnore]
         public int ID
         {
             get
@@ -37,6 +38,7 @@ namespace TimecardsCore.Models
 
         public readonly ActivityList Activities;
 
+        [JsonIgnore]
         public bool IsDirty { get; private set; }
 
         #endregion

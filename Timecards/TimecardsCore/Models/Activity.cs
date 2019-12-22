@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Text.RegularExpressions;
 using TimecardsCore.Exceptions;
 
@@ -12,7 +13,9 @@ namespace TimecardsCore.Models
         #region Public properties
 
         private int _id;
-        public int ID {
+        [JsonIgnore]
+        public int ID
+        {
             get => _id;
             set
             {
@@ -25,6 +28,7 @@ namespace TimecardsCore.Models
         }
 
         private int _timecardID;
+        [JsonIgnore]
         public int TimecardID
         {
             get => _timecardID;
@@ -73,6 +77,7 @@ namespace TimecardsCore.Models
         }
 
         private int _startMinute;
+        [JsonIgnore]
         public int StartMinute
         {
             get => _startMinute;

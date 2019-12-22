@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using core = TimecardsCore;
-using data = TimecardsData;
-using ioc = TimecardsIOC;
+using ic = TimecardsIOC;
+using tc = TimecardsCore;
+using td = TimecardsData;
 using ui = TimecardsUI;
 
 namespace Timecards
@@ -21,12 +18,12 @@ namespace Timecards
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            core.Configuration.Load();
+            tc.Configuration.Load();
 
-            var factory = new ioc.Factory();
-            factory.Register<core.Interfaces.IAppConstants>(typeof(ProductionAppConstants), true);
-            factory.Register<core.Interfaces.IRepository>(typeof(data.Repository), true,
-                typeof(core.Interfaces.IAppConstants));
+            var factory = new ic.Factory();
+            factory.Register<tc.Interfaces.IAppConstants>(typeof(ProductionAppConstants), true);
+            factory.Register<tc.Interfaces.IRepository>(typeof(td.Repository), true,
+                typeof(tc.Interfaces.IAppConstants));
 
             var mainForm = new ui.MainForm
             {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 
 namespace TimecardsCore.Logic
@@ -20,17 +19,82 @@ namespace TimecardsCore.Logic
 
         public string Export(DateTime? startDate, DateTime? endDate, DataFormat format)
         {
-            var result = new StringWriter();
-
             var repo = _factory.Resolve<IRepository>();
 
             // retrieve the timecards to be exported
             var tcList = repo.GetTimecards(startDate, endDate);
 
-            //TODO: finish
-            //TODO: transform the data
+            using (var sw = new StringWriter())
+            {
+                // transform the data
+                switch (format)
+                {
+                    case DataFormat.CommaDelimitedText:
+                        sw.WriteLine("Date,Code,Description,Time,IsAfterMidnight");
+                        foreach (var tc in tcList)
+                        {
+                            foreach (var ac in tc.Activities)
+                            {
+                                sw.WriteLine($"\"{tc.Date:yyyy-MM-dd}\",\"{ac.Code}\",\"{ac.Description}\",\"{ac.Time}\",{ac.IsAfterMidnight}");
+                            }
+                        }
+                        break;
 
-            return result.ToString();
+                    case DataFormat.TabDelimitedText:
+                        sw.WriteLine("Date\tCode\tDescription\tTime\tIsAfterMidnight");
+                        foreach (var tc in tcList)
+                        {
+                            foreach (var ac in tc.Activities)
+                            {
+                                sw.WriteLine($"{tc.Date:yyyy-MM-dd}\t{ac.Code}\t{ac.Description}\t{ac.Time}\t{ac.IsAfterMidnight}");
+                            }
+                        }
+                        break;
+
+                    case DataFormat.JSON:
+                        sw.WriteLine(JsonConvert.SerializeObject(tcList));
+                        break;
+
+                    case DataFormat.XML:
+                        XmlAttribute attr;
+
+                        var xdoc = new XmlDocument();
+
+                        var rootNode = xdoc.CreateElement("Timecards");
+                        xdoc.AppendChild(rootNode);
+
+                        foreach (var tc in tcList)
+                        {
+                            var tcNode = xdoc.CreateElement("Timecard");
+                            attr = xdoc.CreateAttribute("Date");
+                            attr.Value = tc.Date.ToString("yyyy-MM-dd");
+                            tcNode.Attributes.Append(attr);
+
+                            var acsNode = xdoc.CreateElement("Activities");
+                            foreach (var ac in tc.Activities)
+                            {
+                                var acNode = xdoc.CreateElement("Activity");
+                                acNode
+                                  .AddAttribute("Code", ac.Code)
+                                  .AddAttribute("Description", ac.Description)
+                                  .AddAttribute("Time", ac.Time)
+                                  .AddAttribute("IsAfterMidnight", ac.IsAfterMidnight.ToString());
+                                acsNode.AppendChild(acNode);
+                            }
+                            tcNode.AppendChild(acsNode);
+
+                            rootNode.AppendChild(tcNode);
+                        }
+
+                        xdoc.Save(sw);
+                        break;
+
+                    default:
+                        throw new Exception("Unhandled data format encountered");
+                }
+
+                return sw.ToString();
+            }
         }
 
         public void Import(string path, DataFormat format)
