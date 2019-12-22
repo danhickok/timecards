@@ -97,8 +97,9 @@ namespace TimecardsCore.Logic
             }
         }
 
-        public void Import(string path, DataFormat format)
+        public void Import(string content, DataFormat format)
         {
+
             //TODO: read in the data
             //TODO: transform the data
             //TODO: store the data, raising an event indicating progress

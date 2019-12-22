@@ -560,3 +560,12 @@ objects.  I did some searching and discovered this is a known problem.  The word
 on the street, however, is that where this new System library fails, the
 NewtonSoft package works.  So we'll go with that.
 
+
+
+12/21/2019
+----------
+
+I'm rethinking the idea that the BulkLogic component should not actually read
+the contents of a file for the import operations, but rather it should instead
+accept a string value (granted, a very large one) - just as it emits a string
+value for the export operations.
