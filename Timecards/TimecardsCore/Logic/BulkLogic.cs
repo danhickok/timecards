@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using System.Xml;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
@@ -29,7 +32,7 @@ namespace TimecardsCore.Logic
                 // transform the data
                 switch (format)
                 {
-                    case DataFormat.CommaDelimitedText:
+                    case DataFormat.CSV:
                         sw.WriteLine("Date,Code,Description,Time,IsAfterMidnight");
                         foreach (var tc in tcList)
                         {
@@ -40,7 +43,7 @@ namespace TimecardsCore.Logic
                         }
                         break;
 
-                    case DataFormat.TabDelimitedText:
+                    case DataFormat.TSV:
                         sw.WriteLine("Date\tCode\tDescription\tTime\tIsAfterMidnight");
                         foreach (var tc in tcList)
                         {
@@ -97,27 +100,102 @@ namespace TimecardsCore.Logic
             }
         }
 
-        public void Import(string content, DataFormat format)
+        public string Import(string content, DataFormat format)
         {
+            string[] lines;
+            Dictionary<string, int> columnMap;
 
-            //TODO: read in the data
-            //TODO: transform the data
-            //TODO: store the data, raising an event indicating progress
+            var allowedColumnNames = new List<string> { "date", "code", "description", "time", "isaftermidnight" };
+            var report = new StringBuilder();
+            var repo = _factory.Resolve<IRepository>();
+
+            switch (format)
+            {
+                case DataFormat.CSV:
+                    lines = content.Replace("\r", string.Empty).Split('\n');
+                    if (lines.Length < 1)
+                    {
+                        report.AppendLine("Content contains no lines of text");
+                        break;
+                    }
+
+                    columnMap = ParseColumnMap(lines[0], ',', allowedColumnNames);
+
+                    var missing = false;
+                    for (var i = 0; i < allowedColumnNames.Count - 1; ++i)
+                    {
+                        if (!columnMap.ContainsKey(allowedColumnNames[i]))
+                        {
+                            report.AppendLine($"Content missing column name '{allowedColumnNames[i]}' on first line");
+                            missing = true;
+                        }
+                    }
+                    if (missing)
+                    {
+                        break;
+                    }
+
+                    //TODO: sort remaining lines
+                    //TODO: parse and store, raising event for progress
+                    break;
+
+                case DataFormat.TSV:
+                    lines = content.Replace("\r", string.Empty).Split('\n');
+                    if (lines.Length < 1)
+                    {
+                        report.AppendLine("Content contains no lines of text");
+                        break;
+                    }
+
+                    columnMap = ParseColumnMap(lines[0], ',', allowedColumnNames);
+
+                    //TODO: finish
+                    break;
+
+                case DataFormat.JSON:
+                    //TODO: finish
+                    break;
+
+                case DataFormat.XML:
+                    //TODO: finish
+                    break;
+
+                default:
+                    throw new Exception("Unhandled data format encountered");
+            }
+
+            return report.ToString();
         }
 
         public enum DataFormat
         {
             [Description("Comma-delimited text")]
-            CommaDelimitedText,
+            CSV,
 
             [Description("Tab-delimited text")]
-            TabDelimitedText,
+            TSV,
 
             [Description("JSON")]
             JSON,
 
             [Description("XML")]
             XML
+        }
+
+        private Dictionary<string, int> ParseColumnMap(string line, char separator, List<string> allowedColumnNames)
+        {
+            var map = new Dictionary<string, int>();
+
+            var tokens = line.ToLower().Split(separator);
+            for (var i = 0; i < tokens.Length; ++i)
+            {
+                if (allowedColumnNames.Contains(tokens[i]))
+                {
+                    map[tokens[i]] = i;
+                }
+            }
+
+            return map;
         }
     }
 }

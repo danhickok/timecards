@@ -226,13 +226,13 @@ namespace TimecardsTesting.IntegrationTests
             var bulk = new cl.BulkLogic(_factory);
 
             // export all data, CSV
-            var csvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.CommaDelimitedText);
+            var csvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.CSV);
             var csvLines = csvData.Split('\n');
             Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1, csvLines.Length,
                 "Bulk export all data as CSV did not yield expected number of lines");
 
             // export all data, tab-delimited
-            var tsvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.TabDelimitedText);
+            var tsvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.TSV);
             var tsvLines = tsvData.Split('\n');
             Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1, tsvLines.Length,
                 "Bulk export all data as TSV did not yield expected number of lines");
@@ -251,13 +251,13 @@ namespace TimecardsTesting.IntegrationTests
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             // export limited range, CSV
-            csvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.CommaDelimitedText);
+            csvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.CSV);
             csvLines = csvData.Split('\n');
             Assert.AreEqual(2 * tally.ActivityCount + 1, csvLines.Length,
                 "Bulk export range as CSV did not yield expected number of lines");
 
             // export limited range, tab-delimited
-            tsvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.TabDelimitedText);
+            tsvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.TSV);
             tsvLines = tsvData.Split('\n');
             Assert.AreEqual(2 * tally.ActivityCount + 1, tsvLines.Length,
                 "Bulk export all data as TSV did not yield expected number of lines");
@@ -284,7 +284,7 @@ namespace TimecardsTesting.IntegrationTests
 
             var csvPath = Path.GetTempFileName();
             tally = WriteCsvFile(csvPath);
-            bulk.Import(csvPath, cl.BulkLogic.DataFormat.CommaDelimitedText);
+            bulk.Import(csvPath, cl.BulkLogic.DataFormat.CSV);
 
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
@@ -299,7 +299,7 @@ namespace TimecardsTesting.IntegrationTests
 
             var tsvPath = Path.GetTempFileName();
             tally = WriteTsvFile(tsvPath);
-            bulk.Import(tsvPath, cl.BulkLogic.DataFormat.TabDelimitedText);
+            bulk.Import(tsvPath, cl.BulkLogic.DataFormat.TSV);
 
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,

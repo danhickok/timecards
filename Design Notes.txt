@@ -569,3 +569,13 @@ I'm rethinking the idea that the BulkLogic component should not actually read
 the contents of a file for the import operations, but rather it should instead
 accept a string value (granted, a very large one) - just as it emits a string
 value for the export operations.
+
+
+
+12/22/2019
+----------
+
+Also, the bulk logic import needs a way to report that the imported data isn't
+compatible, should their be missing named columns in the CSV or TSV formats, or
+the JSON parser can't make heads or tails of the content, etc.
+
