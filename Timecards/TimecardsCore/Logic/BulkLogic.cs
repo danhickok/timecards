@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
+using TimecardsCore.Models;
 
 namespace TimecardsCore.Logic
 {
@@ -15,10 +16,16 @@ namespace TimecardsCore.Logic
     {
         private readonly IFactory _factory;
 
+        #region Constructor
+
         public BulkLogic(IFactory factory)
         {
             _factory = factory;
         }
+
+        #endregion
+
+        #region Public methods
 
         public string Export(DateTime? startDate, DateTime? endDate, DataFormat format)
         {
@@ -112,6 +119,9 @@ namespace TimecardsCore.Logic
             switch (format)
             {
                 case DataFormat.CSV:
+                case DataFormat.TSV:
+                    var separator = (format == DataFormat.CSV ? ',' : '\t');
+
                     lines = content.Replace("\r", string.Empty).Split('\n');
                     if (lines.Length < 1)
                     {
@@ -119,41 +129,103 @@ namespace TimecardsCore.Logic
                         break;
                     }
 
-                    columnMap = ParseColumnMap(lines[0], ',', allowedColumnNames);
+                    columnMap = ParseColumnMap(lines[0], separator, allowedColumnNames);
 
-                    var missing = false;
+                    var someFieldsAreMissing = false;
                     for (var i = 0; i < allowedColumnNames.Count - 1; ++i)
                     {
                         if (!columnMap.ContainsKey(allowedColumnNames[i]))
                         {
                             report.AppendLine($"Content missing column name '{allowedColumnNames[i]}' on first line");
-                            missing = true;
+                            someFieldsAreMissing = true;
                         }
                     }
-                    if (missing)
+                    if (someFieldsAreMissing)
                     {
                         break;
                     }
 
-                    //TODO: sort remaining lines
-                    //TODO: parse and store, raising event for progress
-                    break;
+                    // parse and store, raising event for progress
+                    Timecard tc = null;
 
-                case DataFormat.TSV:
-                    lines = content.Replace("\r", string.Empty).Split('\n');
-                    if (lines.Length < 1)
+                    var lastDateString = "zzzz";
+                    for (var i = 1; i < lines.Length; ++i)
                     {
-                        report.AppendLine("Content contains no lines of text");
-                        break;
+                        //TODO: raise event
+
+                        var tokens = lines[i].Split(separator);
+
+                        if (tokens[columnMap["date"]] != lastDateString)
+                        {
+                            lastDateString = tokens[columnMap["date"]];
+
+                            if (tc != null)
+                            {
+                                repo.SaveTimecard(tc);
+                            }
+
+                            tc = new Timecard();
+                            if (DateTime.TryParse(StripQuotes(lastDateString), out DateTime newDate))
+                            {
+                                tc.Date = newDate;
+                            }
+                            else
+                            {
+                                report.AppendLine($"Could not parse value {lastDateString} as date on line {i + 1}");
+                                break;
+                            }
+                        }
+
+                        var activity = new Activity
+                        {
+                            Code = StripQuotes(tokens[columnMap["code"]]),
+                            Description = StripQuotes(tokens[columnMap["description"]]),
+                            Time = StripQuotes(tokens[columnMap["time"]])
+                        };
+
+                        if (columnMap.ContainsKey("isaftermidnight"))
+                        {
+                            if (Boolean.TryParse(StripQuotes(tokens[columnMap["isaftermidnight"]]), out bool newIsAfterMidnight))
+                            {
+                                activity.IsAfterMidnight = newIsAfterMidnight;
+                            }
+                            else
+                            {
+                                report.AppendLine(
+                                    $"Could not parse value {tokens[columnMap["isaftermidnight"]]} as boolean on line {i + 1}");
+                                break;
+                            }
+                        }
+
+                        tc.Activities.Add(activity);
                     }
 
-                    columnMap = ParseColumnMap(lines[0], ',', allowedColumnNames);
+                    if (tc != null && tc.IsDirty)
+                    {
+                        repo.SaveTimecard(tc);
+                    }
 
-                    //TODO: finish
                     break;
 
                 case DataFormat.JSON:
-                    //TODO: finish
+                    List<Timecard> tcList = null;
+
+                    try
+                    {
+                        tcList = JsonConvert.DeserializeObject<List<Timecard>>(content);
+                    }
+                    catch (Exception ex)
+                    {
+                        report.AppendLine($"Error occurred while parsing JSON data: {ex.Message}");
+                        break;
+                    }
+
+                    foreach (var timecard in tcList)
+                    {
+                        //TODO: raise event
+
+                        repo.SaveTimecard(timecard);
+                    }
                     break;
 
                 case DataFormat.XML:
@@ -167,20 +239,9 @@ namespace TimecardsCore.Logic
             return report.ToString();
         }
 
-        public enum DataFormat
-        {
-            [Description("Comma-delimited text")]
-            CSV,
+        #endregion
 
-            [Description("Tab-delimited text")]
-            TSV,
-
-            [Description("JSON")]
-            JSON,
-
-            [Description("XML")]
-            XML
-        }
+        #region Private methods
 
         private Dictionary<string, int> ParseColumnMap(string line, char separator, List<string> allowedColumnNames)
         {
@@ -197,5 +258,42 @@ namespace TimecardsCore.Logic
 
             return map;
         }
+
+        private string StripQuotes(string value)
+        {
+            if (value[0] == '"' && value[value.Length - 1] == '"')
+            {
+                var sb = new StringBuilder(value);
+                sb.Remove(0, 1);
+                sb.Remove(sb.Length - 1, 1);
+                sb.Replace("\\\"", "\"");
+                return sb.ToString();
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        #endregion
+
+        #region Nested definitions
+
+        public enum DataFormat
+        {
+            [Description("Comma-delimited text")]
+            CSV,
+
+            [Description("Tab-delimited text")]
+            TSV,
+
+            [Description("JSON")]
+            JSON,
+
+            [Description("XML")]
+            XML
+        }
+
+        #endregion
     }
 }

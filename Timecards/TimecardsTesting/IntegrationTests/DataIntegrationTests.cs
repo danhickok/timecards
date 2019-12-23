@@ -282,10 +282,12 @@ namespace TimecardsTesting.IntegrationTests
 
             // all these import tests create two timecards with two actions each
             tally = (TimecardCount: 2, ActivityCount: 2);
+            string result;
 
             // import CSV
             DeleteAllTimecards();
-            bulk.Import(CsvData(), cl.BulkLogic.DataFormat.CSV);
+            result = bulk.Import(CsvData(), cl.BulkLogic.DataFormat.CSV);
+            Assert.IsTrue(string.IsNullOrEmpty(result), $"CSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
@@ -295,7 +297,8 @@ namespace TimecardsTesting.IntegrationTests
 
             // import TSV
             DeleteAllTimecards();
-            bulk.Import(TsvData(), cl.BulkLogic.DataFormat.TSV);
+            result = bulk.Import(TsvData(), cl.BulkLogic.DataFormat.TSV);
+            Assert.IsTrue(string.IsNullOrEmpty(result), $"TSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
@@ -305,7 +308,8 @@ namespace TimecardsTesting.IntegrationTests
 
             // import JSON
             DeleteAllTimecards();
-            bulk.Import(JsonData(), cl.BulkLogic.DataFormat.JSON);
+            result = bulk.Import(JsonData(), cl.BulkLogic.DataFormat.JSON);
+            Assert.IsTrue(string.IsNullOrEmpty(result), $"JSON import resulted in message: {result}");
 
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
@@ -315,7 +319,8 @@ namespace TimecardsTesting.IntegrationTests
 
             // import XML
             DeleteAllTimecards();
-            bulk.Import(XmlData(), cl.BulkLogic.DataFormat.XML);
+            result = bulk.Import(XmlData(), cl.BulkLogic.DataFormat.XML);
+            Assert.IsTrue(string.IsNullOrEmpty(result), $"XML import resulted in message: {result}");
 
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,

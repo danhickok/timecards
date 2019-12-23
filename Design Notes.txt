@@ -576,6 +576,21 @@ value for the export operations.
 ----------
 
 Also, the bulk logic import needs a way to report that the imported data isn't
-compatible, should their be missing named columns in the CSV or TSV formats, or
+compatible, should there be missing named columns in the CSV or TSV formats, or
 the JSON parser can't make heads or tails of the content, etc.
+
+
+
+12/23/2019
+----------
+
+Got this curious EF error while running the import test on CSV:
+
+  Saving or accepting changes failed because more than one entity of type
+  'TimecardsData.Timecard' have the same primary key value. Ensure that
+  explicitly set primary key values are unique. Ensure that database-generated
+  primary keys are configured correctly in the database and in the Entity
+  Framework model. Use the Entity Designer for Database First/Model First
+  configuration. Use the 'HasDatabaseGeneratedOption" fluent API or
+  'DatabaseGeneratedAttribute' for Code First configuration.
 
