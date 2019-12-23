@@ -104,9 +104,11 @@ namespace TimecardsCore.Models
             }
         }
 
+        [JsonIgnore]
         public bool IsDirty { get; private set; }
 
         private Func<DateTime> _requestDateTime;
+        [JsonIgnore]
         public Func<DateTime> RequestTimecardDate
         {
             get
