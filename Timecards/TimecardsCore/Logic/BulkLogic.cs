@@ -243,8 +243,8 @@ namespace TimecardsCore.Logic
                         break;
                     }
 
-                    var root = xdoc.FirstChild;
-                    if (root.Name != "Timecards")
+                    var root = xdoc.SelectSingleNode("/Timecards");
+                    if (root?.Name != "Timecards")
                     {
                         report.AppendLine("Root node in XML data not named \"Timecards\"");
                         break;
