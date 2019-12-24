@@ -28,7 +28,7 @@ namespace TimecardsTesting.IntegrationTests
 
             // register a data repository like outermost layer would do
             _factory.Register<ci.IAppConstants>(typeof(Base.TestAppConstants), false);
-            _factory.Register<ci.IRepository>(typeof(data.Repository), true, typeof(ci.IAppConstants));
+            _factory.Register<ci.IRepository>(typeof(data.Repository), false, typeof(ci.IAppConstants));
         }
 
         [TestMethod]

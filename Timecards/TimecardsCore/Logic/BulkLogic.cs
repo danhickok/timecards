@@ -153,6 +153,9 @@ namespace TimecardsCore.Logic
                     {
                         //TODO: raise event
 
+                        if (string.IsNullOrWhiteSpace(lines[i]))
+                            continue;
+
                         var tokens = lines[i].Split(separator);
 
                         if (tokens[columnMap["date"]] != lastDateString)
@@ -261,7 +264,7 @@ namespace TimecardsCore.Logic
 
         private string StripQuotes(string value)
         {
-            if (value[0] == '"' && value[value.Length - 1] == '"')
+            if (value.Length > 1 && value[0] == '"' && value[value.Length - 1] == '"')
             {
                 var sb = new StringBuilder(value);
                 sb.Remove(0, 1);

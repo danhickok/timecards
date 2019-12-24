@@ -594,3 +594,5 @@ Got this curious EF error while running the import test on CSV:
   configuration. Use the 'HasDatabaseGeneratedOption" fluent API or
   'DatabaseGeneratedAttribute' for Code First configuration.
 
+Fixed that by changing the factory's repo object to a non-singleton.
+

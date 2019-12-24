@@ -22,7 +22,7 @@ namespace Timecards
 
             var factory = new ic.Factory();
             factory.Register<tc.Interfaces.IAppConstants>(typeof(ProductionAppConstants), true);
-            factory.Register<tc.Interfaces.IRepository>(typeof(td.Repository), true,
+            factory.Register<tc.Interfaces.IRepository>(typeof(td.Repository), false,
                 typeof(tc.Interfaces.IAppConstants));
 
             var mainForm = new ui.MainForm
