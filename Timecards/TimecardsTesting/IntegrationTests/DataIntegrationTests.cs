@@ -292,7 +292,7 @@ namespace TimecardsTesting.IntegrationTests
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
                 "Bulk import of CSV data does not produce expected number of timecards");
-            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of CSV data resulted in one or more timecards without correct number of activities");
 
             // import TSV
@@ -303,7 +303,7 @@ namespace TimecardsTesting.IntegrationTests
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
                 "Bulk import of TSV data does not produce expected number of timecards");
-            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of TSV data resulted in one or more timecards without correct number of activities");
 
             // import JSON
@@ -314,7 +314,7 @@ namespace TimecardsTesting.IntegrationTests
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
                 "Bulk import of JSON data does not produce expected number of timecards");
-            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of JSON data resulted in one or more timecards without correct number of activities");
 
             // import XML
@@ -325,7 +325,7 @@ namespace TimecardsTesting.IntegrationTests
             tcList = GetAllTimecards();
             Assert.AreEqual(tally.TimecardCount, tcList.Count,
                 "Bulk import of XML data does not produce expected number of timecards");
-            Assert.IsTrue(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
+            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of XML data resulted in one or more timecards without correct number of activities");
         }
 

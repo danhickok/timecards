@@ -232,7 +232,88 @@ namespace TimecardsCore.Logic
                     break;
 
                 case DataFormat.XML:
-                    //TODO: finish
+                    var xdoc = new XmlDocument();
+                    try
+                    {
+                        xdoc.LoadXml(content);
+                    }
+                    catch (Exception ex)
+                    {
+                        report.AppendLine($"Error occurred while parsing XML data: {ex.Message}");
+                        break;
+                    }
+
+                    var root = xdoc.FirstChild;
+                    if (root.Name != "Timecards")
+                    {
+                        report.AppendLine("Root node in XML data not named \"Timecards\"");
+                        break;
+                    }
+
+                    if (root.HasChildNodes)
+                    {
+                        for (var i = 0; i < root.ChildNodes.Count; i++)
+                        {
+                            //TODO: raise event
+
+                            var tcNode = root.ChildNodes[i];
+                            if (tcNode.Name != "Timecard")
+                            {
+                                report.AppendLine("Expected parent node in XML data not named \"Timecard\"");
+                                break;
+                            }
+
+                            var tcAttributes = tcNode.Attributes;
+
+                            var tcAttrDate = tcAttributes["Date"];
+                            if (tcAttrDate == null)
+                            {
+                                report.AppendLine($"Timecard node {i} missing Date attribute");
+                                break;
+                            }
+
+                            tc = new Timecard();
+
+                            if (DateTime.TryParse(tcAttributes["Date"].Value, out DateTime newDate))
+                            {
+                                tc.Date = newDate;
+                            }
+                            else
+                            {
+                                report.AppendLine(
+                                    $"Timecard node {i} Date attribute value \"{tcAttributes["Date"].Value}\" could not be parsed");
+                                break;
+                            }
+
+                            if (tcNode.HasChildNodes)
+                            {
+                                var acCollNode = tcNode.ChildNodes[0];
+                                if (acCollNode.HasChildNodes)
+                                {
+                                    for (var j = 0; j < acCollNode.ChildNodes.Count; ++j)
+                                    {
+                                        var acNode = acCollNode.ChildNodes[j];
+
+                                        var activity = new Activity();
+
+                                        activity.Code = $"{acNode.Attributes["Code"]?.Value}";
+                                        activity.Description = $"{acNode.Attributes["Description"]?.Value}";
+                                        activity.Time = $"{acNode.Attributes["Time"]?.Value}";
+
+                                        if (Boolean.TryParse($"{ acNode.Attributes["IsAfterMidnight"]?.Value}",
+                                            out bool newIsAfterMidnight))
+                                        {
+                                            activity.IsAfterMidnight = newIsAfterMidnight;
+                                        }
+
+                                        tc.Activities.Add(activity);
+                                    }
+                                }
+                            }
+
+                            repo.SaveTimecard(tc);
+                        }
+                    }
                     break;
 
                 default:
