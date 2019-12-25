@@ -7,13 +7,18 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using TimecardsCore.ExtensionMethods;
+using TimecardsCore.Events;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Models;
 
 namespace TimecardsCore.Logic
 {
+    public delegate void ProgressReportHandler(int current, int goal);
+
     public class BulkLogic
     {
+        //public event ProgressReporter xxxx;
+
         private readonly IFactory _factory;
 
         #region Constructor

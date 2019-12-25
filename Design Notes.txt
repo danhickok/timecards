@@ -500,8 +500,8 @@ TO DO
 -----
 
 [/] Support for 12-hour as well as 24-hour time formats
-[ ] Make items entered by UI after midnight to be marked as such
-[ ] Resolve intermittent error that causes program-stopping exception
+[/] Make items entered by UI after midnight to be marked as such
+[?] Resolve intermittent error that causes program-stopping exception
 [ ] Show program-stopping exception in a custom window that allows copy/paste
 [ ] Complete "About" dialog
 [ ] Find a way to show help information (most likely a web page, not CHM)

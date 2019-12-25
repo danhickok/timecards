@@ -18,13 +18,17 @@ namespace Timecards
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // load the application configuration from the settings file
             tc.Configuration.Load();
 
+            // create the inversion-of-control container and give it the production constants object
+            // (this establishes the path to the database for normal operation, among other things)
             var factory = new ic.Factory();
             factory.Register<tc.Interfaces.IAppConstants>(typeof(ProductionAppConstants), true);
             factory.Register<tc.Interfaces.IRepository>(typeof(td.Repository), false,
                 typeof(tc.Interfaces.IAppConstants));
 
+            // create the main form object and establish its last known position, if available
             var mainForm = new ui.MainForm
             {
                 Factory = factory
@@ -46,6 +50,7 @@ namespace Timecards
                 mainForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
             }
 
+            // open the main form and run the application
             try
             {
                 Application.Run(mainForm);
