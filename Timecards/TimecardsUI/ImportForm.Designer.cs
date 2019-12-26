@@ -88,6 +88,7 @@
             this.FileNameTextBox.Name = "FileNameTextBox";
             this.FileNameTextBox.Size = new System.Drawing.Size(271, 23);
             this.FileNameTextBox.TabIndex = 1;
+            this.FileNameTextBox.TextChanged += new System.EventHandler(this.FileNameTextBox_TextChanged);
             // 
             // FileDialogButton
             // 
@@ -97,6 +98,7 @@
             this.FileDialogButton.TabIndex = 2;
             this.FileDialogButton.Text = "...";
             this.FileDialogButton.UseVisualStyleBackColor = true;
+            this.FileDialogButton.Click += new System.EventHandler(this.FileDialogButton_Click);
             // 
             // FileTypeComboBox
             // 
@@ -126,7 +128,8 @@
             // 
             // FileOpenDialog
             // 
-            this.FileOpenDialog.FileName = "openFileDialog1";
+            this.FileOpenDialog.Filter = "CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|XML files|*.xml|All files|*.*";
+            this.FileOpenDialog.Title = "Timecards - Import Data From";
             // 
             // ImportForm
             // 

@@ -39,7 +39,6 @@ namespace TimecardsUI
             try
             {
                 DisableAllControls();
-                this.Refresh();
 
                 DateTime? startDate = null;
                 DateTime? endDate = null;
@@ -55,11 +54,12 @@ namespace TimecardsUI
 
                 using (var sw = new StreamWriter(FileNameTextBox.Text.Trim()))
                 {
-                    var bl = new BulkLogic(_factory);
-                    sw.Write(bl.Export(startDate, endDate, format));
+                    var logic = new BulkLogic(_factory);
+                    sw.Write(logic.Export(startDate, endDate, format));
                 }
 
-                MessageBox.Show("Export successful", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Export successful",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -86,6 +86,11 @@ namespace TimecardsUI
             SetFileTypeBasedOnExtension(path);
         }
 
+        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
+        }
+
         private void SetFileTypeBasedOnExtension(string path)
         {
             for (var i = 0; i < formatChoices.Length; ++i)
@@ -96,11 +101,6 @@ namespace TimecardsUI
                     break;
                 }
             }
-        }
-
-        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
         }
 
         private void RadioButtonAllData_CheckedChanged(object sender, EventArgs e)
@@ -122,6 +122,7 @@ namespace TimecardsUI
         private void DisableAllControls()
         {
             this.Enabled = false;
+            this.Refresh();
         }
     }
 }

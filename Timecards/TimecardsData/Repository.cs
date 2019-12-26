@@ -60,7 +60,7 @@ namespace TimecardsData
         {
             // query may not get exact matches on dates, so expand range by one second on each end
             DateTime minDate = new DateTime(9999, 12, 31);
-            DateTime maxDate = new DateTime(9999, 12, 31);
+            DateTime maxDate = new DateTime(1900, 1, 1);
 
             if (startDate.HasValue)
                 minDate = startDate.Value.AddSeconds(-1);

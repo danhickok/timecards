@@ -188,6 +188,7 @@ namespace TimecardsUI
             Log("MainMenuFileImport_Click event");
 
             var importForm = new ImportForm();
+            importForm.SetFactory(Factory);
             importForm.ShowDialog(this);
             importForm.Dispose();
         }
