@@ -173,7 +173,13 @@ namespace TimecardsCore.Logic
                     var lastDateString = "zzzz";
                     for (var i = 1; i < lines.Length; ++i)
                     {
-                        OnProgressUpdated(new ProgressUpdateEventArgs(i + 1, lines.Length));
+                        var eventArgs = new ProgressUpdateEventArgs(i + 1, lines.Length);
+                        OnProgressUpdated(eventArgs);
+                        if (eventArgs.Cancel)
+                        {
+                            report.AppendLine("Import was canceled by the user");
+                            break;
+                        }
 
                         if (string.IsNullOrWhiteSpace(lines[i]))
                             continue;
@@ -222,6 +228,10 @@ namespace TimecardsCore.Logic
                                 break;
                             }
                         }
+                        else
+                        {
+                            activity.IsAfterMidnight = false;
+                        }
 
                         tc.Activities.Add(activity);
                     }
@@ -249,7 +259,13 @@ namespace TimecardsCore.Logic
 
                     for (var i = 0; i < tcList.Count; ++i)
                     {
-                        OnProgressUpdated(new ProgressUpdateEventArgs(i + 1, tcList.Count));
+                        var eventArgs = new ProgressUpdateEventArgs(i + 1, tcList.Count);
+                        OnProgressUpdated(eventArgs);
+                        if (eventArgs.Cancel)
+                        {
+                            report.AppendLine("Import was canceled by the user");
+                            break;
+                        }
 
                         repo.SaveTimecard(tcList[i]);
                     }
@@ -278,7 +294,13 @@ namespace TimecardsCore.Logic
                     {
                         for (var i = 0; i < root.ChildNodes.Count; i++)
                         {
-                            OnProgressUpdated(new ProgressUpdateEventArgs(i + 1, root.ChildNodes.Count));
+                            var eventArgs = new ProgressUpdateEventArgs(i + 1, root.ChildNodes.Count);
+                            OnProgressUpdated(eventArgs);
+                            if (eventArgs.Cancel)
+                            {
+                                report.AppendLine("Import was canceled by the user");
+                                break;
+                            }
 
                             var tcNode = root.ChildNodes[i];
                             if (tcNode.Name != "Timecard")

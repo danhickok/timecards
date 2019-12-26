@@ -528,6 +528,11 @@ TO DO
 [ ] Add an option to report tab for rounding hours to nearest .1, .25, etc.
 [ ] Make entire UI DPI-aware
 [ ] The "after midnight" control (^M) seems to hit the wrong Activities row
+[ ] You need to get the bulk import to work in a separate thread so that the
+    cancel button can actually cancel the import
+[ ] For some reason all the imported data is always set to "after midnight"
+[ ] The file dialogs in both import and export should put the selected format
+    at the top of the filter options
 
 
 
@@ -596,4 +601,14 @@ Got this curious EF error while running the import test on CSV:
   'DatabaseGeneratedAttribute' for Code First configuration.
 
 Fixed that by changing the factory's repo object to a non-singleton.
+
+
+
+12/26/2019
+----------
+
+This is getting exciting!  The export now works.  The import sort of works -
+I've logged a few problems in the TO DO list above.  I'm finally going to have
+to figure out how to do multithreaded processing in a form.  (It's been on my
+"to learn" list for ages!)
 

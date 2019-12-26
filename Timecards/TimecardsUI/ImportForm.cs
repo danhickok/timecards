@@ -18,6 +18,8 @@ namespace TimecardsUI
     public partial class ImportForm : Form
     {
         private IFactory _factory;
+        private bool _running = false;
+        private bool _canceled = false;
 
         private readonly BulkLogic.DataFormat[] formatChoices = new[]
         {
@@ -51,8 +53,11 @@ namespace TimecardsUI
                     return;
             }
 
-            DisableAllControls();
+            DisableAllControlsExceptCancelButton();
             ShowProgressBar();
+
+            _running = true;
+            _canceled = false;
 
             BulkLogic.DataFormat format = formatChoices[FileTypeComboBox.SelectedIndex];
 
@@ -97,12 +102,24 @@ namespace TimecardsUI
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (_running)
+            {
+                _canceled = true;
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
-        private void DisableAllControls()
+        private void DisableAllControlsExceptCancelButton()
         {
-            this.Enabled = false;
+            FileNameTextBox.Enabled = false;
+            FileDialogButton.Enabled = false;
+            FileTypeComboBox.Enabled = false;
+            EraseExistingDataCheckBox.Enabled = false;
+            ImportButton.Enabled = false;
+
             this.Refresh();
 
         }
@@ -110,6 +127,8 @@ namespace TimecardsUI
         private void ShowProgressBar()
         {
             ImportProgressBar.Visible = true;
+            ImportProgressBar.Enabled = true;
+
             this.Refresh();
         }
 
@@ -118,6 +137,8 @@ namespace TimecardsUI
             ImportProgressBar.Minimum = 0;
             ImportProgressBar.Maximum = e.Goal;
             ImportProgressBar.Value = e.Current;
+
+            e.Cancel = _canceled;
 
             this.Refresh();
         }

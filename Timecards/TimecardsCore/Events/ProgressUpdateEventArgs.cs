@@ -9,11 +9,13 @@ namespace TimecardsCore.Events
     {
         public readonly int Current;
         public readonly int Goal;
+        public bool Cancel;
 
         public ProgressUpdateEventArgs(int current, int goal)
         {
             Current = current;
             Goal = goal;
+            Cancel = false;
         }
     }
 }
