@@ -53,6 +53,7 @@
             this.FileDialogButton.TabIndex = 2;
             this.FileDialogButton.Text = "...";
             this.FileDialogButton.UseVisualStyleBackColor = true;
+            this.FileDialogButton.Click += new System.EventHandler(this.FileDialogButton_Click);
             // 
             // FileNameTextBox
             // 
@@ -60,6 +61,7 @@
             this.FileNameTextBox.Name = "FileNameTextBox";
             this.FileNameTextBox.Size = new System.Drawing.Size(318, 23);
             this.FileNameTextBox.TabIndex = 1;
+            this.FileNameTextBox.TextChanged += new System.EventHandler(this.FileNameTextBox_TextChanged);
             // 
             // FileNameLabel
             // 
@@ -110,6 +112,11 @@
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
+            // FileSaveDialog
+            // 
+            this.FileSaveDialog.Filter = "CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|XML files|*.xml|All files|*.*";
+            this.FileSaveDialog.Title = "Timecards - Save Exported Data As";
+            // 
             // RadioButtonAllData
             // 
             this.RadioButtonAllData.AutoSize = true;
@@ -121,6 +128,7 @@
             this.RadioButtonAllData.TabStop = true;
             this.RadioButtonAllData.Text = "Export all data";
             this.RadioButtonAllData.UseVisualStyleBackColor = true;
+            this.RadioButtonAllData.CheckedChanged += new System.EventHandler(this.RadioButtonAllData_CheckedChanged);
             // 
             // RadioButtonDateRange
             // 
@@ -131,6 +139,7 @@
             this.RadioButtonDateRange.TabIndex = 6;
             this.RadioButtonDateRange.Text = "Export data for dates";
             this.RadioButtonDateRange.UseVisualStyleBackColor = true;
+            this.RadioButtonDateRange.CheckedChanged += new System.EventHandler(this.RadioButtonDateRange_CheckedChanged);
             // 
             // LabelFromDate
             // 

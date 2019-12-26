@@ -58,11 +58,20 @@ namespace TimecardsData
 
         public List<core.Timecard> GetTimecards(DateTime? startDate, DateTime? endDate)
         {
+            // query may not get exact matches on dates, so expand range by one second on each end
+            DateTime minDate = new DateTime(9999, 12, 31);
+            DateTime maxDate = new DateTime(9999, 12, 31);
+
+            if (startDate.HasValue)
+                minDate = startDate.Value.AddSeconds(-1);
+            if (endDate.HasValue)
+                maxDate = endDate.Value.AddSeconds(1);
+
             return _context.Timecards
                 .Include("Activities")
                 .Where(tc =>
-                    (startDate == null || tc.Date >= startDate) &&
-                    (endDate == null || tc.Date <= endDate))
+                    (startDate == null || tc.Date >= minDate) &&
+                    (endDate == null || tc.Date <= maxDate))
                 .OrderBy(tc => tc.Date)
                 .ToList()
                 .Select(t => t.ToCore())

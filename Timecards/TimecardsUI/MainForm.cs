@@ -178,6 +178,7 @@ namespace TimecardsUI
             Log("MainMenuFileExport_Click event");
 
             var exportForm = new ExportForm();
+            exportForm.SetFactory(Factory);
             exportForm.ShowDialog(this);
             exportForm.Dispose();
         }
