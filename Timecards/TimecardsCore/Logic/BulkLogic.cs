@@ -13,11 +13,9 @@ using TimecardsCore.Models;
 
 namespace TimecardsCore.Logic
 {
-    public delegate void ProgressReportHandler(int current, int goal);
-
     public class BulkLogic
     {
-        //public event ProgressReporter xxxx;
+        public event EventHandler<ProgressUpdateEventArgs> ProgressUpdated;
 
         private readonly IFactory _factory;
 
@@ -156,7 +154,7 @@ namespace TimecardsCore.Logic
                     var lastDateString = "zzzz";
                     for (var i = 1; i < lines.Length; ++i)
                     {
-                        //TODO: raise event
+                        OnProgressUpdated(new ProgressUpdateEventArgs(i, lines.Length - 1));
 
                         if (string.IsNullOrWhiteSpace(lines[i]))
                             continue;
@@ -228,11 +226,11 @@ namespace TimecardsCore.Logic
                         break;
                     }
 
-                    foreach (var timecard in tcList)
+                    for (var i = 0; i < tcList.Count; ++i)
                     {
-                        //TODO: raise event
+                        OnProgressUpdated(new ProgressUpdateEventArgs(i, tcList.Count - 1));
 
-                        repo.SaveTimecard(timecard);
+                        repo.SaveTimecard(tcList[i]);
                     }
                     break;
 
@@ -259,7 +257,7 @@ namespace TimecardsCore.Logic
                     {
                         for (var i = 0; i < root.ChildNodes.Count; i++)
                         {
-                            //TODO: raise event
+                            OnProgressUpdated(new ProgressUpdateEventArgs(i, root.ChildNodes.Count - 1));
 
                             var tcNode = root.ChildNodes[i];
                             if (tcNode.Name != "Timecard")
@@ -361,6 +359,14 @@ namespace TimecardsCore.Logic
             else
             {
                 return value;
+            }
+        }
+
+        private void OnProgressUpdated(ProgressUpdateEventArgs e)
+        {
+            if (ProgressUpdated != null)
+            {
+                ProgressUpdated(this, e);
             }
         }
 
