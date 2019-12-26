@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimecardsCore;
 
@@ -170,7 +165,7 @@ namespace TimecardsUI
             var codeTop = DefaultCodesListView.Location.Y + _itemBeingEdited.Position.Y + 2;
             var codeLeft = DefaultCodesListView.Location.X + _itemBeingEdited.Position.X + 4;
             var codeWidth = DefaultCodesListView.Columns[0].Width - 8;
-            
+
             var descriptionTop = codeTop;
             var descriptionLeft = codeLeft + DefaultCodesListView.Columns[0].Width;
             var descriptionWidth = DefaultCodesListView.Columns[1].Width - 8;

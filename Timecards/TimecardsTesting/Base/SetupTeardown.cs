@@ -42,7 +42,7 @@ namespace TimecardsTesting.Base
             // force garbage collector to run finalizers to clean up SqlLite's open file handles
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            
+
             // delete the test database if it exists
             var connStringName = new TestAppConstants().ConnectionStringName;
             var connString = ConfigurationManager.ConnectionStrings[connStringName].ConnectionString;

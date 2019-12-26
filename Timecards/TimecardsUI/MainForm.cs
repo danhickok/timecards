@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -46,11 +45,11 @@ namespace TimecardsUI
             _beforeMidnightBackgroundColor = SystemColors.Window;
             _beforeMidnightAlternateBackgroundColor = SystemColors.ButtonFace;
             SetAfterMidnightRowColors();
-            
+
             // fix the creeping bottom edge design problem in VS
             ActivitiesGrid.Height =
                 MainTabActivities.ClientRectangle.Height - ActivitiesGrid.Top - ActivitiesGrid.Left;
-            
+
             FindGridVScrollBarControl();
 
             ClearStatusMessage();
@@ -81,7 +80,7 @@ namespace TimecardsUI
             {
                 tc = _timecardLogic.GetNewTimecard();
             }
-            
+
             MainDate.Value = tc.Date;
             UpdateMainDateLabel();
             PopulateActivitiesGrid();
@@ -247,7 +246,7 @@ namespace TimecardsUI
                 {
                     _timecardLogic.GetNewTimecard();
                 }
-                
+
                 MainDate.Value = _timecardLogic.GetCurrentTimecard().Date;
                 UpdateMainDateLabel();
                 PopulateActivitiesGrid();
@@ -270,7 +269,8 @@ namespace TimecardsUI
             SetStatusMessage("Sorting activities by time...");
 
             var tc = _timecardLogic.GetCurrentTimecard();
-            tc.Activities.Sort((a, b) => {
+            tc.Activities.Sort((a, b) =>
+            {
                 if (a.StartMinute < b.StartMinute)
                     return -1;
                 else if (a.StartMinute > b.StartMinute)
@@ -455,7 +455,7 @@ namespace TimecardsUI
 
             var report = _reportLogic.GetReport(
                 ReportDateStart.Value.Date, ReportDateEnd.Value.Date);
-            
+
             ReportListView.Items.Clear();
 
             var totalMinutes = 0;
@@ -475,7 +475,7 @@ namespace TimecardsUI
                 });
 
                 ReportListView.Items.Add(row);
-                
+
                 totalMinutes += item.TotalMinutes;
                 totalHours += hours;
             }
@@ -598,7 +598,7 @@ namespace TimecardsUI
             _loading = true;
 
             var activity = CurrentActivity(e.RowIndex);
-            
+
             if ((e.ColumnIndex == 0 || e.ColumnIndex == 1)
                 && string.IsNullOrWhiteSpace(ActivitiesGrid.Rows[e.RowIndex].Cells[2].Value?.ToString()))
             {

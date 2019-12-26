@@ -2,6 +2,9 @@
 
 namespace TimecardsData
 {
+    /// <summary>
+    /// DTO class for activity
+    /// </summary>
     public class Activity
     {
         [Key]

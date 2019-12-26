@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimecardsUI
@@ -25,6 +18,8 @@ namespace TimecardsUI
         private void AboutForm_Load(object sender, EventArgs e)
         {
             LabelVersion.Text = "Version " + Application.ProductVersion;
+
+            AuthorTextBox.Text = "This is an open source application available on Github";
         }
     }
 }

@@ -15,6 +15,9 @@ namespace TimecardsData
     // would be a bad practice; but for this application, the amount of data
     // retrieved is expected to be manageable.
 
+    /// <summary>
+    /// See the corresponding interface for descriptions of the properties and methods of this class
+    /// </summary>
     public class Repository : IRepository, IDisposable
     {
         private readonly TimecardsContext _context = null;
@@ -224,7 +227,7 @@ namespace TimecardsData
 
         public List<core.ReportItem> GetReport(DateTime startDate, DateTime endDate)
         {
-            // query doesn't seem to get exact matches on dates, so expand range by one second on each end
+            // query may not get exact matches on dates, so expand range by one second on each end
             var minDate = startDate.AddSeconds(-1);
             var maxDate = endDate.AddSeconds(1);
 

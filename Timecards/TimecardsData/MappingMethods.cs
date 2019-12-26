@@ -3,6 +3,9 @@ using core = TimecardsCore.Models;
 
 namespace TimecardsData
 {
+    /// <summary>
+    /// This class holds extension methods for mapping between Core classes and their corresponding DTO classes
+    /// </summary>
     public static class MappingMethods
     {
         #region Timecard methods

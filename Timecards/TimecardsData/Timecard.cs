@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TimecardsData
 {
+    /// <summary>
+    /// DTO class for timecard
+    /// </summary>
     public class Timecard
     {
         public Timecard()

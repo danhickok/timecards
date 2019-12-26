@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimecardsCore.Events
 {
+    /// <summary>
+    /// This class is used by the BulkLogic class when importing data to report the progress of the import.
+    /// </summary>
     public class ProgressUpdateEventArgs : EventArgs
     {
         public readonly int Current;

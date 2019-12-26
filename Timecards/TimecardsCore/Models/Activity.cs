@@ -5,6 +5,9 @@ using TimecardsCore.Exceptions;
 
 namespace TimecardsCore.Models
 {
+    /// <summary>
+    /// This class holds an activity for a timecard: what was done, when it was started, and what for (the code)
+    /// </summary>
     public class Activity
     {
         private readonly char TIMESEP;

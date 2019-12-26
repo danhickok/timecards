@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimecardsUI
@@ -38,7 +32,7 @@ namespace TimecardsUI
                     Tag = item.Key.ToString(),
                     Text = item.Date.ToString("d"),
                 };
-                
+
                 entry.SubItems.Add(new ListViewItem.ListViewSubItem
                 {
                     Text = item.Date.DayOfWeek.ToString(),

@@ -4,20 +4,57 @@ using System.Text;
 
 namespace TimecardsCore
 {
+    /// <summary>
+    /// This class holds configuration data stored in the application's config file
+    /// </summary>
     public static class Configuration
     {
         private static readonly char SEP1 = '\n';
         private static readonly char SEP2 = '\t';
 
+        /// <summary>
+        /// Indicates how default time for new activities is determined
+        /// </summary>
         public static int RoundCurrentTimeToMinutes { get; set; }
+
+        /// <summary>
+        /// Used by UI for conforming entered code values
+        /// </summary>
         public static string CodeMask { get; set; }
+
+        /// <summary>
+        /// Used by UI for conforming entered time values
+        /// </summary>
         public static string TimeMask { get; set; }
+
+        /// <summary>
+        /// Hour/minute separator character used for time values
+        /// </summary>
         public static char TimeSeparator { get; set; }
+
+        /// <summary>
+        /// True if time is entered in 24-hour values
+        /// </summary>
         public static bool Use24HourTime { get; set; }
+
+        /// <summary>
+        /// Tint used by UI to mark activity that starts in the day after the timecard's date
+        /// </summary>
         public static System.Drawing.Color MidnightTint { get; set; }
+
+        /// <summary>
+        /// List of descriptions for certain codes, used by UI for automatically populating description field
+        /// </summary>
         public static Dictionary<string, string> DefaultCodes { get; private set; }
+        
+        /// <summary>
+        /// Set this to true so that the current time can be overridden for testing purposes
+        /// </summary>
         public static bool TestMode { get; set; }
 
+        /// <summary>
+        /// Retrieves either current time (in production) or given time (in test mode)
+        /// </summary>
         private static DateTime _testTime;
         public static DateTime CurrentDateTime
         {
@@ -37,6 +74,8 @@ namespace TimecardsCore
             }
         }
 
+        #region Static class constructor
+
         static Configuration()
         {
             TestMode = false;
@@ -45,6 +84,11 @@ namespace TimecardsCore
             DefaultCodes = new Dictionary<string, string>();
         }
 
+        #endregion
+
+        /// <summary>
+        /// Loads the configuration data from the config file
+        /// </summary>
         public static void Load()
         {
             RoundCurrentTimeToMinutes = Properties.Settings.Default.RoundCurrentTimeToMinutes;
@@ -67,6 +111,9 @@ namespace TimecardsCore
             }
         }
 
+        /// <summary>
+        /// Saves the configuration data to the config file
+        /// </summary>
         public static void Save()
         {
             Properties.Settings.Default.RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;

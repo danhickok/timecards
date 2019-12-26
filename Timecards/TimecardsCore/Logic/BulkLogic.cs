@@ -1,20 +1,26 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Xml;
-using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Events;
+using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Models;
 
 namespace TimecardsCore.Logic
 {
+    /// <summary>
+    /// This class is used for importing and exporting timecard data; for the import operation, it raises an
+    /// event to report the progress of the import
+    /// </summary>
     public class BulkLogic
     {
+        /// <summary>
+        /// Reports the progress of the import
+        /// </summary>
         public event EventHandler<ProgressUpdateEventArgs> ProgressUpdated;
 
         private readonly IFactory _factory;
@@ -30,6 +36,13 @@ namespace TimecardsCore.Logic
 
         #region Public methods
 
+        /// <summary>
+        /// Exports timecard data in given date range to a string in the given format
+        /// </summary>
+        /// <param name="startDate">Low end of date range</param>
+        /// <param name="endDate">High end of date range</param>
+        /// <param name="format">Enum value corresponding to CSV, TSV, JSON, or XML format</param>
+        /// <returns>String of data encoded in given format</returns>
         public string Export(DateTime? startDate, DateTime? endDate, DataFormat format)
         {
             var repo = _factory.Resolve<IRepository>();
@@ -110,6 +123,12 @@ namespace TimecardsCore.Logic
             }
         }
 
+        /// <summary>
+        /// Imports timecard data from the given string; raises ProgressUpdated event as timecards are imported
+        /// </summary>
+        /// <param name="content">The data to be imported, in given format</param>
+        /// <param name="format">Enum value corresponding to CSV, TSV, JSON, or XML format</param>
+        /// <returns>String containing error message (if any) encountered during import</returns>
         public string Import(string content, DataFormat format)
         {
             string[] lines;
@@ -154,11 +173,12 @@ namespace TimecardsCore.Logic
                     var lastDateString = "zzzz";
                     for (var i = 1; i < lines.Length; ++i)
                     {
-                        OnProgressUpdated(new ProgressUpdateEventArgs(i, lines.Length - 1));
+                        OnProgressUpdated(new ProgressUpdateEventArgs(i + 1, lines.Length));
 
                         if (string.IsNullOrWhiteSpace(lines[i]))
                             continue;
 
+                        //TODO: this is a naive parse that doesn't account for separators inside quoted values - ought to be improved
                         var tokens = lines[i].Split(separator);
 
                         if (tokens[columnMap["date"]] != lastDateString)
@@ -214,10 +234,11 @@ namespace TimecardsCore.Logic
                     break;
 
                 case DataFormat.JSON:
-                    List<Timecard> tcList = null;
+                    List<Timecard> tcList;
 
                     try
                     {
+                        // all the parsing work is assumed to be done by the JsonConvert class
                         tcList = JsonConvert.DeserializeObject<List<Timecard>>(content);
                     }
                     catch (Exception ex)
@@ -228,7 +249,7 @@ namespace TimecardsCore.Logic
 
                     for (var i = 0; i < tcList.Count; ++i)
                     {
-                        OnProgressUpdated(new ProgressUpdateEventArgs(i, tcList.Count - 1));
+                        OnProgressUpdated(new ProgressUpdateEventArgs(i + 1, tcList.Count));
 
                         repo.SaveTimecard(tcList[i]);
                     }
@@ -257,7 +278,7 @@ namespace TimecardsCore.Logic
                     {
                         for (var i = 0; i < root.ChildNodes.Count; i++)
                         {
-                            OnProgressUpdated(new ProgressUpdateEventArgs(i, root.ChildNodes.Count - 1));
+                            OnProgressUpdated(new ProgressUpdateEventArgs(i + 1, root.ChildNodes.Count));
 
                             var tcNode = root.ChildNodes[i];
                             if (tcNode.Name != "Timecard")
@@ -297,11 +318,12 @@ namespace TimecardsCore.Logic
                                     {
                                         var acNode = acCollNode.ChildNodes[j];
 
-                                        var activity = new Activity();
-
-                                        activity.Code = $"{acNode.Attributes["Code"]?.Value}";
-                                        activity.Description = $"{acNode.Attributes["Description"]?.Value}";
-                                        activity.Time = $"{acNode.Attributes["Time"]?.Value}";
+                                        var activity = new Activity
+                                        {
+                                            Code = $"{acNode.Attributes["Code"]?.Value}",
+                                            Description = $"{acNode.Attributes["Description"]?.Value}",
+                                            Time = $"{acNode.Attributes["Time"]?.Value}"
+                                        };
 
                                         if (Boolean.TryParse($"{ acNode.Attributes["IsAfterMidnight"]?.Value}",
                                             out bool newIsAfterMidnight))
@@ -364,10 +386,7 @@ namespace TimecardsCore.Logic
 
         private void OnProgressUpdated(ProgressUpdateEventArgs e)
         {
-            if (ProgressUpdated != null)
-            {
-                ProgressUpdated(this, e);
-            }
+            ProgressUpdated?.Invoke(this, e);
         }
 
         #endregion

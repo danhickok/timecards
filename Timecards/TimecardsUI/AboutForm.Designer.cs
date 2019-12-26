@@ -33,6 +33,7 @@
             this.LabelTitle = new System.Windows.Forms.Label();
             this.LabelVersion = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.AuthorTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,10 +77,22 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // AuthorTextBox
+            // 
+            this.AuthorTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.AuthorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AuthorTextBox.Location = new System.Drawing.Point(20, 75);
+            this.AuthorTextBox.Multiline = true;
+            this.AuthorTextBox.Name = "AuthorTextBox";
+            this.AuthorTextBox.Size = new System.Drawing.Size(132, 66);
+            this.AuthorTextBox.TabIndex = 4;
+            this.AuthorTextBox.Text = "(Author set by code)";
+            // 
             // AboutForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(300, 193);
+            this.Controls.Add(this.AuthorTextBox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.LabelVersion);
             this.Controls.Add(this.LabelTitle);
@@ -105,5 +118,6 @@
         private System.Windows.Forms.Label LabelTitle;
         private System.Windows.Forms.Label LabelVersion;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox AuthorTextBox;
     }
 }

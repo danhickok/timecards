@@ -3,6 +3,9 @@ using System;
 
 namespace TimecardsCore.Models
 {
+    /// <summary>
+    /// This class holds a timecard and its corresponding list of activities
+    /// </summary>
     public class Timecard
     {
         #region Public properties

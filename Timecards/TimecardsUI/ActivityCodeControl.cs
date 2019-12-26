@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimecardsCore;
 
@@ -41,7 +37,8 @@ namespace TimecardsUI
             set => this.Text = value.ToString();
         }
 
-        public bool EditingControlValueChanged {
+        public bool EditingControlValueChanged
+        {
             get => _valueChanged;
             set => _valueChanged = value;
         }

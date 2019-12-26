@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TimecardsCore.Models
 {
+    /// <summary>
+    /// This class exposes the parents' date value to each child by way of a delegate
+    /// </summary>
     public class ActivityList : List<Activity>
     {
         private Timecard _timecard;

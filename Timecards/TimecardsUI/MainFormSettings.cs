@@ -1,7 +1,13 @@
 ﻿namespace TimecardsUI
 {
+    /// <summary>
+    /// This class maintains the last known position of the main form and its grid column sizes
+    /// </summary>
     public static class MainFormSettings
     {
+        /// <summary>
+        /// True if a previously known position of the form has been recorded
+        /// </summary>
         public static bool HaveBeenSet
         {
             get
@@ -15,6 +21,9 @@
             }
         }
 
+        /// <summary>
+        /// Top of form
+        /// </summary>
         public static int Top
         {
             get
@@ -30,6 +39,9 @@
             }
         }
 
+        /// <summary>
+        /// Left edge of form
+        /// </summary>
         public static int Left
         {
             get
@@ -45,6 +57,9 @@
             }
         }
 
+        /// <summary>
+        /// Height of form
+        /// </summary>
         public static int Height
         {
             get
@@ -60,6 +75,9 @@
             }
         }
 
+        /// <summary>
+        /// Width of form
+        /// </summary>
         public static int Width
         {
             get
@@ -75,6 +93,9 @@
             }
         }
 
+        /// <summary>
+        /// Code column width
+        /// </summary>
         public static int ColumnCodeWidth
         {
             get
@@ -90,6 +111,9 @@
             }
         }
 
+        /// <summary>
+        /// Time column width
+        /// </summary>
         public static int ColumnTimeWidth
         {
             get

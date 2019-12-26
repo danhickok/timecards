@@ -3,6 +3,9 @@ using System.Data.Entity;
 
 namespace TimecardsData
 {
+    /// <summary>
+    /// This is the Entity Framework context class for the timecards database
+    /// </summary>
     public class TimecardsContext : DbContext
     {
         public TimecardsContext(string connectionStringName) : base(connectionStringName)
