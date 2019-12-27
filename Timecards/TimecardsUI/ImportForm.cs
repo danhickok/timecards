@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TimecardsCore;
 using TimecardsCore.Events;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
@@ -21,6 +16,7 @@ namespace TimecardsUI
         private bool _loading = false;
         private bool _running = false;
         private bool _canceled = false;
+        private (int Current, int Goal) _progress;
 
         private readonly BulkLogic.DataFormat[] formatChoices = new[]
         {
@@ -35,9 +31,14 @@ namespace TimecardsUI
             InitializeComponent();
 
             FileTypeComboBox.Items.Clear();
+            var defaultFileType = 0;
             for (var i = 0; i < formatChoices.Length; ++i)
+            {
                 FileTypeComboBox.Items.Add(formatChoices[i].GetDescription());
-            FileTypeComboBox.SelectedIndex = 0;
+                if (Configuration.ImportFileType == formatChoices[i].ToString())
+                    defaultFileType = i;
+            }
+            FileTypeComboBox.SelectedIndex = defaultFileType;
         }
 
         public void SetFactory(IFactory factory)
@@ -83,6 +84,9 @@ namespace TimecardsUI
 
         private void FileTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Configuration.ImportFileType = formatChoices[FileTypeComboBox.SelectedIndex].ToString();
+            Configuration.Save();
+
             switch (formatChoices[FileTypeComboBox.SelectedIndex])
             {
                 case BulkLogic.DataFormat.CSV:
@@ -104,7 +108,7 @@ namespace TimecardsUI
             }
         }
 
-        private void ImportButton_Click(object sender, EventArgs e)
+        private async void ImportButton_Click(object sender, EventArgs e)
         {
             if (EraseExistingDataCheckBox.Checked)
             {
@@ -138,7 +142,9 @@ namespace TimecardsUI
                     content = sr.ReadToEnd();
                 }
 
-                var result = logic.Import(content, format);
+                ProgressTimer.Enabled = true;
+                var result = await PerformImportAsync(logic, content, format);
+                ProgressTimer.Enabled = false;
 
                 if (string.IsNullOrWhiteSpace(result))
                 {
@@ -147,7 +153,7 @@ namespace TimecardsUI
                 }
                 else
                 {
-                    MessageBox.Show($"One or more problems were encountered with the import:\n{result}",
+                    MessageBox.Show($"A problem was encountered during the import:\n{result}",
                         this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
@@ -158,6 +164,12 @@ namespace TimecardsUI
             }
 
             this.Close();
+        }
+
+        private async Task<string> PerformImportAsync(BulkLogic logic, string content, BulkLogic.DataFormat format)
+        {
+            var result = await Task.Run(() => logic.Import(content, format));
+            return result;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -194,13 +206,17 @@ namespace TimecardsUI
 
         private void OnProgressUpdated(object sender, ProgressUpdateEventArgs e)
         {
-            ImportProgressBar.Minimum = 0;
-            ImportProgressBar.Maximum = e.Goal;
-            ImportProgressBar.Value = e.Current;
+            _progress.Current = e.Current;
+            _progress.Goal = e.Goal;
 
             e.Cancel = _canceled;
+        }
 
-            this.Refresh();
+        private void ProgressTimer_Tick(object sender, EventArgs e)
+        {
+            ImportProgressBar.Minimum = 0;
+            ImportProgressBar.Maximum = _progress.Goal;
+            ImportProgressBar.Value = _progress.Current;
         }
     }
 }

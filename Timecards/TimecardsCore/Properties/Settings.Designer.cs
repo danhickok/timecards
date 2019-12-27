@@ -106,5 +106,41 @@ namespace TimecardsCore.Properties {
                 this["Use24HourTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CSV")]
+        public string ImportFileType {
+            get {
+                return ((string)(this["ImportFileType"]));
+            }
+            set {
+                this["ImportFileType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CSV")]
+        public string ExportFileType {
+            get {
+                return ((string)(this["ExportFileType"]));
+            }
+            set {
+                this["ExportFileType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int MinutesPerReportUnit {
+            get {
+                return ((int)(this["MinutesPerReportUnit"]));
+            }
+            set {
+                this["MinutesPerReportUnit"] = value;
+            }
+        }
     }
 }

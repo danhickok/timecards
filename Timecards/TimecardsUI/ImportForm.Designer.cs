@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportForm));
             this.ImportButton = new System.Windows.Forms.Button();
             this.CancelImportButton = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@
             this.EraseExistingDataCheckBox = new System.Windows.Forms.CheckBox();
             this.ImportProgressBar = new System.Windows.Forms.ProgressBar();
             this.FileOpenDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ProgressTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // ImportButton
@@ -132,6 +134,10 @@
             this.FileOpenDialog.Filter = "CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|XML files|*.xml|All files|*.*";
             this.FileOpenDialog.Title = "Timecards - Import Data From";
             // 
+            // ProgressTimer
+            // 
+            this.ProgressTimer.Tick += new System.EventHandler(this.ProgressTimer_Tick);
+            // 
             // ImportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -170,5 +176,6 @@
         private System.Windows.Forms.CheckBox EraseExistingDataCheckBox;
         private System.Windows.Forms.ProgressBar ImportProgressBar;
         private System.Windows.Forms.OpenFileDialog FileOpenDialog;
+        private System.Windows.Forms.Timer ProgressTimer;
     }
 }

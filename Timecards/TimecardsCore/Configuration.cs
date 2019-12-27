@@ -46,7 +46,7 @@ namespace TimecardsCore
         /// List of descriptions for certain codes, used by UI for automatically populating description field
         /// </summary>
         public static Dictionary<string, string> DefaultCodes { get; private set; }
-        
+
         /// <summary>
         /// Set this to true so that the current time can be overridden for testing purposes
         /// </summary>
@@ -74,6 +74,21 @@ namespace TimecardsCore
             }
         }
 
+        /// <summary>
+        /// Holds the last import file format used
+        /// </summary>
+        public static string ImportFileType { get; set; }
+
+        /// <summary>
+        /// Holds the last export file format used
+        /// </summary>
+        public static string ExportFileType { get; set; }
+
+        /// <summary>
+        /// Divisor for desired units per hour in reporting tab (e.g., 15 => report in quarter hours)
+        /// </summary>
+        public static int MinutesPerReportUnit { get; set; }
+
         #region Static class constructor
 
         static Configuration()
@@ -97,6 +112,9 @@ namespace TimecardsCore
             TimeSeparator = Properties.Settings.Default.TimeSeparator;
             Use24HourTime = Properties.Settings.Default.Use24HourTime;
             MidnightTint = Properties.Settings.Default.MidnightTint;
+            ImportFileType = Properties.Settings.Default.ImportFileType;
+            ExportFileType = Properties.Settings.Default.ExportFileType;
+            MinutesPerReportUnit = Properties.Settings.Default.MinutesPerReportUnit;
 
             DefaultCodes.Clear();
             var dfString = Properties.Settings.Default.DefaultCodes;
@@ -122,6 +140,9 @@ namespace TimecardsCore
             Properties.Settings.Default.TimeSeparator = TimeSeparator;
             Properties.Settings.Default.Use24HourTime = Use24HourTime;
             Properties.Settings.Default.MidnightTint = MidnightTint;
+            Properties.Settings.Default.ImportFileType = ImportFileType;
+            Properties.Settings.Default.ExportFileType = ExportFileType;
+            Properties.Settings.Default.MinutesPerReportUnit = MinutesPerReportUnit;
 
             var dfStringBuilder = new StringBuilder();
             foreach (var key in DefaultCodes.Keys)

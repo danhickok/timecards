@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using TimecardsCore;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Logic;
@@ -10,6 +11,7 @@ namespace TimecardsUI
     public partial class ExportForm : Form
     {
         private IFactory _factory;
+        private bool _loading = false;
 
         private readonly BulkLogic.DataFormat[] formatChoices = new[]
         {
@@ -24,9 +26,14 @@ namespace TimecardsUI
             InitializeComponent();
 
             FileTypeComboBox.Items.Clear();
+            var defaultFileType = 0;
             for (var i = 0; i < formatChoices.Length; ++i)
+            {
                 FileTypeComboBox.Items.Add(formatChoices[i].GetDescription());
-            FileTypeComboBox.SelectedIndex = 0;
+                if (Configuration.ExportFileType == formatChoices[i].ToString())
+                    defaultFileType = i;
+            }
+            FileTypeComboBox.SelectedIndex = defaultFileType;
         }
 
         public void SetFactory(IFactory factory)
@@ -93,6 +100,10 @@ namespace TimecardsUI
 
         private void SetFileTypeBasedOnExtension(string path)
         {
+            if (_loading)
+                return;
+            _loading = true;
+
             for (var i = 0; i < formatChoices.Length; ++i)
             {
                 if (path.EndsWith("." + formatChoices[i].ToString(), StringComparison.OrdinalIgnoreCase))
@@ -100,6 +111,34 @@ namespace TimecardsUI
                     FileTypeComboBox.SelectedIndex = i;
                     break;
                 }
+            }
+
+            _loading = false;
+        }
+
+        private void FileTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Configuration.ExportFileType = formatChoices[FileTypeComboBox.SelectedIndex].ToString();
+            Configuration.Save();
+
+            switch (formatChoices[FileTypeComboBox.SelectedIndex])
+            {
+                case BulkLogic.DataFormat.CSV:
+                    FileSaveDialog.Filter =
+                        "CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.TSV:
+                    FileSaveDialog.Filter =
+                        "TSV files|*.tsv|CSV files|*.csv|JSON files|*.json|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.JSON:
+                    FileSaveDialog.Filter =
+                        "JSON files|*.json|CSV files|*.csv|TSV files|*.tsv|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.XML:
+                    FileSaveDialog.Filter =
+                        "XML files|*.xml|CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|All files|*.*";
+                    break;
             }
         }
 
