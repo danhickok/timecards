@@ -107,6 +107,7 @@
             this.FileTypeComboBox.Name = "FileTypeComboBox";
             this.FileTypeComboBox.Size = new System.Drawing.Size(179, 23);
             this.FileTypeComboBox.TabIndex = 4;
+            this.FileTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.FileTypeComboBox_SelectedIndexChanged);
             // 
             // EraseExistingDataCheckBox
             // 

@@ -191,6 +191,8 @@ namespace TimecardsUI
             importForm.SetFactory(Factory);
             importForm.ShowDialog(this);
             importForm.Dispose();
+
+            NavigateTo(Navigation.Latest);
         }
 
         private void MainMenuHelpAbout_Click(object sender, EventArgs e)

@@ -527,11 +527,11 @@ TO DO
 [/] Look for remaining "TODO" comments in code and address them
 [ ] Add an option to report tab for rounding hours to nearest .1, .25, etc.
 [ ] Make entire UI DPI-aware
-[ ] The "after midnight" control (^M) seems to hit the wrong Activities row
+[?] The "after midnight" control (^M) seems to hit the wrong Activities row
 [ ] You need to get the bulk import to work in a separate thread so that the
     cancel button can actually cancel the import
-[ ] For some reason all the imported data is always set to "after midnight"
-[ ] The file dialogs in both import and export should put the selected format
+[/] For some reason all the imported data is always set to "after midnight"
+[/] The file dialogs in both import and export should put the selected format
     at the top of the filter options
 
 

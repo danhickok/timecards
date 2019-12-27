@@ -18,6 +18,7 @@ namespace TimecardsUI
     public partial class ImportForm : Form
     {
         private IFactory _factory;
+        private bool _loading = false;
         private bool _running = false;
         private bool _canceled = false;
 
@@ -42,6 +43,65 @@ namespace TimecardsUI
         public void SetFactory(IFactory factory)
         {
             _factory = factory;
+        }
+
+        private void FileDialogButton_Click(object sender, EventArgs e)
+        {
+            FileOpenDialog.ShowDialog();
+
+            var path = FileOpenDialog.FileName;
+            if (string.IsNullOrWhiteSpace(path))
+                return;
+
+            FileNameTextBox.Text = path.Trim();
+            SetFileTypeBasedOnExtension(path);
+
+        }
+
+        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
+        }
+
+        private void SetFileTypeBasedOnExtension(string path)
+        {
+            if (_loading)
+                return;
+            _loading = true;
+
+            for (var i = 0; i < formatChoices.Length; ++i)
+            {
+                if (path.EndsWith("." + formatChoices[i].ToString(), StringComparison.OrdinalIgnoreCase))
+                {
+                    FileTypeComboBox.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            _loading = false;
+        }
+
+        private void FileTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (formatChoices[FileTypeComboBox.SelectedIndex])
+            {
+                case BulkLogic.DataFormat.CSV:
+                    FileOpenDialog.Filter =
+                        "CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.TSV:
+                    FileOpenDialog.Filter =
+                        "TSV files|*.tsv|CSV files|*.csv|JSON files|*.json|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.JSON:
+                    FileOpenDialog.Filter =
+                        "JSON files|*.json|CSV files|*.csv|TSV files|*.tsv|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.XML:
+                    FileOpenDialog.Filter =
+                        "XML files|*.xml|CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|All files|*.*";
+                    break;
+            }
         }
 
         private void ImportButton_Click(object sender, EventArgs e)
@@ -141,36 +201,6 @@ namespace TimecardsUI
             e.Cancel = _canceled;
 
             this.Refresh();
-        }
-
-        private void FileDialogButton_Click(object sender, EventArgs e)
-        {
-            FileOpenDialog.ShowDialog();
-
-            var path = FileOpenDialog.FileName;
-            if (string.IsNullOrWhiteSpace(path))
-                return;
-
-            FileNameTextBox.Text = path.Trim();
-            SetFileTypeBasedOnExtension(path);
-
-        }
-
-        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
-        }
-
-        private void SetFileTypeBasedOnExtension(string path)
-        {
-            for (var i = 0; i < formatChoices.Length; ++i)
-            {
-                if (path.EndsWith("." + formatChoices[i].ToString(), StringComparison.OrdinalIgnoreCase))
-                {
-                    FileTypeComboBox.SelectedIndex = i;
-                    break;
-                }
-            }
         }
     }
 }

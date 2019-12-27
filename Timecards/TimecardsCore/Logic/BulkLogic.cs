@@ -184,8 +184,7 @@ namespace TimecardsCore.Logic
                         if (string.IsNullOrWhiteSpace(lines[i]))
                             continue;
 
-                        //TODO: this is a naive parse that doesn't account for separators inside quoted values - ought to be improved
-                        var tokens = lines[i].Split(separator);
+                        var tokens = Split(lines[i], separator);
 
                         if (tokens[columnMap["date"]] != lastDateString)
                         {
@@ -197,6 +196,8 @@ namespace TimecardsCore.Logic
                             }
 
                             tc = new Timecard();
+                            tc.Activities.DataImportMode = true;
+
                             if (DateTime.TryParse(StripQuotes(lastDateString), out DateTime newDate))
                             {
                                 tc.Date = newDate;
@@ -319,6 +320,7 @@ namespace TimecardsCore.Logic
                             }
 
                             tc = new Timecard();
+                            tc.Activities.DataImportMode = true;
 
                             if (DateTime.TryParse(tcAttributes["Date"].Value, out DateTime newDate))
                             {
@@ -388,6 +390,40 @@ namespace TimecardsCore.Logic
             }
 
             return map;
+        }
+
+        private string[] Split(string value, char separator)
+        {
+            var result = new List<string>();
+            var inQuotes = false;
+            int lastIndex = -1;
+
+            for (var i = 0; i < value.Length; ++i)
+            {
+                if (value[i] == '"')
+                {
+                    if (i - 1 == lastIndex)
+                    {
+                        inQuotes = true;
+                        continue;
+                    }
+
+                    inQuotes = false;
+                }
+
+                if (value[i] == separator)
+                {
+                    if (inQuotes)
+                        continue;
+
+                    result.Add(value.Substring(lastIndex + 1, i - lastIndex - 1));
+                    lastIndex = i;
+                }
+            }
+
+            result.Add(value.Substring(lastIndex + 1));
+
+            return result.ToArray();
         }
 
         private string StripQuotes(string value)

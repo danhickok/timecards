@@ -10,6 +10,8 @@ namespace TimecardsCore.Models
     {
         private Timecard _timecard;
 
+        public bool DataImportMode = false;
+
         public ActivityList(Timecard timecard) : base()
         {
             _timecard = timecard;
@@ -22,13 +24,19 @@ namespace TimecardsCore.Models
 
         public new void Add(Activity activity)
         {
-            activity.RequestTimecardDate = new Func<DateTime>(delegate { return _timecard.Date; });
+            if (!DataImportMode)
+            {
+                activity.RequestTimecardDate = new Func<DateTime>(delegate { return _timecard.Date; });
+            }
             base.Add(activity);
         }
 
         public new void Insert(int index, Activity activity)
         {
-            activity.RequestTimecardDate = new Func<DateTime>(delegate { return _timecard.Date; });
+            if (!DataImportMode)
+            {
+                activity.RequestTimecardDate = new Func<DateTime>(delegate { return _timecard.Date; });
+            }
             base.Insert(index, activity);
         }
     }
