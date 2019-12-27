@@ -72,6 +72,10 @@
             this.MainDateLabel = new System.Windows.Forms.Label();
             this.MainDate = new System.Windows.Forms.DateTimePicker();
             this.MainTabReport = new System.Windows.Forms.TabPage();
+            this.ReportOptionHundredths = new System.Windows.Forms.RadioButton();
+            this.ReportOptionTenths = new System.Windows.Forms.RadioButton();
+            this.ReportOptionQuarters = new System.Windows.Forms.RadioButton();
+            this.ReportOptionLabel = new System.Windows.Forms.Label();
             this.ReportListView = new System.Windows.Forms.ListView();
             this.ReportColumnCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ReportColumnFromDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -358,7 +362,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 444);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 436);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ActivitiesGrid_CellBeginEdit);
             this.ActivitiesGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellEnter);
@@ -477,19 +481,72 @@
             // 
             // MainTabReport
             // 
+            this.MainTabReport.Controls.Add(this.ReportOptionHundredths);
+            this.MainTabReport.Controls.Add(this.ReportOptionTenths);
+            this.MainTabReport.Controls.Add(this.ReportOptionQuarters);
+            this.MainTabReport.Controls.Add(this.ReportOptionLabel);
             this.MainTabReport.Controls.Add(this.ReportListView);
             this.MainTabReport.Controls.Add(this.ReportButtonGo);
             this.MainTabReport.Controls.Add(this.ReportEndLabel);
             this.MainTabReport.Controls.Add(this.ReportDateEnd);
             this.MainTabReport.Controls.Add(this.ReportDateStart);
             this.MainTabReport.Controls.Add(this.ReportStartLabel);
-            this.MainTabReport.Location = new System.Drawing.Point(4, 22);
+            this.MainTabReport.Location = new System.Drawing.Point(4, 26);
             this.MainTabReport.Name = "MainTabReport";
             this.MainTabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabReport.Size = new System.Drawing.Size(463, 552);
+            this.MainTabReport.Size = new System.Drawing.Size(463, 548);
             this.MainTabReport.TabIndex = 1;
             this.MainTabReport.Text = "Report";
             this.MainTabReport.UseVisualStyleBackColor = true;
+            // 
+            // ReportOptionHundredths
+            // 
+            this.ReportOptionHundredths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ReportOptionHundredths.AutoSize = true;
+            this.ReportOptionHundredths.Location = new System.Drawing.Point(292, 509);
+            this.ReportOptionHundredths.Name = "ReportOptionHundredths";
+            this.ReportOptionHundredths.Size = new System.Drawing.Size(94, 21);
+            this.ReportOptionHundredths.TabIndex = 9;
+            this.ReportOptionHundredths.TabStop = true;
+            this.ReportOptionHundredths.Text = "Hundredths";
+            this.ReportOptionHundredths.UseVisualStyleBackColor = true;
+            this.ReportOptionHundredths.CheckedChanged += new System.EventHandler(this.ReportOptionHundredths_CheckedChanged);
+            // 
+            // ReportOptionTenths
+            // 
+            this.ReportOptionTenths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ReportOptionTenths.AutoSize = true;
+            this.ReportOptionTenths.Location = new System.Drawing.Point(223, 509);
+            this.ReportOptionTenths.Name = "ReportOptionTenths";
+            this.ReportOptionTenths.Size = new System.Drawing.Size(63, 21);
+            this.ReportOptionTenths.TabIndex = 8;
+            this.ReportOptionTenths.TabStop = true;
+            this.ReportOptionTenths.Text = "Tenths";
+            this.ReportOptionTenths.UseVisualStyleBackColor = true;
+            this.ReportOptionTenths.CheckedChanged += new System.EventHandler(this.ReportOptionTenths_CheckedChanged);
+            // 
+            // ReportOptionQuarters
+            // 
+            this.ReportOptionQuarters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ReportOptionQuarters.AutoSize = true;
+            this.ReportOptionQuarters.Location = new System.Drawing.Point(140, 509);
+            this.ReportOptionQuarters.Name = "ReportOptionQuarters";
+            this.ReportOptionQuarters.Size = new System.Drawing.Size(77, 21);
+            this.ReportOptionQuarters.TabIndex = 7;
+            this.ReportOptionQuarters.TabStop = true;
+            this.ReportOptionQuarters.Text = "Quarters";
+            this.ReportOptionQuarters.UseVisualStyleBackColor = true;
+            this.ReportOptionQuarters.CheckedChanged += new System.EventHandler(this.ReportOptionQuarters_CheckedChanged);
+            // 
+            // ReportOptionLabel
+            // 
+            this.ReportOptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ReportOptionLabel.AutoSize = true;
+            this.ReportOptionLabel.Location = new System.Drawing.Point(22, 511);
+            this.ReportOptionLabel.Name = "ReportOptionLabel";
+            this.ReportOptionLabel.Size = new System.Drawing.Size(99, 17);
+            this.ReportOptionLabel.TabIndex = 6;
+            this.ReportOptionLabel.Text = "Report hours in";
             // 
             // ReportListView
             // 
@@ -509,7 +566,7 @@
             this.ReportListView.Location = new System.Drawing.Point(22, 104);
             this.ReportListView.MultiSelect = false;
             this.ReportListView.Name = "ReportListView";
-            this.ReportListView.Size = new System.Drawing.Size(417, 407);
+            this.ReportListView.Size = new System.Drawing.Size(417, 387);
             this.ReportListView.TabIndex = 5;
             this.ReportListView.UseCompatibleStateImageBehavior = false;
             this.ReportListView.View = System.Windows.Forms.View.Details;
@@ -709,6 +766,10 @@
         private System.Windows.Forms.ToolStripMenuItem MainMenuDataDeleteTimecard;
         private System.Windows.Forms.ToolStripSeparator MainMenuDataSep2;
         private System.Windows.Forms.ToolStripMenuItem MainMenuDataToggleAfterMidnight;
+        private System.Windows.Forms.Label ReportOptionLabel;
+        private System.Windows.Forms.RadioButton ReportOptionHundredths;
+        private System.Windows.Forms.RadioButton ReportOptionTenths;
+        private System.Windows.Forms.RadioButton ReportOptionQuarters;
     }
 }
 

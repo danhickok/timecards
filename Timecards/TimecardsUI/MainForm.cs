@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -23,13 +24,15 @@ namespace TimecardsUI
             "IDE0069:Disposable fields should be disposed", Justification = "<Pending>")]
         private VScrollBar _activitiesGridVScrollBar = null;
 
-        private Color _beforeMidnightBackgroundColor;
-        private Color _beforeMidnightAlternateBackgroundColor;
+        private readonly Color _beforeMidnightBackgroundColor;
+        private readonly Color _beforeMidnightAlternateBackgroundColor;
         private Color _afterMidnightBackgroundColor;
         private Color _afterMidnightAlternateBackgroundColor;
 
         private TimecardLogic _timecardLogic = null;
         private ReportLogic _reportLogic = null;
+
+        private List<ReportItem> _report = null;
 
         public MainForm()
         {
@@ -85,6 +88,10 @@ namespace TimecardsUI
             UpdateMainDateLabel();
             PopulateActivitiesGrid();
             ClearStatusMessage();
+
+            ReportOptionHundredths.Checked = (Configuration.MinutesPerReportUnit == 1);
+            ReportOptionTenths.Checked = (Configuration.MinutesPerReportUnit == 6);
+            ReportOptionQuarters.Checked = (Configuration.MinutesPerReportUnit == 15);
 
             _loading = false;
         }
@@ -457,17 +464,68 @@ namespace TimecardsUI
 
             SetStatusMessage("Gathering data...");
 
-            var report = _reportLogic.GetReport(
+            _report = _reportLogic.GetReport(
                 ReportDateStart.Value.Date, ReportDateEnd.Value.Date);
 
+            UpdateReportListView();
+
+            ClearStatusMessage();
+        }
+
+        private void ReportOptionQuarters_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_loading)
+                return;
+
+            Log("ReportOptionQuarters_CheckedChanged event");
+
+            Configuration.MinutesPerReportUnit = 15;
+            Configuration.Save();
+
+            UpdateReportListView();
+        }
+
+        private void ReportOptionTenths_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_loading)
+                return;
+
+            Log("ReportOptionTenths_CheckedChanged event");
+
+            Configuration.MinutesPerReportUnit = 6;
+            Configuration.Save();
+
+            UpdateReportListView();
+        }
+
+        private void ReportOptionHundredths_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_loading)
+                return;
+
+            Log("ReportOptionHundredths_CheckedChanged event");
+
+            Configuration.MinutesPerReportUnit = 1;
+            Configuration.Save();
+
+            UpdateReportListView();
+        }
+
+        private void UpdateReportListView()
+        {
             ReportListView.Items.Clear();
+
+            if (_report == null || _report.Count == 0)
+                return;
+
+            var mpu = (decimal)Configuration.MinutesPerReportUnit;
 
             var totalMinutes = 0;
             var totalHours = 0M;
 
-            foreach (var item in report)
+            foreach (var item in _report)
             {
-                var hours = Math.Round(item.TotalMinutes / 60M, 2);
+                var hours = Math.Round(Math.Round(item.TotalMinutes / mpu, 0) / (60M / mpu), 2);
 
                 var row = new ListViewItem(item.Code);
                 row.SubItems.AddRange(new[]
@@ -495,8 +553,6 @@ namespace TimecardsUI
                 $"{totalHours:N2}",
             });
             ReportListView.Items.Add(totals);
-
-            ClearStatusMessage();
         }
 
         private void MainDate_ValueChanged(object sender, EventArgs e)

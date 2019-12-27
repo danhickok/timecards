@@ -525,7 +525,7 @@ TO DO
 [ ] Figure out how to make an installation package (Wix? VS? Other?)
 [ ] Code refactoring: look for potential null reference causes and fix them
 [/] Look for remaining "TODO" comments in code and address them
-[ ] Add an option to report tab for rounding hours to nearest .1, .25, etc.
+[/] Add an option to report tab for rounding hours to nearest .1, .25, etc.
 [ ] Make entire UI DPI-aware
 [?] The "after midnight" control (^M) seems to hit the wrong Activities row
 [/] You need to get the bulk import to work in a separate thread so that the
