@@ -530,7 +530,7 @@ TO DO
 [X] Code refactoring: look for potential null reference causes and fix them
 [/] Look for remaining "TODO" comments in code and address them
 [/] Add an option to report tab for rounding hours to nearest .1, .25, etc.
-[ ] Make entire UI DPI-aware
+[N] Make entire UI DPI-aware
 [?] The "after midnight" control (^M) seems to hit the wrong Activities row
 [/] You need to get the bulk import to work in a separate thread so that the
     cancel button can actually cancel the import
@@ -626,6 +626,12 @@ to figure out how to do multithreaded processing in a form.  (It's been on my
 12/27/2019
 ----------
 
+The data import works.  However, the window locks up during the import -- which
+can be pretty slow.  (I don't really care about the performance, since this is
+done usually just once when one is first adopting the program.)  But it's pretty
+clear that I must perform the actual data import in a worker thread, rather than
+let the UI lock up like that.
+
 For converting a synchronous process to asynchronous, there's a very clear
 tutorial from Tim Corey here:  https://www.youtube.com/watch?v=2moh18sh5p4
 
@@ -639,7 +645,8 @@ progress bar.  The message is this:
 I remember running across this problem once before.  (Yes, I've learned how to
 thread in the past - but that was before async and await.  Plus, I don't do
 threading very often, so sometimes I have to re-learn stuff.  Don't you?)  Well,
-I'm going to need to update the progress as it runs.  How to I resolve this?
+I'm going to need to update that progress bar as the import runs.  How to I
+resolve this?
 
 Tim's got a follow-up "advanced" tutorial:
 https://www.youtube.com/watch?v=ZTKGRJy5P2M
@@ -654,4 +661,14 @@ can access.  But how to update the progress bar?  Let's try a timer.
 
 It worked!  The timer reads the progress that was set/updated by the progress
 update event.  Saved myself an hour.
+
+
+
+12/28/2019
+----------
+
+Wow!  After about 15 months on this project -- working mostly during holidays
+and weekends here and there -- this application is nearly ready.  Now it's a
+matter of completing the documentation and coming up with an installer.
+
 
