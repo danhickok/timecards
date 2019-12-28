@@ -18,6 +18,13 @@ database schema and provide quick, efficient access to the data.
 See the "README" files for each component for an explanation of the features in
 this application.
 
+## Requirements
+
+This program requires the Microsoft .NET Framework, version 4.7.2, running on
+Windows.  If you do not have this framework installed, it is available from
+Microsoft:  
+https://dotnet.microsoft.com/download/dotnet-framework/net472
+
 ## Installation
 
 I'm working on that.  Stay tuned.

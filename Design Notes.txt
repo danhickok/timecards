@@ -505,7 +505,7 @@ TO DO
 [?] Resolve intermittent error that causes program-stopping exception
 [X] Show program-stopping exception in a custom window that allows copy/paste
 [/] Complete "About" dialog
-[ ] Find a way to show help information (most likely a web page, not CHM)
+[/] Find a way to show help information (most likely a web page, not CHM)
 [/] Set up version numbers in each component
 [/] Revise the icon - it looks terrible (still not happy with it)
 [/] Finish the bulk data import
