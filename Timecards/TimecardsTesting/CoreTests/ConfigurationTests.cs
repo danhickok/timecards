@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 using TimecardsCore;
-using core = TimecardsCore.Models;
 
 namespace TimecardsTesting.CoreTests
 {
@@ -18,7 +18,8 @@ namespace TimecardsTesting.CoreTests
             var backupTimeSeparator = Configuration.TimeSeparator;
             var backupCodes = BackupOfConfigurationDefaultCodes();
 
-            string error = null;
+            // the following tests are run in a try/catch block so that any error does not accidentally
+            // leave the configuration in a test state
 
             try
             {
@@ -68,7 +69,7 @@ namespace TimecardsTesting.CoreTests
             }
             catch (Exception ex)
             {
-                error = ex.Message;
+                Debug.WriteLine($"Error occurred during configuration test: {ex.Message}");
             }
             finally
             {

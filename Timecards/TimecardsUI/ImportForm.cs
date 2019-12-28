@@ -148,6 +148,9 @@ namespace TimecardsUI
 
                 if (string.IsNullOrWhiteSpace(result))
                 {
+                    CancelImportButton.Enabled = false;
+                    Refresh();
+
                     MessageBox.Show("Import successful",
                         this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

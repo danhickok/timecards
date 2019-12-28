@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using core = TimecardsCore.Models;
-using data = TimecardsData;
+using td = TimecardsData;
+using tm = TimecardsCore.Models;
 
 namespace TimecardsTesting.DataTests
 {
@@ -18,7 +18,7 @@ namespace TimecardsTesting.DataTests
         [TestMethod]
         public void LoadSaveReportTest()
         {
-            using (var repo = new data.Repository(new Base.TestAppConstants()))
+            using (var repo = new td.Repository(new Base.TestAppConstants()))
             {
                 DateTime FirstDate = new DateTime(2018, 9, 10);
                 DateTime SecondDate = new DateTime(2018, 9, 11);
@@ -27,7 +27,7 @@ namespace TimecardsTesting.DataTests
                 // test saving, retrieving, and updating a timecard
                 //
 
-                var savedTimecard = new core.Timecard();
+                var savedTimecard = new tm.Timecard();
                 Assert.AreEqual(0, savedTimecard.ID, "Unsaved timecard should have ID = 0");
 
                 repo.SaveTimecard(savedTimecard);
@@ -47,15 +47,15 @@ namespace TimecardsTesting.DataTests
                 // test saving and retrieving set of activities
                 //
 
-                savedTimecard.Activities.AddRange(new List<core.Activity>
+                savedTimecard.Activities.AddRange(new List<tm.Activity>
                 {
-                    new core.Activity("00000", "Got to work", "08:00"),
-                    new core.Activity("00100", "Did this", "09:00"),
-                    new core.Activity("00200", "Did that", "10:00"),
-                    new core.Activity("", "Lunch break", "12:00"),
-                    new core.Activity("00200", "Did more of that", "13:00"),
-                    new core.Activity("00300", "Did something else", "14:00"),
-                    new core.Activity("", "Went home", "17:00"),
+                    new tm.Activity("00000", "Got to work", "08:00"),
+                    new tm.Activity("00100", "Did this", "09:00"),
+                    new tm.Activity("00200", "Did that", "10:00"),
+                    new tm.Activity("", "Lunch break", "12:00"),
+                    new tm.Activity("00200", "Did more of that", "13:00"),
+                    new tm.Activity("00300", "Did something else", "14:00"),
+                    new tm.Activity("", "Went home", "17:00"),
                 });
                 Assert.IsTrue(savedTimecard.Activities.Exists(a => a.ID == 0), "Unsaved activities should have ID = 0");
 
@@ -84,7 +84,7 @@ namespace TimecardsTesting.DataTests
                 // test saving, retrieving, and updating an activity
                 //
 
-                var savedActivity = new core.Activity("00400", "One more thing", "15:00")
+                var savedActivity = new tm.Activity("00400", "One more thing", "15:00")
                 {
                     TimecardID = savedTimecard.ID
                 };
@@ -128,15 +128,15 @@ namespace TimecardsTesting.DataTests
                 // test reporting on activity by code
                 //
 
-                var anotherTimecard = new core.Timecard()
+                var anotherTimecard = new tm.Timecard()
                 {
                     Date = SecondDate
                 };
-                anotherTimecard.Activities.AddRange(new List<core.Activity>
+                anotherTimecard.Activities.AddRange(new List<tm.Activity>
                 {
-                    new core.Activity("00000", "Got to work", "09:00"),
-                    new core.Activity("00200", "Half day on that", "9:00"),
-                    new core.Activity("", "Went home", "12:00"),
+                    new tm.Activity("00000", "Got to work", "09:00"),
+                    new tm.Activity("00200", "Half day on that", "9:00"),
+                    new tm.Activity("", "Went home", "12:00"),
                 });
                 repo.SaveTimecard(anotherTimecard);
 
@@ -217,7 +217,7 @@ namespace TimecardsTesting.DataTests
 
         private void DeleteAllData()
         {
-            using (var repo = new data.Repository(new Base.TestAppConstants()))
+            using (var repo = new td.Repository(new Base.TestAppConstants()))
             {
                 var timecards = repo.GetTimecards(0, 9999, false);
                 foreach (var timecard in timecards)

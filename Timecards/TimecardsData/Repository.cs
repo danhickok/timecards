@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using core = TimecardsCore.Models;
+using tm = TimecardsCore.Models;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Exceptions;
 
 namespace TimecardsData
 {
     // Note:  Throughout these methods you'll see ToList() between the queries and
-    // the end result.  This is because we're using extension methods to map bewteen
+    // the end result.  This is because we're using extension methods to map between
     // the EF (data) classes and the core classes the application works with, and EF
     // complains that the extension methods do not map to any stored procedures in
-    // the database.  For large volumes of data, forcing the result early like this
-    // would be a bad practice; but for this application, the amount of data
-    // retrieved is expected to be manageable.
+    // the database.  (This limitation is because we're using using SQLite as the
+    // data store.  It may not occur for other data storage engines, such as MS SQL
+    // Server.)  For large volumes of data, forcing the result early like this would
+    // be a bad practice; but for this application, the amount of data retrieved is
+    // expected to be manageable.
 
     /// <summary>
-    /// See the corresponding interface for descriptions of the properties and methods of this class
+    /// See IRepository for descriptions of the properties and methods of this class
     /// </summary>
     public class Repository : IRepository, IDisposable
     {
@@ -36,7 +38,7 @@ namespace TimecardsData
             return _context.Timecards.Count();
         }
 
-        public List<core.Timecard> GetTimecards(int offset, int limit, bool descending)
+        public List<tm.Timecard> GetTimecards(int offset, int limit, bool descending)
         {
             IOrderedQueryable<Timecard> query;
             if (descending)
@@ -56,7 +58,7 @@ namespace TimecardsData
                 .ToList();
         }
 
-        public List<core.Timecard> GetTimecards(DateTime? startDate, DateTime? endDate)
+        public List<tm.Timecard> GetTimecards(DateTime? startDate, DateTime? endDate)
         {
             // query may not get exact matches on dates, so expand range by one second on each end
             DateTime minDate = new DateTime(9999, 12, 31);
@@ -78,7 +80,7 @@ namespace TimecardsData
                 .ToList();
         }
 
-        public core.Timecard GetTimecard(int id)
+        public tm.Timecard GetTimecard(int id)
         {
             var timecard = _context.Timecards
                 .Where(t => t.ID == id)
@@ -92,9 +94,9 @@ namespace TimecardsData
             return timecard;
         }
 
-        public core.Timecard GetNearestTimecard(DateTime date, bool after)
+        public tm.Timecard GetNearestTimecard(DateTime date, bool after)
         {
-            core.Timecard timecard = null;
+            tm.Timecard timecard = null;
             IOrderedQueryable<Timecard> query;
 
             if (after)
@@ -119,7 +121,7 @@ namespace TimecardsData
             return timecard;
         }
 
-        public void SaveTimecard(core.Timecard timecard)
+        public void SaveTimecard(tm.Timecard timecard)
         {
             Timecard data;
 
@@ -160,7 +162,7 @@ namespace TimecardsData
             _context.Database.ExecuteSqlCommand("DELETE FROM Timecards;");
         }
 
-        public void GetActivities(core.Timecard timecard)
+        public void GetActivities(tm.Timecard timecard)
         {
             var activities = _context.Activities
                 .Where(a => a.TimecardID == timecard.ID)
@@ -173,7 +175,7 @@ namespace TimecardsData
             timecard.Activities.AddRange(activities);
         }
 
-        public void SaveActivities(core.Timecard timecard)
+        public void SaveActivities(tm.Timecard timecard)
         {
             var oldActivities = _context.Activities
                 .Where(a => a.TimecardID == timecard.ID)
@@ -193,7 +195,7 @@ namespace TimecardsData
             GetActivities(timecard);
         }
 
-        public core.Activity GetActivity(int id)
+        public tm.Activity GetActivity(int id)
         {
             return _context.Activities
                 .Where(a => a.ID == id)
@@ -202,7 +204,7 @@ namespace TimecardsData
                 .FirstOrDefault();
         }
 
-        public void SaveActivity(core.Activity activity)
+        public void SaveActivity(tm.Activity activity)
         {
             Activity data;
 
@@ -234,7 +236,7 @@ namespace TimecardsData
             }
         }
 
-        public List<core.ReportItem> GetReport(DateTime startDate, DateTime endDate)
+        public List<tm.ReportItem> GetReport(DateTime startDate, DateTime endDate)
         {
             // query may not get exact matches on dates, so expand range by one second on each end
             var minDate = startDate.AddSeconds(-1);
@@ -263,7 +265,7 @@ namespace TimecardsData
                 .ToList();
 
             // consolidate raw data into a dictionary
-            var result = new Dictionary<string, core.ReportItem>();
+            var result = new Dictionary<string, tm.ReportItem>();
 
             // (we go one short of total list because we're interested
             // in elapsed time from item to item)
@@ -274,7 +276,7 @@ namespace TimecardsData
                     continue;
 
                 if (!result.ContainsKey(code))
-                    result[code] = new core.ReportItem
+                    result[code] = new tm.ReportItem
                     {
                         Code = code,
                         EarliestDate = rawData[i].Timecard.Date,
@@ -303,6 +305,7 @@ namespace TimecardsData
         }
 
         #region IDisposable Support
+
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -322,6 +325,7 @@ namespace TimecardsData
         {
             Dispose(true);
         }
+
         #endregion
     }
 }

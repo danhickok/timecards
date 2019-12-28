@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tc = TimecardsCore;
-using tcm = TimecardsCore.Models;
+using tm = TimecardsCore.Models;
 
 namespace TimecardsTesting.CoreTests
 {
@@ -22,7 +22,7 @@ namespace TimecardsTesting.CoreTests
         [TestMethod]
         public void TimeTest()
         {
-            tcm.Activity activity;
+            tm.Activity activity;
 
             //
             // test time-string property 
@@ -32,7 +32,7 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = false;
-            activity = new tcm.Activity();
+            activity = new tm.Activity();
 
             activity.Time = " 5:04a";
             Assert.AreEqual(" 5:04a", activity.Time, "12-hour time is not being padded correctly");
@@ -98,7 +98,7 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwelveHourWithDecimal;
             tc.Configuration.TimeSeparator = '.';
             tc.Configuration.Use24HourTime = false;
-            activity = new tcm.Activity();
+            activity = new tm.Activity();
 
             activity.Time = "5.4a";
             Assert.AreEqual(" 5.04a", activity.Time, "12-hour decimal time is not being padded correctly");
@@ -149,7 +149,7 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
-            activity = new tcm.Activity();
+            activity = new tm.Activity();
 
             activity.Time = "5:4";
             Assert.AreEqual("05:04", activity.Time, "24-hour time is not being padded correctly");
@@ -185,7 +185,7 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithDecimal;
             tc.Configuration.TimeSeparator = '.';
             tc.Configuration.Use24HourTime = true;
-            activity = new tcm.Activity();
+            activity = new tm.Activity();
 
             activity.Time = "5.4";
             Assert.AreEqual("05.04", activity.Time, "24-hour decimal time is not being padded correctly");
@@ -225,16 +225,16 @@ namespace TimecardsTesting.CoreTests
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
-            activity = new tcm.Activity();
+            activity = new tm.Activity();
 
             activity.StartMinute = 0;
             Assert.AreEqual("00:00", activity.Time, "Starting minute 0 should be 00:00");
             Assert.IsFalse(activity.IsAfterMidnight, "'After midnight' flag not cleared for zero StartMinute value");
-            
+
             activity.StartMinute = 158;
             Assert.AreEqual("02:38", activity.Time, "Starting minute 158 should be 02:38");
             Assert.IsFalse(activity.IsAfterMidnight, "'After midnight' flag not cleared for small StartMinute value");
-            
+
             activity.StartMinute = 2345;
             Assert.AreEqual("15:05", activity.Time, "Starting minute 2345 should wrap to 15:05 the next day");
             Assert.IsTrue(activity.IsAfterMidnight, "'After midnight' flag not set for large StartMinute value");
@@ -243,29 +243,29 @@ namespace TimecardsTesting.CoreTests
         [TestMethod]
         public void PropertiesTest()
         {
-            tcm.Activity activity;
+            tm.Activity activity;
 
             tc.Configuration.TimeMask = tc.Constants.TimeFormats.TwentyFourHourWithColon;
             tc.Configuration.TimeSeparator = ':';
             tc.Configuration.Use24HourTime = true;
 
-            activity = new tcm.Activity();
+            activity = new tm.Activity();
             Assert.AreEqual(string.Empty, activity.Code, "Initial code should be empty string");
             Assert.AreEqual(string.Empty, activity.Description, "Initial description should be empty string");
 
-            activity = new tcm.Activity("12345");
+            activity = new tm.Activity("12345");
             Assert.AreEqual("12345", activity.Code, "Code not assigned correctly in constructor");
 
-            activity = new tcm.Activity("234", "Shiny");
+            activity = new tm.Activity("234", "Shiny");
             Assert.AreEqual("234", activity.Code, "Code not assigned correctly in constructor");
             Assert.AreEqual("Shiny", activity.Description, "Description not assigned correctly in constructor");
 
-            activity = new tcm.Activity("3", "Dull", "2:0");
+            activity = new tm.Activity("3", "Dull", "2:0");
             Assert.AreEqual("3", activity.Code, "Code not assigned correctly in constructor");
             Assert.AreEqual("Dull", activity.Description, "Description not assigned correctly in constructor");
             Assert.AreEqual("02:00", activity.Time, "24-hour time not assigned correctly in constructor");
 
-            activity = new tcm.Activity("01010", "Matte", 180);
+            activity = new tm.Activity("01010", "Matte", 180);
             Assert.AreEqual(180, activity.StartMinute, "Start minute not assigned correctly in constructor");
         }
 

@@ -1,7 +1,7 @@
 ﻿namespace TimecardsCore
 {
     /// <summary>
-    /// Application constants are defined in this class
+    /// Application-wide constants are defined in this class
     /// </summary>
     public static class Constants
     {

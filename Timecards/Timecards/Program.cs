@@ -21,10 +21,12 @@ namespace Timecards
             // load the application configuration from the settings file
             tc.Configuration.Load();
 
-            // create the inversion-of-control container and give it the production constants object
+            // create the inversion-of-control container and give it the production constants type
             // (this establishes the path to the database for normal operation, among other things)
             var factory = new ic.Factory();
             factory.Register<tc.Interfaces.IAppConstants>(typeof(ProductionAppConstants), true);
+
+            // give it other types needed for the application
             factory.Register<tc.Interfaces.IRepository>(typeof(td.Repository), false,
                 typeof(tc.Interfaces.IAppConstants));
 

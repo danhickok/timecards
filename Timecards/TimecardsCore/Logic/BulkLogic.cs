@@ -78,7 +78,12 @@ namespace TimecardsCore.Logic
                         break;
 
                     case DataFormat.JSON:
-                        sw.WriteLine(JsonConvert.SerializeObject(tcList));
+                        var jsonSettings = new JsonSerializerSettings
+                        {
+                            DateFormatString = "yyyy-MM-dd",
+                            Formatting = Newtonsoft.Json.Formatting.Indented,
+                        };
+                        sw.WriteLine(JsonConvert.SerializeObject(tcList, jsonSettings));
                         break;
 
                     case DataFormat.XML:

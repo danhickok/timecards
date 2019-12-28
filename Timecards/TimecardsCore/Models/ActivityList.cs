@@ -10,6 +10,10 @@ namespace TimecardsCore.Models
     {
         private Timecard _timecard;
 
+        /// <summary>
+        /// Set this property to True to prevent activities from being marked as "after midnight" when
+        /// adding them to timecards with old dates
+        /// </summary>
         public bool DataImportMode = false;
 
         public ActivityList(Timecard timecard) : base()

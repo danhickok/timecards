@@ -8,7 +8,7 @@ using TimecardsCore.Exceptions;
 namespace TimecardsCore.Logic
 {
     /// <summary>
-    /// This class encapsulates all business logic operations done on timecards and their activities
+    /// This class encapsulates all business logic operations performed on timecards and their activities
     /// </summary>
     public class TimecardLogic
     {

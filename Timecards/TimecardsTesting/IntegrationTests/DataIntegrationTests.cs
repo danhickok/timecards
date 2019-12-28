@@ -6,52 +6,52 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using ci = TimecardsCore.Interfaces;
-using cl = TimecardsCore.Logic;
-using core = TimecardsCore.Models;
-using cx = TimecardsCore.Exceptions;
-using data = TimecardsData;
-using ioc = TimecardsIOC;
+using ic = TimecardsIOC;
+using td = TimecardsData;
+using te = TimecardsCore.Exceptions;
+using ti = TimecardsCore.Interfaces;
+using tl = TimecardsCore.Logic;
+using tm = TimecardsCore.Models;
 
 namespace TimecardsTesting.IntegrationTests
 {
     [TestClass]
     public class DataIntegrationTests
     {
-        private ioc.Factory _factory = null;
+        private ic.Factory _factory = null;
 
         [TestInitialize]
         public void Initialize()
         {
             // make the IOC container
-            _factory = new ioc.Factory();
+            _factory = new ic.Factory();
 
             // register a data repository like outermost layer would do
-            _factory.Register<ci.IAppConstants>(typeof(Base.TestAppConstants), false);
-            _factory.Register<ci.IRepository>(typeof(data.Repository), false, typeof(ci.IAppConstants));
+            _factory.Register<ti.IAppConstants>(typeof(Base.TestAppConstants), false);
+            _factory.Register<ti.IRepository>(typeof(td.Repository), false, typeof(ti.IAppConstants));
         }
 
         [TestMethod]
         public void CoreDataTest()
         {
-            core.Timecard tcIn;
-            core.Timecard tcOut;
+            tm.Timecard tcIn;
+            tm.Timecard tcOut;
 
             // use it to get a reference to the repo like core would do
-            ci.IRepository repoIn = _factory.Resolve<ci.IRepository>();
+            ti.IRepository repoIn = _factory.Resolve<ti.IRepository>();
 
             // make a core timecard object
-            tcIn = new core.Timecard { Date = new DateTime(2019, 6, 1) };
+            tcIn = new tm.Timecard { Date = new DateTime(2019, 6, 1) };
             Assert.AreEqual(tcIn.ID, 0, "Timecard did not start with ID 0 as expected");
 
             tcIn.Activities.AddRange(new[]
             {
-                new core.Activity("00000", "Arrived; made coffee", "08:00"),
-                new core.Activity("00100", "Called a client", "08:15"),
-                new core.Activity("00200", "Worked on a project", "09:00"),
-                new core.Activity("", "Lunch", "12:00"),
-                new core.Activity("00200", "More work", "13:00"),
-                new core.Activity("", "Departed", "17:00"),
+                new tm.Activity("00000", "Arrived; made coffee", "08:00"),
+                new tm.Activity("00100", "Called a client", "08:15"),
+                new tm.Activity("00200", "Worked on a project", "09:00"),
+                new tm.Activity("", "Lunch", "12:00"),
+                new tm.Activity("00200", "More work", "13:00"),
+                new tm.Activity("", "Departed", "17:00"),
             });
 
             // save it
@@ -59,7 +59,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.IsTrue(tcIn.ID > 0, "Didn't get a valid ID after saving timecard");
 
             // get another reference to the repo
-            ci.IRepository repoOut = _factory.Resolve<ci.IRepository>();
+            ti.IRepository repoOut = _factory.Resolve<ti.IRepository>();
 
             // retrieve the saved timecard
             tcOut = repoOut.GetTimecard(tcIn.ID);
@@ -73,8 +73,8 @@ namespace TimecardsTesting.IntegrationTests
         [TestMethod]
         public void CoreTimecardLogicTest()
         {
-            core.Timecard tc;
-            var logic = new cl.TimecardLogic(_factory);
+            tm.Timecard tc;
+            var logic = new tl.TimecardLogic(_factory);
             var ids = new int[4];
 
             var dates = new DateTime[4];
@@ -130,7 +130,7 @@ namespace TimecardsTesting.IntegrationTests
             tc = logic.GetSpecificTimecard(ids[1]);
             Assert.AreEqual(ids[1], tc.ID, "logic did not return specific timecard");
             Assert.AreEqual(dates[1], tc.Date, "logic did not return expected date in specific timecard");
-            Assert.ThrowsException<cx.TimecardNotFoundException>(() => { logic.GetSpecificTimecard(987654321); },
+            Assert.ThrowsException<te.TimecardNotFoundException>(() => { logic.GetSpecificTimecard(987654321); },
                 "Did not get expected exception when retrieving nonexistent timecard");
 
             // get today's timecard (should return a new, empty timecard)
@@ -140,12 +140,12 @@ namespace TimecardsTesting.IntegrationTests
 
             // set a date, add some activity, and save
             tc.Date = dates[3];
-            tc.Activities.Add(new core.Activity("00000", "Arrived", "8:00"));
-            tc.Activities.Add(new core.Activity("00100", "Worked on first project", "8:15"));
-            tc.Activities.Add(new core.Activity("00200", "Worked on second project", "10:30"));
-            tc.Activities.Add(new core.Activity("", "Lunch break", "12:00"));
-            tc.Activities.Add(new core.Activity("00200", "Worked more on second project", "13:00"));
-            tc.Activities.Add(new core.Activity("", "Departed", "17:00"));
+            tc.Activities.Add(new tm.Activity("00000", "Arrived", "8:00"));
+            tc.Activities.Add(new tm.Activity("00100", "Worked on first project", "8:15"));
+            tc.Activities.Add(new tm.Activity("00200", "Worked on second project", "10:30"));
+            tc.Activities.Add(new tm.Activity("", "Lunch break", "12:00"));
+            tc.Activities.Add(new tm.Activity("00200", "Worked more on second project", "13:00"));
+            tc.Activities.Add(new tm.Activity("", "Departed", "17:00"));
             logic.SaveTimecard();
             ids[3] = tc.ID;
 
@@ -204,7 +204,7 @@ namespace TimecardsTesting.IntegrationTests
         [TestMethod]
         public void CoreBulkLogicTest()
         {
-            List<core.Timecard> tcList;
+            List<tm.Timecard> tcList;
 
             //
             // export tests
@@ -224,53 +224,53 @@ namespace TimecardsTesting.IntegrationTests
             var tally = MakeTimecardsForEachDate(dates);
 
             // make a bulklogic object
-            var bulk = new cl.BulkLogic(_factory);
+            var bulk = new tl.BulkLogic(_factory);
 
             // export all data, CSV
-            var csvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.CSV);
+            var csvData = bulk.Export(null, null, tl.BulkLogic.DataFormat.CSV);
             var csvLines = csvData.Replace("\r", string.Empty).Split('\n');
             Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(csvLines), csvLines.Length,
                 "Bulk export all data as CSV did not yield expected number of lines");
 
             // export all data, tab-delimited
-            var tsvData = bulk.Export(null, null, cl.BulkLogic.DataFormat.TSV);
+            var tsvData = bulk.Export(null, null, tl.BulkLogic.DataFormat.TSV);
             var tsvLines = tsvData.Replace("\r", string.Empty).Split('\n');
             Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), tsvLines.Length,
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export all data, JSON
-            var json = bulk.Export(null, null, cl.BulkLogic.DataFormat.JSON);
-            var tcOut = JsonConvert.DeserializeObject<List<core.Timecard>>(json);
+            var json = bulk.Export(null, null, tl.BulkLogic.DataFormat.JSON);
+            var tcOut = JsonConvert.DeserializeObject<List<tm.Timecard>>(json);
             Assert.AreEqual(tally.TimecardCount, tcOut.Count,
                 "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export all data, XML
-            var xmlString = bulk.Export(null, null, cl.BulkLogic.DataFormat.XML);
+            var xmlString = bulk.Export(null, null, tl.BulkLogic.DataFormat.XML);
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
             Assert.AreEqual(tally.TimecardCount, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             // export limited range, CSV
-            csvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.CSV);
+            csvData = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.CSV);
             csvLines = csvData.Replace("\r", string.Empty).Split('\n');
             Assert.AreEqual(2 * tally.ActivityCount + 1 + EmptyLastLine(csvLines), csvLines.Length,
                 "Bulk export range as CSV did not yield expected number of lines");
 
             // export limited range, tab-delimited
-            tsvData = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.TSV);
+            tsvData = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.TSV);
             tsvLines = tsvData.Replace("\r", string.Empty).Split('\n');
             Assert.AreEqual(2 * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), tsvLines.Length,
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export limited range, JSON
-            json = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.JSON);
-            tcOut = JsonConvert.DeserializeObject<List<core.Timecard>>(json);
+            json = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.JSON);
+            tcOut = JsonConvert.DeserializeObject<List<tm.Timecard>>(json);
             Assert.AreEqual(2, tcOut.Count,
                 "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export limited range, XML
-            xmlString = bulk.Export(dates[2], dates[3], cl.BulkLogic.DataFormat.XML);
+            xmlString = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.XML);
             xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
             Assert.AreEqual(2, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
@@ -286,7 +286,7 @@ namespace TimecardsTesting.IntegrationTests
 
             // import CSV
             DeleteAllTimecards();
-            result = bulk.Import(CsvData(), cl.BulkLogic.DataFormat.CSV);
+            result = bulk.Import(CsvData(), tl.BulkLogic.DataFormat.CSV);
             Assert.IsTrue(string.IsNullOrEmpty(result), $"CSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
@@ -297,7 +297,7 @@ namespace TimecardsTesting.IntegrationTests
 
             // import TSV
             DeleteAllTimecards();
-            result = bulk.Import(TsvData(), cl.BulkLogic.DataFormat.TSV);
+            result = bulk.Import(TsvData(), tl.BulkLogic.DataFormat.TSV);
             Assert.IsTrue(string.IsNullOrEmpty(result), $"TSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
@@ -308,7 +308,7 @@ namespace TimecardsTesting.IntegrationTests
 
             // import JSON
             DeleteAllTimecards();
-            result = bulk.Import(JsonData(), cl.BulkLogic.DataFormat.JSON);
+            result = bulk.Import(JsonData(), tl.BulkLogic.DataFormat.JSON);
             Assert.IsTrue(string.IsNullOrEmpty(result), $"JSON import resulted in message: {result}");
 
             tcList = GetAllTimecards();
@@ -319,7 +319,7 @@ namespace TimecardsTesting.IntegrationTests
 
             // import XML
             DeleteAllTimecards();
-            result = bulk.Import(XmlData(), cl.BulkLogic.DataFormat.XML);
+            result = bulk.Import(XmlData(), tl.BulkLogic.DataFormat.XML);
             Assert.IsTrue(string.IsNullOrEmpty(result), $"XML import resulted in message: {result}");
 
             tcList = GetAllTimecards();
@@ -343,17 +343,17 @@ namespace TimecardsTesting.IntegrationTests
 
         private (int TimecardCount, int ActivityCount) MakeTimecardsForEachDate(DateTime[] dates)
         {
-            var repo = _factory.Resolve<ci.IRepository>();
+            var repo = _factory.Resolve<ti.IRepository>();
 
             var count = 0;
 
             foreach (var date in dates)
             {
-                var tc = new core.Timecard() { Date = date };
+                var tc = new tm.Timecard() { Date = date };
                 tc.Activities.AddRange(new[]
                 {
-                    new core.Activity("00000", "Arrived", "08:00"),
-                    new core.Activity("", "Departed", "17:00"),
+                    new tm.Activity("00000", "Arrived", "08:00"),
+                    new tm.Activity("", "Departed", "17:00"),
                 });
                 repo.SaveTimecard(tc);
                 count++;
@@ -362,15 +362,15 @@ namespace TimecardsTesting.IntegrationTests
             return (count, 2);
         }
 
-        private List<core.Timecard> GetAllTimecards()
+        private List<tm.Timecard> GetAllTimecards()
         {
-            var repo = _factory.Resolve<ci.IRepository>();
+            var repo = _factory.Resolve<ti.IRepository>();
             return repo.GetTimecards(null, null);
         }
 
         private void DeleteAllTimecards()
         {
-            var repo = _factory.Resolve<ci.IRepository>();
+            var repo = _factory.Resolve<ti.IRepository>();
             repo.DeleteAllTimecards();
         }
 

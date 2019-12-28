@@ -492,9 +492,10 @@ below,
 
   "[ ]" is an unchecked box (needing to be completed)
   "[/]" means checked (completed)
-  "[X]" means skipped (decided not to do it)
+  "[X]" means skipped (decided not to do it) - too hard or wasn't important
   "[o]" means partially completed
   "[N]" means it can wait until the next release
+  "[?]" means I haven't solved it, but the problem hasn't reoccurred
 
 TO DO
 -----
@@ -511,19 +512,22 @@ TO DO
 [/] Finish the bulk data export
 [N] Change configuration screen to let user specify where database is
 [N] Find app.config setting to allow database to exist in user files
-[ ] Code refactoring: make "using" abbreviations consistent across all projects:
+[/] Code refactoring: make "using" abbreviations consistent across all projects:
       using ic = TimecardsIOC;
       using tc = TimecardsCore;
       using td = TimecardsData;
       using te = TimecardsCore.Exceptions;
       using tv = TimecardsCore.Events;
       using ti = TimecardsCore.Interfaces;
+      using tl = TimecardsCore.Logic;
       using tm = using TimecardsCore.Models;
       using ui = TimecardsUI;
+    (Note: abbreviations are only used where they are needed to discern between
+    libraries)
 [/] Code refactoring: add comments where they ought to exist
 [ ] Fill in the "readme" markdown text files in each project
 [ ] Figure out how to make an installation package (Wix? VS? Other?)
-[ ] Code refactoring: look for potential null reference causes and fix them
+[X] Code refactoring: look for potential null reference causes and fix them
 [/] Look for remaining "TODO" comments in code and address them
 [/] Add an option to report tab for rounding hours to nearest .1, .25, etc.
 [ ] Make entire UI DPI-aware
@@ -534,9 +538,9 @@ TO DO
 [/] The file dialogs in both import and export should put the selected format
     at the top of the filter options
 [/] The import and export windows ought to remember which format was chosen last
-[ ] Make better use of that status bar
-[ ] Exported data should be in date, time order - currently it's in ID order
-[ ] When import is done, before dialog is shown, cancel button should be
+[N] Make better use of that status bar
+[X] Exported data should be in date, time order - currently it's in ID order
+[/] When import is done, before dialog is shown, cancel button should be
     disabled
 
 

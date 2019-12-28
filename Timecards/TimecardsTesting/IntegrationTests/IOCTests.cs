@@ -1,18 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ci = TimecardsCore.Interfaces;
-using ioc = TimecardsIOC;
+using ic = TimecardsIOC;
+using ti = TimecardsCore.Interfaces;
 
 namespace TimecardsTesting.IntegrationTests
 {
     [TestClass]
     public class IOCTests
     {
-        private ioc.Factory _factory = null;
+        private ic.Factory _factory = null;
 
         [TestInitialize]
         public void Initialize()
         {
-            _factory = new ioc.Factory();
+            _factory = new ic.Factory();
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace TimecardsTesting.IntegrationTests
             _factory.Register<IBeta>(typeof(Beta), false, typeof(IAlpha));
 
             // get a reference to the factory
-            ci.IFactory factory = _factory;
+            ti.IFactory factory = _factory;
 
             // get a singleton
             var a1 = factory.Resolve<IAlpha>();

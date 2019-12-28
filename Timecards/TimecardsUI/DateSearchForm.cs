@@ -25,17 +25,17 @@ namespace TimecardsUI
 
         private void PopulateList()
         {
-            foreach (var item in TimecardList)
+            foreach (var (Key, Date) in TimecardList)
             {
                 var entry = new ListViewItem
                 {
-                    Tag = item.Key.ToString(),
-                    Text = item.Date.ToString("d"),
+                    Tag = Key.ToString(),
+                    Text = Date.ToString("d"),
                 };
 
                 entry.SubItems.Add(new ListViewItem.ListViewSubItem
                 {
-                    Text = item.Date.DayOfWeek.ToString(),
+                    Text = Date.DayOfWeek.ToString(),
                 });
 
                 DatesListView.Items.Add(entry);

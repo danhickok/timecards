@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using core = TimecardsCore.Models;
+using tm = TimecardsCore.Models;
 
 namespace TimecardsData
 {
@@ -10,9 +10,9 @@ namespace TimecardsData
     {
         #region Timecard methods
 
-        public static core.Timecard ToCore(this Timecard data)
+        public static tm.Timecard ToCore(this Timecard data)
         {
-            var core = new core.Timecard(data.ID, data.Date);
+            var core = new tm.Timecard(data.ID, data.Date);
 
             if (data.Activities != null)
                 core.Activities.AddRange(data.Activities.Select(a => a.ToCore()));
@@ -20,7 +20,7 @@ namespace TimecardsData
             return core;
         }
 
-        public static Timecard ToData(this core.Timecard core)
+        public static Timecard ToData(this tm.Timecard core)
         {
             return new Timecard
             {
@@ -29,13 +29,13 @@ namespace TimecardsData
             };
         }
 
-        public static void UpdateFromCore(this Timecard data, core.Timecard core)
+        public static void UpdateFromCore(this Timecard data, tm.Timecard core)
         {
             data.ID = core.ID;
             data.Date = core.Date;
         }
 
-        public static void UpdateFromData(this core.Timecard core, Timecard data)
+        public static void UpdateFromData(this tm.Timecard core, Timecard data)
         {
             core.ID = data.ID;
             core.Date = data.Date;
@@ -45,14 +45,14 @@ namespace TimecardsData
 
         #region Activity methods
 
-        public static core.Activity ToCore(this Activity data)
+        public static tm.Activity ToCore(this Activity data)
         {
-            var core = new core.Activity(data.ID, data.TimecardID, data.Code, data.Description, data.StartMinute);
+            var core = new tm.Activity(data.ID, data.TimecardID, data.Code, data.Description, data.StartMinute);
 
             return core;
         }
 
-        public static Activity ToData(this core.Activity core)
+        public static Activity ToData(this tm.Activity core)
         {
             return new Activity
             {
@@ -64,7 +64,7 @@ namespace TimecardsData
             };
         }
 
-        public static void UpdateFromCore(this Activity data, core.Activity core)
+        public static void UpdateFromCore(this Activity data, tm.Activity core)
         {
             data.ID = core.ID;
             data.TimecardID = core.TimecardID;
@@ -73,7 +73,7 @@ namespace TimecardsData
             data.StartMinute = core.StartMinute;
         }
 
-        public static void UpdateFromData(this core.Activity core, Activity data)
+        public static void UpdateFromData(this tm.Activity core, Activity data)
         {
             core.ID = data.ID;
             core.TimecardID = data.TimecardID;
