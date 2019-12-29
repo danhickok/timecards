@@ -173,8 +173,16 @@ this program:
 
 * NewtonSoft JSON library by James Newton-King
 * SQLite CodeFirst library by Marc Sallin
-* SQLite database engine, EF, and LINQ interfaces by SQLite Development Team
+* SQLite database engine, EF, and LINQ interfaces by the SQLite Development Team
 * Entity Framework and other .NET components by Microsoft
+
+Also many thanks to Robert "Uncle Bob" Martin for his wonderful book "Clean
+Architecture" [(ISBN-13:
+978-0134494166)](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)
+that explains how to correctly design an application, and to [Jason
+Taylor](https://www.youtube.com/watch?v=_lwCVE_XgqI) and [Tim
+Corey](https://www.youtube.com/watch?v=2moh18sh5p4) for their helpful YouTube
+videos.
 
 ## License
 
