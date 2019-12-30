@@ -36,7 +36,7 @@ https://dotnet.microsoft.com/download/dotnet-framework/net472
 When you first launch Timecards, you're presented with a form that looks like
 this:
 
-![Main form](Docs_MainForm.png)
+![Main form](Docs/Docs_MainForm.png)
 
 The main form has two tabs:  one for entering the day's activities, and another
 one for adding up the time spent on each project and displaying the totals.
@@ -79,7 +79,7 @@ Deleting an activity is simple:  just highlight the entire row by clicking on
 the indicator column at the left of the activity; then, press the Delete key on
 the keyboard.
 
-![Deleting an activity](Docs_DeleteActivity.png)
+![Deleting an activity](Docs/Docs_DeleteActivity.png)
 
 ### **Working Past Midnight**
 
@@ -87,7 +87,7 @@ If you enter an activity for the current timecard, but you've started the
 activity after midnight (so it's actually the next day), the row is given a
 background tint to indicate this is the case:
 
-![After midnight](Docs_AfterMidnight.png)
+![After midnight](Docs/Docs_AfterMidnight.png)
 
 You can change the color of this tint in the Preferences form.
 
@@ -102,7 +102,7 @@ You can toggle the "after midnight" flag for the current activity with the
 When you select "Preferences" from the File menu, you are presented with this
 form:
 
-![Preferences form](Docs_PreferencesForm.png)
+![Preferences form](Docs/Docs_PreferencesForm.png)
 
 Here you can specify the format that controls what characters are allowed for
 the Code column.  Use "#" for digits, "L" for letters, or "A" for alphanumeric
@@ -128,7 +128,7 @@ A default description can be automatically supplied for certain codes.  Use the 
 
 When you select the Report tab in the main form, you'll see these controls:
 
-![Reporting time](Docs_ReportTab.png)
+![Reporting time](Docs/Docs_ReportTab.png)
 
 Specify the beginning and ending dates of the range of timecards you want to
 analyze.  The range defaults to the current day.
@@ -147,7 +147,7 @@ If you want to import timecard data into the Timecards program from some other
 source, you can use the "Import" function from the File menu.  It brings up this
 form:
 
-![Import form](Docs_ImportForm.png)
+![Import form](Docs/Docs_ImportForm.png)
 
 You can import data from text files that are in either comma-separated format,
 tab-separated format, JSON format, or XML format.
@@ -161,7 +161,7 @@ to the existing timecards.
 
 Use the "Export" function from the File menu to bring up the Export form:
 
-![Import form](Docs_ExportForm.png)
+![Import form](Docs/Docs_ExportForm.png)
 
 The same four file formats are available for exporting data.  You can export the
 entire database or select a specific range of timecard dates.

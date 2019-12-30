@@ -1,6 +1,17 @@
 Timecards - a small Windows app for tracking your time
 ======================================================
 
+Below is essentially my scratch pad for this project.  It's both my design plan
+and a journal of what I learned along the way.  You can see here my initial
+thoughts on what this application should be, as well as my admissions of
+discovery and failure, despite me being a seasoned veteran of software
+development.  It's the whole process, warts and all.
+
+I've kept it here for anyone curious about the experience and journey of
+software development.
+
+
+
 Summary
 -------
 
@@ -122,11 +133,12 @@ you who are interested in using SQLite in your .NET products, you're welcome to
 use what I have in this project as an example.
 
 Oddly enough, one of the supposed advantages of using SQLite is that it can work
-with an "in-memory" database.  But you can't work with this when using Code
-First because the database disappears as soon as the connection is closed - and
-since EF and ADO.NET are designed not to keep the connection open all the time,
-this doesn't work.  I found a note by the SQLite CodeFirst developers saying
-they're not going to address this.  (And I don't blame them.)
+with an "in-memory" database -- handy for a test environment.  But you can't
+work with this when using Code First because the database disappears as soon as
+the connection is closed - and since EF and ADO.NET are designed not to keep the
+connection open all the time, this doesn't work.  I found a note by the SQLite
+CodeFirst developers saying they're not going to address this.  (And I don't
+blame them.)
 
 But I will say that EF works rather nicely with SQLite once it's configured
 properly.  For testing, I just added another connection string - and in the test
@@ -407,11 +419,11 @@ UI, for example, to be changed without having to rewrite almost all the
 application.
 
 Well, once I had a working IOC factory, I implemented a few "logic" classes that
-act as go-between UI layer.  Objects of these classes use the IOC factory to get
-a repository and do the CRUD (create, retrieve, update, and delete) work for
-timecards, for getting a report of the timecards, and for doing bulk data
-operations (imports and exports).  I simultaneously developed integration tests
-to go with these new classes.
+act as a "go-between" the core and outer layers.  Objects of these classes use
+the IOC factory to get a repository and do the CRUD (create, retrieve, update,
+and delete) work for timecards, for getting a report of the timecards, and for
+doing bulk data operations (imports and exports).  I simultaneously developed
+integration tests to go with these new classes.
 
 These new logic classes reside in the Core project, but they're effectively
 separate from the rest of the core.  In a bigger application I suppose there
@@ -460,7 +472,7 @@ completed:
 * I need to figure out packaging and deployment.  I know Visual Studio
   Professional has some options for creating installers and whatnot - does the
   community edition have that?  If not, there are open-source third party
-  options like Wix Toolset.
+  options like WiX Toolset.
 
 That's not an exhaustive list - I'm sure there will be more.
 
@@ -526,7 +538,7 @@ TO DO
     libraries)
 [/] Code refactoring: add comments where they ought to exist
 [ ] Fill in the "readme" markdown text files in each project
-[ ] Figure out how to make an installation package (Wix? VS? Other?)
+[ ] Figure out how to make an installation package (WiX? VS? Other?)
 [X] Code refactoring: look for potential null reference causes and fix them
 [/] Look for remaining "TODO" comments in code and address them
 [/] Add an option to report tab for rounding hours to nearest .1, .25, etc.
@@ -559,8 +571,9 @@ which is the latest version I have on my up-to-date Windows 10 OS.  Version 4.8
 is available, but I didn't want to target something that might not yet be on
 people's machines.
 
-If you've ever done that, it's a chore in itself, since some of the libraries
-you are using in your projects may become out of date.
+If you've ever changed the target .NET library, it's a chore in itself, since
+some of the libraries you are using in your projects may become out of date or
+obsolete.
 
 Well, after that little adventure, I discovered that this latest version of .NET
 also contains a new System.Text.Json namespace.  Since I'm building JSON support
@@ -571,9 +584,10 @@ I tested the System.Text.Json library using LINQPad 6, which itself targets .NET
 Core and gives me access to the same library I'd be working with.
 
 It didn't work.  It would not serialize or de-serialize children of the parent
-objects.  I did some searching and discovered this is a known problem.  The word
-on the street, however, is that where this new System library fails, the
-NewtonSoft package works.  So we'll go with that.
+objects (when the root object is a list of the parents).  I did some searching
+and discovered this is a known problem.  The word on the street, however, is
+that where this new System library fails, the NewtonSoft package works.  So
+we'll go with that.
 
 
 
@@ -609,7 +623,8 @@ Got this curious EF error while running the import test on CSV:
   configuration. Use the 'HasDatabaseGeneratedOption" fluent API or
   'DatabaseGeneratedAttribute' for Code First configuration.
 
-Fixed that by changing the factory's repo object to a non-singleton.
+Fixed that by changing the factory's repo object to a non-singleton.  I get the
+feeling that this hides a problem rather than solves it.  But it works.
 
 
 
@@ -645,19 +660,19 @@ progress bar.  The message is this:
 I remember running across this problem once before.  (Yes, I've learned how to
 thread in the past - but that was before async and await.  Plus, I don't do
 threading very often, so sometimes I have to re-learn stuff.  Don't you?)  Well,
-I'm going to need to update that progress bar as the import runs.  How to I
-resolve this?
+I'm going to need to update that progress bar somehow as the import runs.  How
+to I resolve this?
 
 Tim's got a follow-up "advanced" tutorial:
 https://www.youtube.com/watch?v=ZTKGRJy5P2M
 
 That's an hour-long tutorial.  Ugh.
 
-In my event handler for the progress update, f I comment out the code that
+In my event handler for the progress update, if I comment out the code that
 touches the progress bar and the line that refreshes the form, it works - I can
 press the "cancel" button to get the import to interrupt.  Good!  So perhaps
-it's a matter of setting some value that both threads (the import and the UI)
-can access.  But how to update the progress bar?  Let's try a timer.
+it's a matter of setting some form-level value that both threads (the import and
+the UI) can access.  But how to update the progress bar?  Let's try a timer.
 
 It worked!  The timer reads the progress that was set/updated by the progress
 update event.  Saved myself an hour.
