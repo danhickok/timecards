@@ -32,13 +32,9 @@ the program, you might want to opt for the ZIP fie instead.
 To install the program from the ZIP file:
 
 1. Download the file to your local hard drive.
-1. Extract the contents to a local folder.
+1. Extract the contents to a local folder of your choosing.
 1. Make a shortcut to `Timecards.exe` and place it in a convenient location (such
 as your desktop).
-
-When you execute the program for the first time, it will create a file called
-"Timecards.db" in a folder called "TimecardsData" in your App Data folder.  This
-is where your timecard data is stored.
 
 ### Requirements
 
