@@ -20,7 +20,25 @@ this application.
 
 ## Installation
 
-I'm working on that.  Stay tuned.
+This program is available as an MSI installer package and as a plain ZIP file.
+
+* The installer is available here:  https://danhickok.com/Timecards.msi
+* The ZIP file is available here:  https://danhickok.com/Timecards_1.0.0.0.zip
+
+At this time, the installer is unsigned (sorry), so Windows may warn you that
+you're about to install an unsigned program.  If it won't allow you to install
+the program, you might want to opt for the ZIP fie instead.
+
+To install the program from the ZIP file:
+
+1. Download the file to your local hard drive.
+1. Extract the contents to a local folder.
+1. Make a shortcut to `Timecards.exe` and place it in a convenient location (such
+as your desktop).
+
+When you execute the program for the first time, it will create a file called
+"Timecards.db" in a folder called "TimecardsData" in your App Data folder.  This
+is where your timecard data is stored.
 
 ### Requirements
 
@@ -28,6 +46,10 @@ This program requires the Microsoft .NET Framework, version 4.7.2, running on
 Windows.  If you do not have this framework installed, it is available from
 Microsoft:  
 https://dotnet.microsoft.com/download/dotnet-framework/net472
+
+The MSI installer should take care of prompting you to download the .NET
+framework if you don't have it installed.  If you're opting to use the ZIP file,
+you will need to take care of installing the .NET framework yourself.
 
 ## Usage
 
@@ -165,6 +187,15 @@ Use the "Export" function from the File menu to bring up the Export form:
 
 The same four file formats are available for exporting data.  You can export the
 entire database or select a specific range of timecard dates.
+
+### **Maintenance**
+
+When you execute this program for the first time, it will create a file called
+"Timecards.db" in a folder called "TimecardsData" in your AppData folder.  This
+is where your timecard data is stored.
+
+You can make a backup to this file at any time, as long as you close the program
+first.
 
 ## Credits
 
