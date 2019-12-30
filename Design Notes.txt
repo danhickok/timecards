@@ -672,3 +672,21 @@ and weekends here and there -- this application is nearly ready.  Now it's a
 matter of completing the documentation and coming up with an installer.
 
 
+
+12/29/2019
+----------
+
+I used to use InstallShield Developer in the old days when my company produced
+installers for our product.  It was big, huge, complicated, and it had dozens of
+features -- most of which I never used.
+
+I've got an old book on the Microsoft Installer -- two books, actually -- and
+the one thing I remember about MSI files is that they are complex little
+databases that can contain as many as 30 different tables.
+
+So it's no wonder that the WiX Toolset is enormously complicated.
+
+I'm checking out various less-complex alternatives.  I'd prefer one within my
+price range (that is, free).  Each of the ones I've looked at so far have
+problems.  I'll fall back to WiX if I can't find a suitable one.
+
