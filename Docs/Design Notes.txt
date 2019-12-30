@@ -723,13 +723,13 @@ experience behind me), and seems to produce a simple .MSI file I can publish.
 
 However, an old problem came back to bite me:  I never figured out how to alter
 the connection string from what I provided in the App.config file.  This is what
-led me to postponing the configuration option to let the use specify the
+led me to postponing the configuration option to let the user specify the
 database path.
 
-And since that string doesn't expand things like %APPDATA%, I'm stuck with
-whatever the path I provided in the config file, as-is.  The DbContext class can
-use a named connection string -- so I was able to control the path for
-production vs. testing.
+And since that config file string doesn't automatically expand things like
+%APPDATA%, I'm stuck with whatever the path I provided in the config file,
+as-is.  The DbContext class can use a named connection string -- so I was able
+to control the path for production vs. testing.
 
 For the short term, I had just put a relative path from the program's home
 folder, with the assumption that the program would _appear_ to be installed in
@@ -745,4 +745,18 @@ build a database path that honors the %APPDATA% environment variable.  And I
 need to get the SQLite data provider to honor the connection string rather than
 just the configuration file's connection string name.
 
+
+How about that.  It turns out that the EF DbContext class can take a
+DbConnection object in its constructor instead of a connection string name, and
+the SQLite data provider library has a DbConnection-compatible class that can
+take a full connection string as its constructor.
+
+I was going to add code to the Repository to take care of this, but since the
+purpose of a repository is really to consolidate common data access logic, I
+thought it best to offload this connection string magic to a separate class.
+
+So I built a static "connection builder" class and put the code in there.
+
+Now it's possible for a later release to expose the path to the database to the
+user in the configuration dialog.  Yay!
 

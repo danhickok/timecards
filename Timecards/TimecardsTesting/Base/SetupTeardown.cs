@@ -51,7 +51,9 @@ namespace TimecardsTesting.Base
             {
                 if (piece.ToLower().Contains("data source="))
                 {
-                    var fileName = piece.Substring(piece.IndexOf("=") + 1).Trim();
+                    var fileName = piece.Substring(piece.IndexOf("=") + 1).Trim()
+                        .Replace("%APPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+
                     File.Delete(fileName);
                     break;
                 }

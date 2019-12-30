@@ -1,4 +1,5 @@
 ﻿using SQLite.CodeFirst;
+using System.Data.Common;
 using System.Data.Entity;
 
 namespace TimecardsData
@@ -8,7 +9,7 @@ namespace TimecardsData
     /// </summary>
     public class TimecardsContext : DbContext
     {
-        public TimecardsContext(string connectionStringName) : base(connectionStringName)
+        public TimecardsContext(DbConnection dbConnection) : base(dbConnection, true)
         {
         }
 

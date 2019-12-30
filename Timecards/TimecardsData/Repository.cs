@@ -28,7 +28,8 @@ namespace TimecardsData
 
         public Repository(IAppConstants info)
         {
-            _context = new TimecardsContext(info.ConnectionStringName);
+            var dbConnection = TimecardsConnectionBuilder.BuildConnection(info.ConnectionStringName);
+            _context = new TimecardsContext(dbConnection);
         }
 
         #endregion
