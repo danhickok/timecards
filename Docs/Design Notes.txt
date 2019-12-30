@@ -49,7 +49,9 @@ and maybe even the Mac platform.  But we'll see.
 09/04/2018
 ----------
 
-Here are some initial criteria and constraints for this project.
+Every engineering project starts with a list of criteria (what you want to
+accomplish) and constraints (conditions limiting how you operate).  Here are
+some initial criteria and constraints for this project.
 
 
 Criteria

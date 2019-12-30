@@ -182,7 +182,9 @@ Architecture" [(ISBN-13:
 that explains how to correctly design an application, and to [Jason
 Taylor](https://www.youtube.com/watch?v=_lwCVE_XgqI) and [Tim
 Corey](https://www.youtube.com/watch?v=2moh18sh5p4) for their helpful YouTube
-videos.
+videos.  Also thanks to Tim Ross and his article on [how an inversion-of-control
+container
+works](https://timross.wordpress.com/2010/01/21/creating-a-simple-ioc-container/).
 
 ## License
 
