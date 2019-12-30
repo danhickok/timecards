@@ -707,3 +707,42 @@ I'm checking out various less-complex alternatives.  I'd prefer one within my
 price range (that is, free).  Each of the ones I've looked at so far have
 problems.  I'll fall back to WiX if I can't find a suitable one.
 
+
+
+12/30/2019
+----------
+
+I was apprehensive about using the Visual Studio Installer Projects extension,
+because I'd read the (few) reviews that had been posted.  Some folks had found
+bugs.  I wasn't sure if this had been used enough to be safe, at least for what
+I needed.
+ 
+but I tried it out.  It appears that extension does just fine. It's easy to use
+(at least for me, with the aforementioned InstallShield experience behind me),
+and seems to produce a simple .MSI file I can publish.
+
+However, an old problem came back to bite me:  I never figured out how to alter
+the connection string from what I provided in the App.config file.  This is what
+led me to postponing the configuration option to let the use specify the
+database path.
+
+And since that string doesn't expand things like %APPDATA%, I'm stuck with
+whatever the path I provided in the config file, as-is.  The DbContext class can
+use a named connection string -- so I was able to control the path for
+production vs. testing.
+
+For the short term, I had just put a relative path from the program's home
+folder, with the assumption that the program would _appear_ to be installed in
+the Program Files folder, but actually be installed in one of those Application
+Data sub-folders (like "Roaming" or whatever).
+
+No such luck.  The installed program tries to use that relative path, and
+immediately runs into a permission problem because Windows doesn't let the
+average user have access to anything inside Program Files.
+
+So, I need to figure out how to do a string operation on a connection string to
+build a database path that honors the %APPDATA% environment variable.  And I
+need to get the SQLite data provider to honor the connection string rather than
+just the configuration file's connection string name.
+
+
