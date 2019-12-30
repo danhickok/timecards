@@ -717,9 +717,9 @@ because I'd read the (few) reviews that had been posted.  Some folks had found
 bugs.  I wasn't sure if this had been used enough to be safe, at least for what
 I needed.
  
-but I tried it out.  It appears that extension does just fine. It's easy to use
-(at least for me, with the aforementioned InstallShield experience behind me),
-and seems to produce a simple .MSI file I can publish.
+But I tried it out today anyway.  Well, it appears that extension does just
+fine.  It's easy to use (at least for me, with the aforementioned InstallShield
+experience behind me), and seems to produce a simple .MSI file I can publish.
 
 However, an old problem came back to bite me:  I never figured out how to alter
 the connection string from what I provided in the App.config file.  This is what
