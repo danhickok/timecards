@@ -539,8 +539,8 @@ TO DO
     (Note: abbreviations are only used where they are needed to discern between
     libraries)
 [/] Code refactoring: add comments where they ought to exist
-[ ] Fill in the "readme" markdown text files in each project
-[ ] Figure out how to make an installation package (WiX? VS? Other?)
+[/] Fill in the "readme" markdown text files in each project
+[/] Figure out how to make an installation package (WiX? VS? Other?)
 [X] Code refactoring: look for potential null reference causes and fix them
 [/] Look for remaining "TODO" comments in code and address them
 [/] Add an option to report tab for rounding hours to nearest .1, .25, etc.
@@ -759,4 +759,7 @@ So I built a static "connection builder" class and put the code in there.
 
 Now it's possible for a later release to expose the path to the database to the
 user in the configuration dialog.  Yay!
+
+
+It is done!  Version 1.0 is officially complete.  Time to make a release branch.
 
