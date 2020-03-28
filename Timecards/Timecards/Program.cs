@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ic = TimecardsIOC;
 using tc = TimecardsCore;
 using td = TimecardsData;
+using tl = TimecardsLogger;
 using ui = TimecardsUI;
 
 namespace Timecards
@@ -29,6 +30,8 @@ namespace Timecards
             // give it other types needed for the application
             factory.Register<tc.Interfaces.IRepository>(typeof(td.Repository), false,
                 typeof(tc.Interfaces.IAppConstants));
+            factory.Register<tc.Interfaces.ILogger>(typeof(tl.Logger), true,
+                typeof(tc.Interfaces.IAppConstants));
 
             // create the main form object and establish its last known position, if available
             var mainForm = new ui.MainForm
@@ -40,8 +43,12 @@ namespace Timecards
             {
                 mainForm.InitialPositioning = true;
 
-                mainForm.Top = ui.MainFormSettings.Top;
-                mainForm.Left = ui.MainFormSettings.Left;
+                var displayArea = Screen.GetWorkingArea(new System.Drawing.Point(0, 0));
+
+                mainForm.Top = Math.Min(displayArea.Height - ui.MainFormSettings.Height,
+                    Math.Max(0, ui.MainFormSettings.Top));
+                mainForm.Left = Math.Min(displayArea.Width - ui.MainFormSettings.Width,
+                    Math.Max(0, ui.MainFormSettings.Left));
                 mainForm.Height = ui.MainFormSettings.Height;
                 mainForm.Width = ui.MainFormSettings.Width;
 

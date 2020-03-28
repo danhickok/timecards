@@ -34,6 +34,8 @@ namespace TimecardsUI
 
         private List<ReportItem> _report = null;
 
+        private ILogger _logger = null;
+
         public MainForm()
         {
             _loading = true;
@@ -110,6 +112,12 @@ namespace TimecardsUI
             if (InitialPositioning)
                 return;
 
+            if (WindowState == FormWindowState.Minimized)
+                return;
+
+            if (WindowState == FormWindowState.Maximized)
+                return;
+
             MainFormSettings.Top = Top;
             MainFormSettings.Left = Left;
             MainFormSettings.Height = Height;
@@ -123,6 +131,9 @@ namespace TimecardsUI
                 return;
 
             if (WindowState == FormWindowState.Minimized)
+                return;
+
+            if (WindowState == FormWindowState.Maximized)
                 return;
 
             MainFormSettings.Height = Height;
