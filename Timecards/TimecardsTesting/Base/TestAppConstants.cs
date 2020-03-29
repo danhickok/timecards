@@ -9,5 +9,7 @@ namespace TimecardsTesting.Base
     public class TestAppConstants : IAppConstants
     {
         public string ConnectionStringName => "TestDb";
+
+        public string LogFilePath => null;
     }
 }

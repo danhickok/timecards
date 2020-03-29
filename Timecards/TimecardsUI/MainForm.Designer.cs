@@ -305,6 +305,7 @@
             this.MainTab.SelectedIndex = 0;
             this.MainTab.Size = new System.Drawing.Size(471, 578);
             this.MainTab.TabIndex = 0;
+            this.MainTab.SelectedIndexChanged += new System.EventHandler(this.MainTab_SelectedIndexChanged);
             // 
             // MainTabActivities
             // 
@@ -362,7 +363,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 436);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 432);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ActivitiesGrid_CellBeginEdit);
             this.ActivitiesGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellEnter);
@@ -503,7 +504,7 @@
             // 
             this.ReportOptionHundredths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionHundredths.AutoSize = true;
-            this.ReportOptionHundredths.Location = new System.Drawing.Point(292, 509);
+            this.ReportOptionHundredths.Location = new System.Drawing.Point(292, 505);
             this.ReportOptionHundredths.Name = "ReportOptionHundredths";
             this.ReportOptionHundredths.Size = new System.Drawing.Size(94, 21);
             this.ReportOptionHundredths.TabIndex = 9;
@@ -516,7 +517,7 @@
             // 
             this.ReportOptionTenths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionTenths.AutoSize = true;
-            this.ReportOptionTenths.Location = new System.Drawing.Point(223, 509);
+            this.ReportOptionTenths.Location = new System.Drawing.Point(223, 505);
             this.ReportOptionTenths.Name = "ReportOptionTenths";
             this.ReportOptionTenths.Size = new System.Drawing.Size(63, 21);
             this.ReportOptionTenths.TabIndex = 8;
@@ -529,7 +530,7 @@
             // 
             this.ReportOptionQuarters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionQuarters.AutoSize = true;
-            this.ReportOptionQuarters.Location = new System.Drawing.Point(140, 509);
+            this.ReportOptionQuarters.Location = new System.Drawing.Point(140, 505);
             this.ReportOptionQuarters.Name = "ReportOptionQuarters";
             this.ReportOptionQuarters.Size = new System.Drawing.Size(77, 21);
             this.ReportOptionQuarters.TabIndex = 7;
@@ -542,7 +543,7 @@
             // 
             this.ReportOptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionLabel.AutoSize = true;
-            this.ReportOptionLabel.Location = new System.Drawing.Point(22, 511);
+            this.ReportOptionLabel.Location = new System.Drawing.Point(22, 507);
             this.ReportOptionLabel.Name = "ReportOptionLabel";
             this.ReportOptionLabel.Size = new System.Drawing.Size(99, 17);
             this.ReportOptionLabel.TabIndex = 6;
@@ -566,7 +567,7 @@
             this.ReportListView.Location = new System.Drawing.Point(22, 104);
             this.ReportListView.MultiSelect = false;
             this.ReportListView.Name = "ReportListView";
-            this.ReportListView.Size = new System.Drawing.Size(417, 387);
+            this.ReportListView.Size = new System.Drawing.Size(417, 383);
             this.ReportListView.TabIndex = 5;
             this.ReportListView.UseCompatibleStateImageBehavior = false;
             this.ReportListView.View = System.Windows.Forms.View.Details;

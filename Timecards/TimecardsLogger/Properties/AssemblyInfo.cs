@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Timecards")]
-[assembly: AssemblyDescription("A program for recording and reporting your daily activities")]
+[assembly: AssemblyTitle("TimecardsLogger")]
+[assembly: AssemblyDescription("Logger for Timecards")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dan Hickok")]
-[assembly: AssemblyProduct("Timecards")]
-[assembly: AssemblyCopyright("Copyright © 2019-2020 Dan Hickok")]
+[assembly: AssemblyProduct("TimecardsLogger")]
+[assembly: AssemblyCopyright("Copyright © 2020 Dan Hickok")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fc37bf42-dcde-445d-bbbb-1833a6334e12")]
+[assembly: Guid("c340120b-c605-44d1-a2d6-320762effb81")]
 
 // Version information for an assembly consists of the following four values:
 //

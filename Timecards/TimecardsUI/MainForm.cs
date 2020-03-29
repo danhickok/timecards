@@ -34,6 +34,8 @@ namespace TimecardsUI
 
         private List<ReportItem> _report = null;
 
+        private ILogger _logger = null;
+
         public MainForm()
         {
             _loading = true;
@@ -101,6 +103,8 @@ namespace TimecardsUI
             Log("MainForm_Activated event");
 
             RecalculateColumnWidths();
+            if (MainTab.SelectedIndex == 0)
+                SetFocusOnActivitiesGrid();
         }
 
         private void MainForm_Move(object sender, EventArgs e)
@@ -108,6 +112,12 @@ namespace TimecardsUI
             Log("MainForm_Move event");
 
             if (InitialPositioning)
+                return;
+
+            if (WindowState == FormWindowState.Minimized)
+                return;
+
+            if (WindowState == FormWindowState.Maximized)
                 return;
 
             MainFormSettings.Top = Top;
@@ -123,6 +133,9 @@ namespace TimecardsUI
                 return;
 
             if (WindowState == FormWindowState.Minimized)
+                return;
+
+            if (WindowState == FormWindowState.Maximized)
                 return;
 
             MainFormSettings.Height = Height;
@@ -456,6 +469,29 @@ namespace TimecardsUI
 
             ClearStatusMessage();
             _loading = false;
+        }
+
+        private void MainTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (MainTab.SelectedIndex)
+            {
+                case 0:
+                    SetFocusOnActivitiesGrid();
+                    break;
+                case 1:
+                    SetFocusOnReportDate();
+                    break;
+            }
+        }
+
+        private void SetFocusOnActivitiesGrid()
+        {
+            ActivitiesGrid.Focus();
+        }
+
+        private void SetFocusOnReportDate()
+        {
+            ReportDateStart.Focus();
         }
 
         private void ReportButtonGo_Click(object sender, EventArgs e)
