@@ -105,6 +105,7 @@
     <Compile Include="ExtensionMethods\XmlExtensionMethods.cs" />
     <Compile Include="Interfaces\IAppConstants.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Logic\BulkLogic.cs" />
     <Compile Include="Logic\ReportLogic.cs" />

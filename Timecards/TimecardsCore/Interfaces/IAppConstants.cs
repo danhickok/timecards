@@ -9,5 +9,10 @@
         /// The connection string used by EF to access the database
         /// </summary>
         string ConnectionStringName { get; }
+
+        /// <summary>
+        /// Path to log file
+        /// </summary>
+        string LogFilePath { get; }
     }
 }
