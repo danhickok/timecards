@@ -45,9 +45,9 @@ namespace Timecards
 
                 var displayArea = Screen.GetWorkingArea(new System.Drawing.Point(0, 0));
 
-                mainForm.Top = Math.Min(displayArea.Height - ui.MainFormSettings.Height,
+                mainForm.Top = Math.Min(displayArea.Top + displayArea.Height - ui.MainFormSettings.Height,
                     Math.Max(0, ui.MainFormSettings.Top));
-                mainForm.Left = Math.Min(displayArea.Width - ui.MainFormSettings.Width,
+                mainForm.Left = Math.Min(displayArea.Left + displayArea.Width - ui.MainFormSettings.Width,
                     Math.Max(0, ui.MainFormSettings.Left));
                 mainForm.Height = ui.MainFormSettings.Height;
                 mainForm.Width = ui.MainFormSettings.Width;

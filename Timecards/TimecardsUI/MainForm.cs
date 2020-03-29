@@ -103,6 +103,8 @@ namespace TimecardsUI
             Log("MainForm_Activated event");
 
             RecalculateColumnWidths();
+            if (MainTab.SelectedIndex == 0)
+                SetFocusOnActivitiesGrid();
         }
 
         private void MainForm_Move(object sender, EventArgs e)
@@ -467,6 +469,29 @@ namespace TimecardsUI
 
             ClearStatusMessage();
             _loading = false;
+        }
+
+        private void MainTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (MainTab.SelectedIndex)
+            {
+                case 0:
+                    SetFocusOnActivitiesGrid();
+                    break;
+                case 1:
+                    SetFocusOnReportDate();
+                    break;
+            }
+        }
+
+        private void SetFocusOnActivitiesGrid()
+        {
+            ActivitiesGrid.Focus();
+        }
+
+        private void SetFocusOnReportDate()
+        {
+            ReportDateStart.Focus();
         }
 
         private void ReportButtonGo_Click(object sender, EventArgs e)

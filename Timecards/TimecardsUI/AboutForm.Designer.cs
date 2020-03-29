@@ -44,7 +44,7 @@
             this.OKButton.Location = new System.Drawing.Point(464, 230);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(87, 27);
-            this.OKButton.TabIndex = 4;
+            this.OKButton.TabIndex = 0;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
@@ -56,7 +56,7 @@
             this.LabelTitle.Location = new System.Drawing.Point(13, 13);
             this.LabelTitle.Name = "LabelTitle";
             this.LabelTitle.Size = new System.Drawing.Size(81, 20);
-            this.LabelTitle.TabIndex = 0;
+            this.LabelTitle.TabIndex = 1;
             this.LabelTitle.Text = "Timecards";
             // 
             // LabelVersion
@@ -65,7 +65,7 @@
             this.LabelVersion.Location = new System.Drawing.Point(17, 65);
             this.LabelVersion.Name = "LabelVersion";
             this.LabelVersion.Size = new System.Drawing.Size(116, 15);
-            this.LabelVersion.TabIndex = 2;
+            this.LabelVersion.TabIndex = 3;
             this.LabelVersion.Text = "(Version set by code)";
             // 
             // pictureBox1
@@ -89,8 +89,9 @@
             this.AuthorTextBox.Location = new System.Drawing.Point(20, 93);
             this.AuthorTextBox.Multiline = true;
             this.AuthorTextBox.Name = "AuthorTextBox";
+            this.AuthorTextBox.ReadOnly = true;
             this.AuthorTextBox.Size = new System.Drawing.Size(383, 164);
-            this.AuthorTextBox.TabIndex = 3;
+            this.AuthorTextBox.TabIndex = 4;
             this.AuthorTextBox.Text = "(Author set by code)";
             // 
             // SubtitleLabel
@@ -99,7 +100,7 @@
             this.SubtitleLabel.Location = new System.Drawing.Point(17, 37);
             this.SubtitleLabel.Name = "SubtitleLabel";
             this.SubtitleLabel.Size = new System.Drawing.Size(274, 15);
-            this.SubtitleLabel.TabIndex = 1;
+            this.SubtitleLabel.TabIndex = 2;
             this.SubtitleLabel.Text = "A program for recording how you spend your time";
             // 
             // AboutForm
