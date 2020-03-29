@@ -23,7 +23,7 @@ this application.
 This program is available as an MSI installer package and as a plain ZIP file.
 
 * The installer is available here:  https://danhickok.com/Timecards.msi
-* The ZIP file is available here:  https://danhickok.com/Timecards_1.0.0.0.zip
+* The ZIP file is available here:  https://danhickok.com/Timecards_1.0.1.0.zip
 
 At this time, the installer is unsigned (sorry), so Windows may warn you that
 you're about to install an unsigned program.  If it won't allow you to install
