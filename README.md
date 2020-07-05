@@ -193,6 +193,8 @@ is where your timecard data is stored.
 You can make a backup to this file at any time, as long as you close the program
 first.
 
+----
+
 ## Credits
 
 Many thanks to the open-source contributors that created the components used by
