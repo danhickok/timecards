@@ -20,21 +20,9 @@ this application.
 
 ## Installation
 
-This program is available as an MSI installer package and as a plain ZIP file.
-
-* The installer is available here:  https://danhickok.com/Timecards.msi
-* The ZIP file is available here:  https://danhickok.com/Timecards_1.0.1.0.zip
-
-At this time, the installer is unsigned (sorry), so Windows may warn you that
-you're about to install an unsigned program.  If it won't allow you to install
-the program, you might want to opt for the ZIP fie instead.
-
-To install the program from the ZIP file:
-
-1. Download the file to your local hard drive.
-1. Extract the contents to a local folder of your choosing.
-1. Make a shortcut to `Timecards.exe` and place it in a convenient location (such
-as your desktop).
+This program is not currently available as an MSI installer package.  We're working
+to address this by switching to a better installer - probably Wix Toolset.  Stay
+tuned!
 
 ### Requirements
 
