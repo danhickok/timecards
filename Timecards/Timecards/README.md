@@ -11,16 +11,18 @@ projects:
 * **TimecardsData** - this contains data access logic (including a repository, EF
 classes, and mappings between the domain and EF classes).
 * **TimecardsIOC** - this contains the inversion-of-control (IOC) class.
-* **TimecardsUI** - this contains the user interface (winforms) for the
-  application.
+* **TimecardsLogger** - this contains a class for writing logging messages.
 * **TimecardsTesting** - this contains the unit and integration tests for the
 application.
+* **TimecardsUI** - this contains the user interface (winforms) for the
+  application.
 * **Setup** - this contains the configuration for building an installer for the
 application.
 
 
 This application follows the "clean architecture" principles of separating the
-core of the application from other "layers" around it.  This has sometimes been referred to as "Onion" architecture or "hexagonal" architecture.
+core of the application from other "layers" around it.  This has sometimes been
+referred to as "Onion" architecture or "hexagonal" architecture.
 
 All dependencies are _toward_ the core:  the core knows nothing of the outside
 world, save for interfaces. The IOC class supplies the core with objects from

@@ -26,6 +26,7 @@ namespace TimecardsLogger
         /// <param name="message">Message to write to log file</param>
         public void Log(string message)
         {
+#if DEBUG
             if (string.IsNullOrWhiteSpace(_path))
                 return;
 
@@ -40,6 +41,7 @@ namespace TimecardsLogger
             {
                 // it's OK to fail silently - logging isn't supposed to get in the way
             }
+#endif
         }
     }
 }

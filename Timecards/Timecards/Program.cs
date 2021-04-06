@@ -34,10 +34,7 @@ namespace Timecards
                 typeof(tc.Interfaces.IAppConstants));
 
             // create the main form object and establish its last known position, if available
-            var mainForm = new ui.MainForm
-            {
-                Factory = factory
-            };
+            var mainForm = new ui.MainForm(factory);
 
             if (ui.MainFormSettings.HaveBeenSet)
             {

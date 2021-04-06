@@ -15,8 +15,8 @@ namespace TimecardsUI
     public partial class MainForm : Form
     {
         public bool InitialPositioning = false;
-        public IFactory Factory = null;
 
+        private IFactory Factory = null;
         private bool _loading = false;
 
         // this object is disposed of in FormClosed event
@@ -31,38 +31,46 @@ namespace TimecardsUI
 
         private TimecardLogic _timecardLogic = null;
         private ReportLogic _reportLogic = null;
-
         private List<ReportItem> _report = null;
-
         private ILogger _logger = null;
 
-        public MainForm()
+        public MainForm(IFactory factory)
         {
+            Factory = factory;
+            _logger = Factory.Resolve<ILogger>();
+
             _loading = true;
 
+            Log("Constructor: calling InitializeComponent()");
             InitializeComponent();
 
+            Log("Constructor: getting code and time column widths");
             CodeColumn.Width = MainFormSettings.ColumnCodeWidth;
             TimeColumn.Width = MainFormSettings.ColumnTimeWidth;
 
             _loading = false;
 
+            Log("Constructor: setting midnight color constants");
             _beforeMidnightBackgroundColor = SystemColors.Window;
             _beforeMidnightAlternateBackgroundColor = SystemColors.ButtonFace;
             SetAfterMidnightRowColors();
 
-            // fix the creeping bottom edge design problem in VS
+            // this addresses the creeping bottom edge design problem in VS
+            Log("Constructor: fixing grid height");
             ActivitiesGrid.Height =
                 MainTabActivities.ClientRectangle.Height - ActivitiesGrid.Top - ActivitiesGrid.Left;
 
+            Log("Constructor: calling FindGridVScrollBarControl()");
             FindGridVScrollBarControl();
 
+            Log("Constructor: calling ClearStatusMessage()");
             ClearStatusMessage();
         }
 
         // allows form to be closed when control validation would otherwise prevent it
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            Log("OnFormClosing: calling base");
             e.Cancel = false;
             base.OnFormClosing(e);
         }
@@ -291,6 +299,8 @@ namespace TimecardsUI
             Log("MainMenuDataActivitiesSort_Click event");
 
             SetStatusMessage("Sorting activities by time...");
+
+            _timecardLogic.SaveTimecard();
 
             var tc = _timecardLogic.GetCurrentTimecard();
             tc.Activities.Sort((a, b) =>
@@ -673,7 +683,7 @@ namespace TimecardsUI
             if (e.ColumnIndex == 1 &&
                 string.IsNullOrWhiteSpace(ActivitiesGrid.CurrentCell.Value?.ToString()))
             {
-                var code = ActivitiesGrid.CurrentRow.Cells[0].Value.ToString();
+                var code = ActivitiesGrid.CurrentRow.Cells[0]?.Value?.ToString() ?? string.Empty;
                 if (Configuration.DefaultCodes.ContainsKey(code))
                 {
                     ActivitiesGrid.CurrentCell.Value = Configuration.DefaultCodes[code];
@@ -949,6 +959,7 @@ namespace TimecardsUI
         private void Log(string message)
         {
             Debug.Print($"{DateTime.Now:HH:mm:ss.fff}  {message}");
+            _logger.Log(message);
         }
 
         private enum Navigation
