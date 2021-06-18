@@ -83,6 +83,7 @@
             this.ReportDateEnd = new System.Windows.Forms.DateTimePicker();
             this.ReportDateStart = new System.Windows.Forms.DateTimePicker();
             this.ReportStartLabel = new System.Windows.Forms.Label();
+            this.ReportButtonExport = new System.Windows.Forms.Button();
             this.ActivitiesGrid = new System.Windows.Forms.DataGridView();
             this.CodeColumn = new TimecardsUI.ActivityCodeColumn();
             this.DescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -418,6 +419,7 @@
             // 
             // MainTabReport
             // 
+            this.MainTabReport.Controls.Add(this.ReportButtonExport);
             this.MainTabReport.Controls.Add(this.ReportOptionHundredths);
             this.MainTabReport.Controls.Add(this.ReportOptionTenths);
             this.MainTabReport.Controls.Add(this.ReportOptionQuarters);
@@ -428,10 +430,10 @@
             this.MainTabReport.Controls.Add(this.ReportDateEnd);
             this.MainTabReport.Controls.Add(this.ReportDateStart);
             this.MainTabReport.Controls.Add(this.ReportStartLabel);
-            this.MainTabReport.Location = new System.Drawing.Point(4, 22);
+            this.MainTabReport.Location = new System.Drawing.Point(4, 26);
             this.MainTabReport.Name = "MainTabReport";
             this.MainTabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.MainTabReport.Size = new System.Drawing.Size(463, 552);
+            this.MainTabReport.Size = new System.Drawing.Size(463, 548);
             this.MainTabReport.TabIndex = 1;
             this.MainTabReport.Text = "Report";
             this.MainTabReport.UseVisualStyleBackColor = true;
@@ -440,10 +442,10 @@
             // 
             this.ReportOptionHundredths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionHundredths.AutoSize = true;
-            this.ReportOptionHundredths.Location = new System.Drawing.Point(292, 505);
+            this.ReportOptionHundredths.Location = new System.Drawing.Point(292, 493);
             this.ReportOptionHundredths.Name = "ReportOptionHundredths";
             this.ReportOptionHundredths.Size = new System.Drawing.Size(94, 21);
-            this.ReportOptionHundredths.TabIndex = 9;
+            this.ReportOptionHundredths.TabIndex = 10;
             this.ReportOptionHundredths.TabStop = true;
             this.ReportOptionHundredths.Text = "Hundredths";
             this.ReportOptionHundredths.UseVisualStyleBackColor = true;
@@ -453,10 +455,10 @@
             // 
             this.ReportOptionTenths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionTenths.AutoSize = true;
-            this.ReportOptionTenths.Location = new System.Drawing.Point(223, 505);
+            this.ReportOptionTenths.Location = new System.Drawing.Point(223, 493);
             this.ReportOptionTenths.Name = "ReportOptionTenths";
             this.ReportOptionTenths.Size = new System.Drawing.Size(63, 21);
-            this.ReportOptionTenths.TabIndex = 8;
+            this.ReportOptionTenths.TabIndex = 9;
             this.ReportOptionTenths.TabStop = true;
             this.ReportOptionTenths.Text = "Tenths";
             this.ReportOptionTenths.UseVisualStyleBackColor = true;
@@ -466,10 +468,10 @@
             // 
             this.ReportOptionQuarters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionQuarters.AutoSize = true;
-            this.ReportOptionQuarters.Location = new System.Drawing.Point(140, 505);
+            this.ReportOptionQuarters.Location = new System.Drawing.Point(140, 493);
             this.ReportOptionQuarters.Name = "ReportOptionQuarters";
             this.ReportOptionQuarters.Size = new System.Drawing.Size(77, 21);
-            this.ReportOptionQuarters.TabIndex = 7;
+            this.ReportOptionQuarters.TabIndex = 8;
             this.ReportOptionQuarters.TabStop = true;
             this.ReportOptionQuarters.Text = "Quarters";
             this.ReportOptionQuarters.UseVisualStyleBackColor = true;
@@ -479,10 +481,10 @@
             // 
             this.ReportOptionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReportOptionLabel.AutoSize = true;
-            this.ReportOptionLabel.Location = new System.Drawing.Point(22, 507);
+            this.ReportOptionLabel.Location = new System.Drawing.Point(22, 495);
             this.ReportOptionLabel.Name = "ReportOptionLabel";
             this.ReportOptionLabel.Size = new System.Drawing.Size(99, 17);
-            this.ReportOptionLabel.TabIndex = 6;
+            this.ReportOptionLabel.TabIndex = 7;
             this.ReportOptionLabel.Text = "Report hours in";
             // 
             // ReportListView
@@ -503,8 +505,8 @@
             this.ReportListView.Location = new System.Drawing.Point(22, 104);
             this.ReportListView.MultiSelect = false;
             this.ReportListView.Name = "ReportListView";
-            this.ReportListView.Size = new System.Drawing.Size(417, 383);
-            this.ReportListView.TabIndex = 5;
+            this.ReportListView.Size = new System.Drawing.Size(417, 371);
+            this.ReportListView.TabIndex = 6;
             this.ReportListView.UseCompatibleStateImageBehavior = false;
             this.ReportListView.View = System.Windows.Forms.View.Details;
             // 
@@ -551,7 +553,7 @@
             this.ReportEndLabel.Location = new System.Drawing.Point(19, 59);
             this.ReportEndLabel.Name = "ReportEndLabel";
             this.ReportEndLabel.Size = new System.Drawing.Size(57, 17);
-            this.ReportEndLabel.TabIndex = 3;
+            this.ReportEndLabel.TabIndex = 2;
             this.ReportEndLabel.Text = "Through";
             // 
             // ReportDateEnd
@@ -560,7 +562,7 @@
             this.ReportDateEnd.Location = new System.Drawing.Point(101, 55);
             this.ReportDateEnd.Name = "ReportDateEnd";
             this.ReportDateEnd.Size = new System.Drawing.Size(116, 25);
-            this.ReportDateEnd.TabIndex = 2;
+            this.ReportDateEnd.TabIndex = 3;
             this.ReportDateEnd.ValueChanged += new System.EventHandler(this.ReportDateEnd_ValueChanged);
             // 
             // ReportDateStart
@@ -580,6 +582,17 @@
             this.ReportStartLabel.Size = new System.Drawing.Size(38, 17);
             this.ReportStartLabel.TabIndex = 0;
             this.ReportStartLabel.Text = "From";
+            // 
+            // ReportButtonExport
+            // 
+            this.ReportButtonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ReportButtonExport.Location = new System.Drawing.Point(360, 34);
+            this.ReportButtonExport.Name = "ReportButtonExport";
+            this.ReportButtonExport.Size = new System.Drawing.Size(79, 35);
+            this.ReportButtonExport.TabIndex = 5;
+            this.ReportButtonExport.Text = "Export...";
+            this.ReportButtonExport.UseVisualStyleBackColor = true;
+            this.ReportButtonExport.Click += new System.EventHandler(this.ReportButtonExport_Click);
             // 
             // ActivitiesGrid
             // 
@@ -606,7 +619,7 @@
             this.ActivitiesGrid.RowHeadersWidth = 30;
             this.ActivitiesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ActivitiesGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 420);
+            this.ActivitiesGrid.Size = new System.Drawing.Size(446, 408);
             this.ActivitiesGrid.TabIndex = 8;
             this.ActivitiesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ActivitiesGrid_CellBeginEdit);
             this.ActivitiesGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActivitiesGrid_CellEnter);
@@ -771,6 +784,7 @@
         private System.Windows.Forms.RadioButton ReportOptionHundredths;
         private System.Windows.Forms.RadioButton ReportOptionTenths;
         private System.Windows.Forms.RadioButton ReportOptionQuarters;
+        private System.Windows.Forms.Button ReportButtonExport;
     }
 }
 

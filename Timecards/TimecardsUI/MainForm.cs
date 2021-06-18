@@ -519,6 +519,13 @@ namespace TimecardsUI
             ClearStatusMessage();
         }
 
+        private void ReportButtonExport_Click(object sender, EventArgs e)
+        {
+            Log("ReportButtonExport_Click event");
+
+            //TODO: export this stuff using a new form
+        }
+
         private void ReportOptionQuarters_CheckedChanged(object sender, EventArgs e)
         {
             if (_loading)
