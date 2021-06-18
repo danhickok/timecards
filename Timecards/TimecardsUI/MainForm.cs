@@ -300,6 +300,7 @@ namespace TimecardsUI
 
             SetStatusMessage("Sorting activities by time...");
 
+            ActivitiesGrid.EndEdit();
             _timecardLogic.SaveTimecard();
 
             var tc = _timecardLogic.GetCurrentTimecard();
