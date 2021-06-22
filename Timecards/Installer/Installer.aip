@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="18.3" version="18.3" Modules="simple" RootPath="." Language="en" Id="{25ECAAF9-7756-4362-92EC-FFE5238A7880}">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_EntityFramework.SqlServer.dll" Value="..\packages\EntityFramework.6.4.4\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_EntityFramework.dll" Value="..\packages\EntityFramework.6.4.4\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\TimecardsCore\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SQLite.CodeFirst.dll" Value="..\packages\SQLite.CodeFirst.1.6.1.31\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Data.SQLite.EF6.dll" Value="..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Data.SQLite.Linq.dll" Value="..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Data.SQLite.dll" Value="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Timecards.exe" Value="..\Timecards\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Timecards.exe.config" Value="..\Timecards\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_TimecardsCore.dll" Value="..\TimecardsCore\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_TimecardsData.dll" Value="..\TimecardsData\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_TimecardsIOC.dll" Value="..\TimecardsIOC\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_TimecardsLogger.dll" Value="..\TimecardsLogger\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_TimecardsUI.dll" Value="..\TimecardsUI\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_EntityFramework.SqlServer.dll" Value="EntityFramework.SqlServer.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_EntityFramework.dll" Value="EntityFramework.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll" Value="Newtonsoft.Json.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_SQLite.CodeFirst.dll" Value="SQLite.CodeFirst.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.EF6.dll" Value="System.Data.SQLite.EF6.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.Linq.dll" Value="System.Data.SQLite.Linq.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.dll" Value="System.Data.SQLite.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Timecards.exe" Value="Timecards.exe"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Timecards.exe.config" Value="Timecards.exe.config"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_TimecardsCore.dll" Value="TimecardsCore.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_TimecardsData.dll" Value="TimecardsData.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_TimecardsIOC.dll" Value="TimecardsIOC.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_TimecardsLogger.dll" Value="TimecardsLogger.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_TimecardsUI.dll" Value="TimecardsUI.dll"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPPRODUCTICON" Value="Timecard.exe" Type="8"/>
+    <ROW Property="Manufacturer" Value="Dan Hickok"/>
+    <ROW Property="ProductCode" Value="1033:{0D650917-E731-469A-BC04-DDBE4B255090} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="Timecards"/>
+    <ROW Property="ProductVersion" Value="1.1.0" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{0D0E52CA-6657-4DC4-A079-08A1713C5716}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="Timecards_Dir" Directory_Parent="APPDIR" DefaultDir="TIMECA~1|Timecards"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="APPDIR" ComponentId="{B7E64EAE-A10F-47B1-BDF0-9983505525A2}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="ProductInformation" ComponentId="{FD5ADCF4-9C65-4597-953E-F0AAC0B48C8E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{60B3C203-28AE-451B-965A-9F942C652B12}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Timecards_PrimaryOutput" ComponentId="{71F2DE22-DFA7-4E37-B6D5-C4AAA816FEC0}" Directory_="Timecards_Dir" Attributes="0" KeyPath="Timecards.exe"/>
+    <ROW Component="Timecards_References" ComponentId="{B342C4C2-B517-4AD2-A884-915F3EF8E044}" Directory_="Timecards_Dir" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="Timecards.exe" Component_="Timecards_PrimaryOutput" FileName="TIMECA~2.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_Timecards.exe]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Timecards.exe&gt;" SelfReg="false" DigSign="true"/>
+    <ROW File="Timecards.exe.config" Component_="Timecards_PrimaryOutput" FileName="TIMECA~2.CON|[|AI_PROPPATH_FILENAME_PERBUILD_Timecards.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Timecards.exe.config&gt;" SelfReg="false"/>
+    <ROW File="EntityFramework.dll" Component_="Timecards_References" FileName="ENTITY~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_EntityFramework.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_EntityFramework.dll&gt;" SelfReg="false"/>
+    <ROW File="EntityFramework.SqlServer.dll" Component_="Timecards_References" FileName="ENTITY~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_EntityFramework.SqlServer.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_EntityFramework.SqlServer.dll&gt;" SelfReg="false"/>
+    <ROW File="SQLite.CodeFirst.dll" Component_="Timecards_References" FileName="SQLITE~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_SQLite.CodeFirst.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_SQLite.CodeFirst.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Data.SQLite.dll" Component_="Timecards_References" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Data.SQLite.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Data.SQLite.EF6.dll" Component_="Timecards_References" FileName="SYSTEM~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.EF6.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Data.SQLite.EF6.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Data.SQLite.Linq.dll" Component_="Timecards_References" FileName="SYSTEM~4.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.Linq.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Data.SQLite.Linq.dll&gt;" SelfReg="false"/>
+    <ROW File="TimecardsCore.dll" Component_="Timecards_References" FileName="TIMECA~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsCore.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_TimecardsCore.dll&gt;" SelfReg="false"/>
+    <ROW File="TimecardsData.dll" Component_="Timecards_References" FileName="TIMECA~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsData.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_TimecardsData.dll&gt;" SelfReg="false"/>
+    <ROW File="TimecardsIOC.dll" Component_="Timecards_References" FileName="TIMECA~4.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsIOC.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_TimecardsIOC.dll&gt;" SelfReg="false"/>
+    <ROW File="TimecardsLogger.dll" Component_="Timecards_References" FileName="TIMECA~5.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsLogger.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_TimecardsLogger.dll&gt;" SelfReg="false"/>
+    <ROW File="TimecardsUI.dll" Component_="Timecards_References" FileName="TIMECA~6.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsUI.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_TimecardsUI.dll&gt;" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="Timecards_References" FileName="NEWTON~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Newtonsoft.Json.dll&gt;" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
+    <ROW Name="AI_APPPATH_PERBUILD_EntityFramework.SqlServer.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_EntityFramework.SqlServer.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_EntityFramework.SqlServer.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_EntityFramework.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_EntityFramework.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_EntityFramework.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Newtonsoft.Json.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_SQLite.CodeFirst.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_SQLite.CodeFirst.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_SQLite.CodeFirst.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Data.SQLite.EF6.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Data.SQLite.EF6.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.EF6.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Data.SQLite.Linq.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Data.SQLite.Linq.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.Linq.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Data.SQLite.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Data.SQLite.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Data.SQLite.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Timecards.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_Timecards.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_Timecards.exe]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Timecards.exe.config" Path="[|AI_PROPPATH_DIR_PERBUILD_Timecards.exe.config]\[|AI_PROPPATH_FILENAME_PERBUILD_Timecards.exe.config]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_TimecardsCore.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_TimecardsCore.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsCore.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_TimecardsData.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_TimecardsData.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsData.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_TimecardsIOC.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_TimecardsIOC.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsIOC.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_TimecardsLogger.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_TimecardsLogger.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsLogger.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_TimecardsUI.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_TimecardsUI.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_TimecardsUI.dll]" Type="2" Content="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="Timecards_PrimaryOutput"/>
+    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="Timecards_References"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="Timecard.exe" SourcePath="..\..\Artwork\Timecard.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="Timecards" Directory_="SHORTCUTDIR" Name="TIMECA~1|Timecards" Component_="Timecards_PrimaryOutput" Target="[#Timecards.exe]" Hotkey="0" IconIndex="0" ShowCmd="1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.VsProjectComponent">
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="PrimaryOutput" OutputFile="Timecards.exe" OutputFileShortcut="Timecards"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="PrimaryOutput" OutputFile="Timecards.exe.config"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="EntityFramework.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="EntityFramework.SqlServer.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="SQLite.CodeFirst.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="System.Data.SQLite.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="System.Data.SQLite.EF6.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="System.Data.SQLite.Linq.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="TimecardsCore.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="TimecardsData.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="TimecardsIOC.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="TimecardsLogger.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="TimecardsUI.dll"/>
+    <ROW ProjectId="{fc37bf42-dcde-445d-bbbb-1833a6334e12}" ProjectName="Timecards" OutputGroup="References" OutputFile="Newtonsoft.Json.dll"/>
+  </COMPONENT>
+</DOCUMENT>
