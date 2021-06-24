@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsIOC", "TimecardsIO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsLogger", "TimecardsLogger\TimecardsLogger.csproj", "{C340120B-C605-44D1-A2D6-320762EFFB81}"
 EndProject
-Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "Installer", "Installer\Installer.aiproj", "{9422549A-3653-4A6D-9D29-0AB3F9951F05}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "TimecardsInstaller", "TimecardsInstaller\TimecardsInstaller.wixproj", "{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,12 +113,16 @@ Global
 		{C340120B-C605-44D1-A2D6-320762EFFB81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C340120B-C605-44D1-A2D6-320762EFFB81}.Release|x86.ActiveCfg = Release|Any CPU
 		{C340120B-C605-44D1-A2D6-320762EFFB81}.Release|x86.Build.0 = Release|Any CPU
-		{9422549A-3653-4A6D-9D29-0AB3F9951F05}.All|Any CPU.ActiveCfg = DefaultBuild
-		{9422549A-3653-4A6D-9D29-0AB3F9951F05}.All|x86.ActiveCfg = DefaultBuild
-		{9422549A-3653-4A6D-9D29-0AB3F9951F05}.Debug|Any CPU.ActiveCfg = DefaultBuild
-		{9422549A-3653-4A6D-9D29-0AB3F9951F05}.Debug|x86.ActiveCfg = DefaultBuild
-		{9422549A-3653-4A6D-9D29-0AB3F9951F05}.Release|Any CPU.ActiveCfg = DefaultBuild
-		{9422549A-3653-4A6D-9D29-0AB3F9951F05}.Release|x86.ActiveCfg = DefaultBuild
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.All|Any CPU.ActiveCfg = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.All|Any CPU.Build.0 = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.All|x86.ActiveCfg = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.All|x86.Build.0 = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.Debug|x86.ActiveCfg = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.Debug|x86.Build.0 = Debug|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.Release|Any CPU.ActiveCfg = Release|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.Release|x86.ActiveCfg = Release|x86
+		{BF3248BE-0DBF-46DC-B0D0-A2897D9F5E88}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
