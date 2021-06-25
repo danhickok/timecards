@@ -47,7 +47,8 @@ namespace TimecardsUI
             this.FileTypeComboBox.Location = new System.Drawing.Point(94, 42);
             this.FileTypeComboBox.Name = "FileTypeComboBox";
             this.FileTypeComboBox.Size = new System.Drawing.Size(208, 23);
-            this.FileTypeComboBox.TabIndex = 17;
+            this.FileTypeComboBox.TabIndex = 4;
+            this.FileTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.FileTypeComboBox_SelectedIndexChanged);
             // 
             // FileTypeLabel
             // 
@@ -56,7 +57,7 @@ namespace TimecardsUI
             this.FileTypeLabel.Location = new System.Drawing.Point(15, 48);
             this.FileTypeLabel.Name = "FileTypeLabel";
             this.FileTypeLabel.Size = new System.Drawing.Size(51, 15);
-            this.FileTypeLabel.TabIndex = 16;
+            this.FileTypeLabel.TabIndex = 3;
             this.FileTypeLabel.Text = "File type";
             // 
             // CancelExportButton
@@ -66,7 +67,7 @@ namespace TimecardsUI
             this.CancelExportButton.Location = new System.Drawing.Point(362, 80);
             this.CancelExportButton.Name = "CancelExportButton";
             this.CancelExportButton.Size = new System.Drawing.Size(101, 31);
-            this.CancelExportButton.TabIndex = 25;
+            this.CancelExportButton.TabIndex = 6;
             this.CancelExportButton.Text = "Cancel";
             this.CancelExportButton.UseVisualStyleBackColor = true;
             this.CancelExportButton.Click += new System.EventHandler(this.CancelExportButton_Click);
@@ -77,7 +78,7 @@ namespace TimecardsUI
             this.ExportButton.Location = new System.Drawing.Point(254, 80);
             this.ExportButton.Name = "ExportButton";
             this.ExportButton.Size = new System.Drawing.Size(101, 31);
-            this.ExportButton.TabIndex = 24;
+            this.ExportButton.TabIndex = 5;
             this.ExportButton.Text = "Export";
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
@@ -88,7 +89,7 @@ namespace TimecardsUI
             this.FileDialogButton.Location = new System.Drawing.Point(420, 12);
             this.FileDialogButton.Name = "FileDialogButton";
             this.FileDialogButton.Size = new System.Drawing.Size(41, 23);
-            this.FileDialogButton.TabIndex = 15;
+            this.FileDialogButton.TabIndex = 2;
             this.FileDialogButton.Text = "...";
             this.FileDialogButton.UseVisualStyleBackColor = true;
             this.FileDialogButton.Click += new System.EventHandler(this.FileDialogButton_Click);
@@ -99,7 +100,8 @@ namespace TimecardsUI
             this.FileNameTextBox.Location = new System.Drawing.Point(94, 12);
             this.FileNameTextBox.Name = "FileNameTextBox";
             this.FileNameTextBox.Size = new System.Drawing.Size(318, 23);
-            this.FileNameTextBox.TabIndex = 14;
+            this.FileNameTextBox.TabIndex = 1;
+            this.FileNameTextBox.TextChanged += new System.EventHandler(this.FileNameTextBox_TextChanged);
             // 
             // FileNameLabel
             // 
@@ -108,7 +110,7 @@ namespace TimecardsUI
             this.FileNameLabel.Location = new System.Drawing.Point(15, 16);
             this.FileNameLabel.Name = "FileNameLabel";
             this.FileNameLabel.Size = new System.Drawing.Size(58, 15);
-            this.FileNameLabel.TabIndex = 13;
+            this.FileNameLabel.TabIndex = 0;
             this.FileNameLabel.Text = "File name";
             // 
             // ExportReportForm
@@ -125,7 +127,7 @@ namespace TimecardsUI
             this.Controls.Add(this.FileNameLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExportReportForm";
-            this.Text = "Export Report";
+            this.Text = "Timecards - Export Report";
             this.ResumeLayout(false);
             this.PerformLayout();
 

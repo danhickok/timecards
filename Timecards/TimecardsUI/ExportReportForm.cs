@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using TimecardsCore;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Logic;
+using TimecardsCore.Models;
 
 namespace TimecardsUI
 {
@@ -12,6 +14,7 @@ namespace TimecardsUI
     {
         private IFactory _factory;
         private bool _loading = false;
+        private List<ReportItem> _reportList;
 
         private readonly BulkLogic.DataFormat[] formatChoices = new[]
         {
@@ -71,14 +74,76 @@ namespace TimecardsUI
             _loading = false;
         }
 
+        public void SetReportList(List<ReportItem> reportList)
+        {
+            _reportList = reportList;
+        }
+
         private void ExportButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DisableAllControls();
 
+                var format = formatChoices[FileTypeComboBox.SelectedIndex];
+
+                using (var sw = new StreamWriter(FileNameTextBox.Text.Trim()))
+                {
+                    var logic = new BulkLogic(_factory);
+                    sw.Write(logic.ExportReport(_reportList, format));
+                }
+
+                MessageBox.Show("Report export successful",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while exporting the report: {ex.Message}",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.Close();
         }
 
         private void CancelExportButton_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void DisableAllControls()
+        {
+            this.Enabled = false;
+            this.Refresh();
+        }
+
+        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
+        }
+
+        private void FileTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Configuration.ExportFileType = formatChoices[FileTypeComboBox.SelectedIndex].ToString();
+            Configuration.Save();
+
+            switch (formatChoices[FileTypeComboBox.SelectedIndex])
+            {
+                case BulkLogic.DataFormat.CSV:
+                    FileSaveDialog.Filter =
+                        "CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.TSV:
+                    FileSaveDialog.Filter =
+                        "TSV files|*.tsv|CSV files|*.csv|JSON files|*.json|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.JSON:
+                    FileSaveDialog.Filter =
+                        "JSON files|*.json|CSV files|*.csv|TSV files|*.tsv|XML files|*.xml|All files|*.*";
+                    break;
+                case BulkLogic.DataFormat.XML:
+                    FileSaveDialog.Filter =
+                        "XML files|*.xml|CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|All files|*.*";
+                    break;
+            }
         }
     }
 }

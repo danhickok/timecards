@@ -49,7 +49,7 @@ namespace TimecardsUI
 
                 DateTime? startDate = null;
                 DateTime? endDate = null;
-                BulkLogic.DataFormat format = formatChoices[FileTypeComboBox.SelectedIndex];
+                var format = formatChoices[FileTypeComboBox.SelectedIndex];
 
                 if (RadioButtonDateRange.Checked)
                 {
