@@ -69,6 +69,7 @@ namespace TimecardsUI
             this.CancelExportButton.TabIndex = 25;
             this.CancelExportButton.Text = "Cancel";
             this.CancelExportButton.UseVisualStyleBackColor = true;
+            this.CancelExportButton.Click += new System.EventHandler(this.CancelExportButton_Click);
             // 
             // ExportButton
             // 
@@ -79,6 +80,7 @@ namespace TimecardsUI
             this.ExportButton.TabIndex = 24;
             this.ExportButton.Text = "Export";
             this.ExportButton.UseVisualStyleBackColor = true;
+            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
             // FileDialogButton
             // 
@@ -89,6 +91,7 @@ namespace TimecardsUI
             this.FileDialogButton.TabIndex = 15;
             this.FileDialogButton.Text = "...";
             this.FileDialogButton.UseVisualStyleBackColor = true;
+            this.FileDialogButton.Click += new System.EventHandler(this.FileDialogButton_Click);
             // 
             // FileNameTextBox
             // 
