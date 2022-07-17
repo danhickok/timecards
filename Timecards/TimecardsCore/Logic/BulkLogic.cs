@@ -128,6 +128,66 @@ namespace TimecardsCore.Logic
             }
         }
 
+        public string ExportReport(List<ReportItem> reportList, DataFormat format)
+        {
+            using (var sw = new StringWriter())
+            {
+                switch (format)
+                {
+                    case DataFormat.CSV:
+                        sw.WriteLine("Code,Earliest,Latest,TotalMinutes");
+                        foreach (var ri in reportList)
+                        {
+                            sw.WriteLine($"\"{ri.Code}\",\"{ri.EarliestDate:yyyy-MM-dd}\",\"{ri.LatestDate:yyyy-MM-dd}\",{ri.TotalMinutes}");
+                        }
+                        break;
+
+                    case DataFormat.TSV:
+                        sw.WriteLine("Code\tEarliest\tLatest\tTotalMinutes");
+                        foreach (var ri in reportList)
+                        {
+                            sw.WriteLine($"{ri.Code}\t{ri.EarliestDate:yyyy-MM-dd}\t{ri.LatestDate:yyyy-MM-dd}\t{ri.TotalMinutes}");
+                        }
+                        break;
+
+                    case DataFormat.JSON:
+                        var jsonSettings = new JsonSerializerSettings
+                        {
+                            DateFormatString = "yyyy-MM-dd",
+                            Formatting = Newtonsoft.Json.Formatting.Indented,
+                        };
+                        sw.WriteLine(JsonConvert.SerializeObject(reportList, jsonSettings));
+                        break;
+
+                    case DataFormat.XML:
+                        var xdoc = new XmlDocument();
+
+                        var rootNode = xdoc.CreateElement("Report");
+                        xdoc.AppendChild(rootNode);
+
+                        foreach (var ri in reportList)
+                        {
+                            var itemNode = xdoc.CreateElement("ReportItem");
+                            itemNode
+                                .AddAttribute("Code", ri.Code)
+                                .AddAttribute("EarliestDate", ri.EarliestDate.ToString("yyyy-MM-dd"))
+                                .AddAttribute("LatestDate", ri.LatestDate.ToString("yyyy-MM-dd"))
+                                .AddAttribute("TotalMinutes", ri.TotalMinutes.ToString());
+
+                            rootNode.AppendChild(itemNode);
+                        }
+
+                        xdoc.Save(sw);
+                        break;
+
+                    default:
+                        throw new Exception("Unhandled data format encountered");
+                }
+
+                return sw.ToString();
+            }
+        }
+
         /// <summary>
         /// Imports timecard data from the given string; raises ProgressUpdated event as timecards are imported
         /// </summary>

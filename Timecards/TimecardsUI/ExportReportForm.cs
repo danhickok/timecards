@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using TimecardsCore;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Logic;
+using TimecardsCore.Models;
 
 namespace TimecardsUI
 {
-    public partial class ExportForm : Form
+    public partial class ExportReportForm : Form
     {
         private IFactory _factory;
         private bool _loading = false;
+        private List<ReportItem> _reportList;
 
         private readonly BulkLogic.DataFormat[] formatChoices = new[]
         {
@@ -21,7 +24,7 @@ namespace TimecardsUI
             BulkLogic.DataFormat.XML,
         };
 
-        public ExportForm()
+        public ExportReportForm()
         {
             InitializeComponent();
 
@@ -41,46 +44,6 @@ namespace TimecardsUI
             _factory = factory;
         }
 
-        private void ExportButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DisableAllControls();
-
-                DateTime? startDate = null;
-                DateTime? endDate = null;
-                var format = formatChoices[FileTypeComboBox.SelectedIndex];
-
-                if (RadioButtonDateRange.Checked)
-                {
-                    if (!string.IsNullOrWhiteSpace(DateFrom.Text))
-                        startDate = DateFrom.Value.Date;
-                    if (!string.IsNullOrWhiteSpace(DateThrough.Text))
-                        endDate = DateThrough.Value.Date;
-                }
-
-                using (var sw = new StreamWriter(FileNameTextBox.Text.Trim()))
-                {
-                    var logic = new BulkLogic(_factory);
-                    sw.Write(logic.Export(startDate, endDate, format));
-                }
-
-                MessageBox.Show("Export successful",
-                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while exporting the data: {ex.Message}",
-                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            this.Close();
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void FileDialogButton_Click(object sender, EventArgs e)
         {
             FileSaveDialog.ShowDialog();
@@ -91,11 +54,6 @@ namespace TimecardsUI
 
             FileNameTextBox.Text = path.Trim();
             SetFileTypeBasedOnExtension(path);
-        }
-
-        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
         }
 
         private void SetFileTypeBasedOnExtension(string path)
@@ -114,6 +72,52 @@ namespace TimecardsUI
             }
 
             _loading = false;
+        }
+
+        public void SetReportList(List<ReportItem> reportList)
+        {
+            _reportList = reportList;
+        }
+
+        private void ExportButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DisableAllControls();
+
+                var format = formatChoices[FileTypeComboBox.SelectedIndex];
+
+                using (var sw = new StreamWriter(FileNameTextBox.Text.Trim()))
+                {
+                    var logic = new BulkLogic(_factory);
+                    sw.Write(logic.ExportReport(_reportList, format));
+                }
+
+                MessageBox.Show("Report export successful",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while exporting the report: {ex.Message}",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.Close();
+        }
+
+        private void CancelExportButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void DisableAllControls()
+        {
+            this.Enabled = false;
+            this.Refresh();
+        }
+
+        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            SetFileTypeBasedOnExtension(FileNameTextBox.Text.Trim());
         }
 
         private void FileTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,28 +144,6 @@ namespace TimecardsUI
                         "XML files|*.xml|CSV files|*.csv|TSV files|*.tsv|JSON files|*.json|All files|*.*";
                     break;
             }
-        }
-
-        private void RadioButtonAllData_CheckedChanged(object sender, EventArgs e)
-        {
-            SetDateControlsState(false);
-        }
-
-        private void RadioButtonDateRange_CheckedChanged(object sender, EventArgs e)
-        {
-            SetDateControlsState(true);
-        }
-
-        private void SetDateControlsState(bool newState)
-        {
-            this.DateFrom.Enabled = newState;
-            this.DateThrough.Enabled = newState;
-        }
-
-        private void DisableAllControls()
-        {
-            this.Enabled = false;
-            this.Refresh();
         }
     }
 }

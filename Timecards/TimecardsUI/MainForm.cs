@@ -515,8 +515,22 @@ namespace TimecardsUI
                 ReportDateStart.Value.Date, ReportDateEnd.Value.Date);
 
             UpdateReportListView();
+            ReportButtonExport.Enabled = true;
 
             ClearStatusMessage();
+        }
+
+        private void ReportButtonExport_Click(object sender, EventArgs e)
+        {
+            Log("ReportButtonExport_Click event");
+
+            if (_report == null)
+                return;
+
+            var exportReportForm = new ExportReportForm();
+            exportReportForm.SetFactory(Factory);
+            exportReportForm.SetReportList(_report);
+            exportReportForm.ShowDialog(this);
         }
 
         private void ReportOptionQuarters_CheckedChanged(object sender, EventArgs e)
@@ -628,6 +642,7 @@ namespace TimecardsUI
                 return;
 
             ReportListView.Items.Clear();
+            ReportButtonExport.Enabled = false;
         }
 
         private void ReportDateEnd_ValueChanged(object sender, EventArgs e)
@@ -638,6 +653,7 @@ namespace TimecardsUI
                 return;
 
             ReportListView.Items.Clear();
+            ReportButtonExport.Enabled = false;
         }
 
         private void ActivitiesGrid_ClientSizeChanged(object sender, EventArgs e)
