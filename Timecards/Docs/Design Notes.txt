@@ -1,0 +1,99 @@
+Timecards - a small Windows app for tracking your time
+======================================================
+
+
+
+Clean Architecture application structure
+----------------------------------------
+
+    +----------------------------+         Presentation:  User interface
+   /         Presentation         \
+  /    +----------------------+    \       Application:  App-specific types and
+ /    /   Application (Core)   \    \      logic
+|    |   +------------------+   |    |
++----+   |   Domain (Core)  |   +----+     Domain:  Enterprise-wide types and
+|    |   +------------------+   |    |     logic
+ \    \                        /    /      
+  \    +---------+------------+    /       Persistence:  Database or storage
+   \ Persistence | Infrastructure /        
+    +----------------------------+         Infrastructure:  APIs
+
+The Domain contains:
+* Domain/enterprise entities (describing the business solution)
+* Value objects (data transfer objects)
+* Enumerations
+* Business logic
+* Exceptions
+* Abstractions (interfaces) to be implemented by the outer layers
+
+The Domain should:
+* Be sharable across other applications in the enterprise
+* Not know anything about the outside world (data storage, etc.)
+* Use data annotations sparingly, if at all
+* Use value objects when appropriate
+* Initialize all collections and use private setters
+* Create custom domain exceptions
+
+The Application layer contains:
+* Interfaces
+* Models
+* Logic
+* Commands/queries
+* Validators
+* Exceptions
+
+The Application layer should:
+* Contain logic specific to the application (unlike the domain)
+* Be independent of presentation, persistence, or infrastructure -- so, it
+  should contain abstractions for these
+* Employ CQRS where possible
+* Implement validation rules
+
+* Another recommendation is to use DTOs to transfer data to and from the domain,
+  rather than the domain objects, since they can be customized for the needs of
+  the application.
+
+--
+
+The Domain and Application layers together are referred to as the Core.
+
+--
+
+The Persistence layer contains:
+* DbContext
+* Database migrations
+* Configurations
+* Seeding
+* Abstractions
+
+The Persistence layer should:
+* Be independent of the database
+* Should prefer conventions over configuration
+* Use Fluent API configuration to keep the data model nice and clean
+* Use extensions to apply entity type configurations
+
+--
+
+The Infrastructure layer contains:
+* API clients
+* File system access
+* Email/SMS
+* System clock
+* Anything external to the application
+
+The Infrastructure layer should:
+* Contain classes for accessing external resources
+* Implement abstractions defined in inner layers
+* Nothing depends on the Infrastructure layer - e.g., not Presentation, and not
+  persistence
+
+--
+
+The Presentation layer contains:
+* Forms
+
+The Presentation layer should:
+* Not have application logic
+* Create and consume well-defined view models
+* Use API to bridge the gap between front end and back end
+

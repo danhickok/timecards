@@ -1,0 +1,12 @@
+C:\WIP\Timecards\TimecardsLogger\bin\Debug\net6.0\TimecardsLogger.deps.json
+C:\WIP\Timecards\TimecardsLogger\bin\Debug\net6.0\TimecardsLogger.dll
+C:\WIP\Timecards\TimecardsLogger\bin\Debug\net6.0\TimecardsLogger.pdb
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.csproj.AssemblyReference.cache
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.GeneratedMSBuildEditorConfig.editorconfig
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.AssemblyInfoInputs.cache
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.AssemblyInfo.cs
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.csproj.CoreCompileInputs.cache
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.dll
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\refint\TimecardsLogger.dll
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\TimecardsLogger.pdb
+C:\WIP\Timecards\TimecardsLogger\obj\Debug\net6.0\ref\TimecardsLogger.dll

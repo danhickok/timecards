@@ -1,0 +1,12 @@
+C:\WIP\Timecards\TimecardsTesting\bin\Debug\net6.0\TimecardsTesting.deps.json
+C:\WIP\Timecards\TimecardsTesting\bin\Debug\net6.0\TimecardsTesting.dll
+C:\WIP\Timecards\TimecardsTesting\bin\Debug\net6.0\TimecardsTesting.pdb
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.csproj.AssemblyReference.cache
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.GeneratedMSBuildEditorConfig.editorconfig
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.AssemblyInfoInputs.cache
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.AssemblyInfo.cs
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.csproj.CoreCompileInputs.cache
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.dll
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\refint\TimecardsTesting.dll
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\TimecardsTesting.pdb
+C:\WIP\Timecards\TimecardsTesting\obj\Debug\net6.0\ref\TimecardsTesting.dll
