@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj" />
+    <ProjectReference Include="..\TimecardsLogger\TimecardsLogger.csproj" />
+  </ItemGroup>
+
 </Project>

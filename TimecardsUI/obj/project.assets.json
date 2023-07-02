@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "TimecardsCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TimecardsCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsCore.dll": {}
+        }
+      },
+      "TimecardsLogger/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TimecardsCore": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TimecardsLogger.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsLogger.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "TimecardsCore/1.0.0": {
+      "type": "project",
+      "path": "../TimecardsCore/TimecardsCore.csproj",
+      "msbuildProject": "../TimecardsCore/TimecardsCore.csproj"
+    },
+    "TimecardsLogger/1.0.0": {
+      "type": "project",
+      "path": "../TimecardsLogger/TimecardsLogger.csproj",
+      "msbuildProject": "../TimecardsLogger/TimecardsLogger.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "TimecardsCore >= 1.0.0",
+      "TimecardsLogger >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\dhick\\.nuget\\packages\\": {},
@@ -39,7 +77,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\WIP\\Timecards\\TimecardsCore\\TimecardsCore.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsCore\\TimecardsCore.csproj"
+            },
+            "C:\\WIP\\Timecards\\TimecardsLogger\\TimecardsLogger.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsLogger\\TimecardsLogger.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -108,8 +108,8 @@ required that will allow the inner layer to make a request of an abstract type
 and receive an object of that type.
 
 The mechanism that does that is the Inversion of Control (or IOC) container.
-This is an object owned by the encompassing startup application - the only part
-of the application that knows about every part of the application but does not
+This is an object owned by the encompassing startup project - the only part of
+the application that knows about every part of the application but does not
 violate Clean Architecture, since it does not actually participate in the
 running of the application beyond starting it up.
 

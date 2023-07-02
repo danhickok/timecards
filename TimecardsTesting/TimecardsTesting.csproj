@@ -13,4 +13,10 @@
     <Folder Include="IntegrationTests\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj" />
+    <ProjectReference Include="..\TimecardsData\TimecardsData.csproj" />
+    <ProjectReference Include="..\TimecardsIOC\TimecardsIOC.csproj" />
+  </ItemGroup>
+
 </Project>

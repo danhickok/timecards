@@ -1,11 +1,110 @@
 {
   "version": 3,
   "targets": {
-    "net6.0-windows7.0": {}
+    "net6.0-windows7.0": {
+      "TimecardsCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TimecardsCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsCore.dll": {}
+        }
+      },
+      "TimecardsData/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TimecardsCore": "1.0.0",
+          "TimecardsLogger": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TimecardsData.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsData.dll": {}
+        }
+      },
+      "TimecardsIOC/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TimecardsCore": "1.0.0",
+          "TimecardsData": "1.0.0",
+          "TimecardsUI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TimecardsIOC.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsIOC.dll": {}
+        }
+      },
+      "TimecardsLogger/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TimecardsCore": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TimecardsLogger.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsLogger.dll": {}
+        }
+      },
+      "TimecardsUI/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TimecardsCore": "1.0.0",
+          "TimecardsLogger": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TimecardsUI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TimecardsUI.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "TimecardsCore/1.0.0": {
+      "type": "project",
+      "path": "../../TimecardsCore/TimecardsCore.csproj",
+      "msbuildProject": "../../TimecardsCore/TimecardsCore.csproj"
+    },
+    "TimecardsData/1.0.0": {
+      "type": "project",
+      "path": "../../TimecardsData/TimecardsData.csproj",
+      "msbuildProject": "../../TimecardsData/TimecardsData.csproj"
+    },
+    "TimecardsIOC/1.0.0": {
+      "type": "project",
+      "path": "../../TimecardsIOC/TimecardsIOC.csproj",
+      "msbuildProject": "../../TimecardsIOC/TimecardsIOC.csproj"
+    },
+    "TimecardsLogger/1.0.0": {
+      "type": "project",
+      "path": "../../TimecardsLogger/TimecardsLogger.csproj",
+      "msbuildProject": "../../TimecardsLogger/TimecardsLogger.csproj"
+    },
+    "TimecardsUI/1.0.0": {
+      "type": "project",
+      "path": "../../TimecardsUI/TimecardsUI.csproj",
+      "msbuildProject": "../../TimecardsUI/TimecardsUI.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0-windows7.0": []
+    "net6.0-windows7.0": [
+      "TimecardsCore >= 1.0.0",
+      "TimecardsData >= 1.0.0",
+      "TimecardsIOC >= 1.0.0",
+      "TimecardsLogger >= 1.0.0",
+      "TimecardsUI >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\dhick\\.nuget\\packages\\": {},
@@ -39,7 +138,23 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\WIP\\Timecards\\TimecardsCore\\TimecardsCore.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsCore\\TimecardsCore.csproj"
+            },
+            "C:\\WIP\\Timecards\\TimecardsData\\TimecardsData.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsData\\TimecardsData.csproj"
+            },
+            "C:\\WIP\\Timecards\\TimecardsIOC\\TimecardsIOC.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsIOC\\TimecardsIOC.csproj"
+            },
+            "C:\\WIP\\Timecards\\TimecardsLogger\\TimecardsLogger.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsLogger\\TimecardsLogger.csproj"
+            },
+            "C:\\WIP\\Timecards\\TimecardsUI\\TimecardsUI.csproj": {
+              "projectPath": "C:\\WIP\\Timecards\\TimecardsUI\\TimecardsUI.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
