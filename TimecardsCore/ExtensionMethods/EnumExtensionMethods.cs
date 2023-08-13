@@ -13,7 +13,7 @@ namespace TimecardsCore.ExtensionMethods
         /// <returns>Description as defined by enum's attribute</returns>
         public static string GetDescription(this Enum value)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
+            FieldInfo? fi = value.GetType().GetField(value.ToString());
 
             if (fi != null)
             {

@@ -13,9 +13,12 @@ namespace TimecardsCore.ExtensionMethods
         /// <returns></returns>
         public static XmlNode AddAttribute(this XmlNode node, string attributeName, string attributeValue)
         {
-            var attr = node.OwnerDocument.CreateAttribute(attributeName);
-            attr.Value = attributeValue;
-            node.Attributes.Append(attr);
+            var attr = node.OwnerDocument?.CreateAttribute(attributeName);
+            if (attr != null)
+            {
+                attr.Value = attributeValue;
+                node.Attributes?.Append(attr);
+            }
             return node;
         }
     }
