@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Base\" />
-    <Folder Include="CoreTests\" />
-    <Folder Include="DataTests\" />
-    <Folder Include="IntegrationTests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj" />
     <ProjectReference Include="..\TimecardsData\TimecardsData.csproj" />
     <ProjectReference Include="..\TimecardsIOC\TimecardsIOC.csproj" />
