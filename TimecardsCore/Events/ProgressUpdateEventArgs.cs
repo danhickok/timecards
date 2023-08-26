@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TimecardsCore.Events
+﻿namespace TimecardsCore.Events
 {
     /// <summary>
     /// This class is used by the BulkLogic class when importing data to report the progress of the import.

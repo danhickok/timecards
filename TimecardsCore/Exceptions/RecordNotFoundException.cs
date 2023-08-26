@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TimecardsCore.Exceptions
+﻿namespace TimecardsCore.Exceptions
 {
     public class RecordNotFoundException : Exception
     {

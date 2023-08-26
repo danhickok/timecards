@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TimecardsCore.Models;
+﻿using TimecardsCore.Models;
 
 namespace TimecardsCore.Interfaces
 {

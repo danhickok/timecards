@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Xml;
 using TimecardsCore.Events;
 using TimecardsCore.ExtensionMethods;
@@ -22,7 +19,7 @@ namespace TimecardsCore.Logic
         /// <summary>
         /// Reports the progress of the import
         /// </summary>
-        public event EventHandler<ProgressUpdateEventArgs> ProgressUpdated;
+        public event EventHandler<ProgressUpdateEventArgs>? ProgressUpdated;
 
         private readonly IFactory _factory;
 
