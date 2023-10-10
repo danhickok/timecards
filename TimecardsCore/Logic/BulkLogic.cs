@@ -3,11 +3,12 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
+using System.Xml.Serialization;
 using TimecardsCore.Events;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Models;
-
+// https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-6-0
 namespace TimecardsCore.Logic
 {
     /// <summary>

@@ -73,8 +73,7 @@ namespace Timecards
             }
             finally
             {
-                if (factory != null)
-                    factory.Dispose();
+                factory?.Dispose();
             }
         }
     }
