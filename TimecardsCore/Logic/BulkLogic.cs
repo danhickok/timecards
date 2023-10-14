@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
-using System.Xml.Serialization;
 using TimecardsCore.Events;
 using TimecardsCore.ExtensionMethods;
 using TimecardsCore.Interfaces;
 using TimecardsCore.Models;
-// https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-6-0
+
 namespace TimecardsCore.Logic
 {
     /// <summary>
@@ -77,12 +75,10 @@ namespace TimecardsCore.Logic
                         break;
 
                     case DataFormat.JSON:
-                        var jsonSettings = new JsonSerializerSettings
+                        var jsonSettings = new JsonSerializerOptions
                         {
-                            DateFormatString = "yyyy-MM-dd",
-                            Formatting = Newtonsoft.Json.Formatting.Indented,
                         };
-                        sw.WriteLine(JsonConvert.SerializeObject(tcList, jsonSettings));
+                        sw.WriteLine(JsonSerializer.Serialize(tcList, jsonSettings));
                         break;
 
                     case DataFormat.XML:
@@ -150,12 +146,10 @@ namespace TimecardsCore.Logic
                         break;
 
                     case DataFormat.JSON:
-                        var jsonSettings = new JsonSerializerSettings
+                        var jsonSettings = new JsonSerializerOptions
                         {
-                            DateFormatString = "yyyy-MM-dd",
-                            Formatting = Newtonsoft.Json.Formatting.Indented,
                         };
-                        sw.WriteLine(JsonConvert.SerializeObject(reportList, jsonSettings));
+                        sw.WriteLine(JsonSerializer.Serialize(reportList, jsonSettings));
                         break;
 
                     case DataFormat.XML:
@@ -232,7 +226,7 @@ namespace TimecardsCore.Logic
                     }
 
                     // parse and store, raising event for progress
-                    Timecard tc = null;
+                    Timecard? tc = null;
 
                     var lastDateString = "zzzz";
                     for (var i = 1; i < lines.Length; ++i)
@@ -273,7 +267,7 @@ namespace TimecardsCore.Logic
                             }
                         }
 
-                        var activity = new Activity
+                        var activity = new TimecardsCore.Models.Activity
                         {
                             Code = StripQuotes(tokens[columnMap["code"]]),
                             Description = StripQuotes(tokens[columnMap["description"]]),
@@ -298,7 +292,7 @@ namespace TimecardsCore.Logic
                             activity.IsAfterMidnight = false;
                         }
 
-                        tc.Activities.Add(activity);
+                        tc?.Activities.Add(activity);
                     }
 
                     if (tc != null && tc.IsDirty)
@@ -309,12 +303,11 @@ namespace TimecardsCore.Logic
                     break;
 
                 case DataFormat.JSON:
-                    List<Timecard> tcList;
+                    List<Timecard>? tcList;
 
                     try
                     {
-                        // all the parsing work is assumed to be done by the JsonConvert class
-                        tcList = JsonConvert.DeserializeObject<List<Timecard>>(content);
+                        tcList = JsonSerializer.Deserialize<List<Timecard>>(content);
                     }
                     catch (Exception ex)
                     {
@@ -322,18 +315,22 @@ namespace TimecardsCore.Logic
                         break;
                     }
 
-                    for (var i = 0; i < tcList.Count; ++i)
+                    if (tcList != null)
                     {
-                        var eventArgs = new ProgressUpdateEventArgs(i + 1, tcList.Count);
-                        OnProgressUpdated(eventArgs);
-                        if (eventArgs.Cancel)
+                        for (var i = 0; i < tcList.Count; ++i)
                         {
-                            report.AppendLine("Import was canceled by the user");
-                            break;
-                        }
+                            var eventArgs = new ProgressUpdateEventArgs(i + 1, tcList.Count);
+                            OnProgressUpdated(eventArgs);
+                            if (eventArgs.Cancel)
+                            {
+                                report.AppendLine("Import was canceled by the user");
+                                break;
+                            }
 
-                        repo.SaveTimecard(tcList[i]);
+                            repo.SaveTimecard(tcList[i]);
+                        }
                     }
+
                     break;
 
                 case DataFormat.XML:
@@ -368,7 +365,7 @@ namespace TimecardsCore.Logic
                             }
 
                             var tcNode = root.ChildNodes[i];
-                            if (tcNode.Name != "Timecard")
+                            if (tcNode?.Name != "Timecard")
                             {
                                 report.AppendLine("Expected parent node in XML data not named \"Timecard\"");
                                 break;
@@ -376,7 +373,7 @@ namespace TimecardsCore.Logic
 
                             var tcAttributes = tcNode.Attributes;
 
-                            var tcAttrDate = tcAttributes["Date"];
+                            var tcAttrDate = tcAttributes?["Date"];
                             if (tcAttrDate == null)
                             {
                                 report.AppendLine($"Timecard node {i} missing Date attribute");
@@ -386,34 +383,34 @@ namespace TimecardsCore.Logic
                             tc = new Timecard();
                             tc.Activities.DataImportMode = true;
 
-                            if (DateTime.TryParse(tcAttributes["Date"].Value, out DateTime newDate))
+                            if (DateTime.TryParse(tcAttributes?["Date"]?.Value, out DateTime newDate))
                             {
                                 tc.Date = newDate;
                             }
                             else
                             {
                                 report.AppendLine(
-                                    $"Timecard node {i} Date attribute value \"{tcAttributes["Date"].Value}\" could not be parsed");
+                                    $"Timecard node {i} Date attribute value \"{tcAttributes?["Date"]?.Value}\" could not be parsed");
                                 break;
                             }
 
                             if (tcNode.HasChildNodes)
                             {
                                 var acCollNode = tcNode.ChildNodes[0];
-                                if (acCollNode.HasChildNodes)
+                                if (acCollNode?.HasChildNodes ?? false)
                                 {
                                     for (var j = 0; j < acCollNode.ChildNodes.Count; ++j)
                                     {
                                         var acNode = acCollNode.ChildNodes[j];
 
-                                        var activity = new Activity
+                                        var activity = new TimecardsCore.Models.Activity
                                         {
-                                            Code = $"{acNode.Attributes["Code"]?.Value}",
-                                            Description = $"{acNode.Attributes["Description"]?.Value}",
-                                            Time = $"{acNode.Attributes["Time"]?.Value}"
+                                            Code = $"{acNode?.Attributes?["Code"]?.Value}",
+                                            Description = $"{acNode?.Attributes?["Description"]?.Value}",
+                                            Time = $"{acNode?.Attributes?["Time"]?.Value}"
                                         };
 
-                                        if (Boolean.TryParse($"{acNode.Attributes["IsAfterMidnight"]?.Value}",
+                                        if (Boolean.TryParse($"{acNode?.Attributes?["IsAfterMidnight"]?.Value}",
                                             out bool newIsAfterMidnight))
                                         {
                                             activity.IsAfterMidnight = newIsAfterMidnight;
@@ -440,7 +437,7 @@ namespace TimecardsCore.Logic
 
         #region Private methods
 
-        private Dictionary<string, int> ParseColumnMap(string line, char separator, List<string> allowedColumnNames)
+        private static Dictionary<string, int> ParseColumnMap(string line, char separator, List<string> allowedColumnNames)
         {
             var map = new Dictionary<string, int>();
 
@@ -456,7 +453,7 @@ namespace TimecardsCore.Logic
             return map;
         }
 
-        private string[] Split(string value, char separator)
+        private static string[] Split(string value, char separator)
         {
             var result = new List<string>();
             var inQuotes = false;
@@ -485,14 +482,14 @@ namespace TimecardsCore.Logic
                 }
             }
 
-            result.Add(value.Substring(lastIndex + 1));
+            result.Add(value[(lastIndex + 1)..]);
 
             return result.ToArray();
         }
 
-        private string StripQuotes(string value)
+        private static string StripQuotes(string value)
         {
-            if (value.Length > 1 && value[0] == '"' && value[value.Length - 1] == '"')
+            if (value.Length > 1 && value[0] == '"' && value[^1] == '"')
             {
                 var sb = new StringBuilder(value);
                 sb.Remove(0, 1);

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TimecardsCore.Models;
+﻿using TimecardsCore.Exceptions;
 using TimecardsCore.Interfaces;
-using TimecardsCore.Exceptions;
+using TimecardsCore.Models;
 
 namespace TimecardsCore.Logic
 {
@@ -112,14 +109,16 @@ namespace TimecardsCore.Logic
         /// Gets the timecard just before the current timecard's date
         /// </summary>
         /// <returns>The previous timecard</returns>
-        public Timecard GetPreviousTimecard()
+        public Timecard? GetPreviousTimecard()
         {
             var repo = _factory.Resolve<IRepository>();
+
             _timecard = repo.GetNearestTimecard(_timecard.Date, false);
             if (_timecard == null)
             {
                 RetrieveTimecardFromEdge(false);
             }
+
             return _timecard;
         }
 
@@ -127,7 +126,7 @@ namespace TimecardsCore.Logic
         /// Gets the timecard just after the current timecard's date
         /// </summary>
         /// <returns>The next timecard</returns>
-        public Timecard GetNextTimecard()
+        public Timecard? GetNextTimecard()
         {
             var repo = _factory.Resolve<IRepository>();
             _timecard = repo.GetNearestTimecard(_timecard.Date, true);
@@ -135,6 +134,7 @@ namespace TimecardsCore.Logic
             {
                 RetrieveTimecardFromEdge(true);
             }
+
             return _timecard;
         }
 
@@ -150,6 +150,7 @@ namespace TimecardsCore.Logic
                 .OrderByDescending(tc => tc.Date)
                 .ThenByDescending(tc => tc.ID)
                 .Select(tc => (tc.ID, tc.Date)).ToList();
+
             return list;
         }
 
@@ -158,12 +159,11 @@ namespace TimecardsCore.Logic
         /// </summary>
         public void SaveTimecard()
         {
-            IRepository repo = null;
+            IRepository? repo = null;
 
             if (_timecard.IsDirty || _timecard.ID == 0)
             {
-                if (repo == null)
-                    repo = _factory.Resolve<IRepository>();
+                repo ??= _factory.Resolve<IRepository>();
 
                 repo.SaveTimecard(_timecard);
             }
@@ -172,8 +172,7 @@ namespace TimecardsCore.Logic
             {
                 if (activity.IsDirty)
                 {
-                    if (repo == null)
-                        repo = _factory.Resolve<IRepository>();
+                    repo ??= _factory.Resolve<IRepository>();
 
                     activity.TimecardID = _timecard.ID;
                     repo.SaveActivity(activity);
