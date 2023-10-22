@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TimecardsCore.Models
+﻿namespace TimecardsCore.Models
 {
     /// <summary>
     /// This class exposes the parents' date value to each child by way of a delegate
@@ -19,11 +16,6 @@ namespace TimecardsCore.Models
         public ActivityList(Timecard timecard) : base()
         {
             _timecard = timecard;
-        }
-
-        ~ActivityList()
-        {
-            _timecard = null;
         }
 
         public new void Add(Activity activity)

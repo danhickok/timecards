@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using TimecardsCore.Exceptions;
 
@@ -111,9 +109,9 @@ namespace TimecardsCore.Models
         [JsonIgnore]
         public bool IsDirty { get; private set; }
 
-        private Func<DateTime> _requestDateTime;
+        private Func<DateTime>? _requestDateTime;
         [JsonIgnore]
-        public Func<DateTime> RequestTimecardDate
+        public Func<DateTime>? RequestTimecardDate
         {
             get
             {
@@ -122,7 +120,7 @@ namespace TimecardsCore.Models
             set
             {
                 _requestDateTime = value;
-                if (Configuration.CurrentDateTime.Date > _requestDateTime().Date)
+                if (_requestDateTime != null && Configuration.CurrentDateTime.Date > _requestDateTime().Date)
                 {
                     StartMinute += 24 * 60;
                     ComputeTimeFromStartMinute();
@@ -146,6 +144,7 @@ namespace TimecardsCore.Models
             _isAfterMidnight = false;
             _code = string.Empty;
             _description = string.Empty;
+            _time = "";
 
             var now = Configuration.CurrentDateTime;
             var mins = now.Hour * 60 + now.Minute;
@@ -233,8 +232,8 @@ namespace TimecardsCore.Models
                 }
                 else
                 {
-                    int.TryParse(time.Substring(0, pos), out hour);
-                    int.TryParse(Regex.Replace(time.Substring(pos + 1), "[^0-9]", ""), out minute);
+                    _ = int.TryParse(time.AsSpan(0, pos), out hour);
+                    _ = int.TryParse(Regex.Replace(time[(pos + 1)..], "[^0-9]", ""), out minute);
                 }
 
                 if (!USE24HOUR && time.EndsWith("a", StringComparison.InvariantCultureIgnoreCase))
@@ -253,7 +252,7 @@ namespace TimecardsCore.Models
             return (hour, minute);
         }
 
-        private (int, int) Normalize((int, int) value)
+        private static (int, int) Normalize((int, int) value)
         {
             var (hour, minute) = value;
 

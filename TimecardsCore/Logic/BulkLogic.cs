@@ -47,138 +47,135 @@ namespace TimecardsCore.Logic
             // retrieve the timecards to be exported
             var tcList = repo.GetTimecards(startDate, endDate);
 
-            using (var sw = new StringWriter())
+            using var sw = new StringWriter();
+
+            // transform the data
+            switch (format)
             {
-                // transform the data
-                switch (format)
-                {
-                    case DataFormat.CSV:
-                        sw.WriteLine("Date,Code,Description,Time,IsAfterMidnight");
-                        foreach (var tc in tcList)
+                case DataFormat.CSV:
+                    sw.WriteLine("Date,Code,Description,Time,IsAfterMidnight");
+                    foreach (var tc in tcList)
+                    {
+                        foreach (var ac in tc.Activities)
                         {
-                            foreach (var ac in tc.Activities)
-                            {
-                                sw.WriteLine($"\"{tc.Date:yyyy-MM-dd}\",\"{ac.Code}\",\"{ac.Description}\",\"{ac.Time}\",{ac.IsAfterMidnight}");
-                            }
+                            sw.WriteLine($"\"{tc.Date:yyyy-MM-dd}\",\"{ac.Code}\",\"{ac.Description}\",\"{ac.Time}\",{ac.IsAfterMidnight}");
                         }
-                        break;
+                    }
+                    break;
 
-                    case DataFormat.TSV:
-                        sw.WriteLine("Date\tCode\tDescription\tTime\tIsAfterMidnight");
-                        foreach (var tc in tcList)
+                case DataFormat.TSV:
+                    sw.WriteLine("Date\tCode\tDescription\tTime\tIsAfterMidnight");
+                    foreach (var tc in tcList)
+                    {
+                        foreach (var ac in tc.Activities)
                         {
-                            foreach (var ac in tc.Activities)
-                            {
-                                sw.WriteLine($"{tc.Date:yyyy-MM-dd}\t{ac.Code}\t{ac.Description}\t{ac.Time}\t{ac.IsAfterMidnight}");
-                            }
+                            sw.WriteLine($"{tc.Date:yyyy-MM-dd}\t{ac.Code}\t{ac.Description}\t{ac.Time}\t{ac.IsAfterMidnight}");
                         }
-                        break;
+                    }
+                    break;
 
-                    case DataFormat.JSON:
-                        var jsonSettings = new JsonSerializerOptions
+                case DataFormat.JSON:
+                    var jsonSettings = new JsonSerializerOptions
+                    {
+                    };
+                    sw.WriteLine(JsonSerializer.Serialize(tcList, jsonSettings));
+                    break;
+
+                case DataFormat.XML:
+                    XmlAttribute attr;
+
+                    var xdoc = new XmlDocument();
+
+                    var rootNode = xdoc.CreateElement("Timecards");
+                    xdoc.AppendChild(rootNode);
+
+                    foreach (var tc in tcList)
+                    {
+                        var tcNode = xdoc.CreateElement("Timecard");
+                        attr = xdoc.CreateAttribute("Date");
+                        attr.Value = tc.Date.ToString("yyyy-MM-dd");
+                        tcNode.Attributes.Append(attr);
+
+                        var acsNode = xdoc.CreateElement("Activities");
+                        foreach (var ac in tc.Activities)
                         {
-                        };
-                        sw.WriteLine(JsonSerializer.Serialize(tcList, jsonSettings));
-                        break;
-
-                    case DataFormat.XML:
-                        XmlAttribute attr;
-
-                        var xdoc = new XmlDocument();
-
-                        var rootNode = xdoc.CreateElement("Timecards");
-                        xdoc.AppendChild(rootNode);
-
-                        foreach (var tc in tcList)
-                        {
-                            var tcNode = xdoc.CreateElement("Timecard");
-                            attr = xdoc.CreateAttribute("Date");
-                            attr.Value = tc.Date.ToString("yyyy-MM-dd");
-                            tcNode.Attributes.Append(attr);
-
-                            var acsNode = xdoc.CreateElement("Activities");
-                            foreach (var ac in tc.Activities)
-                            {
-                                var acNode = xdoc.CreateElement("Activity");
-                                acNode
-                                  .AddAttribute("Code", ac.Code)
-                                  .AddAttribute("Description", ac.Description)
-                                  .AddAttribute("Time", ac.Time)
-                                  .AddAttribute("IsAfterMidnight", ac.IsAfterMidnight.ToString());
-                                acsNode.AppendChild(acNode);
-                            }
-                            tcNode.AppendChild(acsNode);
-
-                            rootNode.AppendChild(tcNode);
+                            var acNode = xdoc.CreateElement("Activity");
+                            acNode
+                              .AddAttribute("Code", ac.Code)
+                              .AddAttribute("Description", ac.Description)
+                              .AddAttribute("Time", ac.Time)
+                              .AddAttribute("IsAfterMidnight", ac.IsAfterMidnight.ToString());
+                            acsNode.AppendChild(acNode);
                         }
+                        tcNode.AppendChild(acsNode);
 
-                        xdoc.Save(sw);
-                        break;
+                        rootNode.AppendChild(tcNode);
+                    }
 
-                    default:
-                        throw new Exception("Unhandled data format encountered");
-                }
+                    xdoc.Save(sw);
+                    break;
 
-                return sw.ToString();
+                default:
+                    throw new Exception("Unhandled data format encountered");
             }
+
+            return sw.ToString();
         }
 
-        public string ExportReport(List<ReportItem> reportList, DataFormat format)
+        public static string ExportReport(List<ReportItem> reportList, DataFormat format)
         {
-            using (var sw = new StringWriter())
+            using var sw = new StringWriter();
+            switch (format)
             {
-                switch (format)
-                {
-                    case DataFormat.CSV:
-                        sw.WriteLine("Code,Earliest,Latest,TotalMinutes");
-                        foreach (var ri in reportList)
-                        {
-                            sw.WriteLine($"\"{ri.Code}\",\"{ri.EarliestDate:yyyy-MM-dd}\",\"{ri.LatestDate:yyyy-MM-dd}\",{ri.TotalMinutes}");
-                        }
-                        break;
+                case DataFormat.CSV:
+                    sw.WriteLine("Code,Earliest,Latest,TotalMinutes");
+                    foreach (var ri in reportList)
+                    {
+                        sw.WriteLine($"\"{ri.Code}\",\"{ri.EarliestDate:yyyy-MM-dd}\",\"{ri.LatestDate:yyyy-MM-dd}\",{ri.TotalMinutes}");
+                    }
+                    break;
 
-                    case DataFormat.TSV:
-                        sw.WriteLine("Code\tEarliest\tLatest\tTotalMinutes");
-                        foreach (var ri in reportList)
-                        {
-                            sw.WriteLine($"{ri.Code}\t{ri.EarliestDate:yyyy-MM-dd}\t{ri.LatestDate:yyyy-MM-dd}\t{ri.TotalMinutes}");
-                        }
-                        break;
+                case DataFormat.TSV:
+                    sw.WriteLine("Code\tEarliest\tLatest\tTotalMinutes");
+                    foreach (var ri in reportList)
+                    {
+                        sw.WriteLine($"{ri.Code}\t{ri.EarliestDate:yyyy-MM-dd}\t{ri.LatestDate:yyyy-MM-dd}\t{ri.TotalMinutes}");
+                    }
+                    break;
 
-                    case DataFormat.JSON:
-                        var jsonSettings = new JsonSerializerOptions
-                        {
-                        };
-                        sw.WriteLine(JsonSerializer.Serialize(reportList, jsonSettings));
-                        break;
+                case DataFormat.JSON:
+                    var jsonSettings = new JsonSerializerOptions
+                    {
+                    };
+                    sw.WriteLine(JsonSerializer.Serialize(reportList, jsonSettings));
+                    break;
 
-                    case DataFormat.XML:
-                        var xdoc = new XmlDocument();
+                case DataFormat.XML:
+                    var xdoc = new XmlDocument();
 
-                        var rootNode = xdoc.CreateElement("Report");
-                        xdoc.AppendChild(rootNode);
+                    var rootNode = xdoc.CreateElement("Report");
+                    xdoc.AppendChild(rootNode);
 
-                        foreach (var ri in reportList)
-                        {
-                            var itemNode = xdoc.CreateElement("ReportItem");
-                            itemNode
-                                .AddAttribute("Code", ri.Code)
-                                .AddAttribute("EarliestDate", ri.EarliestDate.ToString("yyyy-MM-dd"))
-                                .AddAttribute("LatestDate", ri.LatestDate.ToString("yyyy-MM-dd"))
-                                .AddAttribute("TotalMinutes", ri.TotalMinutes.ToString());
+                    foreach (var ri in reportList)
+                    {
+                        var itemNode = xdoc.CreateElement("ReportItem");
+                        itemNode
+                            .AddAttribute("Code", ri.Code)
+                            .AddAttribute("EarliestDate", ri.EarliestDate.ToString("yyyy-MM-dd"))
+                            .AddAttribute("LatestDate", ri.LatestDate.ToString("yyyy-MM-dd"))
+                            .AddAttribute("TotalMinutes", ri.TotalMinutes.ToString());
 
-                            rootNode.AppendChild(itemNode);
-                        }
+                        rootNode.AppendChild(itemNode);
+                    }
 
-                        xdoc.Save(sw);
-                        break;
+                    xdoc.Save(sw);
+                    break;
 
-                    default:
-                        throw new Exception("Unhandled data format encountered");
-                }
-
-                return sw.ToString();
+                default:
+                    throw new Exception("Unhandled data format encountered");
             }
+
+            return sw.ToString();
         }
 
         /// <summary>

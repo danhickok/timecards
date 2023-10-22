@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using TimecardsCore.Interfaces;
 using TimecardsCore.Models;
-using TimecardsCore.Interfaces;
 
 namespace TimecardsCore.Logic
 {
