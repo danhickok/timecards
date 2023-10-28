@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Configuration;
+using System.Drawing;
 
 namespace TimecardsCore
 {
@@ -38,7 +40,7 @@ namespace TimecardsCore
         /// <summary>
         /// Tint used by UI to mark activity that starts in the day after the timecard's date
         /// </summary>
-        public static System.Drawing.Color MidnightTint { get; set; }
+        public static Color MidnightTint { get; set; }
 
         /// <summary>
         /// List of descriptions for certain codes, used by UI for automatically populating description field
@@ -94,6 +96,16 @@ namespace TimecardsCore
             TestMode = false;
             _testTime = DateTime.Now;
 
+            RoundCurrentTimeToMinutes = 0;
+            CodeMask = "";
+            TimeMask = "";
+            TimeSeparator = ':';
+            Use24HourTime = false;
+            MidnightTint = Color.White;
+            ImportFileType = "";
+            ExportFileType = "";
+            MinutesPerReportUnit = 0;
+
             DefaultCodes = new Dictionary<string, string>();
         }
 
@@ -104,18 +116,20 @@ namespace TimecardsCore
         /// </summary>
         public static void Load()
         {
-            RoundCurrentTimeToMinutes = Properties.Settings.Default.RoundCurrentTimeToMinutes;
-            CodeMask = Properties.Settings.Default.CodeMask;
-            TimeMask = Properties.Settings.Default.TimeMask;
-            TimeSeparator = Properties.Settings.Default.TimeSeparator;
-            Use24HourTime = Properties.Settings.Default.Use24HourTime;
-            MidnightTint = Properties.Settings.Default.MidnightTint;
-            ImportFileType = Properties.Settings.Default.ImportFileType;
-            ExportFileType = Properties.Settings.Default.ExportFileType;
-            MinutesPerReportUnit = Properties.Settings.Default.MinutesPerReportUnit;
+            string? x = System.Configuration.ConfigurationManager.AppSettings["florg"];
+
+            RoundCurrentTimeToMinutes = ReadAppSetting("RoundCurrentTimeToMinutes", 1);
+            CodeMask = ReadAppSetting("CodeMask", "");
+            TimeMask = ReadAppSetting("TimeMask", "");
+            TimeSeparator = ReadAppSetting("TimeSeparator", ':');
+            Use24HourTime = ReadAppSetting("Use24HourTime", false);
+            MidnightTint = ReadAppSetting("MidnightTint", Color.LightGray);
+            ImportFileType = ReadAppSetting("ImportFileType", "JSON");
+            ExportFileType = ReadAppSetting("ExportFileType", "JSON");
+            MinutesPerReportUnit = ReadAppSetting("MinutesPerReportUnit", 1);
 
             DefaultCodes.Clear();
-            var dfString = Properties.Settings.Default.DefaultCodes;
+            var dfString = ReadAppSetting("DefaultCodes", "");
             if (!string.IsNullOrWhiteSpace(dfString))
             {
                 var pairs = dfString.Split(SEP1);
@@ -132,15 +146,15 @@ namespace TimecardsCore
         /// </summary>
         public static void Save()
         {
-            Properties.Settings.Default.RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
-            Properties.Settings.Default.CodeMask = CodeMask;
-            Properties.Settings.Default.TimeMask = TimeMask;
-            Properties.Settings.Default.TimeSeparator = TimeSeparator;
-            Properties.Settings.Default.Use24HourTime = Use24HourTime;
-            Properties.Settings.Default.MidnightTint = MidnightTint;
-            Properties.Settings.Default.ImportFileType = ImportFileType;
-            Properties.Settings.Default.ExportFileType = ExportFileType;
-            Properties.Settings.Default.MinutesPerReportUnit = MinutesPerReportUnit;
+            ConfigurationManager.AppSettings[".RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
+            ConfigurationManager.AppSettings[".CodeMask = CodeMask;
+            ConfigurationManager.AppSettings[".TimeMask = TimeMask;
+            ConfigurationManager.AppSettings[".TimeSeparator = TimeSeparator;
+            ConfigurationManager.AppSettings[".Use24HourTime = Use24HourTime;
+            ConfigurationManager.AppSettings[".MidnightTint = MidnightTint;
+            ConfigurationManager.AppSettings[".ImportFileType = ImportFileType;
+            ConfigurationManager.AppSettings[".ExportFileType = ExportFileType;
+            ConfigurationManager.AppSettings[".MinutesPerReportUnit = MinutesPerReportUnit;
 
             var dfStringBuilder = new StringBuilder();
             foreach (var key in DefaultCodes.Keys)
@@ -149,9 +163,35 @@ namespace TimecardsCore
                     dfStringBuilder.Append(SEP1);
                 dfStringBuilder.Append($"{key}{SEP2}{DefaultCodes[key]}");
             }
-            Properties.Settings.Default.DefaultCodes = dfStringBuilder.ToString();
+            ConfigurationManager.AppSettings[".DefaultCodes = dfStringBuilder.ToString();
 
-            Properties.Settings.Default.Save();
+            ConfigurationManager.AppSettings[".Save();
+        }
+
+        private static T ReadAppSetting<T>(string key, T defaultValue)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+                return defaultValue;
+
+            if (!ConfigurationManager.AppSettings.AllKeys.Contains(key))
+                return defaultValue;
+
+            // Special case for Color type
+            if (typeof(T) == typeof(Color))
+            {
+                if (int.TryParse(key, out int colorValue))
+                {
+                    return (T)Convert.ChangeType(Color.FromArgb(colorValue), typeof(T));
+                }
+                else
+                {
+                    return defaultValue;
+                }
+            }
+
+            // All other types
+            T? value = (T?)Convert.ChangeType(ConfigurationManager.AppSettings[key], typeof(T));
+            return value ?? defaultValue;
         }
     }
 }
