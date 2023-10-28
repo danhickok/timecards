@@ -116,8 +116,6 @@ namespace TimecardsCore
         /// </summary>
         public static void Load()
         {
-            string? x = System.Configuration.ConfigurationManager.AppSettings["florg"];
-
             RoundCurrentTimeToMinutes = ReadAppSetting("RoundCurrentTimeToMinutes", 1);
             CodeMask = ReadAppSetting("CodeMask", "");
             TimeMask = ReadAppSetting("TimeMask", "");
@@ -146,15 +144,15 @@ namespace TimecardsCore
         /// </summary>
         public static void Save()
         {
-            ConfigurationManager.AppSettings[".RoundCurrentTimeToMinutes = RoundCurrentTimeToMinutes;
-            ConfigurationManager.AppSettings[".CodeMask = CodeMask;
-            ConfigurationManager.AppSettings[".TimeMask = TimeMask;
-            ConfigurationManager.AppSettings[".TimeSeparator = TimeSeparator;
-            ConfigurationManager.AppSettings[".Use24HourTime = Use24HourTime;
-            ConfigurationManager.AppSettings[".MidnightTint = MidnightTint;
-            ConfigurationManager.AppSettings[".ImportFileType = ImportFileType;
-            ConfigurationManager.AppSettings[".ExportFileType = ExportFileType;
-            ConfigurationManager.AppSettings[".MinutesPerReportUnit = MinutesPerReportUnit;
+            WriteAppSetting("RoundCurrentTimeToMinutes", RoundCurrentTimeToMinutes);
+            WriteAppSetting("CodeMask", CodeMask);
+            WriteAppSetting("TimeMask", TimeMask);
+            WriteAppSetting("TimeSeparator", TimeSeparator);
+            WriteAppSetting("Use24HourTime", Use24HourTime);
+            WriteAppSetting("MidnightTint", MidnightTint);
+            WriteAppSetting("ImportFileType", ImportFileType);
+            WriteAppSetting("ExportFileType", ExportFileType);
+            WriteAppSetting("MinutesPerReportUnit", MinutesPerReportUnit);
 
             var dfStringBuilder = new StringBuilder();
             foreach (var key in DefaultCodes.Keys)
@@ -163,9 +161,9 @@ namespace TimecardsCore
                     dfStringBuilder.Append(SEP1);
                 dfStringBuilder.Append($"{key}{SEP2}{DefaultCodes[key]}");
             }
-            ConfigurationManager.AppSettings[".DefaultCodes = dfStringBuilder.ToString();
+            WriteAppSetting("DefaultCodes", dfStringBuilder.ToString());
 
-            ConfigurationManager.AppSettings[".Save();
+            SaveAppSettings();
         }
 
         private static T ReadAppSetting<T>(string key, T defaultValue)
@@ -192,6 +190,53 @@ namespace TimecardsCore
             // All other types
             T? value = (T?)Convert.ChangeType(ConfigurationManager.AppSettings[key], typeof(T));
             return value ?? defaultValue;
+        }
+
+        private static void WriteAppSetting<T>(string key, T value)
+        {
+            string? storeValue;
+            if (typeof(T) == typeof(Color))
+            {
+                // Special case for Color type
+                var color = (Color?)Convert.ChangeType(value, typeof(Color));
+                storeValue = color?.ToArgb().ToString();
+            }
+            else
+            {
+                // All other types
+                storeValue = value?.ToString();
+            }
+
+            ConfigurationManager.AppSettings[key] = storeValue;
+        }
+
+        private static void SaveAppSettings()
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                var settings = configFile.AppSettings.Settings;
+
+                foreach (var key in ConfigurationManager.AppSettings.AllKeys)
+                {
+                    if (settings[key] == null)
+                    {
+                        settings.Add(key, ConfigurationManager.AppSettings[key]);
+                    }
+                    else
+                    {
+                        settings[key].Value = ConfigurationManager.AppSettings[key];
+                    }
+                }
+
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (Exception)
+            {
+                //TODO: log error
+            }
         }
     }
 }
