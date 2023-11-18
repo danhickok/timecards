@@ -31,19 +31,19 @@ namespace TimecardsCore.Interfaces
         List<Timecard> GetTimecards(DateTime? startDate, DateTime? endDate);
 
         /// <summary>
-        /// Retrieves a timecard by ID
+        /// Retrieves a timecard by ID or null if it doesn't exist
         /// </summary>
         /// <param name="id">Primary key</param>
         /// <returns>Timecard including its activities</returns>
-        Timecard GetTimecard(int id);
+        Timecard? GetTimecard(int id);
 
         /// <summary>
-        /// Finds the timecard closest to the given date
+        /// Finds the timecard closest to the given date or null if none found
         /// </summary>
         /// <param name="date">Target date for timecard</param>
         /// <param name="after">True if found timecard has a date later than given one</param>
         /// <returns>Timecard including its activities</returns>
-        Timecard GetNearestTimecard(DateTime date, bool after);
+        Timecard? GetNearestTimecard(DateTime date, bool after);
 
         /// <summary>
         /// Saves the given timecard in the database, along with its activities

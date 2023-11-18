@@ -1,7 +1,4 @@
-﻿using SQLite.CodeFirst;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TimecardsData
 {
@@ -10,17 +7,14 @@ namespace TimecardsData
     /// </summary>
     public class TimecardsContext : DbContext
     {
-        public TimecardsContext(DbConnection dbConnection) : base(dbConnection, true)
+        public TimecardsContext(DbContextOptions<TimecardsContext> options) : base(options)
         {
+            //TODO: when this is instantiated, we'll want to pass options as options.UseSqlite($"Data Source={DbPath}")
+            // see for examples:
+            // https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
         }
 
-        public DbSet<Timecard> Timecards { get; set; }
-        public DbSet<Activity> Activities { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            var dbInitializer = new SqliteCreateDatabaseIfNotExists<TimecardsContext>(modelBuilder);
-            Database.SetInitializer(dbInitializer);
-        }
+        public DbSet<Timecard> Timecards => Set<Timecard>();
+        public DbSet<Activity> Activities => Set<Activity>();
     }
 }

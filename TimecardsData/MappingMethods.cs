@@ -48,7 +48,7 @@ namespace TimecardsData
 
         public static tm.Activity ToCore(this Activity data)
         {
-            var core = new tm.Activity(data.ID, data.TimecardID, data.Code, data.Description, data.StartMinute);
+            var core = new tm.Activity(data.ID, data.TimecardID, data?.Code ?? "", data?.Description ?? "", data?.StartMinute ?? 0);
 
             return core;
         }
@@ -78,9 +78,9 @@ namespace TimecardsData
         {
             core.ID = data.ID;
             core.TimecardID = data.TimecardID;
-            core.Code = data.Code;
-            core.Description = data.Description;
-            core.StartMinute = data.StartMinute;
+            core.Code = data?.Code ?? "";
+            core.Description = data?.Description ?? "";
+            core.StartMinute = data?.StartMinute ?? 0;
         }
 
         #endregion

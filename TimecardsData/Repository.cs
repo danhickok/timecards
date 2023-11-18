@@ -23,7 +23,7 @@ namespace TimecardsData
     /// </summary>
     public class Repository : IRepository, IDisposable
     {
-        private readonly TimecardsContext _context = null;
+        private readonly TimecardsContext? _context = null;
 
         #region Constructors
 
@@ -37,12 +37,16 @@ namespace TimecardsData
 
         public int GetTimecardCount()
         {
-            return _context.Timecards.Count();
+            return _context?.Timecards.Count() ?? 0;
         }
 
         public List<tm.Timecard> GetTimecards(int offset, int limit, bool descending)
         {
             IOrderedQueryable<Timecard> query;
+
+            if (_context == null)
+                throw new NullContextException();
+
             if (descending)
                 query = _context.Timecards
                     .OrderByDescending(t => t.Date)
@@ -62,10 +66,14 @@ namespace TimecardsData
 
         public List<tm.Timecard> GetTimecards(DateTime? startDate, DateTime? endDate)
         {
-            // query may not get exact matches on dates, so expand range by one second on each end
-            DateTime minDate = new DateTime(9999, 12, 31);
-            DateTime maxDate = new DateTime(1900, 1, 1);
+            if (_context == null)
+                throw new NullContextException();
 
+            // default range limits
+            DateTime minDate = new(9999, 12, 31);
+            DateTime maxDate = new(1900, 1, 1);
+
+            // query may not get exact matches on dates, so expand range by one second on each end
             if (startDate.HasValue)
                 minDate = startDate.Value.AddSeconds(-1);
             if (endDate.HasValue)
@@ -82,9 +90,12 @@ namespace TimecardsData
                 .ToList();
         }
 
-        public tm.Timecard GetTimecard(int id)
+        public tm.Timecard? GetTimecard(int id)
         {
-            var timecard = _context.Timecards
+            if (_context == null)
+                throw new NullContextException();
+
+            tm.Timecard? timecard = _context.Timecards
                 .Where(t => t.ID == id)
                 .ToList()
                 .Select(t => t.ToCore())
@@ -96,9 +107,12 @@ namespace TimecardsData
             return timecard;
         }
 
-        public tm.Timecard GetNearestTimecard(DateTime date, bool after)
+        public tm.Timecard? GetNearestTimecard(DateTime date, bool after)
         {
-            tm.Timecard timecard = null;
+            if (_context == null)
+                throw new NullContextException();
+
+            tm.Timecard? timecard = null;
             IOrderedQueryable<Timecard> query;
 
             if (after)
@@ -125,6 +139,9 @@ namespace TimecardsData
 
         public void SaveTimecard(tm.Timecard timecard)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             Timecard data;
 
             if (timecard.ID != 0)
@@ -150,6 +167,9 @@ namespace TimecardsData
 
         public void DeleteTimecard(int id)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             var data = _context.Timecards.Find(id);
             if (data != null)
             {
@@ -160,12 +180,18 @@ namespace TimecardsData
 
         public void DeleteAllTimecards()
         {
+            if (_context == null)
+                throw new NullContextException();
+
             _context.Database.ExecuteSqlCommand("DELETE FROM Activities;");
             _context.Database.ExecuteSqlCommand("DELETE FROM Timecards;");
         }
 
         public void GetActivities(tm.Timecard timecard)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             var activities = _context.Activities
                 .Where(a => a.TimecardID == timecard.ID)
                 .OrderBy(a => a.StartMinute)
@@ -179,6 +205,9 @@ namespace TimecardsData
 
         public void SaveActivities(tm.Timecard timecard)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             var oldActivities = _context.Activities
                 .Where(a => a.TimecardID == timecard.ID)
                 .Select(a => a);
@@ -199,6 +228,9 @@ namespace TimecardsData
 
         public tm.Activity GetActivity(int id)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             return _context.Activities
                 .Where(a => a.ID == id)
                 .ToList()
@@ -208,6 +240,9 @@ namespace TimecardsData
 
         public void SaveActivity(tm.Activity activity)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             Activity data;
 
             if (activity.ID != 0)
@@ -230,6 +265,9 @@ namespace TimecardsData
 
         public void DeleteActivity(int id)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             var data = _context.Activities.Find(id);
             if (data != null)
             {
@@ -240,6 +278,9 @@ namespace TimecardsData
 
         public List<tm.ReportItem> GetReport(DateTime startDate, DateTime endDate)
         {
+            if (_context == null)
+                throw new NullContextException();
+
             // query may not get exact matches on dates, so expand range by one second on each end
             var minDate = startDate.AddSeconds(-1);
             var maxDate = endDate.AddSeconds(1);
@@ -316,7 +357,7 @@ namespace TimecardsData
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    _context?.Dispose();
                 }
 
                 disposedValue = true;
