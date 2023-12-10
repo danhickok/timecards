@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
 using System.Configuration;
 using System.Data.Common;
+
 
 namespace TimecardsData
 {
@@ -19,7 +20,7 @@ namespace TimecardsData
         {
             var cs = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString
                 .Replace("%APPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            return new System.Data.SQLite.SQLiteConnection(cs);
+            return new SqliteConnection(cs);
         }
     }
 }

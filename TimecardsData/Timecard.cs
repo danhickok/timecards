@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,7 +19,7 @@ namespace TimecardsData
         [Key]
         public int ID { get; set; }
 
-        [Index]
+        //[Index("Date")] TODO: VS doesn't explain why it puts a squiggle under this
         public DateTime Date { get; set; }
 
         public ICollection<Activity> Activities { get; set; }

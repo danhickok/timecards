@@ -14,5 +14,5 @@ This project contains:
 * An EF context class.
 * A repository for common database operations.
 * A database connection builder, which is responsible for resolving the
-%APPDATA% path in the connection strings.
+`%APPDATA%` path in the connection strings.
 * Extension methods that define EF-to-core property mapping.
