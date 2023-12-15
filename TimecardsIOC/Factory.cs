@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TimecardsCore.Interfaces;
+﻿using TimecardsCore.Interfaces;
 
 namespace TimecardsIOC
 {
     /// <summary>
-    /// This is the inversion-of-control (IOC) container that makes it possible for an inner-layer object to retrieve
+    /// This is an inversion-of-control (IOC) container that makes it possible for an inner-layer object to retrieve
     /// an instance of an outer-layer class even though it knows only about the interface for that class
     /// </summary>
     public class Factory : IFactory, IDisposable
@@ -34,12 +31,7 @@ namespace TimecardsIOC
         /// they must be resolvable by this factory</param>
         public void Register<TTypeToResolve>(Type concreteType, bool isSingleton = false, params Type[] constructorParameterTypes)
         {
-            _registry[typeof(TTypeToResolve)] = new RegisteredType
-            {
-                ConcreteType = concreteType,
-                IsSingleton = isSingleton,
-                ConstructorParameterTypes = constructorParameterTypes,
-            };
+            _registry[typeof(TTypeToResolve)] = new RegisteredType(concreteType, isSingleton, constructorParameterTypes);
         }
 
         /// <summary>
@@ -88,8 +80,9 @@ namespace TimecardsIOC
             var parameterList = new List<object>();
             foreach (var constructorParameterType in registeredType.ConstructorParameterTypes)
                 parameterList.Add(Resolve(constructorParameterType));
-
-            return Activator.CreateInstance(registeredType.ConcreteType, parameterList.ToArray());
+            
+            return Activator.CreateInstance(registeredType.ConcreteType, parameterList.ToArray())
+                ?? throw new Exception("Factory.Resolve() was unable to create an instance of the requested type");
         }
 
         // nested class
@@ -98,6 +91,13 @@ namespace TimecardsIOC
             public Type ConcreteType { get; set; }
             public bool IsSingleton { get; set; }
             public Type[] ConstructorParameterTypes { get; set; }
+
+            public RegisteredType(Type concreteType,  bool isSingleton, Type[] constructorParameterTypes)
+            {
+                ConcreteType = concreteType;
+                IsSingleton = isSingleton;
+                ConstructorParameterTypes = constructorParameterTypes;
+            }
         }
 
         #endregion
@@ -115,8 +115,8 @@ namespace TimecardsIOC
                     var keys = _singletons.Keys.ToArray();
                     foreach (var key in keys)
                     {
-                        if (_singletons[key] is IDisposable)
-                            ((IDisposable)_singletons[key]).Dispose();
+                        if (_singletons[key] is IDisposable disposable)
+                            disposable.Dispose();
                         _singletons.Remove(key);
                     }
                 }
@@ -128,6 +128,7 @@ namespace TimecardsIOC
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
