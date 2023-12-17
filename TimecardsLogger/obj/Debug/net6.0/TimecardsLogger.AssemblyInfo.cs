@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimecardsLogger")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7852a522501fa49c8926b33c00e126ff29d370fb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df7c9c83813ec9ef7d2844f917a0d359a69be0c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimecardsLogger")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimecardsLogger")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

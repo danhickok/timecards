@@ -1,13 +1,6 @@
-C:\WIP\Timecards\TimecardsData\bin\Debug\net6.0\TimecardsData.deps.json
-C:\WIP\Timecards\TimecardsData\bin\Debug\net6.0\TimecardsData.dll
-C:\WIP\Timecards\TimecardsData\bin\Debug\net6.0\TimecardsData.pdb
 C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.csproj.AssemblyReference.cache
 C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.GeneratedMSBuildEditorConfig.editorconfig
 C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.AssemblyInfoInputs.cache
 C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.AssemblyInfo.cs
 C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.csproj.CoreCompileInputs.cache
-C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.dll
-C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\refint\TimecardsData.dll
-C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.pdb
-C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\ref\TimecardsData.dll
 C:\WIP\Timecards\TimecardsData\obj\Debug\net6.0\TimecardsData.sourcelink.json

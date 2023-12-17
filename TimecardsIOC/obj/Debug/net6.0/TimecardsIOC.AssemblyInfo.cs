@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimecardsIOC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df7c9c83813ec9ef7d2844f917a0d359a69be0c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimecardsIOC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimecardsIOC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
