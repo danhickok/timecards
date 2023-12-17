@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using TimecardsCore.Interfaces;
+﻿using TimecardsCore.Interfaces;
 
 namespace TimecardsLogger
 {
@@ -9,7 +7,7 @@ namespace TimecardsLogger
     /// </summary>
     public class Logger : ILogger
     {
-        private string _path;
+        private readonly string _path;
 
         /// <summary>
         /// Constructor requires AppConstants, so get an instance of this object from the factory
@@ -32,10 +30,8 @@ namespace TimecardsLogger
 
             try
             {
-                using (var sw = new StreamWriter(_path, true))
-                {
-                    sw.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {message}");
-                }
+                using var sw = new StreamWriter(_path, true);
+                sw.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {message}");
             }
             catch
             {

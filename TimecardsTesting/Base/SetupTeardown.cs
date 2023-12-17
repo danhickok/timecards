@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
 using tc = TimecardsCore;
+using NUnit;
 
 namespace TimecardsTesting.Base
 {

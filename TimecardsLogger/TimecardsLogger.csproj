@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj" />
+    <ProjectReference Include="..\Timecards\Timecards.Testing\Timecards.Testing.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,6 +13,6 @@
         /// <summary>
         /// Path to log file
         /// </summary>
-        string LogFilePath { get; }
+        string? LogFilePath { get; }
     }
 }

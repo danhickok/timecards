@@ -10,3 +10,4 @@ C:\WIP\Timecards\TimecardsCore\obj\Debug\net6.0\TimecardsCore.dll
 C:\WIP\Timecards\TimecardsCore\obj\Debug\net6.0\refint\TimecardsCore.dll
 C:\WIP\Timecards\TimecardsCore\obj\Debug\net6.0\TimecardsCore.pdb
 C:\WIP\Timecards\TimecardsCore\obj\Debug\net6.0\ref\TimecardsCore.dll
+C:\WIP\Timecards\TimecardsCore\obj\Debug\net6.0\TimecardsCore.sourcelink.json

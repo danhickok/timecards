@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VQKELf/Xq4QrmgkL6ICoVTcTQ8cXZnFhJ5LqknER7Bqg0sBJbStQZSYLGVU/GNmmcofWqr0QR3Bavn0DmLmL6g==",
+  "dgSpecHash": "Lg3o6Ih6OpLo+hROHrqwypIhLFfxGt43bW8mipy8g8btEjEsyd2FRdd9z+00fyXd78jphUi5JTFYS3QNnVAPRQ==",
   "success": true,
   "projectFilePath": "C:\\WIP\\Timecards\\TimecardsTesting\\TimecardsTesting.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,8 @@
     "C:\\Users\\dhick\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\dhick\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\dhick\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\dhick\\.nuget\\packages\\nunit\\4.0.1\\nunit.4.0.1.nupkg.sha512",
+    "C:\\Users\\dhick\\.nuget\\packages\\nunit3testadapter\\4.5.0\\nunit3testadapter.4.5.0.nupkg.sha512",
     "C:\\Users\\dhick\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.2\\sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\dhick\\.nuget\\packages\\sqlitepclraw.core\\2.1.2\\sqlitepclraw.core.2.1.2.nupkg.sha512",
     "C:\\Users\\dhick\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.2\\sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",
