@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+    <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj" />
+    <ProjectReference Include="..\TimecardsData\TimecardsData.csproj" />
+    <ProjectReference Include="..\TimecardsIOC\TimecardsIOC.csproj" />
+    <ProjectReference Include="..\TimecardsLogger\TimecardsLogger.csproj" />
+    <ProjectReference Include="..\TimecardsUI\TimecardsUI.csproj" />
+  </ItemGroup>
+
+</Project>
