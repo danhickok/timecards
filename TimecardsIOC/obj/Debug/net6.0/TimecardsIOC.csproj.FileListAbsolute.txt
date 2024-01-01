@@ -1,6 +1,0 @@
-C:\WIP\Timecards\TimecardsIOC\obj\Debug\net6.0\TimecardsIOC.csproj.AssemblyReference.cache
-C:\WIP\Timecards\TimecardsIOC\obj\Debug\net6.0\TimecardsIOC.GeneratedMSBuildEditorConfig.editorconfig
-C:\WIP\Timecards\TimecardsIOC\obj\Debug\net6.0\TimecardsIOC.AssemblyInfoInputs.cache
-C:\WIP\Timecards\TimecardsIOC\obj\Debug\net6.0\TimecardsIOC.AssemblyInfo.cs
-C:\WIP\Timecards\TimecardsIOC\obj\Debug\net6.0\TimecardsIOC.csproj.CoreCompileInputs.cache
-C:\WIP\Timecards\TimecardsIOC\obj\Debug\net6.0\TimecardsIOC.sourcelink.json
