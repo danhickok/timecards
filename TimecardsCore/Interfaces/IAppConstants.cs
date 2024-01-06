@@ -6,9 +6,9 @@
     public interface IAppConstants
     {
         /// <summary>
-        /// The connection string used by EF to access the database
+        /// The system name used by TimecardsConnectionStringBuilder to determine which database to use
         /// </summary>
-        string ConnectionStringName { get; }
+        string SystemName { get; }
 
         /// <summary>
         /// Path to log file

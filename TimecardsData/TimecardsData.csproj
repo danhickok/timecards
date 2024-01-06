@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TimecardsCore\TimecardsCore.csproj" />
     <ProjectReference Include="..\TimecardsLogger\TimecardsLogger.csproj" />
   </ItemGroup>
