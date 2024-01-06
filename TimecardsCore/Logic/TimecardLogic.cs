@@ -111,15 +111,7 @@ namespace TimecardsCore.Logic
         /// <returns>The previous timecard</returns>
         public Timecard? GetPreviousTimecard()
         {
-            var repo = _factory.Resolve<IRepository>();
-
-            _timecard = repo.GetNearestTimecard(_timecard.Date, false);
-            if (_timecard == null)
-            {
-                RetrieveTimecardFromEdge(false);
-            }
-
-            return _timecard;
+            return GetNextOrPreviousTimecard(false);
         }
 
         /// <summary>
@@ -128,12 +120,19 @@ namespace TimecardsCore.Logic
         /// <returns>The next timecard</returns>
         public Timecard? GetNextTimecard()
         {
+            return GetNextOrPreviousTimecard(true);
+        }
+
+        private Timecard GetNextOrPreviousTimecard(bool next)
+        {
+            Timecard? timecard;
             var repo = _factory.Resolve<IRepository>();
-            _timecard = repo.GetNearestTimecard(_timecard.Date, true);
-            if (_timecard == null)
-            {
-                RetrieveTimecardFromEdge(true);
-            }
+
+            timecard = repo.GetNearestTimecard(_timecard.Date, next);
+            if (timecard != null)
+                _timecard = timecard;
+            else
+                RetrieveTimecardFromEdge(next);
 
             return _timecard;
         }
@@ -227,11 +226,16 @@ namespace TimecardsCore.Logic
 
         private void RetrieveTimecardFromEdge(bool latest)
         {
+            Timecard? timecard = null;
+
             var repo = _factory.Resolve<IRepository>();
             var list = repo.GetTimecards(0, 1, latest);
 
             if (list.Count > 0)
-                _timecard = repo.GetTimecard(list[0].ID);
+                timecard = repo.GetTimecard(list[0].ID);
+
+            if (timecard != null)
+                _timecard = timecard;
             else
                 throw new TimecardNotFoundException();
         }

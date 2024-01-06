@@ -160,7 +160,7 @@ namespace TimecardsCore.Logic
                     {
                         var itemNode = xdoc.CreateElement("ReportItem");
                         itemNode
-                            .AddAttribute("Code", ri.Code)
+                            .AddAttribute("Code", ri.Code ?? "")
                             .AddAttribute("EarliestDate", ri.EarliestDate.ToString("yyyy-MM-dd"))
                             .AddAttribute("LatestDate", ri.LatestDate.ToString("yyyy-MM-dd"))
                             .AddAttribute("TotalMinutes", ri.TotalMinutes.ToString());
