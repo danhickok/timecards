@@ -3,7 +3,7 @@
     /// <summary>
     /// Application-wide constants are defined in this class
     /// </summary>
-    public static class Constants
+    public static class CoreConstants
     {
         public static class TimeFormats
         {

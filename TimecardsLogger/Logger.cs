@@ -5,18 +5,13 @@ namespace TimecardsLogger
     /// <summary>
     /// Use this class to write messages to the log file
     /// </summary>
-    public class Logger : ILogger
+    /// <remarks>
+    /// Constructor requires AppConstants, so get an instance of this object from the factory
+    /// </remarks>
+    /// <param name="constants"></param>
+    public class Logger(IAppConstants constants) : ILogger
     {
-        private string _path;
-
-        /// <summary>
-        /// Constructor requires AppConstants, so get an instance of this object from the factory
-        /// </summary>
-        /// <param name="constants"></param>
-        public Logger(IAppConstants constants)
-        {
-            _path = constants.LogFilePath;
-        }
+        private readonly string? _path = constants.LogFilePath;
 
         /// <summary>
         /// Write the message to the log file
