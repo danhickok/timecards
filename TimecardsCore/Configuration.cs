@@ -106,7 +106,7 @@ namespace TimecardsCore
             ExportFileType = "";
             MinutesPerReportUnit = 0;
 
-            DefaultCodes = new Dictionary<string, string>();
+            DefaultCodes = [];
         }
 
         #endregion

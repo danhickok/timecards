@@ -8,9 +8,9 @@ namespace TimecardsTesting
     /// </summary>
     public class TestAppConstants : TC.IAppConstants
     {
-        public string ConnectionStringName => "TestDb";
+        public static string ConnectionStringName => "TestDb";
 
-        public string? LogFilePath => null;
+        public string? LogFilePath => @"C:\Temp\Timecards.log";
 
         public string SystemName => throw new NotImplementedException();
     }

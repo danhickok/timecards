@@ -5,17 +5,17 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timecards", "Timecards.csproj", "{402D454B-C018-4B5B-8EB0-995AD1E3892D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsCore", "..\TimecardsCore\TimecardsCore.csproj", "{BC20B34F-933F-4F2C-A9E1-11125B9CD6BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimecardsCore", "..\TimecardsCore\TimecardsCore.csproj", "{BC20B34F-933F-4F2C-A9E1-11125B9CD6BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsData", "..\TimecardsData\TimecardsData.csproj", "{8CF61D53-A77C-4F71-A475-A5B7DCA8C82E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimecardsData", "..\TimecardsData\TimecardsData.csproj", "{8CF61D53-A77C-4F71-A475-A5B7DCA8C82E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsLogger", "..\TimecardsLogger\TimecardsLogger.csproj", "{D3218FA6-15FA-4B18-837E-569483E255B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimecardsLogger", "..\TimecardsLogger\TimecardsLogger.csproj", "{D3218FA6-15FA-4B18-837E-569483E255B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsTesting", "..\TimecardsTesting\TimecardsTesting.csproj", "{7E25312E-B16E-47D6-9E13-CE4314CA61E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimecardsTesting", "..\TimecardsTesting\TimecardsTesting.csproj", "{7E25312E-B16E-47D6-9E13-CE4314CA61E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsUI", "..\TimecardsUI\TimecardsUI.csproj", "{93B718FF-C6FB-404C-90A1-9B951C4E7A8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimecardsUI", "..\TimecardsUI\TimecardsUI.csproj", "{93B718FF-C6FB-404C-90A1-9B951C4E7A8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimecardsIOC", "..\TimecardsIOC\TimecardsIOC.csproj", "{91001D7F-2481-46E6-8228-6313290A287E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimecardsIOC", "..\TimecardsIOC\TimecardsIOC.csproj", "{91001D7F-2481-46E6-8228-6313290A287E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
