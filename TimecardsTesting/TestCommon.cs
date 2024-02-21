@@ -8,6 +8,8 @@ using System.IO;
 using TC = TimecardsCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Configuration;
+using Microsoft.EntityFrameworkCore;
+using TimecardsData;
 
 
 namespace TimecardsTesting
@@ -36,12 +38,12 @@ namespace TimecardsTesting
             GC.WaitForPendingFinalizers();
 
             // delete the test database if it exists
-            var connStringName = TestAppConstants.ConnectionStringName;
-            var connString = ConfigurationManager.ConnectionStrings[connStringName].ConnectionString;
+            var testAppConstants = new TestAppConstants();
+            var connString = TimecardsConnectionStringBuilder.BuildConnectionString(testAppConstants.SystemName);
             var pieces = connString.Split(';');
             foreach (var piece in pieces)
             {
-                if (piece.ToLower().Contains("data source="))
+                if (piece.Contains("data source=", StringComparison.CurrentCultureIgnoreCase))
                 {
                     var fileName = piece.Substring(piece.IndexOf("=") + 1).Trim()
                         .Replace("%APPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));

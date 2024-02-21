@@ -8,7 +8,7 @@
         /// <summary>
         /// The system name used by TimecardsConnectionStringBuilder to determine which database to use
         /// </summary>
-        string SystemName { get; }
+        string? SystemName { get; }
 
         /// <summary>
         /// Path to log file

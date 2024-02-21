@@ -96,7 +96,7 @@ namespace TimecardsCore
             TestMode = false;
             _testTime = DateTime.Now;
 
-            RoundCurrentTimeToMinutes = 0;
+            RoundCurrentTimeToMinutes = 1;
             CodeMask = "";
             TimeMask = "";
             TimeSeparator = ':';
@@ -116,12 +116,12 @@ namespace TimecardsCore
         /// </summary>
         public static void Load()
         {
-            RoundCurrentTimeToMinutes = ReadAppSetting("RoundCurrentTimeToMinutes", 1);
-            CodeMask = ReadAppSetting("CodeMask", "");
-            TimeMask = ReadAppSetting("TimeMask", "");
+            RoundCurrentTimeToMinutes = ReadAppSetting("RoundCurrentTimeToMinutes", 5);
+            CodeMask = ReadAppSetting("CodeMask", "#####");
+            TimeMask = ReadAppSetting("TimeMask", "90:00&lt;L");
             TimeSeparator = ReadAppSetting("TimeSeparator", ':');
             Use24HourTime = ReadAppSetting("Use24HourTime", false);
-            MidnightTint = ReadAppSetting("MidnightTint", Color.LightGray);
+            MidnightTint = ReadAppSetting("MidnightTint", Color.FromArgb(224, 224, 224));
             ImportFileType = ReadAppSetting("ImportFileType", "JSON");
             ExportFileType = ReadAppSetting("ExportFileType", "JSON");
             MinutesPerReportUnit = ReadAppSetting("MinutesPerReportUnit", 1);

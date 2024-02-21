@@ -6,13 +6,14 @@
         [OneTimeSetUp]
         public void CoreSetup()
         {
-            // Do login here.
+            TestContext.Progress.WriteLine("in CoreSetup()");
+            TestCommon.InitializeTestConfiguration();
         }
 
         [OneTimeTearDown]
         public void CoreTeardown()
         {
-            // Do logout here
+            TestContext.Progress.WriteLine("in CoreTeardown()");
         }
     }
 }
