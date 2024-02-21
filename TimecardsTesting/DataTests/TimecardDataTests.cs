@@ -248,7 +248,7 @@ namespace TimecardsTesting.DataTests
             repo.DeleteAllTimecards();
             numberOfTimecards = repo.GetTimecardCount();
             Assert.That(numberOfTimecards, Is.EqualTo(0),
-                "Timcard count not zero after deleting all timecards");
+                "Timecard count not zero after deleting all timecards");
         }
 
         [TearDown]
