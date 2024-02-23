@@ -16,6 +16,10 @@ namespace TimecardsData
         /// <returns></returns>
         public static string BuildConnectionString(string? systemName)
         {
+            // This Microsoft article explains the simplification incorporated in their move from the traditional
+            // .NET Framework version of System.Data.SQLite to the Core version in Microsoft.Data.Sqlite:
+            // https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/compare
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false);
