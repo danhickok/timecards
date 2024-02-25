@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TimecardsData
 {
@@ -9,6 +7,8 @@ namespace TimecardsData
     /// </summary>
     public class TimecardsContext(string connectionString) : DbContext()
     {
+        //TODO: for building migrations, try making this connectionString an optional argument, and
+        // if it's null, supply it here by some other means
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlite(connectionString);
