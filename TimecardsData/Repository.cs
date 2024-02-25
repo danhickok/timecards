@@ -225,7 +225,7 @@ namespace TimecardsData
             GetActivities(timecard);
         }
 
-        public TM.Activity GetActivity(int id)
+        public TM.Activity? GetActivity(int id)
         {
             if (_context == null)
                 throw new NullContextException();
@@ -236,7 +236,7 @@ namespace TimecardsData
                 .Select(a => a.ToCore())
                 .FirstOrDefault();
 
-            return data is null ? throw new RecordNotFoundException() : data;
+            return data;
         }
 
         public void SaveActivity(TM.Activity activity)

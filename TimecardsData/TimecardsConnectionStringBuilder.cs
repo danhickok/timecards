@@ -4,8 +4,7 @@ using System.IO;
 namespace TimecardsData
 {
     /// <summary>
-    /// This static class returns a SQLite-flavored DbConnection object based on the named
-    /// connection string found in the config file
+    /// This static class returns a Sqlite connection string for either a production or test database
     /// </summary>
     public static class TimecardsConnectionStringBuilder
     {

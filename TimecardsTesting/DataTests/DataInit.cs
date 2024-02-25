@@ -8,12 +8,14 @@
         {
             TestContext.Progress.WriteLine("in DataSetup()");
             TestCommon.InitializeTestConfiguration();
+            TestCommon.CreateTestDatabase();
         }
 
         [OneTimeTearDown]
         public void DataTeardown()
         {
             TestContext.Progress.WriteLine("in DataTeardown()");
+            TestCommon.DeleteTestDatabase();
         }
     }
 }

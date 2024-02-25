@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Drawing;
-using System.IO;
-using TC = TimecardsCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Configuration;
-using Microsoft.EntityFrameworkCore;
 using TimecardsData;
+using TC = TimecardsCore;
 
 
 namespace TimecardsTesting
@@ -31,27 +23,24 @@ namespace TimecardsTesting
             TC.Configuration.TestMode = true;
         }
 
+        public static void CreateTestDatabase()
+        {
+            // create the database and perform all necessary migrations
+            var connectionString = TimecardsConnectionStringBuilder.BuildConnectionString((new TestAppConstants()).SystemName);
+            using var context = new TimecardsContext(connectionString);
+            context.Database.Migrate();
+        }
+
         public static void DeleteTestDatabase()
         {
             // force garbage collector to run finalizers to clean up SQLite's open file handles
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            // delete the test database if it exists
-            var testAppConstants = new TestAppConstants();
-            var connString = TimecardsConnectionStringBuilder.BuildConnectionString(testAppConstants.SystemName);
-            var pieces = connString.Split(';');
-            foreach (var piece in pieces)
-            {
-                if (piece.Contains("data source=", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    var fileName = piece.Substring(piece.IndexOf("=") + 1).Trim()
-                        .Replace("%APPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-
-                    File.Delete(fileName);
-                    break;
-                }
-            }
+            // destroy the database
+            var connectionString = TimecardsConnectionStringBuilder.BuildConnectionString((new TestAppConstants()).SystemName);
+            using var context = new TimecardsContext(connectionString);
+            context.Database.EnsureDeleted();
         }
     }
 }

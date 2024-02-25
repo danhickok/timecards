@@ -5,13 +5,25 @@ namespace TimecardsData
     /// <summary>
     /// This is the Entity Framework context class for the timecards database
     /// </summary>
-    public class TimecardsContext(string connectionString) : DbContext()
+    public class TimecardsContext : DbContext
     {
-        //TODO: for building migrations, try making this connectionString an optional argument, and
-        // if it's null, supply it here by some other means
+        private readonly string _connectionString;
+
+        public TimecardsContext(string connectionString) : base()
+        {
+            _connectionString = connectionString;
+        }
+
+        // For building migrations, this parameterless constructor is needed for sake of the
+        // "dotnet ef migrations" commands.  Don't use this in production!
+        public TimecardsContext() : base()
+        {
+            _connectionString = TimecardsConnectionStringBuilder.BuildConnectionString("TestDb");
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(connectionString);
+            options.UseSqlite(_connectionString);
             base.OnConfiguring(options);
         }
 
