@@ -75,10 +75,7 @@ namespace TimecardsCore.Logic
                     break;
 
                 case DataFormat.JSON:
-                    var jsonSettings = new JsonSerializerOptions
-                    {
-                    };
-                    sw.WriteLine(JsonSerializer.Serialize(tcList, jsonSettings));
+                    sw.WriteLine(JsonSerializer.Serialize(tcList));
                     break;
 
                 case DataFormat.XML:
@@ -144,10 +141,7 @@ namespace TimecardsCore.Logic
                     break;
 
                 case DataFormat.JSON:
-                    var jsonSettings = new JsonSerializerOptions
-                    {
-                    };
-                    sw.WriteLine(JsonSerializer.Serialize(reportList, jsonSettings));
+                    sw.WriteLine(JsonSerializer.Serialize(reportList));
                     break;
 
                 case DataFormat.XML:
@@ -271,16 +265,16 @@ namespace TimecardsCore.Logic
                             Time = StripQuotes(tokens[columnMap["time"]])
                         };
 
-                        if (columnMap.ContainsKey("isaftermidnight"))
+                        if (columnMap.TryGetValue("isaftermidnight", out int value))
                         {
-                            if (Boolean.TryParse(StripQuotes(tokens[columnMap["isaftermidnight"]]), out bool newIsAfterMidnight))
+                            if (bool.TryParse(StripQuotes(tokens[value]), out bool newIsAfterMidnight))
                             {
                                 activity.IsAfterMidnight = newIsAfterMidnight;
                             }
                             else
                             {
                                 report.AppendLine(
-                                    $"Could not parse value {tokens[columnMap["isaftermidnight"]]} as boolean on line {i + 1}");
+                                    $"Could not parse value {tokens[value]} as boolean on line {i + 1}");
                                 break;
                             }
                         }
@@ -481,7 +475,7 @@ namespace TimecardsCore.Logic
 
             result.Add(value[(lastIndex + 1)..]);
 
-            return result.ToArray();
+            return [.. result];
         }
 
         private static string StripQuotes(string value)

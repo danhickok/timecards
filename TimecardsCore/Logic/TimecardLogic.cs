@@ -7,18 +7,12 @@ namespace TimecardsCore.Logic
     /// <summary>
     /// This class encapsulates all business logic operations performed on timecards and their activities
     /// </summary>
-    public class TimecardLogic
+    public class TimecardLogic(IFactory factory)
     {
-        private readonly IFactory _factory;
-        private Timecard _timecard;
+        private readonly IFactory _factory = factory;
+        private Timecard _timecard = new();
 
         #region Constructor
-
-        public TimecardLogic(IFactory factory)
-        {
-            _factory = factory;
-            _timecard = new Timecard();
-        }
 
         #endregion
 

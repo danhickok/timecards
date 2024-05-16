@@ -74,7 +74,7 @@ namespace TimecardsCore.Interfaces
         /// </summary>
         /// <param name="id">Primary key</param>
         /// <returns>Activity</returns>
-        TM.Activity GetActivity(int id);
+        TM.Activity? GetActivity(int id);
 
         /// <summary>
         /// Saves a single activity to the database

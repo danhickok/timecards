@@ -118,20 +118,23 @@ namespace TimecardsTesting.DataTests
             retrievedActivity = repo.GetActivity(savedActivity.ID);
             Assert.Multiple(() =>
             {
-                Assert.That(retrievedActivity.ID, Is.EqualTo(savedActivity.ID),
+                Assert.That(retrievedActivity, Is.Not.Null,
+                    "Updated activity failed to be retrieved after saving");
+                Assert.That(retrievedActivity?.ID, Is.EqualTo(savedActivity.ID),
                     "Updated activity does not have the same ID");
-                Assert.That(retrievedActivity.Code, Is.EqualTo(savedActivity.Code),
+                Assert.That(retrievedActivity?.Code, Is.EqualTo(savedActivity.Code),
                     "Updated activity does not have the same Code");
-                Assert.That(retrievedActivity.Description, Is.EqualTo(savedActivity.Description),
+                Assert.That(retrievedActivity?.Description, Is.EqualTo(savedActivity.Description),
                     "Updated activity does not have the same Description");
-                Assert.That(retrievedActivity.Time, Is.EqualTo(savedActivity.Time),
+                Assert.That(retrievedActivity?.Time, Is.EqualTo(savedActivity.Time),
                     "Updated activity does not have the same Time");
-                Assert.That(retrievedActivity.StartMinute, Is.EqualTo(savedActivity.StartMinute),
+                Assert.That(retrievedActivity?.StartMinute, Is.EqualTo(savedActivity.StartMinute),
                     "Updated activity does not have the same StartMinute");
             });
 
             var nonexistentActivity = repo.GetActivity(987654321);
-            Assert.That(nonexistentActivity == null, Is.True, "Somehow retrieved activity that doesn't exist");
+            Assert.That(nonexistentActivity, Is.Null,
+                "Somehow retrieved an activity that doesn't exist");
 
             //
             // test reporting on activity by code
@@ -216,7 +219,7 @@ namespace TimecardsTesting.DataTests
             timecardList = repo.GetTimecards(0, 10, false);
             Assert.That(timecardList, Has.Count.EqualTo(2),
                 "Did not retrieve list of two timecards");
-            Assert.That(timecardList[0].Date < timecardList[1].Date, Is.True,
+            Assert.That(timecardList[0].Date, Is.LessThan(timecardList[1].Date),
                 "List of timecards did not retrieve in correct order");
 
             retrievedTimecard = repo.GetTimecard(anotherTimecard.ID);
@@ -257,7 +260,7 @@ namespace TimecardsTesting.DataTests
             DeleteAllData();
         }
 
-        private void DeleteAllData()
+        private static void DeleteAllData()
         {
             using var repo = new TD.Repository(new TestAppConstants());
 
