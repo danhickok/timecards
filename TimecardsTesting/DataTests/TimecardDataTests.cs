@@ -1,5 +1,4 @@
-﻿using NuGet.Frameworks;
-using TD = TimecardsData;
+﻿using TD = TimecardsData;
 using TM = TimecardsCore.Models;
 
 namespace TimecardsTesting.DataTests
