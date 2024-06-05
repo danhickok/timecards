@@ -12,7 +12,7 @@ namespace TimecardsTesting.IntegrationTests
 {
     public class DataIntegrationTests
     {
-        private IC.Factory _factory = null;
+        private IC.Factory _factory;
 
         [SetUp]
         public void Initialize()
@@ -21,54 +21,58 @@ namespace TimecardsTesting.IntegrationTests
             _factory = new IC.Factory();
 
             // register a data repository like outermost layer would do
-            _factory.Register<TI.IAppConstants>(typeof(Base.TestAppConstants), false);
-            _factory.Register<TI.IRepository>(typeof(td.Repository), false, typeof(TI.IAppConstants));
+            _factory.Register<TI.IAppConstants>(typeof(TestAppConstants), false);
+            _factory.Register<TI.IRepository>(typeof(TD.Repository), false, typeof(TI.IAppConstants));
         }
 
         [Test]
         public void CoreDataTest()
         {
             TM.Timecard tcIn;
-            TM.Timecard tcOut;
+            TM.Timecard? tcOut;
 
             // use it to get a reference to the repo like core would do
             TI.IRepository repoIn = _factory.Resolve<TI.IRepository>();
 
             // make a core timecard object
             tcIn = new TM.Timecard { Date = new DateTime(2019, 6, 1) };
-            Assert.AreEqual(tcIn.ID, 0, "Timecard did not start with ID 0 as expected");
+            Assert.That(tcIn.ID, Is.EqualTo(0), "Timecard did not start with ID 0 as expected");
 
-            tcIn.Activities.AddRange(new[]
-            {
-            new TM.Activity("00000", "Arrived; made coffee", "08:00"),
-            new TM.Activity("00100", "Called a client", "08:15"),
-            new TM.Activity("00200", "Worked on a project", "09:00"),
-            new TM.Activity("", "Lunch", "12:00"),
-            new TM.Activity("00200", "More work", "13:00"),
-            new TM.Activity("", "Departed", "17:00"),
-        });
+            tcIn.Activities.AddRange(
+            [
+                new TM.Activity("00000", "Arrived; made coffee", "08:00"),
+                new TM.Activity("00100", "Called a client", "08:15"),
+                new TM.Activity("00200", "Worked on a project", "09:00"),
+                new TM.Activity("", "Lunch", "12:00"),
+                new TM.Activity("00200", "More work", "13:00"),
+                new TM.Activity("", "Departed", "17:00"),
+            ]);
 
             // save it
             repoIn.SaveTimecard(tcIn);
-            Assert.IsTrue(tcIn.ID > 0, "Didn't get a valid ID after saving timecard");
+            Assert.That(tcIn.ID, Is.GreaterThan(0), "Didn't get a valid ID after saving timecard");
 
             // get another reference to the repo
             TI.IRepository repoOut = _factory.Resolve<TI.IRepository>();
 
             // retrieve the saved timecard
             tcOut = repoOut.GetTimecard(tcIn.ID);
-            Assert.AreEqual(tcIn.ID, tcOut.ID, "Retrieved timecard ID doesn't match saved timecard ID");
-            Assert.AreEqual(tcOut.Activities.Count, 6, "Didn't receive expected number of activity children");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tcOut, Is.Not.Null, "Failed to retrieve timecard that was just saved");
+                Assert.That(tcIn.ID, Is.EqualTo(tcOut?.ID), "Retrieved timecard ID doesn't match saved timecard ID");
+                Assert.That(tcOut?.Activities.Count, Is.EqualTo(6), "Didn't receive expected number of activity children");
+            });
 
             // cleanup at end of test
             repoOut.DeleteAllTimecards();
         }
 
-        [TestMethod]
+        [Test]
         public void CoreTimecardLogicTest()
         {
             TM.Timecard tc;
-            var logic = new tl.TimecardLogic(_factory);
+            var logic = new TL.TimecardLogic(_factory);
             var ids = new int[4];
 
             var dates = new DateTime[4];
@@ -77,37 +81,46 @@ namespace TimecardsTesting.IntegrationTests
             dates[2] = new DateTime(2019, 7, 3);
             dates[3] = DateTime.Today;
 
-            Assert.IsTrue(DateTime.Today > dates[2], $"These tests must be run after {dates[2]}");
+            Assert.That(DateTime.Today, Is.GreaterThan(dates[2]), $"These tests must be run after {dates[2]}");
 
             // examine current (empty) timecard
             tc = logic.GetCurrentTimecard();
-            Assert.IsTrue(tc != null, "new logic object doesn't have a timecard");
-            Assert.AreEqual(0, tc.ID, "new logic object doesn't have a new timecard");
-            Assert.AreEqual(false, tc.IsDirty, "new logic object does not have clean timecard");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc, Is.Not.Null, "new logic object doesn't have a timecard");
+                Assert.That(tc.ID, Is.EqualTo(0), "new logic object doesn't have a new timecard");
+                Assert.That(tc.IsDirty, Is.False, "new logic object does not have clean timecard");
+            });
 
             // populate and save timecard
             tc.Date = dates[0];
             logic.SaveTimecard();
-            Assert.AreNotEqual(0, tc.ID, "saved timecard still has zero ID");
+            Assert.That(tc.ID, Is.Not.EqualTo(0), "saved timecard still has zero ID");
             ids[0] = tc.ID;
 
             // create second timecard
             tc = logic.GetNewTimecard();
-            Assert.AreEqual(0, tc.ID, "logic-generated new timecard does not have zero ID");
-            Assert.AreEqual(false, tc.IsDirty, "logic-generated new timecard isn't clean");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc.ID, Is.EqualTo(0), "logic-generated new timecard does not have zero ID");
+                Assert.That(tc.IsDirty, Is.False, "logic-generated new timecard isn't clean");
+            });
 
             // populate and save second timecard
             tc.Date = dates[1];
             logic.SaveTimecard();
-            Assert.AreNotEqual(ids[0], tc.ID, "second timecard has same ID as the first");
+            Assert.That(ids[0], Is.Not.EqualTo(tc.ID), "second timecard has same ID as the first");
             ids[1] = tc.ID;
 
             // create, populate, and save third timecard
             tc = logic.GetNewTimecard();
             tc.Date = dates[2];
             logic.SaveTimecard();
-            Assert.AreNotEqual(ids[0], tc.ID, "third timecard has same ID as the first");
-            Assert.AreNotEqual(ids[1], tc.ID, "third timecard has same ID as the second");
+            Assert.Multiple(() =>
+            {
+                Assert.That(ids[0], Is.Not.EqualTo(tc.ID), "third timecard has same ID as the first");
+                Assert.That(ids[1], Is.Not.EqualTo(tc.ID), "third timecard has same ID as the second");
+            });
             ids[2] = tc.ID;
 
             // get earliest timecard
