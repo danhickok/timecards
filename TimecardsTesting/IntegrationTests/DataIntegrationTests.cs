@@ -36,7 +36,7 @@ namespace TimecardsTesting.IntegrationTests
 
             // make a core timecard object
             tcIn = new TM.Timecard { Date = new DateTime(2019, 6, 1) };
-            Assert.That(tcIn.ID, Is.EqualTo(0), "Timecard did not start with ID 0 as expected");
+            Assert.That(tcIn.ID, Is.Zero, "Timecard did not start with ID 0 as expected");
 
             tcIn.Activities.AddRange(
             [
@@ -72,6 +72,8 @@ namespace TimecardsTesting.IntegrationTests
         public void CoreTimecardLogicTest()
         {
             TM.Timecard tc;
+            TM.Timecard? tcNullable;
+
             var logic = new TL.TimecardLogic(_factory);
             var ids = new int[4];
 
@@ -88,28 +90,28 @@ namespace TimecardsTesting.IntegrationTests
             Assert.Multiple(() =>
             {
                 Assert.That(tc, Is.Not.Null, "new logic object doesn't have a timecard");
-                Assert.That(tc.ID, Is.EqualTo(0), "new logic object doesn't have a new timecard");
+                Assert.That(tc.ID, Is.Zero, "new logic object doesn't have a new timecard");
                 Assert.That(tc.IsDirty, Is.False, "new logic object does not have clean timecard");
             });
 
             // populate and save timecard
             tc.Date = dates[0];
             logic.SaveTimecard();
-            Assert.That(tc.ID, Is.Not.EqualTo(0), "saved timecard still has zero ID");
+            Assert.That(tc.ID, Is.Not.Zero, "saved timecard still has zero ID");
             ids[0] = tc.ID;
 
             // create second timecard
             tc = logic.GetNewTimecard();
             Assert.Multiple(() =>
             {
-                Assert.That(tc.ID, Is.EqualTo(0), "logic-generated new timecard does not have zero ID");
+                Assert.That(tc.ID, Is.Zero, "logic-generated new timecard does not have zero ID");
                 Assert.That(tc.IsDirty, Is.False, "logic-generated new timecard isn't clean");
             });
 
             // populate and save second timecard
             tc.Date = dates[1];
             logic.SaveTimecard();
-            Assert.That(ids[0], Is.Not.EqualTo(tc.ID), "second timecard has same ID as the first");
+            Assert.That(tc.ID, Is.Not.EqualTo(ids[0]), "second timecard has same ID as the first");
             ids[1] = tc.ID;
 
             // create, populate, and save third timecard
@@ -118,32 +120,45 @@ namespace TimecardsTesting.IntegrationTests
             logic.SaveTimecard();
             Assert.Multiple(() =>
             {
-                Assert.That(ids[0], Is.Not.EqualTo(tc.ID), "third timecard has same ID as the first");
-                Assert.That(ids[1], Is.Not.EqualTo(tc.ID), "third timecard has same ID as the second");
+                Assert.That(tc.ID, Is.Not.EqualTo(ids[0]), "third timecard has same ID as the first");
+                Assert.That(tc.ID, Is.Not.EqualTo(ids[1]), "third timecard has same ID as the second");
             });
             ids[2] = tc.ID;
 
             // get earliest timecard
             tc = logic.GetEarliestTimecard();
-            Assert.AreEqual(ids[0], tc.ID, "logic did not return first timecard as the earliest");
-            Assert.AreEqual(dates[0], tc.Date, "logic did not return expected date in earliest timecard");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc.ID, Is.EqualTo(ids[0]), "logic did not return first timecard as the earliest");
+                Assert.That(tc.Date, Is.EqualTo(dates[0]), "logic did not return expected date in earliest timecard");
+            });
 
             // get latest timecard
             tc = logic.GetLatestTimecard();
-            Assert.AreEqual(ids[2], tc.ID, "logic did not return third timecard as the latest");
-            Assert.AreEqual(dates[2], tc.Date, "logic did not return expected date in latest timecard");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc.ID, Is.EqualTo(ids[2]), "logic did not return third timecard as the latest");
+                Assert.That(tc.Date, Is.EqualTo(dates[2]), "logic did not return expected date in latest timecard");
+            });
 
             // get timecard by ID
             tc = logic.GetSpecificTimecard(ids[1]);
-            Assert.AreEqual(ids[1], tc.ID, "logic did not return specific timecard");
-            Assert.AreEqual(dates[1], tc.Date, "logic did not return expected date in specific timecard");
-            Assert.ThrowsException<te.TimecardNotFoundException>(() => { logic.GetSpecificTimecard(987654321); },
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc.ID, Is.EqualTo(ids[1]), "logic did not return specific timecard");
+                Assert.That(tc.Date, Is.EqualTo(dates[1]), "logic did not return expected date in specific timecard");
+            });
+
+            Assert.Throws<TE.TimecardNotFoundException>(() => { logic.GetSpecificTimecard(987654321); },
                 "Did not get expected exception when retrieving nonexistent timecard");
 
             // get today's timecard (should return a new, empty timecard)
             tc = logic.GetTodaysTimecard();
-            Assert.AreEqual(0, tc.ID, "logic did not return a new timecard as today's card");
-            Assert.AreEqual(false, tc.IsDirty, "logic did not return a clean timecard as today's card");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc.ID, Is.Zero, "logic did not return a new timecard as today's card");
+                Assert.That(tc.IsDirty, Is.EqualTo(false), "logic did not return a clean timecard as today's card");
+            });
 
             // set a date, add some activity, and save
             tc.Date = dates[3];
@@ -159,53 +174,61 @@ namespace TimecardsTesting.IntegrationTests
             // make a new timecard, then get latest card again
             logic.GetNewTimecard();
             tc = logic.GetLatestTimecard();
-            Assert.IsTrue(tc.ID != ids[0] && tc.ID != ids[1] && tc.ID != ids[2],
-                "logic did not return expected ID for populated latest card");
-            Assert.AreEqual(dates[3], tc.Date,
-                "logic did not return expected date for populated latest card");
-            Assert.AreEqual(6, tc.Activities.Count,
-                "logic did not return expected number of activities for populated latest card");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tc.ID != ids[0] && tc.ID != ids[1] && tc.ID != ids[2], Is.True,
+                    "logic did not return expected ID for populated latest card");
+                Assert.That(tc.Date, Is.EqualTo(dates[3]),
+                    "logic did not return expected date for populated latest card");
+                Assert.That(tc.Activities, Has.Count.EqualTo(6),
+                    "logic did not return expected number of activities for populated latest card");
+            });
 
             // delete an activity
             logic.DeleteActivity(2);
             logic.GetNewTimecard();
             tc = logic.GetLatestTimecard();
-            Assert.AreEqual(5, tc.Activities.Count, "Count wrong after deleting an activity");
+            Assert.That(tc.Activities, Has.Count.EqualTo(5), "Count wrong after deleting an activity");
 
             // get count of timecards
             var count = logic.GetTimecardCount();
-            Assert.AreEqual(4, count, "logic did not return expected number of timecards");
+            Assert.That(count, Is.EqualTo(4), "logic did not return expected number of timecards");
 
             // test next/previous
             logic.GetSpecificTimecard(ids[1]);
-            tc = logic.GetPreviousTimecard();
-            Assert.AreEqual(ids[0], tc.ID, "Did not get expected previous timecard");
-            tc = logic.GetPreviousTimecard();
-            Assert.AreEqual(ids[0], tc.ID, "Navigation before earliest timecard not get earliest timecard");
+            tcNullable = logic.GetPreviousTimecard();
+            Assert.That(tcNullable?.ID, Is.EqualTo(ids[0]), "Did not get expected previous timecard");
+
+            tcNullable = logic.GetPreviousTimecard();
+            Assert.That(tcNullable?.ID, Is.EqualTo(ids[0]), "Navigation before earliest timecard not get earliest timecard");
 
             logic.GetSpecificTimecard(ids[1]);
-            tc = logic.GetNextTimecard();
-            Assert.AreEqual(ids[2], tc.ID, "Did not get expected next timecard");
+            tcNullable = logic.GetNextTimecard();
+            Assert.That(tcNullable?.ID, Is.EqualTo(ids[2]), "Did not get expected next timecard");
+            
             logic.GetTodaysTimecard();
-            tc = logic.GetNextTimecard();
-            Assert.AreEqual(ids[3], tc.ID, "Navigation after latest timecard not get latest timecard");
+            tcNullable = logic.GetNextTimecard();
+            Assert.That(tcNullable?.ID, Is.EqualTo(ids[3]), "Navigation after latest timecard not get latest timecard");
 
             // test timecard list
             var tclist = logic.GetTimecardList();
-            Assert.AreEqual(4, tclist.Count, "Did not receive expected number of items in timecard list");
-            Assert.AreEqual(ids[3], tclist[0].Key, "First item in timecard list isn't latest timecard");
-            Assert.AreEqual(ids[0], tclist[3].Key, "Last item in timecard list isn't first timecard");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tclist, Has.Count.EqualTo(4), "Did not receive expected number of items in timecard list");
+                Assert.That(tclist[0].Key, Is.EqualTo(ids[3]), "First item in timecard list isn't latest timecard");
+                Assert.That(tclist[3].Key, Is.EqualTo(ids[0]), "Last item in timecard list isn't first timecard");
+            });
 
             // test deleting timecard
             logic.GetTodaysTimecard();
             logic.DeleteTimecard();
             tc = logic.GetCurrentTimecard();
-            Assert.AreEqual(ids[2], tc.ID, "Did not end up on previous timecard after deletion");
+            Assert.That(tc.ID, Is.EqualTo(ids[2]), "Did not end up on previous timecard after deletion");
 
             // wipe out all timecards
             logic.DeleteAllTimecards();
             count = logic.GetTimecardCount();
-            Assert.AreEqual(0, count, "logic failed to delete all timecards");
+            Assert.That(count, Is.Zero, "logic failed to delete all timecards");
         }
 
         [TestMethod]
@@ -236,51 +259,51 @@ namespace TimecardsTesting.IntegrationTests
             // export all data, CSV
             var csvData = bulk.Export(null, null, tl.BulkLogic.DataFormat.CSV);
             var csvLines = csvData.Replace("\r", string.Empty).Split('\n');
-            Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(csvLines), csvLines.Length,
+            Assert.That(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(csvLines), Is.EqualTo(csvLines.Length),
                 "Bulk export all data as CSV did not yield expected number of lines");
 
             // export all data, tab-delimited
             var tsvData = bulk.Export(null, null, tl.BulkLogic.DataFormat.TSV);
             var tsvLines = tsvData.Replace("\r", string.Empty).Split('\n');
-            Assert.AreEqual(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), tsvLines.Length,
+            Assert.That(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), Is.EqualTo(tsvLines.Length),
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export all data, JSON
             var json = bulk.Export(null, null, tl.BulkLogic.DataFormat.JSON);
             var tcOut = JsonConvert.DeserializeObject<List<TM.Timecard>>(json);
-            Assert.AreEqual(tally.TimecardCount, tcOut.Count,
+            Assert.That(tally.TimecardCount, Is.EqualTo(tcOut.Count),
                 "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export all data, XML
             var xmlString = bulk.Export(null, null, tl.BulkLogic.DataFormat.XML);
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
-            Assert.AreEqual(tally.TimecardCount, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
+            Assert.That(tally.TimecardCount, Is.EqualTo(xmlDoc.SelectNodes("/Timecards/Timecard").Count),
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             // export limited range, CSV
             csvData = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.CSV);
             csvLines = csvData.Replace("\r", string.Empty).Split('\n');
-            Assert.AreEqual(2 * tally.ActivityCount + 1 + EmptyLastLine(csvLines), csvLines.Length,
+            Assert.That(2 * tally.ActivityCount + 1 + EmptyLastLine(csvLines), Is.EqualTo(csvLines.Length),
                 "Bulk export range as CSV did not yield expected number of lines");
 
             // export limited range, tab-delimited
             tsvData = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.TSV);
             tsvLines = tsvData.Replace("\r", string.Empty).Split('\n');
-            Assert.AreEqual(2 * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), tsvLines.Length,
+            Assert.That(2 * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), Is.EqualTo(tsvLines.Length),
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export limited range, JSON
             json = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.JSON);
             tcOut = JsonConvert.DeserializeObject<List<TM.Timecard>>(json);
-            Assert.AreEqual(2, tcOut.Count,
+            Assert.That(2, Is.EqualTo(tcOut.Count),
                 "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export limited range, XML
             xmlString = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.XML);
             xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
-            Assert.AreEqual(2, xmlDoc.SelectNodes("/Timecards/Timecard").Count,
+            Assert.That(2, Is.EqualTo(xmlDoc.SelectNodes("/Timecards/Timecard").Count),
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             //
@@ -297,7 +320,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.IsTrue(string.IsNullOrEmpty(result), $"CSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
                 "Bulk import of CSV data does not produce expected number of timecards");
             Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of CSV data resulted in one or more timecards without correct number of activities");
@@ -308,7 +331,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.IsTrue(string.IsNullOrEmpty(result), $"TSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
                 "Bulk import of TSV data does not produce expected number of timecards");
             Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of TSV data resulted in one or more timecards without correct number of activities");
@@ -319,7 +342,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.IsTrue(string.IsNullOrEmpty(result), $"JSON import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
                 "Bulk import of JSON data does not produce expected number of timecards");
             Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of JSON data resulted in one or more timecards without correct number of activities");
@@ -330,7 +353,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.IsTrue(string.IsNullOrEmpty(result), $"XML import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.AreEqual(tally.TimecardCount, tcList.Count,
+            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
                 "Bulk import of XML data does not produce expected number of timecards");
             Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
                 "Bulk import of XML data resulted in one or more timecards without correct number of activities");
