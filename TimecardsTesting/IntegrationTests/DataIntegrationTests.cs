@@ -14,7 +14,7 @@ namespace TimecardsTesting.IntegrationTests
     {
         private IC.Factory _factory;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Initialize()
         {
             // make the IOC container
@@ -75,6 +75,7 @@ namespace TimecardsTesting.IntegrationTests
             TM.Timecard? tcNullable;
 
             var logic = new TL.TimecardLogic(_factory);
+
             var ids = new int[4];
 
             var dates = new DateTime[4];
@@ -231,7 +232,7 @@ namespace TimecardsTesting.IntegrationTests
             Assert.That(count, Is.Zero, "logic failed to delete all timecards");
         }
 
-        [TestMethod]
+        [Test]
         public void CoreBulkLogicTest()
         {
             List<TM.Timecard> tcList;
@@ -243,67 +244,67 @@ namespace TimecardsTesting.IntegrationTests
             // define some data to be exported
             var dates = new[]
             {
-            new DateTime(2019, 12, 1),
-            new DateTime(2019, 12, 2),
-            new DateTime(2019, 12, 3),
-            new DateTime(2019, 12, 4),
-            new DateTime(2019, 12, 5),
-        };
+                new DateTime(2019, 12, 1),
+                new DateTime(2019, 12, 2),
+                new DateTime(2019, 12, 3),
+                new DateTime(2019, 12, 4),
+                new DateTime(2019, 12, 5),
+            };
 
             DeleteAllTimecards();
             var tally = MakeTimecardsForEachDate(dates);
 
             // make a bulklogic object
-            var bulk = new tl.BulkLogic(_factory);
+            var bulk = new TL.BulkLogic(_factory);
 
             // export all data, CSV
-            var csvData = bulk.Export(null, null, tl.BulkLogic.DataFormat.CSV);
+            var csvData = bulk.Export(null, null, TL.BulkLogic.DataFormat.CSV);
             var csvLines = csvData.Replace("\r", string.Empty).Split('\n');
             Assert.That(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(csvLines), Is.EqualTo(csvLines.Length),
                 "Bulk export all data as CSV did not yield expected number of lines");
 
             // export all data, tab-delimited
-            var tsvData = bulk.Export(null, null, tl.BulkLogic.DataFormat.TSV);
+            var tsvData = bulk.Export(null, null, TL.BulkLogic.DataFormat.TSV);
             var tsvLines = tsvData.Replace("\r", string.Empty).Split('\n');
             Assert.That(tally.TimecardCount * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), Is.EqualTo(tsvLines.Length),
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export all data, JSON
-            var json = bulk.Export(null, null, tl.BulkLogic.DataFormat.JSON);
+            var json = bulk.Export(null, null, TL.BulkLogic.DataFormat.JSON);
             var tcOut = JsonConvert.DeserializeObject<List<TM.Timecard>>(json);
-            Assert.That(tally.TimecardCount, Is.EqualTo(tcOut.Count),
+            Assert.That(tcOut?.Count, Is.EqualTo(tally.TimecardCount),
                 "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export all data, XML
-            var xmlString = bulk.Export(null, null, tl.BulkLogic.DataFormat.XML);
+            var xmlString = bulk.Export(null, null, TL.BulkLogic.DataFormat.XML);
             var xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
-            Assert.That(tally.TimecardCount, Is.EqualTo(xmlDoc.SelectNodes("/Timecards/Timecard").Count),
+            Assert.That(xmlDoc.SelectNodes("/Timecards/Timecard")?.Count, Is.EqualTo(tally.TimecardCount),
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             // export limited range, CSV
-            csvData = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.CSV);
+            csvData = bulk.Export(dates[2], dates[3], TL.BulkLogic.DataFormat.CSV);
             csvLines = csvData.Replace("\r", string.Empty).Split('\n');
-            Assert.That(2 * tally.ActivityCount + 1 + EmptyLastLine(csvLines), Is.EqualTo(csvLines.Length),
+            Assert.That(csvLines, Has.Length.EqualTo(2 * tally.ActivityCount + 1 + EmptyLastLine(csvLines)),
                 "Bulk export range as CSV did not yield expected number of lines");
 
             // export limited range, tab-delimited
-            tsvData = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.TSV);
+            tsvData = bulk.Export(dates[2], dates[3], TL.BulkLogic.DataFormat.TSV);
             tsvLines = tsvData.Replace("\r", string.Empty).Split('\n');
             Assert.That(2 * tally.ActivityCount + 1 + EmptyLastLine(tsvLines), Is.EqualTo(tsvLines.Length),
                 "Bulk export all data as TSV did not yield expected number of lines");
 
             // export limited range, JSON
-            json = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.JSON);
+            json = bulk.Export(dates[2], dates[3], TL.BulkLogic.DataFormat.JSON);
             tcOut = JsonConvert.DeserializeObject<List<TM.Timecard>>(json);
-            Assert.That(2, Is.EqualTo(tcOut.Count),
+            Assert.That(tcOut?.Count, Is.EqualTo(2),
                 "Bulk export all data as JSON did not yield expected number of timecards");
 
             // export limited range, XML
-            xmlString = bulk.Export(dates[2], dates[3], tl.BulkLogic.DataFormat.XML);
+            xmlString = bulk.Export(dates[2], dates[3], TL.BulkLogic.DataFormat.XML);
             xmlDoc = new XmlDocument();
             xmlDoc.Load(new StringReader(xmlString));
-            Assert.That(2, Is.EqualTo(xmlDoc.SelectNodes("/Timecards/Timecard").Count),
+            Assert.That(xmlDoc?.SelectNodes("/Timecards/Timecard")?.Count, Is.EqualTo(2),
                 "Bulk export all data as XML did not yield expected number of timecards");
 
             //
@@ -316,57 +317,69 @@ namespace TimecardsTesting.IntegrationTests
 
             // import CSV
             DeleteAllTimecards();
-            result = bulk.Import(CsvData(), tl.BulkLogic.DataFormat.CSV);
-            Assert.IsTrue(string.IsNullOrEmpty(result), $"CSV import resulted in message: {result}");
+            result = bulk.Import(CsvData(), TL.BulkLogic.DataFormat.CSV);
+            Assert.That(string.IsNullOrEmpty(result), Is.True, $"CSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
-                "Bulk import of CSV data does not produce expected number of timecards");
-            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
-                "Bulk import of CSV data resulted in one or more timecards without correct number of activities");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
+                    "Bulk import of CSV data does not produce expected number of timecards");
+                Assert.That(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount), Is.False,
+                    "Bulk import of CSV data resulted in one or more timecards without correct number of activities");
+            });
 
             // import TSV
             DeleteAllTimecards();
-            result = bulk.Import(TsvData(), tl.BulkLogic.DataFormat.TSV);
-            Assert.IsTrue(string.IsNullOrEmpty(result), $"TSV import resulted in message: {result}");
+            result = bulk.Import(TsvData(), TL.BulkLogic.DataFormat.TSV);
+            Assert.That(string.IsNullOrEmpty(result), Is.True, $"TSV import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
-                "Bulk import of TSV data does not produce expected number of timecards");
-            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
-                "Bulk import of TSV data resulted in one or more timecards without correct number of activities");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
+                    "Bulk import of TSV data does not produce expected number of timecards");
+                Assert.That(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount), Is.False,
+                    "Bulk import of TSV data resulted in one or more timecards without correct number of activities");
+            });
 
             // import JSON
             DeleteAllTimecards();
-            result = bulk.Import(JsonData(), tl.BulkLogic.DataFormat.JSON);
-            Assert.IsTrue(string.IsNullOrEmpty(result), $"JSON import resulted in message: {result}");
+            //TODO: System.Text.JsonSerializer.Deserialize has problems with child records because
+            // the Timecard class currently doesn't have a public setter for the ActivitiesList object.
+            // We need to rethink using the ActivitiesList class and find some other way to implement
+            // the data import switch that turns off the "after midnight" feature.
+            result = bulk.Import(JsonData(), TL.BulkLogic.DataFormat.JSON);
+            Assert.That(string.IsNullOrEmpty(result), Is.True, $"JSON import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
-                "Bulk import of JSON data does not produce expected number of timecards");
-            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
-                "Bulk import of JSON data resulted in one or more timecards without correct number of activities");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
+                    "Bulk import of JSON data does not produce expected number of timecards");
+                Assert.That(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount), Is.False,
+                    "Bulk import of JSON data resulted in one or more timecards without correct number of activities");
+            });
 
             // import XML
             DeleteAllTimecards();
-            result = bulk.Import(XmlData(), tl.BulkLogic.DataFormat.XML);
-            Assert.IsTrue(string.IsNullOrEmpty(result), $"XML import resulted in message: {result}");
+            result = bulk.Import(XmlData(), TL.BulkLogic.DataFormat.XML);
+            Assert.That(string.IsNullOrEmpty(result), Is.True, $"XML import resulted in message: {result}");
 
             tcList = GetAllTimecards();
-            Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
-                "Bulk import of XML data does not produce expected number of timecards");
-            Assert.IsFalse(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount),
-                "Bulk import of XML data resulted in one or more timecards without correct number of activities");
+            Assert.Multiple(() =>
+            {
+                Assert.That(tally.TimecardCount, Is.EqualTo(tcList.Count),
+                    "Bulk import of XML data does not produce expected number of timecards");
+                Assert.That(tcList.Any(tc => tc.Activities.Count != tally.ActivityCount), Is.False,
+                    "Bulk import of XML data resulted in one or more timecards without correct number of activities");
+            });
         }
 
-        [TestCleanup]
+        [OneTimeTearDown]
         public void Cleanup()
         {
-            if (_factory != null)
-            {
-                _factory.Dispose();
-                _factory = null;
-            }
+            _factory.Dispose();
         }
 
         #region Private methods
@@ -380,11 +393,11 @@ namespace TimecardsTesting.IntegrationTests
             foreach (var date in dates)
             {
                 var tc = new TM.Timecard() { Date = date };
-                tc.Activities.AddRange(new[]
-                {
-                new TM.Activity("00000", "Arrived", "08:00"),
-                new TM.Activity("", "Departed", "17:00"),
-            });
+                tc.Activities.AddRange(
+                [
+                    new TM.Activity("00000", "Arrived", "08:00"),
+                    new TM.Activity("", "Departed", "17:00"),
+                ]);
                 repo.SaveTimecard(tc);
                 count++;
             }
@@ -404,7 +417,7 @@ namespace TimecardsTesting.IntegrationTests
             repo.DeleteAllTimecards();
         }
 
-        private string CsvData()
+        private static string CsvData()
         {
             var sb = new StringBuilder();
 
@@ -417,7 +430,7 @@ namespace TimecardsTesting.IntegrationTests
             return sb.ToString();
         }
 
-        private string TsvData()
+        private static string TsvData()
         {
             var sb = new StringBuilder();
 
@@ -430,7 +443,7 @@ namespace TimecardsTesting.IntegrationTests
             return sb.ToString();
         }
 
-        private string JsonData()
+        private static string JsonData()
         {
             return
 @"[
@@ -471,7 +484,7 @@ namespace TimecardsTesting.IntegrationTests
 ]";
         }
 
-        private string XmlData()
+        private static string XmlData()
         {
             return
 @"<?xml version=""1.0"" encoding=""utf-16""?>
@@ -491,9 +504,9 @@ namespace TimecardsTesting.IntegrationTests
 </Timecards>";
         }
 
-        private int EmptyLastLine(string[] array)
+        private static int EmptyLastLine(string[] array)
         {
-            return (array[array.Length - 1] == string.Empty ? 1 : 0);
+            return (array[^1] == string.Empty ? 1 : 0);
         }
 
         #endregion

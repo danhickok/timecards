@@ -29,6 +29,7 @@ namespace TimecardsData
         {
             var connectionString = TimecardsConnectionStringBuilder.BuildConnectionString(info.SystemName);
             _context = new TimecardsContext(connectionString);
+            _context.Database.EnsureCreated();
         }
 
         #endregion
