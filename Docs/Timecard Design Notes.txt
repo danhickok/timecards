@@ -1,0 +1,126 @@
+Timecards - a small Windows app for tracking your time
+======================================================
+
+Summary
+-------
+
+This application follows the principles of Clean Architecture.  These principles
+define the application as successive layers.  The inner layers have no
+dependencies on the outer layers; all dependencies point towards the innermost
+layer.
+
+The layers look like this:
+
+    +----------------------------+         Presentation:  User interface
+   /         Presentation         \
+  /    +----------------------+    \       Application:  App-specific types and
+ /    /      Application       \    \      logic
+|    |   +------------------+   |    |
++----+   |   Domain (Core)  |   +----+     Domain:  Enterprise-wide types and
+|    |   +------------------+   |    |     logic
+ \    \                        /    /      
+  \    +---------+------------+    /       Persistence:  Database or storage
+   \ Persistence | Infrastructure /        
+    +----------------------------+         Infrastructure:  APIs
+
+The Domain contains:
+* Domain/enterprise entities (data types describing the business solution)
+* Value objects (as opposed to native types) to enforce business rules
+* Enumerations
+* Business logic
+* Exceptions
+* Abstractions (interfaces) to be implemented by the outer layers
+
+The Domain should:
+* Be sharable across other applications in the enterprise
+* Not know anything about the outside world (data storage, etc.)
+* Use data annotations sparingly, if at all
+* Use value objects when appropriate
+* Initialize all collections and use private setters
+* Create custom domain exceptions
+
+--
+
+The Application layer contains:
+* Interfaces
+* Models
+* Logic
+* Commands/queries
+* Validators
+* Exceptions
+
+The Application layer should:
+* Contain logic specific to the application (more specific than the domain)
+* Be independent of presentation, persistence, or infrastructure -- so, it
+  should contain abstractions for these
+* Use DTOs to transfer data to and from the domain, rather than the domain
+  objects, since they can be customized for the needs of the application.
+
+--
+
+The Domain and Application layers together are referred to as the Core.  (In
+this application they are in one project.)
+
+--
+
+The Persistence layer contains:
+* DbContext
+* Database migrations
+* Configurations
+* Seeding
+* Abstractions
+
+The Persistence layer should:
+* Be independent of the database
+* Should prefer conventions over configuration
+* Use extensions to apply entity type configurations
+
+--
+
+The Infrastructure layer contains:
+* API clients
+* File system access
+* Access to anything external to the application (e.g., system clock)
+
+The Infrastructure layer should:
+* Contain classes for accessing external resources
+* Implement abstractions defined in inner layers
+* Nothing depends on the Infrastructure layer - e.g., not Presentation, and not
+  persistence
+
+--
+
+The Presentation layer contains:
+* User interface surfaces
+
+The Presentation layer should:
+* Not contain application logic
+* Create and consume well-defined view models
+* Use APIs to bridge the gap between front end and back end
+
+
+
+Dependency Injection
+--------------------
+
+For the inner layer to make use of objects from the outer layer, a mechanism is
+required that will allow the inner layer to make a request of an abstract type
+and receive an object of that type.
+
+The mechanism that does that is the Inversion of Control (or IOC) container.
+This is an object owned by the encompassing startup project - the only part of
+the application that knows about every part of the application but does not
+violate Clean Architecture, since it does not actually participate in the
+running of the application beyond starting it up.
+
+At startup, an IOC container is created, and then all outer layer types that act
+as services for inner layer types are registered in the container.  Knowledge of
+which types are to act as singletons is established at this time.
+
+The IOC container can then be used in any layer of the application to request
+objects from other layers.  This way, dependency is minimized.
+
+
+
+
+
