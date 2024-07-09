@@ -349,6 +349,7 @@ namespace TimecardsTesting.IntegrationTests
             // the Timecard class currently doesn't have a public setter for the ActivitiesList object.
             // We need to rethink using the ActivitiesList class and find some other way to implement
             // the data import switch that turns off the "after midnight" feature.
+            // 07/09/2024 - looks like the delegate RequestTimecardDate isn't even being used!
             result = bulk.Import(JsonData(), TL.BulkLogic.DataFormat.JSON);
             Assert.That(string.IsNullOrEmpty(result), Is.True, $"JSON import resulted in message: {result}");
 
