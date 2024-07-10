@@ -109,25 +109,6 @@ namespace TimecardsCore.Models
         [JsonIgnore]
         public bool IsDirty { get; private set; }
 
-        private Func<DateTime>? _requestDateTime;
-        [JsonIgnore]
-        public Func<DateTime>? RequestTimecardDate
-        {
-            get
-            {
-                return _requestDateTime;
-            }
-            set
-            {
-                _requestDateTime = value;
-                if (_requestDateTime != null && Configuration.CurrentDateTime.Date > _requestDateTime().Date)
-                {
-                    StartMinute += 24 * 60;
-                    ComputeTimeFromStartMinute();
-                }
-            }
-        }
-
         #endregion
 
         #region Constructors
@@ -136,8 +117,6 @@ namespace TimecardsCore.Models
         {
             TIMESEP = Configuration.TimeSeparator;
             USE24HOUR = Configuration.Use24HourTime;
-
-            _requestDateTime = null;
 
             _id = 0;
             _timecardID = 0;

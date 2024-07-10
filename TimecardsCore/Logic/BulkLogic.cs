@@ -245,7 +245,6 @@ namespace TimecardsCore.Logic
                             }
 
                             tc = new Timecard();
-                            tc.Activities.DataImportMode = true;
 
                             if (DateTime.TryParse(StripQuotes(lastDateString), out DateTime newDate))
                             {
@@ -372,7 +371,6 @@ namespace TimecardsCore.Logic
                             }
 
                             tc = new Timecard();
-                            tc.Activities.DataImportMode = true;
 
                             if (DateTime.TryParse(tcAttributes?["Date"]?.Value, out DateTime newDate))
                             {

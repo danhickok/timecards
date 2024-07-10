@@ -17,6 +17,7 @@ namespace TimecardsTesting.CoreTests
         public void PropertiesAndContainmentTest()
         {
             TC.Configuration.CurrentDateTime = new DateTime(2019, 11, 1, 8, 0, 0);
+
             TM.Timecard timecard = new();
 
             timecard.Date = TC.Configuration.CurrentDateTime.Date;
@@ -34,8 +35,8 @@ namespace TimecardsTesting.CoreTests
             Assert.Multiple(() =>
             {
                 Assert.That(timecard.Activities, Has.Count.EqualTo(3));
-                Assert.That(!timecard.Activities[0].IsAfterMidnight, Is.True, "Morning same day has 'after midnight' flag set");
-                Assert.That(!timecard.Activities[1].IsAfterMidnight, Is.True, "Afternoon same day has 'after midnight' flag set");
+                Assert.That(timecard.Activities[0].IsAfterMidnight, Is.False, "Morning same day has 'after midnight' flag set");
+                Assert.That(timecard.Activities[1].IsAfterMidnight, Is.False, "Afternoon same day has 'after midnight' flag set");
                 Assert.That(timecard.Activities[2].IsAfterMidnight, Is.True, "Morning next day does not have 'after midnight' flag set");
             });
 

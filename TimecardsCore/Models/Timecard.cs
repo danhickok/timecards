@@ -38,7 +38,7 @@ namespace TimecardsCore.Models
             }
         }
 
-        public readonly ActivityList Activities;
+        public readonly List<Activity> Activities;
 
         [JsonIgnore]
         public bool IsDirty { get; private set; }
@@ -51,7 +51,7 @@ namespace TimecardsCore.Models
         {
             _id = 0;
             _date = DateTime.Today;
-            Activities = new ActivityList(this);
+            Activities = new List<Activity>();
             IsDirty = false;
         }
 
@@ -59,7 +59,7 @@ namespace TimecardsCore.Models
         {
             _id = id;
             _date = date;
-            Activities = new ActivityList(this);
+            Activities = new List<Activity>();
             IsDirty = false;
         }
 
