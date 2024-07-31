@@ -109,6 +109,9 @@ namespace TimecardsCore.Models
         [JsonIgnore]
         public bool IsDirty { get; private set; }
 
+        [JsonIgnore]
+        private DateTime? _timecardDate { get; set; }
+
         #endregion
 
         #region Constructors
@@ -184,9 +187,18 @@ namespace TimecardsCore.Models
             IsDirty = false;
         }
 
+        #endregion
+
+        #region Public methods
+
+        public void SetTimecardDate(DateTime date)
+        {
+            _timecardDate = date;
+        }
+
         public override string ToString()
         {
-            return $"ID={_id}, TCID={_timecardID}, Code=\"{_code}\", Description=\"{_description}\", Time=\"{_time}\", StartMinue={_startMinute}, IsAfterMidnight={_isAfterMidnight}";
+            return $"ID={_id}, TCID={_timecardID}, Code=\"{_code}\", Description=\"{_description}\", Time=\"{_time}\", StartMinute={_startMinute}, IsAfterMidnight={_isAfterMidnight}";
         }
 
         #endregion
