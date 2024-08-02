@@ -8,6 +8,7 @@
         {
             TestContext.Progress.WriteLine("in DataSetup()");
             TestCommon.InitializeTestConfiguration();
+            TestCommon.DeleteTestDatabase();
             TestCommon.CreateTestDatabase();
         }
 

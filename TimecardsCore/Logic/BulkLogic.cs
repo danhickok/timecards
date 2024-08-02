@@ -282,7 +282,7 @@ namespace TimecardsCore.Logic
                             activity.IsAfterMidnight = false;
                         }
 
-                        tc?.Activities.Add(activity);
+                        tc?.AddActivity(activity);
                     }
 
                     if (tc != null && tc.IsDirty)
@@ -405,7 +405,7 @@ namespace TimecardsCore.Logic
                                             activity.IsAfterMidnight = newIsAfterMidnight;
                                         }
 
-                                        tc.Activities.Add(activity);
+                                        tc.AddActivity(activity);
                                     }
                                 }
                             }

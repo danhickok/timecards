@@ -163,12 +163,12 @@ namespace TimecardsTesting.IntegrationTests
 
             // set a date, add some activity, and save
             tc.Date = dates[3];
-            tc.Activities.Add(new TM.Activity("00000", "Arrived", "8:00"));
-            tc.Activities.Add(new TM.Activity("00100", "Worked on first project", "8:15"));
-            tc.Activities.Add(new TM.Activity("00200", "Worked on second project", "10:30"));
-            tc.Activities.Add(new TM.Activity("", "Lunch break", "12:00"));
-            tc.Activities.Add(new TM.Activity("00200", "Worked more on second project", "13:00"));
-            tc.Activities.Add(new TM.Activity("", "Departed", "17:00"));
+            tc.AddActivity(new TM.Activity("00000", "Arrived", "8:00"));
+            tc.AddActivity(new TM.Activity("00100", "Worked on first project", "8:15"));
+            tc.AddActivity(new TM.Activity("00200", "Worked on second project", "10:30"));
+            tc.AddActivity(new TM.Activity("", "Lunch break", "12:00"));
+            tc.AddActivity(new TM.Activity("00200", "Worked more on second project", "13:00"));
+            tc.AddActivity(new TM.Activity("", "Departed", "17:00"));
             logic.SaveTimecard();
             ids[3] = tc.ID;
 

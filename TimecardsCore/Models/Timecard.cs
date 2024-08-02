@@ -64,5 +64,32 @@ namespace TimecardsCore.Models
         }
 
         #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// This method will set the activity's copy of the timecard date after adding it to the timecard's collection.
+        /// Use this instead of accessing the Activities property directly to make sure the IsAfterMidnight flag is set.
+        /// </summary>
+        /// <param name="activity">Activity object</param>
+        public void AddActivity(Activity activity)
+        {
+            Activities.Add(activity);
+            activity.SetTimecardDate(Date);
+        }
+
+        /// <summary>
+        /// This will set the activity's copy of the timecard date after inserting it to the timecard's collection.
+        /// Use this instead of accessing the Activities property directly to make sure the IsAfterMidnight flag is set.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="activity"></param>
+        public void InsertActivity(int index, Activity activity)
+        {
+            Activities.Insert(index, activity);
+            activity.SetTimecardDate(Date);
+        }
+
+        #endregion
     }
 }

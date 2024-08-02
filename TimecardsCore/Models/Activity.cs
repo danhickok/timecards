@@ -191,9 +191,14 @@ namespace TimecardsCore.Models
 
         #region Public methods
 
-        public void SetTimecardDate(DateTime date)
+        public void SetTimecardDate(DateTime date, bool importMode = false)
         {
             _timecardDate = date;
+
+            if (!importMode)
+            {
+                IsAfterMidnight = (Configuration.CurrentDateTime.Date > _timecardDate.Value.Date);
+            }
         }
 
         public override string ToString()

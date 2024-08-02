@@ -24,13 +24,13 @@ namespace TimecardsTesting.CoreTests
             Assert.That(timecard.Date, Is.EqualTo(TC.Configuration.CurrentDateTime.Date));
 
             TC.Configuration.CurrentDateTime = new DateTime(2019, 11, 1, 8, 5, 0);
-            timecard.Activities.Add(new TM.Activity("00000", "First activity at 8:05am"));
+            timecard.AddActivity(new TM.Activity("00000", "First activity at 8:05am"));
 
             TC.Configuration.CurrentDateTime = new DateTime(2019, 11, 1, 17, 0, 0);
-            timecard.Activities.Add(new TM.Activity("00001", "Second activity at 5pm"));
+            timecard.AddActivity(new TM.Activity("00001", "Second activity at 5pm"));
 
             TC.Configuration.CurrentDateTime = new DateTime(2019, 11, 2, 1, 30, 0);
-            timecard.Activities.Add(new TM.Activity("00002", "Third activity at 1:30am the next day"));
+            timecard.AddActivity(new TM.Activity("00002", "Third activity at 1:30am the next day"));
 
             Assert.Multiple(() =>
             {
@@ -41,7 +41,7 @@ namespace TimecardsTesting.CoreTests
             });
 
             TC.Configuration.CurrentDateTime = new DateTime(2019, 11, 1, 11, 15, 0);
-            timecard.Activities.Insert(1, new TM.Activity("00042", "After first activity at 11:15am", "11:15"));
+            timecard.InsertActivity(1, new TM.Activity("00042", "After first activity at 11:15am", "11:15"));
 
             Assert.Multiple(() =>
             {
@@ -51,7 +51,7 @@ namespace TimecardsTesting.CoreTests
             });
 
             TC.Configuration.CurrentDateTime = new DateTime(2019, 11, 2, 2, 52, 0);
-            timecard.Activities.Add(new TM.Activity("00084", "Next day activity with user-provided time", "2:45"));
+            timecard.AddActivity(new TM.Activity("00084", "Next day activity with user-provided time", "2:45"));
 
             Assert.Multiple(() =>
             {
