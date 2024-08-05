@@ -38,7 +38,9 @@ namespace TimecardsCore.Models
             }
         }
 
-        public readonly List<Activity> Activities;
+        // Note: While it's undesirable to expose the "set" functionality here, both get
+        // and set are required if System.Text.Json.Deserialize is going to work.
+        public List<Activity> Activities { get; set; }
 
         [JsonIgnore]
         public bool IsDirty { get; private set; }
